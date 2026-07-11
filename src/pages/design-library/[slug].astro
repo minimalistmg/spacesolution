@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DesignLibraryGuideLayout from '../../components/DesignLibraryGuideLayout.astro';
+import { designLibraryGuides, getGuideBySlug } from '../../data/designLibrary';
+
+export function getStaticPaths() {
+  return designLibraryGuides.map((guide) => ({
+    params: { slug: guide.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const guide = getGuideBySlug(slug!);
+---
+
+<BaseLayout
+  title={`${guide!.title} | Design Library | Space Solutions`}
+  description={guide!.description}
+  activePage="library"
+  headerScrolled={false}
+>
+  <DesignLibraryGuideLayout guide={guide!} />
+</BaseLayout>

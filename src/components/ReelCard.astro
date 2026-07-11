@@ -1,0 +1,36 @@
+---
+import Icon from './Icon.astro';
+import type { InstagramReel } from '../data/instagramReels';
+import { getInstagramReelUrl } from '../data/instagramReels';
+
+interface Props {
+  reel: InstagramReel;
+}
+
+const { reel } = Astro.props;
+const reelUrl = getInstagramReelUrl(reel);
+---
+
+<a
+  class="reel-card"
+  href={reelUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label={`Watch on Instagram: ${reel.caption}`}
+>
+  <div class="reel-card-media">
+    <img
+      src={reel.thumbnail}
+      alt={reel.caption}
+      loading="lazy"
+      decoding="async"
+      width="360"
+      height="640"
+    />
+    <div class="reel-card-overlay" aria-hidden="true">
+      <Icon name="instagram" />
+      <Icon name="play-circle" />
+    </div>
+  </div>
+  <p class="reel-card-caption">{reel.caption}</p>
+</a>

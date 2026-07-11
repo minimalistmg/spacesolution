@@ -1,52 +1,228 @@
 ---
+
 import Icon from './Icon.astro';
-export type NavPage = 'home' | 'about' | 'services' | 'portfolio' | 'contact';
+
+export type NavPage = 'home' | 'services' | 'portfolio' | 'library' | 'enquire';
+
+
 
 import ResponsiveImage from './ResponsiveImage.astro';
+
 import { logoImages } from '../data/images';
 
+import { megaMenuServices } from '../data/navigation';
+
+import { designLibraryGuides, getGuideHref } from '../data/designLibrary';
+
+import {
+
+  getInteriorMenuImage,
+
+  getLibraryMenuImage,
+
+  MENU_IMAGE_DISPLAY_HEIGHT,
+
+  MENU_IMAGE_DISPLAY_WIDTH,
+
+} from '../data/menuImages';
+
+import { SITE } from '../data/site';
+
+
+
 interface Props {
+
   activePage?: NavPage;
+
   scrolled?: boolean;
+
 }
 
+
+
 const { activePage = 'home', scrolled = false } = Astro.props;
+
+
+
+const primaryPhone = SITE.phones[0];
+
+const phoneDisplay = '+91 63645 64563';
+
 ---
 
+
+
 <header class:list={['site-header', { scrolled }]}>
+
   <div class="container header-inner">
+
     <a href="/" class="logo">
+
       <ResponsiveImage src={logoImages.header} alt="Space Solutions" preset="logo" />
+
     </a>
 
-    <ul class="main-nav">
-      <li class:list={[{ active: activePage === 'home' }]}>
-        <a href="/">Home</a>
-      </li>
-      <li class:list={[{ active: activePage === 'about' }]}>
-        <a href="/about">About Us</a>
-      </li>
-      <li class:list={['has-submenu', { active: activePage === 'services' }]}>
-        <a href="#">Services</a>
-        <ul class="submenu">
-          <li><a href="/residential-interiors">Residential Interiors</a></li>
-          <li><a href="/commercial-interiors">Commercial Interiors</a></li>
-          <li><a href="/institutional-interiors">Institutional Interiors</a></li>
-          <li><a href="/turnkey-fitout">Turnkey Fitout Solutions</a></li>
-        </ul>
-      </li>
-      <li class:list={[{ active: activePage === 'portfolio' }]}>
-        <a href="/portfolio">Portfolio</a>
-      </li>
-      <li class:list={[{ active: activePage === 'contact' }]}>
-        <a href="/contact">Contact Us</a>
-      </li>
-    </ul>
 
-    <a href="#" class="btn btn-outline-white header-cta" data-open-modal="enquiry">Get Started</a>
 
-    <button class="menu-toggle" aria-label="Open menu">
+    <nav class="header-nav" aria-label="Main navigation">
+
+      <ul class="main-nav">
+
+        <li class:list={[{ active: activePage === 'home' }]}>
+
+          <a href="/#studio">Studio</a>
+
+        </li>
+
+        <li class:list={['has-mega-menu', { active: activePage === 'services' }]}>
+
+          <a href="#">Interiors</a>
+
+          <div class="mega-menu">
+
+            {megaMenuServices.map((service) => (
+
+              <a href={service.href} class="mega-menu-item">
+
+                <img
+
+                  src={getInteriorMenuImage(service.href)}
+
+                  alt=""
+
+                  width={MENU_IMAGE_DISPLAY_WIDTH}
+
+                  height={MENU_IMAGE_DISPLAY_HEIGHT}
+
+                  loading="lazy"
+
+                  decoding="async"
+
+                />
+
+                <span class="mega-menu-copy">
+
+                  <strong>{service.title}</strong>
+
+                  <span>{service.description}</span>
+
+                </span>
+
+                <Icon name="arrow-right" class="mega-menu-arrow" />
+
+              </a>
+
+            ))}
+
+          </div>
+
+        </li>
+
+        <li class:list={[{ active: activePage === 'portfolio' }]}>
+
+          <a href="/portfolio">Projects</a>
+
+        </li>
+
+        <li class:list={['has-mega-menu', { active: activePage === 'library' }]}>
+
+          <a href="/design-library">Design Library</a>
+
+          <div class="mega-menu mega-menu-library">
+
+            {designLibraryGuides.map((guide) => (
+
+              <a href={getGuideHref(guide.slug)} class="mega-menu-item">
+
+                <img
+
+                  src={getLibraryMenuImage(guide.slug)}
+
+                  alt=""
+
+                  width={MENU_IMAGE_DISPLAY_WIDTH}
+
+                  height={MENU_IMAGE_DISPLAY_HEIGHT}
+
+                  loading="lazy"
+
+                  decoding="async"
+
+                />
+
+                <span class="mega-menu-copy">
+
+                  <strong>{guide.menuTitle}</strong>
+
+                  <span>{guide.description}</span>
+
+                </span>
+
+                <Icon name="arrow-right" class="mega-menu-arrow" />
+
+              </a>
+
+            ))}
+
+          </div>
+
+        </li>
+
+        <li class:list={[{ active: activePage === 'enquire' }]}>
+
+          <a href="/contact">Enquire</a>
+
+        </li>
+
+      </ul>
+
+    </nav>
+
+
+
+    <div class="header-actions">
+
+      <a href={`tel:${primaryPhone}`} class="header-phone" aria-label={`Call ${phoneDisplay}`}>
+        <span class="header-phone-icon">
+          <Icon name="phone" />
+        </span>
+        <span class="header-phone-copy">
+          <small>Call us</small>
+          {phoneDisplay}
+        </span>
+      </a>
+
+      <a
+
+        href={`https://wa.me/${primaryPhone.replace('+', '')}`}
+
+        class="header-whatsapp"
+
+        target="_blank"
+
+        rel="noopener"
+
+        aria-label="WhatsApp us"
+
+      >
+
+        <Icon name="whatsapp" />
+
+      </a>
+
+      <a href="#" class="btn header-btn header-btn-quote" data-open-modal="enquiry">Get Quote</a>
+
+    </div>
+
+
+
+    <button class="menu-toggle" type="button" aria-label="Open menu">
+
       <Icon name="bars" />
+
     </button>
+
   </div>
+
 </header>
+

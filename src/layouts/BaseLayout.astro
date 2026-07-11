@@ -5,10 +5,10 @@ import MobileMenu from '../components/MobileMenu.astro';
 import Footer from '../components/Footer.astro';
 import EnquiryModal from '../components/EnquiryModal.astro';
 import VideoModal from '../components/VideoModal.astro';
-import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 import { getImage } from 'astro:assets';
 import kitchen1 from '../assets/images/hero/kitchen-1.jpeg';
 import { SITE, getLocalBusinessSchema } from '../data/site';
+import { allMenuImageUrls } from '../data/menuImages';
 import '../styles/lib.css';
 import '../styles/main.css';
 
@@ -80,7 +80,7 @@ const schema = getLocalBusinessSchema(Astro.site?.href ?? SITE.url);
     <link rel="icon" href="/images/favicon.png" />
     <slot name="head" />
   </head>
-  <body>
+  <body data-menu-preload={JSON.stringify(allMenuImageUrls)}>
     <Header activePage={activePage} scrolled={headerScrolled} />
     <MobileMenu activePage={activePage} />
 
@@ -91,7 +91,6 @@ const schema = getLocalBusinessSchema(Astro.site?.href ?? SITE.url);
     <Footer />
     <EnquiryModal />
     <VideoModal />
-    <WhatsAppFloat />
 
     <script src="/vendor/jquery.min.js" defer></script>
     <script src="/vendor/swiper-bundle.min.js" defer></script>

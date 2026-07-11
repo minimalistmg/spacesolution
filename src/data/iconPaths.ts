@@ -20,6 +20,8 @@ import { faLocationDot } from '@fortawesome/free-solid-svg-icons/faLocationDot';
 import { faPhone } from '@fortawesome/free-solid-svg-icons/faPhone';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight';
 import { faBed } from '@fortawesome/free-solid-svg-icons/faBed';
 import { faDraftingCompass } from '@fortawesome/free-solid-svg-icons/faDraftingCompass';
 import { faBolt } from '@fortawesome/free-solid-svg-icons/faBolt';
@@ -35,6 +37,9 @@ import { faWhatsapp } from '@fortawesome/free-brands-svg-icons/faWhatsapp';
 import { faVolumeHigh } from '@fortawesome/free-solid-svg-icons/faVolumeHigh';
 import { faVolumeXmark } from '@fortawesome/free-solid-svg-icons/faVolumeXmark';
 import { faExpand } from '@fortawesome/free-solid-svg-icons/faExpand';
+import { faGear } from '@fortawesome/free-solid-svg-icons/faGear';
+import { faLink } from '@fortawesome/free-solid-svg-icons/faLink';
+import { faCopy } from '@fortawesome/free-solid-svg-icons/faCopy';
 
 export type IconName =
   | 'play'
@@ -58,6 +63,8 @@ export type IconName =
   | 'phone'
   | 'envelope'
   | 'chevron-down'
+  | 'chevron-left'
+  | 'chevron-right'
   | 'bed'
   | 'drafting-compass'
   | 'bolt'
@@ -72,7 +79,10 @@ export type IconName =
   | 'whatsapp'
   | 'volume-high'
   | 'volume-xmark'
-  | 'expand';
+  | 'expand'
+  | 'gear'
+  | 'link'
+  | 'copy';
 
 function toIconData(definition: IconDefinition) {
   const [width, height, , , path] = definition.icon;
@@ -105,6 +115,8 @@ const icons = {
   phone: toIconData(faPhone),
   envelope: toIconData(faEnvelope),
   'chevron-down': toIconData(faChevronDown),
+  'chevron-left': toIconData(faChevronLeft),
+  'chevron-right': toIconData(faChevronRight),
   bed: toIconData(faBed),
   'drafting-compass': toIconData(faDraftingCompass),
   bolt: toIconData(faBolt),
@@ -120,6 +132,9 @@ const icons = {
   'volume-high': toIconData(faVolumeHigh),
   'volume-xmark': toIconData(faVolumeXmark),
   expand: toIconData(faExpand),
+  gear: toIconData(faGear),
+  link: toIconData(faLink),
+  copy: toIconData(faCopy),
 } satisfies Record<IconName, { width: number; height: number; path: string }>;
 
 export function getIcon(name: IconName) {

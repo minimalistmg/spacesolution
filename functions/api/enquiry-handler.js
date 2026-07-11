@@ -20,8 +20,24 @@ function buildLeadEmailHtml(data) {
   var sourceLabel = data.source === 'contact' ? 'Contact Page' : 'Website Enquiry';
   var service = (data.service && data.service.trim()) || 'Not specified';
   var location = (data.location && data.location.trim()) || 'Not specified';
-  var phoneDisplay = ((data.country || '+91') + ' ' + data.phone).trim();
-  var phoneTel = phoneDisplay.replace(/\s+/g, '');
+  var name = (data.name && data.name.trim()) || 'Not provided';
+  var phone = data.phone && data.phone.trim();
+  var email = data.email && data.email.trim();
+  var country = data.country || '+91';
+  var phoneDisplay = phone ? (country + ' ' + phone).trim() : 'Not provided';
+  var phoneTel = phone ? phoneDisplay.replace(/\s+/g, '') : '';
+  var phoneRowValue = phone
+    ? '<a href="tel:' + escapeHtml(phoneTel) + '" style="color:#1a1a1a;text-decoration:none;">' + escapeHtml(phoneDisplay) + '</a>'
+    : escapeHtml(phoneDisplay);
+  var emailRowValue = email
+    ? '<a href="mailto:' + escapeHtml(email) + '" style="color:#1a1a1a;text-decoration:none;">' + escapeHtml(email) + '</a>'
+    : 'Not provided';
+  var callButton = phone
+    ? '<a href="tel:' + escapeHtml(phoneTel) + '" style="display:inline-block;background:#c5a23a;color:#ffffff;text-decoration:none;font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:14px 28px;margin:0 6px 12px;border-radius:2px;">Call Lead</a>'
+    : '';
+  var emailButton = email
+    ? '<a href="mailto:' + escapeHtml(email) + '" style="display:inline-block;background:#1a1a1a;color:#ffffff;text-decoration:none;font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:14px 28px;margin:0 6px 12px;border-radius:2px;">Reply by Email</a>'
+    : '';
 
   function row(label, value, icon) {
     return (
@@ -46,15 +62,15 @@ function buildLeadEmailHtml(data) {
     '<div style="font-size:14px;color:rgba(255,255,255,0.75);margin-top:8px;">' + escapeHtml(sourceLabel) + ' · ' + escapeHtml(submittedAt) + '</div>' +
     '</td></tr>' +
     '<tr><td style="padding:8px 32px 0;"><table role="presentation" width="100%" cellspacing="0" cellpadding="0">' +
-    row('Client Name', escapeHtml(data.name), '👤') +
-    row('Phone', '<a href="tel:' + escapeHtml(phoneTel) + '" style="color:#1a1a1a;text-decoration:none;">' + escapeHtml(phoneDisplay) + '</a>', '📞') +
-    row('Email', '<a href="mailto:' + escapeHtml(data.email) + '" style="color:#1a1a1a;text-decoration:none;">' + escapeHtml(data.email) + '</a>', '✉️') +
+    row('Client Name', escapeHtml(name), '👤') +
+    row('Phone', phoneRowValue, '📞') +
+    row('Email', emailRowValue, '✉️') +
     row('Location', escapeHtml(location), '📍') +
     row('Service Interest', escapeHtml(service), '✨') +
     '</table></td></tr>' +
     '<tr><td style="padding:28px 32px 32px;text-align:center;">' +
-    '<a href="tel:' + escapeHtml(phoneTel) + '" style="display:inline-block;background:#c5a23a;color:#ffffff;text-decoration:none;font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:14px 28px;margin:0 6px 12px;border-radius:2px;">Call Lead</a>' +
-    '<a href="mailto:' + escapeHtml(data.email) + '" style="display:inline-block;background:#1a1a1a;color:#ffffff;text-decoration:none;font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:14px 28px;margin:0 6px 12px;border-radius:2px;">Reply by Email</a>' +
+    callButton +
+    emailButton +
     '</td></tr>' +
     '<tr><td style="background:#fafafa;padding:16px 32px;text-align:center;border-top:1px solid #eee;">' +
     '<p style="margin:0;font-size:12px;color:#888;line-height:1.6;">Lead captured from <strong style="color:#1a1a1a;">spacesolution.in</strong><br>Respond quickly to improve conversion.</p>' +
@@ -83,23 +99,43 @@ export async function handleEnquiryPost(request) {
     var service = (body.service && body.service.trim()) || '';
     var source = (body.source && body.source.trim()) || 'enquiry';
 
-    if (!name || !phone || !email) {
-      return new Response(JSON.stringify({ error: 'Name, phone, and email are required.' }), {
+    if (!phone && !email) {
+      return new Response(JSON.stringify({ error: 'Please add a phone number or email so we can reach you.' }), {
         status: 400,
         headers: headers,
       });
     }
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return new Response(JSON.stringify({ error: 'Invalid email address.' }), {
         status: 400,
         headers: headers,
       });
     }
 
-    var leadData = { name: name, phone: phone, email: email, country: country, location: location, service: service, source: source };
+    var leadData = {
+      name: name || 'Not provided',
+      phone: phone,
+      email: email,
+      country: country,
+      location: location,
+      service: service,
+      source: source,
+    };
     var serviceLabel = service || 'General Enquiry';
-    var subject = 'New Lead: ' + serviceLabel + ' — ' + name + ' | Space Solutions';
+    var subjectName = name || phone || email || 'New Lead';
+    var subject = 'New Lead: ' + serviceLabel + ' — ' + subjectName + ' | Space Solutions';
+
+    var emailPayload = {
+      from: RESEND_FROM_EMAIL,
+      to: [OWNER_EMAIL],
+      subject: subject,
+      html: buildLeadEmailHtml(leadData),
+    };
+
+    if (email) {
+      emailPayload.reply_to = email;
+    }
 
     var resendResponse = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -107,13 +143,7 @@ export async function handleEnquiryPost(request) {
         Authorization: 'Bearer ' + RESEND_API_KEY,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        from: RESEND_FROM_EMAIL,
-        to: [OWNER_EMAIL],
-        reply_to: email,
-        subject: subject,
-        html: buildLeadEmailHtml(leadData),
-      }),
+      body: JSON.stringify(emailPayload),
     });
 
     if (!resendResponse.ok) {

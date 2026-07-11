@@ -1,0 +1,39 @@
+---
+import Icon from './Icon.astro';
+import ResponsiveImage from './ResponsiveImage.astro';
+import { youtubeThumbs } from '../data/images';
+
+interface Props {
+  youtubeId: string;
+  title: string;
+  class?: string;
+}
+
+const { youtubeId, title, class: className } = Astro.props;
+const localThumb = youtubeThumbs[youtubeId as keyof typeof youtubeThumbs];
+---
+
+<button
+  type="button"
+  class:list={['video-card', className]}
+  data-youtube={youtubeId}
+  aria-label={`Play video: ${title}`}
+>
+  {
+    localThumb ? (
+      <ResponsiveImage src={localThumb} alt={title} preset="thumbnail" />
+    ) : (
+      <img
+        src={`https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`}
+        alt={title}
+        loading="lazy"
+        decoding="async"
+        width="480"
+        height="360"
+      />
+    )
+  }
+  <div class="play-overlay" aria-hidden="true">
+    <Icon name="play-circle" />
+  </div>
+</button>

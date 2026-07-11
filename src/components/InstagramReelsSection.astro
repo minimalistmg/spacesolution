@@ -1,0 +1,54 @@
+---
+import Icon from './Icon.astro';
+import ReelCard from './ReelCard.astro';
+import { instagramReels, instagramProfileReelsUrl } from '../data/instagramReels';
+import { SITE } from '../data/site';
+---
+
+<section class="portfolio-reels">
+  <div class="container">
+    <div class="portfolio-reels-header fade-up">
+      <div class="portfolio-reels-copy">
+        <p class="section-label">Behind the Scenes</p>
+        <h2 class="section-title">See Our Work in Motion</h2>
+        <p class="section-desc">
+          Short reels from our studio — finishes, layouts, and projects as they come together. Tap a reel to watch on Instagram.
+        </p>
+      </div>
+      <a
+        href={instagramProfileReelsUrl}
+        class="btn btn-gold-filled portfolio-reels-follow"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Icon name="instagram" />
+        Follow @spacesolutions.mys
+      </a>
+    </div>
+
+    <div class="reels-slider fade-up">
+      <button class="reels-nav reels-nav-prev" type="button" aria-label="Previous reels">
+        <Icon name="chevron-left" />
+      </button>
+
+      <div class="swiper reels-swiper">
+        <div class="swiper-wrapper">
+          {instagramReels.map((reel) => (
+            <div class="swiper-slide">
+              <ReelCard reel={reel} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <button class="reels-nav reels-nav-next" type="button" aria-label="Next reels">
+        <Icon name="chevron-right" />
+      </button>
+    </div>
+
+    <p class="portfolio-reels-note fade-up">
+      More reels on{' '}
+      <a href={SITE.social.instagram} target="_blank" rel="noopener noreferrer">Instagram</a>.
+    </p>
+  </div>
+</section>

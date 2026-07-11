@@ -1,0 +1,68 @@
+---
+import Icon from './Icon.astro';
+import { enquiryServiceOptions } from '../data/enquiryServices';
+
+interface Props {
+  formId: string;
+  dataSource: 'enquiry' | 'contact';
+  defaultServices?: string[];
+}
+
+const { formId, dataSource, defaultServices = [] } = Astro.props;
+const defaultSet = new Set(defaultServices);
+---
+
+<form id={formId} class="enquiry-form" data-source={dataSource} novalidate>
+  <div class="form-row">
+    <div class="form-group">
+      <label for={`${formId}-name`}>Your Name</label>
+      <input id={`${formId}-name`} type="text" name="name" placeholder="Your Name" />
+    </div>
+    <div class="form-group">
+      <label for={`${formId}-location`}>Location</label>
+      <input id={`${formId}-location`} type="text" name="location" placeholder="Location" />
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label for={`${formId}-phone`}>Phone / Mobile</label>
+      <div class="phone-field">
+        <input type="hidden" name="country" value="+91" />
+        <span class="phone-flag" aria-hidden="true">🇮🇳</span>
+        <input id={`${formId}-phone`} type="tel" name="phone" placeholder="Phone / Mobile" inputmode="tel" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for={`${formId}-email`}>Email</label>
+      <input id={`${formId}-email`} type="email" name="email" placeholder="Email" inputmode="email" />
+    </div>
+  </div>
+  <p class="form-hint form-hint-contact">Add a phone number or email — either one is enough for us to reach you.</p>
+
+  <div class="form-group form-group-services">
+    <span class="form-label" id={`${formId}-services-label`}>What Interiors Are You Looking For?</span>
+    <div class="service-options" role="group" aria-labelledby={`${formId}-services-label`}>
+      {
+        enquiryServiceOptions.map((option) => (
+          <label class="service-option">
+            <input
+              type="checkbox"
+              name="services"
+              value={option.value}
+              checked={defaultSet.has(option.value)}
+            />
+            <span class="service-option-card">
+              <Icon name={option.icon} />
+              <span>{option.label}</span>
+              <Icon name="check-circle" class="service-option-check" />
+            </span>
+          </label>
+        ))
+      }
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-gold-filled enquiry-form-submit">Get In Touch</button>
+  <p class="form-feedback" aria-live="polite"></p>
+</form>

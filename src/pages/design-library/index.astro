@@ -1,0 +1,115 @@
+---
+import Icon from '../../components/Icon.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { getImage } from 'astro:assets';
+import {
+  designLibraryGuides,
+  designLibraryHub,
+  featuredGuideSlug,
+  getGuideBySlug,
+  getGuideHref,
+  libraryRoomTopics,
+} from '../../data/designLibrary';
+
+const featuredGuide = getGuideBySlug(featuredGuideSlug)!;
+
+const guideCardImages = Object.fromEntries(
+  await Promise.all(
+    designLibraryGuides.map(async (guide) => {
+      const optimized = await getImage({
+        src: guide.image,
+        width: 640,
+        height: 420,
+        format: 'webp',
+        quality: 82,
+      });
+      return [guide.slug, optimized.src] as const;
+    })
+  )
+);
+
+const featuredImage = await getImage({
+  src: featuredGuide.image,
+  width: 960,
+  height: 600,
+  format: 'webp',
+  quality: 85,
+});
+---
+
+<BaseLayout
+  title="Design Library | Space Solutions"
+  description="Interior design guides on modular kitchens, materials, space planning, styles, budgets, and renovation — from Space Solutions, Mysuru."
+  activePage="library"
+  headerScrolled={false}
+>
+  <PageHero
+    breadcrumb={'<a href="/">Home</a> <span class="breadcrumb-sep">/</span> Design Library'}
+    title={designLibraryHub.title}
+    description={designLibraryHub.heroDescription}
+    image={featuredGuide.image}
+  />
+
+  <section class="page-content library-hub-intro">
+    <div class="container page-prose fade-up">
+      <p class="library-hub-lead">{designLibraryHub.intro}</p>
+      <p class="library-hub-trust">{designLibraryHub.trustLine}</p>
+    </div>
+  </section>
+
+  <section class="library-hub-grid-section">
+    <div class="container">
+      <h2 class="section-heading-lg section-heading-center fade-up">Browse by Topic</h2>
+      <div class="library-grid">
+        {
+          designLibraryGuides.map((guide) => (
+            <a href={getGuideHref(guide.slug)} class="library-card fade-up">
+              <div class="library-card-image">
+                <img src={guideCardImages[guide.slug]} alt="" width="640" height="420" loading="lazy" decoding="async" />
+              </div>
+              <div class="library-card-body">
+                <strong>{guide.menuTitle}</strong>
+                <span>{guide.description}</span>
+                <Icon name="arrow-right" class="library-card-arrow" />
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="library-featured">
+    <div class="container library-featured-grid">
+      <div class="library-featured-image fade-up">
+        <img src={featuredImage.src} alt="" width="960" height="600" loading="lazy" decoding="async" />
+      </div>
+      <div class="library-featured-content fade-up">
+        <p class="section-label">Featured Guide</p>
+        <h2>{featuredGuide.title}</h2>
+        <p>{featuredGuide.intro}</p>
+        <a href={getGuideHref(featuredGuide.slug)} class="btn btn-gold-filled">Read the Guide</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="library-rooms">
+    <div class="container">
+      <h2 class="section-heading-lg section-heading-center fade-up">Browse by Room</h2>
+      <div class="library-room-grid fade-up">
+        {
+          libraryRoomTopics.map((room) => (
+            <a href={getGuideHref(room.slug)} class="library-room-card">
+              <span>{room.title}</span>
+              <Icon name="arrow-right" />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaSection />
+</BaseLayout>

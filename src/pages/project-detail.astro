@@ -3,7 +3,8 @@ import Icon from '../components/Icon.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import ResponsiveImage from '../components/ResponsiveImage.astro';
-import { heroImages, youtubeThumbs } from '../data/images';
+import VideoCard from '../components/VideoCard.astro';
+import { heroImages } from '../data/images';
 ---
 
 <BaseLayout
@@ -35,14 +36,11 @@ import { heroImages, youtubeThumbs } from '../data/images';
 
           <div class="project-video-section">
             <h3>Watch Video</h3>
-            <div class="project-video-thumb video-card" data-youtube="bt9uVqRqT_c">
-              <ResponsiveImage
-                src={youtubeThumbs.bt9uVqRqT_c}
-                alt="Project video"
-                preset="thumbnail"
-              />
-              <div class="play-overlay"><Icon name="play-circle" /></div>
-            </div>
+            <VideoCard
+              class="project-video-thumb"
+              youtubeId="bt9uVqRqT_c"
+              title="Project video"
+            />
           </div>
 
           <div class="project-description">

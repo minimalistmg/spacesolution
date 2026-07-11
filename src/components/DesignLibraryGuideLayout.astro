@@ -1,0 +1,121 @@
+---
+import Icon from './Icon.astro';
+import PageHero from './PageHero.astro';
+import CtaSection from './CtaSection.astro';
+import ResponsiveImage from './ResponsiveImage.astro';
+import type { DesignLibraryGuide } from '../data/designLibrary';
+import { designLibraryGuides, getGuideHref } from '../data/designLibrary';
+
+interface Props {
+  guide: DesignLibraryGuide;
+}
+
+const { guide } = Astro.props;
+
+const relatedGuides = designLibraryGuides
+  .filter((item) => item.slug !== guide.slug)
+  .slice(0, 3);
+---
+
+<PageHero
+  breadcrumb={`<a href="/">Home</a> <span class="breadcrumb-sep">/</span> <a href="/design-library">Design Library</a> <span class="breadcrumb-sep">/</span> ${guide.title}`}
+  title={guide.title}
+  description={guide.heroDescription}
+  image={guide.image}
+/>
+
+<section class="page-content library-guide-intro">
+  <div class="container page-prose fade-up">
+    <p class="section-label">Design Library</p>
+    <p class="library-guide-lead">{guide.intro}</p>
+  </div>
+</section>
+
+{
+  guide.sections.map((section) => (
+    <section class="service-block">
+      <div class:list={['container service-block-grid', { reverse: section.reverse }]}>
+        {section.image && (
+          <div class="service-block-image fade-up">
+            <ResponsiveImage src={section.image} alt="" preset="content" />
+          </div>
+        )}
+        <div class="service-block-content fade-up">
+          {section.label && <p class="section-label">{section.label}</p>}
+          <h3>{section.title}</h3>
+          {section.paragraphs.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+          {section.bullets && (
+            <ul class="feature-list">
+              {section.bullets.map((bullet) => (
+                <li>{bullet}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+    </section>
+  ))
+}
+
+{
+  (guide.highlights || guide.mistakes) && (
+    <section class="page-content section-compact-top">
+      <div class="container library-guide-panels">
+        {guide.highlights && (
+          <div class="library-panel fade-up">
+            <h2 class="library-panel-title">{guide.highlights.title}</h2>
+            <ul class="feature-list">
+              {guide.highlights.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {guide.mistakes && (
+          <div class="library-panel library-panel-dark fade-up">
+            <h2 class="library-panel-title">{guide.mistakes.title}</h2>
+            <ul class="feature-list">
+              {guide.mistakes.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}
+
+<section class="page-content library-related">
+  <div class="container">
+    <h2 class="section-heading-lg section-heading-center fade-up">More Guides</h2>
+    <div class="library-related-grid">
+      {
+        relatedGuides.map((item) => (
+          <a href={getGuideHref(item.slug)} class="library-related-card fade-up">
+            <strong>{item.menuTitle}</strong>
+            <span>{item.description}</span>
+            <Icon name="arrow-right" class="library-related-arrow" />
+          </a>
+        ))
+      }
+    </div>
+    <div class="library-related-back fade-up">
+      <a href="/design-library" class="btn btn-gold-filled">View All Guides</a>
+    </div>
+  </div>
+</section>
+
+<section class="library-guide-cta">
+  <div class="container library-guide-cta-inner fade-up">
+    <div>
+      <p class="section-label">Next Step</p>
+      <h2>{guide.ctaLabel ?? 'Ready to Start Your Project?'}</h2>
+    </div>
+    <a href="#" class="btn btn-gold-filled" data-open-modal="enquiry">Get Quote</a>
+  </div>
+</section>
+
+<CtaSection />

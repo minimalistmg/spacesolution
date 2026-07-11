@@ -3,12 +3,17 @@ import Icon from './Icon.astro';
 import type { NavPage } from './Header.astro';
 import ResponsiveImage from './ResponsiveImage.astro';
 import { logoImages } from '../data/images';
+import { designLibraryGuides, getGuideHref } from '../data/designLibrary';
+import { SITE } from '../data/site';
 
 interface Props {
   activePage?: NavPage;
 }
 
 const { activePage = 'home' } = Astro.props;
+
+const primaryPhone = SITE.phones[0];
+const phoneDisplay = '+91 63645 64563';
 ---
 
 <div class="mobile-menu">
@@ -16,13 +21,32 @@ const { activePage = 'home' } = Astro.props;
     <a href="/">
       <ResponsiveImage src={logoImages.mobileMenu} alt="Space Solutions" preset="logo" />
     </a>
-    <button class="mobile-close" aria-label="Close menu"><Icon name="times" /></button>
+    <button class="mobile-close" type="button" aria-label="Close menu"><Icon name="times" /></button>
   </div>
-  <nav class="mobile-nav">
-    <a href="/">Home</a>
-    <a href="/about">About Us</a>
+
+  <div class="mobile-menu-actions">
+    <a href={`tel:${primaryPhone}`} class="mobile-menu-phone">
+      <Icon name="phone" />
+      <span>{phoneDisplay}</span>
+    </a>
+    <div class="mobile-menu-cta-row">
+      <a
+        href={`https://wa.me/${primaryPhone.replace('+', '')}`}
+        class="mobile-menu-whatsapp"
+        target="_blank"
+        rel="noopener"
+        aria-label="WhatsApp us"
+      >
+        <Icon name="whatsapp" />
+      </a>
+      <a href="#" class="btn header-btn header-btn-quote" data-open-modal="enquiry">Get Quote</a>
+    </div>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Mobile navigation">
+    <a href="/#studio" class:list={[{ active: activePage === 'home' }]}>Studio</a>
     <div class="has-submenu">
-      <a href="#">Services</a>
+      <a href="#">Interiors</a>
       <div class="submenu-mobile" style="display:none">
         <a href="/residential-interiors">Residential Interiors</a>
         <a href="/commercial-interiors">Commercial Interiors</a>
@@ -30,8 +54,16 @@ const { activePage = 'home' } = Astro.props;
         <a href="/turnkey-fitout">Turnkey Fitout Solutions</a>
       </div>
     </div>
-    <a href="/portfolio">Portfolio</a>
-    <a href="/contact">Contact Us</a>
-    <a href="#" data-open-modal="enquiry">Get Started</a>
+    <a href="/portfolio" class:list={[{ active: activePage === 'portfolio' }]}>Projects</a>
+    <div class="has-submenu">
+      <a href="#">Design Library</a>
+      <div class="submenu-mobile" style="display:none">
+        <a href="/design-library">All Guides</a>
+        {designLibraryGuides.map((guide) => (
+          <a href={getGuideHref(guide.slug)}>{guide.menuTitle}</a>
+        ))}
+      </div>
+    </div>
+    <a href="/contact" class:list={[{ active: activePage === 'enquire' }]}>Enquire</a>
   </nav>
 </div>

@@ -5,17 +5,46 @@ const heroVideoSrc = '/images/videos/hero-showreel.mp4';
 ---
 <div class="modal-overlay video-modal" id="video-modal">
   <div class="modal video-modal-panel">
-    <div class="video-modal-body">
-      <button class="video-modal-close" type="button" aria-label="Close video">
-        <Icon name="times" />
-      </button>
+    <button class="video-modal-close" type="button" aria-label="Close video">
+      <Icon name="times" />
+    </button>
 
-      <iframe
-        class="video-modal-youtube"
-        title="Project video"
-        allow="autoplay; encrypted-media; picture-in-picture"
-        allowfullscreen
-      ></iframe>
+    <div class="video-modal-body">
+      <div class="video-modal-youtube" id="youtube-player-host"></div>
+      <div class="video-youtube-end-shield" hidden aria-hidden="true"></div>
+
+      <div class="video-modal-youtube-controls" hidden>
+        <input
+          class="video-ctrl-progress video-youtube-progress"
+          type="range"
+          min="0"
+          max="100"
+          value="0"
+          step="0.1"
+          aria-label="Seek"
+        />
+        <span class="video-ctrl-time video-youtube-time">0:00 / 0:00</span>
+        <button class="video-ctrl-btn video-youtube-copy" type="button" aria-label="Copy link">
+          <Icon name="link" class="icon-link" />
+          <Icon name="copy" class="icon-copy" />
+        </button>
+        <button class="video-ctrl-btn video-youtube-mute" type="button" aria-label="Mute">
+          <Icon name="volume-high" class="icon-volume" />
+          <Icon name="volume-xmark" class="icon-muted" />
+        </button>
+        <div class="video-youtube-quality">
+          <button
+            class="video-ctrl-btn video-youtube-quality-toggle"
+            type="button"
+            aria-label="Quality"
+            aria-haspopup="listbox"
+            aria-expanded="false"
+          >
+            <Icon name="gear" />
+          </button>
+          <div class="video-youtube-quality-menu" role="listbox" aria-label="Video quality"></div>
+        </div>
+      </div>
 
       <div class="video-modal-native">
         <video class="video-modal-player" playsinline preload="none" loop>

@@ -1,62 +1,17 @@
 ---
-import Icon from '../components/Icon.astro';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/PageHero.astro';
-import ResponsiveImage from '../components/ResponsiveImage.astro';
-import { projectImages } from '../data/images';
+// Legacy /about URL — redirect to the Studio section on the homepage.
 ---
-
-<BaseLayout
-  title="About Us | Space Solutions"
-  description="Learn about Space Solutions — interior designers in Mysuru and Karnataka with 15+ years of experience in residential and commercial interiors."
-  activePage="about"
-  headerScrolled={false}
->
-  <PageHero
-    breadcrumb={'<a href="/">Home</a> <span class="breadcrumb-sep">/</span> About Us'}
-    title="About Space Solutions"
-    description="Complete interior solutions backed by 15+ years of experience across Karnataka."
-  />
-
-  <section class="page-content">
-    <div class="container about-grid">
-      <div class="about-image fade-up">
-        <ResponsiveImage
-          src={projectImages.modularKitchen}
-          alt="Space Solutions team"
-          preset="content"
-        />
-      </div>
-      <div class="about-content page-prose fade-up">
-        <p class="section-label">Who We Are</p>
-        <h2 class="section-title">We Don't Just Design. We Deliver Complete Interiors.</h2>
-        <p>At Space Solutions, every project starts with a clear understanding of how your space needs to function. Since 2011, we've worked with homeowners, businesses, and institutions across Karnataka to create interiors that are practical, durable, and well-finished.</p>
-        <p>What makes us different is simple — we handle everything. From design and material selection to manufacturing and installation, every step is managed by our team. That means better quality, controlled timelines, and no guesswork.</p>
-        <a href="#" class="btn btn-gold-filled" data-open-modal="enquiry">Get In Touch</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="why-choose">
-    <div class="container">
-      <h2 class="section-heading-lg fade-up">Why Choose Us</h2>
-      <div class="why-grid">
-        <div class="why-card fade-up">
-          <div class="why-icon"><Icon name="award" /></div>
-          <h3>15+ Years Experience</h3>
-          <p class="why-desc">Hands-on industry experience across 800+ completed projects.</p>
-        </div>
-        <div class="why-card fade-up">
-          <div class="why-icon"><Icon name="industry" /></div>
-          <h3>In-House Manufacturing</h3>
-          <p class="why-desc">Full control over quality, materials, and timelines.</p>
-        </div>
-        <div class="why-card fade-up">
-          <div class="why-icon"><Icon name="users" /></div>
-          <h3>30+ Professionals</h3>
-          <p class="why-desc">Skilled team focused on delivering precise work.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-</BaseLayout>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting to Studio | Space Solutions</title>
+    <meta http-equiv="refresh" content="0;url=/#studio" />
+    <link rel="canonical" href="https://spacesolution.in/" />
+    <script is:inline>window.location.replace('/#studio');</script>
+  </head>
+  <body>
+    <p><a href="/#studio">Continue to Space Solutions</a></p>
+  </body>
+</html>
