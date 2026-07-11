@@ -39,7 +39,8 @@ const {
       crossorigin
     />
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
-    <link rel="icon" href="https://spacesolution.in/wp-content/uploads/2026/04/cropped-SS_favicon-1-32x32.png" />
+    <link rel="icon" href="/images/favicon.png" />
+    <slot name="head" />
   </head>
   <body>
     <Header activePage={activePage} scrolled={headerScrolled} />

@@ -1,0 +1,82 @@
+---
+import type { ImageMetadata } from 'astro';
+import { getImage } from 'astro:assets';
+import {
+  IMAGE_QUALITY,
+  IMAGE_PRESETS,
+  getEffectiveWidths,
+  type ImagePreset,
+} from '../lib/imagePresets';
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  preset?: ImagePreset;
+  sizes?: string;
+  widths?: number[];
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  quality?: number;
+}
+
+const {
+  src,
+  alt,
+  preset = 'content',
+  sizes: sizesProp,
+  widths: widthsProp,
+  class: className,
+  loading: loadingProp,
+  fetchpriority: fetchpriorityProp,
+  quality = IMAGE_QUALITY,
+} = Astro.props;
+
+const presetConfig = IMAGE_PRESETS[preset];
+const sizes = sizesProp ?? presetConfig.sizes;
+const loading = loadingProp ?? presetConfig.loading;
+const fetchpriority = fetchpriorityProp ?? presetConfig.fetchpriority;
+const effectiveWidths = getEffectiveWidths(
+  src.width,
+  widthsProp ?? presetConfig.widths
+);
+
+type OutputFormat = 'avif' | 'webp' | 'jpeg' | 'png';
+
+async function buildSrcset(format: OutputFormat) {
+  const entries = await Promise.all(
+    effectiveWidths.map(async (width) => {
+      const image = await getImage({ src, width, format, quality });
+      return `${image.src} ${width}w`;
+    })
+  );
+  return entries.join(', ');
+}
+
+const fallbackFormat: OutputFormat = src.format === 'png' ? 'png' : 'jpeg';
+const largestWidth = effectiveWidths[effectiveWidths.length - 1];
+
+const [avifSrcset, webpSrcset, fallbackSrcset, fallbackImage] = await Promise.all([
+  buildSrcset('avif'),
+  buildSrcset('webp'),
+  buildSrcset(fallbackFormat),
+  getImage({ src, width: largestWidth, format: fallbackFormat, quality }),
+]);
+---
+
+<picture>
+  <source type="image/avif" srcset={avifSrcset} sizes={sizes} />
+  <source type="image/webp" srcset={webpSrcset} sizes={sizes} />
+  <img
+    src={fallbackImage.src}
+    srcset={fallbackSrcset}
+    sizes={sizes}
+    alt={alt}
+    width={src.width}
+    height={src.height}
+    class={className}
+    loading={loading}
+    decoding="async"
+    {...(fetchpriority ? { fetchpriority } : {})}
+  />
+</picture>

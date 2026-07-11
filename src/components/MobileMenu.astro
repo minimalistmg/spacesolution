@@ -1,5 +1,7 @@
 ---
 import type { NavPage } from './Header.astro';
+import ResponsiveImage from './ResponsiveImage.astro';
+import { logoImages } from '../data/images';
 
 interface Props {
   activePage?: NavPage;
@@ -11,7 +13,7 @@ const { activePage = 'home' } = Astro.props;
 <div class="mobile-menu">
   <div class="mobile-menu-header">
     <a href="/">
-      <img src="https://spacesolution.in/wp-content/uploads/2026/04/space-_soloution_logo.png" alt="Space Solutions" />
+      <ResponsiveImage src={logoImages.mobileMenu} alt="Space Solutions" preset="logo" />
     </a>
     <button class="mobile-close" aria-label="Close menu"><i class="fas fa-times"></i></button>
   </div>

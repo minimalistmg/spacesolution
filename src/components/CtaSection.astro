@@ -1,4 +1,15 @@
+---
+import ResponsiveImage from './ResponsiveImage.astro';
+import { heroImages } from '../data/images';
+---
+
 <section class="cta">
+  <ResponsiveImage
+    src={heroImages.bedroom}
+    alt=""
+    preset="cover"
+    class="cta-bg"
+  />
   <div class="container cta-grid">
     <div class="fade-up">
       <p class="section-label">Get Started</p>

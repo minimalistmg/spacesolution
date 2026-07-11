@@ -2,6 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaSection from '../components/CtaSection.astro';
+import ResponsiveImage from '../components/ResponsiveImage.astro';
+import { heroImages } from '../data/images';
 ---
 
 <BaseLayout
@@ -27,7 +29,7 @@ import CtaSection from '../components/CtaSection.astro';
   <section class="service-block" style="padding-top:0">
     <div class="container service-block-grid">
       <div class="service-block-image fade-up">
-        <img src="https://spacesolution.in/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-21-at-4.37.50-PM.jpeg" alt="Classroom Solutions">
+        <ResponsiveImage src={heroImages.kitchen1} alt="Classroom Solutions" preset="content" />
       </div>
       <div class="service-block-content fade-up">
         <p class="section-label">Education &amp; Learning</p>
@@ -45,7 +47,7 @@ import CtaSection from '../components/CtaSection.astro';
   <section class="service-block">
     <div class="container service-block-grid reverse">
       <div class="service-block-image fade-up">
-        <img src="https://spacesolution.in/wp-content/uploads/2026/04/bedroom-with-bed-lamp-wall-scaled.jpg" alt="Hostel Furniture">
+        <ResponsiveImage src={heroImages.bedroom} alt="Hostel Furniture" preset="content" />
       </div>
       <div class="service-block-content fade-up">
         <p class="section-label">Accommodation</p>

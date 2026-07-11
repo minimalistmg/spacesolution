@@ -1,6 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CtaSection from '../components/CtaSection.astro';
+import ResponsiveImage from '../components/ResponsiveImage.astro';
+import { getImage } from 'astro:assets';
+import { heroImages, projectImages, youtubeThumbs } from '../data/images';
+
+const heroPreload = await getImage({
+  src: heroImages.kitchen1,
+  width: 1440,
+  format: 'avif',
+  quality: 88,
+});
 ---
 
 <BaseLayout
@@ -9,18 +19,33 @@ import CtaSection from '../components/CtaSection.astro';
   activePage="home"
   headerScrolled={false}
 >
+  <link
+    slot="head"
+    rel="preload"
+    as="image"
+    href={heroPreload.src}
+    type="image/avif"
+    fetchpriority="high"
+  />
+
   <!-- Hero -->
   <section class="hero">
     <div class="swiper hero-swiper">
       <div class="swiper-wrapper">
         <div class="swiper-slide">
-          <div class="hero-slide-bg" style="background-image:url('https://spacesolution.in/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-21-at-4.37.50-PM.jpeg')"></div>
+          <div class="hero-slide-bg">
+            <ResponsiveImage src={heroImages.kitchen1} alt="" preset="hero" />
+          </div>
         </div>
         <div class="swiper-slide">
-          <div class="hero-slide-bg" style="background-image:url('https://spacesolution.in/wp-content/uploads/2026/04/bedroom-with-bed-lamp-wall-scaled.jpg')"></div>
+          <div class="hero-slide-bg">
+            <ResponsiveImage src={heroImages.bedroom} alt="" preset="hero" />
+          </div>
         </div>
         <div class="swiper-slide">
-          <div class="hero-slide-bg" style="background-image:url('https://spacesolution.in/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-21-at-4.37.49-PM.jpeg')"></div>
+          <div class="hero-slide-bg">
+            <ResponsiveImage src={heroImages.kitchen2} alt="" preset="hero" />
+          </div>
         </div>
       </div>
     </div>
@@ -46,7 +71,11 @@ import CtaSection from '../components/CtaSection.astro';
   <section class="about" id="about">
     <div class="container about-grid">
       <div class="about-image fade-up">
-        <img src="https://spacesolution.in/wp-content/uploads/elementor/thumbs/WhatsApp-Image-2026-06-21-at-6.28.40-PM-rpa8tg1hn9nr184mmp4qpfbhpg5pnmsih6fcbazwhs.jpeg" alt="Space Solutions interior project">
+        <ResponsiveImage
+          src={projectImages.modularKitchen}
+          alt="Space Solutions interior project"
+          preset="content"
+        />
       </div>
       <div class="about-content fade-up">
         <p class="section-label">About Us</p>
@@ -103,15 +132,27 @@ import CtaSection from '../components/CtaSection.astro';
 
       <div class="projects-videos">
         <div class="video-card fade-up" data-youtube="bt9uVqRqT_c">
-          <img src="https://img.youtube.com/vi/bt9uVqRqT_c/hqdefault.jpg" alt="Project video 1">
+          <ResponsiveImage
+            src={youtubeThumbs.bt9uVqRqT_c}
+            alt="Project video 1"
+            preset="thumbnail"
+          />
           <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
         </div>
         <div class="video-card fade-up" data-youtube="PPfFXoK4Dso">
-          <img src="https://img.youtube.com/vi/PPfFXoK4Dso/hqdefault.jpg" alt="Project video 2">
+          <ResponsiveImage
+            src={youtubeThumbs.PPfFXoK4Dso}
+            alt="Project video 2"
+            preset="thumbnail"
+          />
           <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
         </div>
         <div class="video-card fade-up" data-youtube="86CQ7rvVkmQ">
-          <img src="https://img.youtube.com/vi/86CQ7rvVkmQ/hqdefault.jpg" alt="Project video 3">
+          <ResponsiveImage
+            src={youtubeThumbs['86CQ7rvVkmQ']}
+            alt="Project video 3"
+            preset="thumbnail"
+          />
           <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
         </div>
       </div>

@@ -2,6 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaSection from '../components/CtaSection.astro';
+import ResponsiveImage from '../components/ResponsiveImage.astro';
+import { heroImages, projectImages } from '../data/images';
 ---
 
 <BaseLayout
@@ -19,7 +21,7 @@ import CtaSection from '../components/CtaSection.astro';
   <section class="service-block">
     <div class="container service-block-grid">
       <div class="service-block-image fade-up">
-        <img src="https://spacesolution.in/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-21-at-4.37.50-PM.jpeg" alt="Corporate Office Interiors">
+        <ResponsiveImage src={heroImages.kitchen1} alt="Corporate Office Interiors" preset="content" />
       </div>
       <div class="service-block-content fade-up">
         <p class="section-label">Corporate &amp; Office</p>
@@ -37,7 +39,7 @@ import CtaSection from '../components/CtaSection.astro';
   <section class="service-block">
     <div class="container service-block-grid reverse">
       <div class="service-block-image fade-up">
-        <img src="https://spacesolution.in/wp-content/uploads/2026/04/home_interior-3.jpg" alt="Retail Interiors">
+        <ResponsiveImage src={projectImages.homeInterior3} alt="Retail Interiors" preset="content" />
       </div>
       <div class="service-block-content fade-up">
         <p class="section-label">Retail &amp; Showrooms</p>
@@ -55,7 +57,7 @@ import CtaSection from '../components/CtaSection.astro';
   <section class="service-block">
     <div class="container service-block-grid">
       <div class="service-block-image fade-up">
-        <img src="https://spacesolution.in/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-21-at-4.37.49-PM.jpeg" alt="F&B Interiors">
+        <ResponsiveImage src={heroImages.kitchen2} alt="F&B Interiors" preset="content" />
       </div>
       <div class="service-block-content fade-up">
         <p class="section-label">F&amp;B &amp; Hospitality</p>

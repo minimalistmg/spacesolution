@@ -2,6 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaSection from '../components/CtaSection.astro';
+import ResponsiveImage from '../components/ResponsiveImage.astro';
+import { heroImages, projectImages } from '../data/images';
 ---
 
 <BaseLayout
@@ -29,7 +31,7 @@ import CtaSection from '../components/CtaSection.astro';
       <div class="portfolio-grid">
         <div class="portfolio-item fade-up" data-category="residential">
           <a href="/project-detail">
-            <img src="https://spacesolution.in/wp-content/uploads/2026/04/bedroom-with-bed-lamp-wall-scaled.jpg" alt="Residential Design">
+            <ResponsiveImage src={heroImages.bedroom} alt="Residential Design" preset="grid" />
             <div class="portfolio-overlay">
               <span>Residential</span>
               <h4>Residential Design</h4>
@@ -38,7 +40,7 @@ import CtaSection from '../components/CtaSection.astro';
         </div>
         <div class="portfolio-item fade-up" data-category="corporate">
           <a href="/project-detail">
-            <img src="https://spacesolution.in/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-21-at-4.37.50-PM.jpeg" alt="Corporate Design">
+            <ResponsiveImage src={heroImages.kitchen1} alt="Corporate Design" preset="grid" />
             <div class="portfolio-overlay">
               <span>Corporate</span>
               <h4>Corporate Design</h4>
@@ -47,7 +49,7 @@ import CtaSection from '../components/CtaSection.astro';
         </div>
         <div class="portfolio-item fade-up" data-category="commercial">
           <a href="/project-detail">
-            <img src="https://spacesolution.in/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-21-at-4.37.49-PM.jpeg" alt="Commercial Design">
+            <ResponsiveImage src={heroImages.kitchen2} alt="Commercial Design" preset="grid" />
             <div class="portfolio-overlay">
               <span>Commercial</span>
               <h4>Commercial Design</h4>
@@ -56,7 +58,7 @@ import CtaSection from '../components/CtaSection.astro';
         </div>
         <div class="portfolio-item fade-up" data-category="restaurant">
           <a href="/project-detail">
-            <img src="https://spacesolution.in/wp-content/uploads/2026/04/home_interior-3.jpg" alt="Restaurant Design">
+            <ResponsiveImage src={projectImages.homeInterior3} alt="Restaurant Design" preset="grid" />
             <div class="portfolio-overlay">
               <span>Restaurant</span>
               <h4>Restaurant Design</h4>
@@ -65,7 +67,7 @@ import CtaSection from '../components/CtaSection.astro';
         </div>
         <div class="portfolio-item fade-up" data-category="residential">
           <a href="/project-detail">
-            <img src="https://spacesolution.in/wp-content/uploads/elementor/thumbs/WhatsApp-Image-2026-06-21-at-6.28.40-PM-rpa8tg1hn9nr184mmp4qpfbhpg5pnmsih6fcbazwhs.jpeg" alt="Residential Kitchen">
+            <ResponsiveImage src={projectImages.modularKitchen} alt="Residential Kitchen" preset="grid" />
             <div class="portfolio-overlay">
               <span>Residential</span>
               <h4>Modular Kitchen</h4>
@@ -74,7 +76,7 @@ import CtaSection from '../components/CtaSection.astro';
         </div>
         <div class="portfolio-item fade-up" data-category="corporate">
           <a href="/project-detail">
-            <img src="https://spacesolution.in/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-21-at-4.37.50-PM.jpeg" alt="Office Interiors">
+            <ResponsiveImage src={heroImages.kitchen1} alt="Office Interiors" preset="grid" />
             <div class="portfolio-overlay">
               <span>Corporate</span>
               <h4>Office Interiors</h4>

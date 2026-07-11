@@ -2,6 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaSection from '../components/CtaSection.astro';
+import ResponsiveImage from '../components/ResponsiveImage.astro';
+import { heroImages, projectImages } from '../data/images';
 ---
 
 <BaseLayout
@@ -19,7 +21,7 @@ import CtaSection from '../components/CtaSection.astro';
   <section class="service-block">
     <div class="container service-block-grid">
       <div class="service-block-image fade-up">
-        <img src="https://spacesolution.in/wp-content/uploads/2026/04/bedroom-with-bed-lamp-wall-scaled.jpg" alt="Living Room Interiors">
+        <ResponsiveImage src={heroImages.bedroom} alt="Living Room Interiors" preset="content" />
       </div>
       <div class="service-block-content fade-up">
         <p class="section-label">Living Room Interiors</p>
@@ -36,7 +38,7 @@ import CtaSection from '../components/CtaSection.astro';
   <section class="service-block">
     <div class="container service-block-grid reverse">
       <div class="service-block-image fade-up">
-        <img src="https://spacesolution.in/wp-content/uploads/elementor/thumbs/WhatsApp-Image-2026-06-21-at-6.28.40-PM-rpa8tg1hn9nr184mmp4qpfbhpg5pnmsih6fcbazwhs.jpeg" alt="Modular Kitchen">
+        <ResponsiveImage src={projectImages.modularKitchen} alt="Modular Kitchen" preset="content" />
       </div>
       <div class="service-block-content fade-up">
         <p class="section-label">Modular Kitchen</p>
@@ -53,7 +55,7 @@ import CtaSection from '../components/CtaSection.astro';
   <section class="service-block">
     <div class="container service-block-grid">
       <div class="service-block-image fade-up">
-        <img src="https://spacesolution.in/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-21-at-4.37.49-PM.jpeg" alt="Master Bedroom">
+        <ResponsiveImage src={heroImages.kitchen2} alt="Master Bedroom" preset="content" />
       </div>
       <div class="service-block-content fade-up">
         <p class="section-label">Master Bedroom</p>

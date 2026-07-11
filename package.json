@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/minimalistmg/spacesolution#readme",
   "dependencies": {
-    "astro": "^7.0.7"
+    "astro": "^7.0.7",
+    "sharp": "^0.35.3"
   }
 }

@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
+import ResponsiveImage from '../components/ResponsiveImage.astro';
+import { projectImages } from '../data/images';
 ---
 
 <BaseLayout
@@ -18,7 +20,11 @@ import PageHero from '../components/PageHero.astro';
   <section class="page-content">
     <div class="container about-grid">
       <div class="about-image fade-up">
-        <img src="https://spacesolution.in/wp-content/uploads/elementor/thumbs/WhatsApp-Image-2026-06-21-at-6.28.40-PM-rpa8tg1hn9nr184mmp4qpfbhpg5pnmsih6fcbazwhs.jpeg" alt="Space Solutions team">
+        <ResponsiveImage
+          src={projectImages.modularKitchen}
+          alt="Space Solutions team"
+          preset="content"
+        />
       </div>
       <div class="fade-up">
         <p class="section-label">Who We Are</p>

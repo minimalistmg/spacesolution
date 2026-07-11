@@ -1,4 +1,7 @@
 ---
+import ResponsiveImage from './ResponsiveImage.astro';
+import { projectImages } from '../data/images';
+
 interface Props {
   defaultService?: string;
 }
@@ -8,6 +11,12 @@ const { defaultService } = Astro.props;
 
 <div class="modal-overlay" id="enquiry-modal">
   <div class="modal">
+    <ResponsiveImage
+      src={projectImages.homeInterior3}
+      alt=""
+      preset="cover"
+      class="modal-bg"
+    />
     <button class="modal-close" aria-label="Close"><i class="fas fa-times"></i></button>
     <h2>Enquiry Form</h2>
     <form id="enquiry-form">

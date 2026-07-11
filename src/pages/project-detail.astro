@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
+import ResponsiveImage from '../components/ResponsiveImage.astro';
+import { heroImages, youtubeThumbs } from '../data/images';
 ---
 
 <BaseLayout
@@ -17,7 +19,11 @@ import PageHero from '../components/PageHero.astro';
   <section class="page-content">
     <div class="container">
       <div class="project-detail-hero fade-up">
-        <img src="https://spacesolution.in/wp-content/uploads/2026/04/bedroom-with-bed-lamp-wall-scaled.jpg" alt="Residential interior project">
+        <ResponsiveImage
+          src={heroImages.bedroom}
+          alt="Residential interior project"
+          preset="content"
+        />
       </div>
 
       <div class="project-detail-grid">
@@ -28,7 +34,11 @@ import PageHero from '../components/PageHero.astro';
           <div class="project-video-section">
             <h3>Watch Video</h3>
             <div class="project-video-thumb video-card" data-youtube="bt9uVqRqT_c">
-              <img src="https://img.youtube.com/vi/bt9uVqRqT_c/hqdefault.jpg" alt="Project video">
+              <ResponsiveImage
+                src={youtubeThumbs.bt9uVqRqT_c}
+                alt="Project video"
+                preset="thumbnail"
+              />
               <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
             </div>
           </div>

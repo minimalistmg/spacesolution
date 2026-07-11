@@ -1,6 +1,9 @@
 ---
 export type NavPage = 'home' | 'about' | 'services' | 'portfolio' | 'contact';
 
+import ResponsiveImage from './ResponsiveImage.astro';
+import { logoImages } from '../data/images';
+
 interface Props {
   activePage?: NavPage;
   scrolled?: boolean;
@@ -12,7 +15,7 @@ const { activePage = 'home', scrolled = false } = Astro.props;
 <header class:list={['site-header', { scrolled }]}>
   <div class="container header-inner">
     <a href="/" class="logo">
-      <img src="https://spacesolution.in/wp-content/uploads/2025/04/ll.png" alt="Space Solutions" />
+      <ResponsiveImage src={logoImages.header} alt="Space Solutions" preset="logo" />
     </a>
 
     <ul class="main-nav">

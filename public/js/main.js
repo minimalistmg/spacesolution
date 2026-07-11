@@ -133,7 +133,7 @@
     });
 
     $('.hero-video-btn').on('click', function () {
-      var src = 'https://spacesolution.in/wp-content/uploads/2026/04/WhatsApp-Video-2026-03-31-at-2.53.35-PM.mp4';
+      var src = '/images/videos/hero-showreel.mp4';
       $videoModal.find('iframe').hide();
       var $video = $videoModal.find('video');
       if (!$video.length) {

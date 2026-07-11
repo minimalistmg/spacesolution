@@ -1,8 +1,13 @@
+---
+import ResponsiveImage from './ResponsiveImage.astro';
+import { logoImages } from '../data/images';
+---
+
 <footer class="site-footer">
   <div class="container footer-grid">
     <div class="footer-brand">
       <a href="/">
-        <img src="https://spacesolution.in/wp-content/uploads/2026/03/space-_soloution_logo.png" alt="Space Solutions" />
+        <ResponsiveImage src={logoImages.footer} alt="Space Solutions" preset="logo" />
       </a>
       <p>Space Solution creates beautiful, functional spaces with 15+ years of interior design expertise across Karnataka.</p>
       <div class="social-links">
