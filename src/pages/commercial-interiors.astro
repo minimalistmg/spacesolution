@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaSection from '../components/CtaSection.astro';
+---
+
+<BaseLayout
+  title="Commercial Interiors | Space Solutions"
+  description="Commercial interior design in Mysuru — office, retail, hospitality, and F&amp;B spaces by Space Solutions."
+  activePage="services"
+  headerScrolled={true}
+>
+  <PageHero
+    breadcrumb={'<a href="/" style="color:inherit">Home</a> / Commercial Interiors'}
+    title="Commercial Interiors"
+    description="We design and deliver commercial interiors that support daily operations, improve efficiency, and create well-structured environments."
+  />
+
+  <section class="service-block">
+    <div class="container service-block-grid">
+      <div class="service-block-image fade-up">
+        <img src="https://spacesolution.in/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-21-at-4.37.50-PM.jpeg" alt="Corporate Office Interiors">
+      </div>
+      <div class="service-block-content fade-up">
+        <p class="section-label">Corporate &amp; Office</p>
+        <h3>High-Performance Workplace Design</h3>
+        <p>Our office interior solutions balance employee well-being with operational efficiency, fostering culture and adapting to hybrid work.</p>
+        <ul class="feature-list">
+          <li>Executive suites, boardrooms, and co-working spaces</li>
+          <li>Modular furniture and activity-based zones</li>
+          <li>Integrated power-data infrastructure for tech teams</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-block">
+    <div class="container service-block-grid reverse">
+      <div class="service-block-image fade-up">
+        <img src="https://spacesolution.in/wp-content/uploads/2026/04/home_interior-3.jpg" alt="Retail Interiors">
+      </div>
+      <div class="service-block-content fade-up">
+        <p class="section-label">Retail &amp; Showrooms</p>
+        <h3>Immersive Brand Environments</h3>
+        <p>Data-driven retail design that maps the customer journey, increasing dwell time and reinforcing brand loyalty.</p>
+        <ul class="feature-list">
+          <li>Boutique retail and flagship showrooms</li>
+          <li>Pop-up and concept stores for brand activations</li>
+          <li>Curated product displays and premium lighting</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-block">
+    <div class="container service-block-grid">
+      <div class="service-block-image fade-up">
+        <img src="https://spacesolution.in/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-21-at-4.37.49-PM.jpeg" alt="F&B Interiors">
+      </div>
+      <div class="service-block-content fade-up">
+        <p class="section-label">F&amp;B &amp; Hospitality</p>
+        <h3>Atmosphere Meets Efficiency</h3>
+        <p>Success in F&amp;B design requires balance between front-of-house atmosphere and back-of-house efficiency.</p>
+        <ul class="feature-list">
+          <li>Fine dining, QSR, cafes, bars, and lounges</li>
+          <li>Hotels, resorts, wellness, and entertainment hubs</li>
+          <li>Custom back-bar engineering and mood lighting</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="why-choose" style="padding-top:0">
+    <div class="container">
+      <div class="why-grid">
+        <div class="why-card fade-up">
+          <div class="why-icon"><i class="fas fa-building"></i></div>
+          <h3>Office Interiors</h3>
+          <p class="why-desc">Reception areas, workstations, storage units, and aluminum &amp; glass partitions.</p>
+        </div>
+        <div class="why-card highlight fade-up">
+          <div class="why-icon"><i class="fas fa-store"></i></div>
+          <h3>Retail Interiors</h3>
+          <p class="why-desc">Layouts for effective product display and smooth customer movement.</p>
+        </div>
+        <div class="why-card fade-up">
+          <div class="why-icon"><i class="fas fa-tools"></i></div>
+          <h3>Turnkey Fitouts</h3>
+          <p class="why-desc">End-to-end execution covering electrical, flooring, ceilings, and furniture.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaSection />
+</BaseLayout>

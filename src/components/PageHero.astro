@@ -1,0 +1,17 @@
+---
+interface Props {
+  breadcrumb: string;
+  title: string;
+  description?: string;
+}
+
+const { breadcrumb, title, description } = Astro.props;
+---
+
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb" set:html={breadcrumb} />
+    <h1>{title}</h1>
+    {description && <p class="service-hero-desc">{description}</p>}
+  </div>
+</section>

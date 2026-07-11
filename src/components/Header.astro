@@ -1,0 +1,48 @@
+---
+export type NavPage = 'home' | 'about' | 'services' | 'portfolio' | 'contact';
+
+interface Props {
+  activePage?: NavPage;
+  scrolled?: boolean;
+}
+
+const { activePage = 'home', scrolled = false } = Astro.props;
+---
+
+<header class:list={['site-header', { scrolled }]}>
+  <div class="container header-inner">
+    <a href="/" class="logo">
+      <img src="https://spacesolution.in/wp-content/uploads/2025/04/ll.png" alt="Space Solutions" />
+    </a>
+
+    <ul class="main-nav">
+      <li class:list={[{ active: activePage === 'home' }]}>
+        <a href="/">Home</a>
+      </li>
+      <li class:list={[{ active: activePage === 'about' }]}>
+        <a href="/about">About Us</a>
+      </li>
+      <li class:list={['has-submenu', { active: activePage === 'services' }]}>
+        <a href="#">Services</a>
+        <ul class="submenu">
+          <li><a href="/residential-interiors">Residential Interiors</a></li>
+          <li><a href="/commercial-interiors">Commercial Interiors</a></li>
+          <li><a href="/institutional-interiors">Institutional Interiors</a></li>
+          <li><a href="/turnkey-fitout">Turnkey Fitout Solutions</a></li>
+        </ul>
+      </li>
+      <li class:list={[{ active: activePage === 'portfolio' }]}>
+        <a href="/portfolio">Portfolio</a>
+      </li>
+      <li class:list={[{ active: activePage === 'contact' }]}>
+        <a href="/contact">Contact Us</a>
+      </li>
+    </ul>
+
+    <a href="#" class="btn btn-outline-white header-cta" data-open-modal="enquiry">Get Started</a>
+
+    <button class="menu-toggle" aria-label="Open menu">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+</header>

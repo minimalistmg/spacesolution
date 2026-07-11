@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaSection from '../components/CtaSection.astro';
+---
+
+<BaseLayout
+  title="Portfolio | Space Solutions"
+  description="Explore Space Solutions portfolio — residential, commercial, and institutional interior design projects across Karnataka."
+  activePage="portfolio"
+  headerScrolled={true}
+>
+  <PageHero
+    breadcrumb={'<a href="/" style="color:inherit">Home</a> / Portfolio'}
+    title="Portfolio"
+    description="Turning ideas into well-executed spaces. A selection of projects that reflect our approach to planning, execution, and finishing."
+  />
+
+  <section class="page-content">
+    <div class="container">
+      <div class="portfolio-filters fade-up">
+        <button class="active" data-filter="all">All</button>
+        <button data-filter="residential">Residential</button>
+        <button data-filter="corporate">Corporate</button>
+        <button data-filter="restaurant">Restaurant</button>
+        <button data-filter="commercial">Commercial</button>
+      </div>
+
+      <div class="portfolio-grid">
+        <div class="portfolio-item fade-up" data-category="residential">
+          <a href="/project-detail">
+            <img src="https://spacesolution.in/wp-content/uploads/2026/04/bedroom-with-bed-lamp-wall-scaled.jpg" alt="Residential Design">
+            <div class="portfolio-overlay">
+              <span>Residential</span>
+              <h4>Residential Design</h4>
+            </div>
+          </a>
+        </div>
+        <div class="portfolio-item fade-up" data-category="corporate">
+          <a href="/project-detail">
+            <img src="https://spacesolution.in/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-21-at-4.37.50-PM.jpeg" alt="Corporate Design">
+            <div class="portfolio-overlay">
+              <span>Corporate</span>
+              <h4>Corporate Design</h4>
+            </div>
+          </a>
+        </div>
+        <div class="portfolio-item fade-up" data-category="commercial">
+          <a href="/project-detail">
+            <img src="https://spacesolution.in/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-21-at-4.37.49-PM.jpeg" alt="Commercial Design">
+            <div class="portfolio-overlay">
+              <span>Commercial</span>
+              <h4>Commercial Design</h4>
+            </div>
+          </a>
+        </div>
+        <div class="portfolio-item fade-up" data-category="restaurant">
+          <a href="/project-detail">
+            <img src="https://spacesolution.in/wp-content/uploads/2026/04/home_interior-3.jpg" alt="Restaurant Design">
+            <div class="portfolio-overlay">
+              <span>Restaurant</span>
+              <h4>Restaurant Design</h4>
+            </div>
+          </a>
+        </div>
+        <div class="portfolio-item fade-up" data-category="residential">
+          <a href="/project-detail">
+            <img src="https://spacesolution.in/wp-content/uploads/elementor/thumbs/WhatsApp-Image-2026-06-21-at-6.28.40-PM-rpa8tg1hn9nr184mmp4qpfbhpg5pnmsih6fcbazwhs.jpeg" alt="Residential Kitchen">
+            <div class="portfolio-overlay">
+              <span>Residential</span>
+              <h4>Modular Kitchen</h4>
+            </div>
+          </a>
+        </div>
+        <div class="portfolio-item fade-up" data-category="corporate">
+          <a href="/project-detail">
+            <img src="https://spacesolution.in/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-21-at-4.37.50-PM.jpeg" alt="Office Interiors">
+            <div class="portfolio-overlay">
+              <span>Corporate</span>
+              <h4>Office Interiors</h4>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaSection />
+</BaseLayout>

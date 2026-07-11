@@ -1,0 +1,26 @@
+{
+  "name": "spacesolution",
+  "version": "1.0.0",
+  "description": "Static website for Space Solutions — interior design services in Mysuru and Karnataka.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minimalistmg/spacesolution.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/minimalistmg/spacesolution/issues"
+  },
+  "homepage": "https://github.com/minimalistmg/spacesolution#readme",
+  "dependencies": {
+    "astro": "^7.0.7"
+  }
+}

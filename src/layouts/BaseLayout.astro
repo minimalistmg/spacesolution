@@ -1,0 +1,62 @@
+---
+import type { NavPage } from '../components/Header.astro';
+import Header from '../components/Header.astro';
+import MobileMenu from '../components/MobileMenu.astro';
+import Footer from '../components/Footer.astro';
+import EnquiryModal from '../components/EnquiryModal.astro';
+import VideoModal from '../components/VideoModal.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import '../styles/lib.css';
+import '../styles/main.css';
+
+interface Props {
+  title: string;
+  description: string;
+  activePage?: NavPage;
+  headerScrolled?: boolean;
+}
+
+const {
+  title,
+  description,
+  activePage = 'home',
+  headerScrolled = false,
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link
+      rel="preload"
+      href="/fonts/montserrat-400.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="icon" href="https://spacesolution.in/wp-content/uploads/2026/04/cropped-SS_favicon-1-32x32.png" />
+  </head>
+  <body>
+    <Header activePage={activePage} scrolled={headerScrolled} />
+    <MobileMenu activePage={activePage} />
+
+    <main>
+      <slot />
+    </main>
+
+    <Footer />
+    <EnquiryModal />
+    <VideoModal />
+    <WhatsAppFloat />
+
+    <script is:inline src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script is:inline src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script is:inline src="/js/lib.js"></script>
+    <script is:inline src="/js/main.js"></script>
+  </body>
+</html>

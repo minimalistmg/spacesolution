@@ -1,0 +1,34 @@
+---
+import type { NavPage } from './Header.astro';
+
+interface Props {
+  activePage?: NavPage;
+}
+
+const { activePage = 'home' } = Astro.props;
+---
+
+<div class="mobile-menu">
+  <div class="mobile-menu-header">
+    <a href="/">
+      <img src="https://spacesolution.in/wp-content/uploads/2026/04/space-_soloution_logo.png" alt="Space Solutions" />
+    </a>
+    <button class="mobile-close" aria-label="Close menu"><i class="fas fa-times"></i></button>
+  </div>
+  <nav class="mobile-nav">
+    <a href="/">Home</a>
+    <a href="/about">About Us</a>
+    <div class="has-submenu">
+      <a href="#">Services</a>
+      <div class="submenu-mobile" style="display:none">
+        <a href="/residential-interiors">Residential Interiors</a>
+        <a href="/commercial-interiors">Commercial Interiors</a>
+        <a href="/institutional-interiors">Institutional Interiors</a>
+        <a href="/turnkey-fitout">Turnkey Fitout Solutions</a>
+      </div>
+    </div>
+    <a href="/portfolio">Portfolio</a>
+    <a href="/contact">Contact Us</a>
+    <a href="#" data-open-modal="enquiry">Get Started</a>
+  </nav>
+</div>

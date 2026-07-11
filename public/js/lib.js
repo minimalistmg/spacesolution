@@ -1,24 +1,8 @@
 /**
- * Library initialization — Tailwind config & third-party setup
+ * Swiper initialization for hero and testimonial carousels
  */
 (function () {
   'use strict';
-
-  if (typeof tailwind !== 'undefined') {
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            gold: '#c5a23a',
-            dark: '#1a1a1a'
-          },
-          fontFamily: {
-            sans: ['Montserrat', 'sans-serif']
-          }
-        }
-      }
-    };
-  }
 
   window.SpaceLib = {
     heroSwiper: null,
@@ -33,11 +17,13 @@
         loop: true,
         effect: 'fade',
         fadeEffect: { crossFade: true },
+        watchSlidesProgress: true,
         autoplay: {
           delay: 3000,
           disableOnInteraction: false
         },
-        speed: 800
+        speed: 800,
+        allowTouchMove: false
       });
     },
 

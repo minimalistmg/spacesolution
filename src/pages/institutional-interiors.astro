@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaSection from '../components/CtaSection.astro';
+---
+
+<BaseLayout
+  title="Institutional Interiors | Space Solutions"
+  description="Institutional interior and furniture solutions for schools, hostels, and healthcare — durable, efficient layouts by Space Solutions."
+  activePage="services"
+  headerScrolled={true}
+>
+  <PageHero
+    breadcrumb={'<a href="/" style="color:inherit">Home</a> / Institutional Interiors'}
+    title="Institutional Interiors"
+    description="Interior and furniture solutions for institutions that require durability, efficient layouts, and long-term usability."
+  />
+
+  <section class="page-content">
+    <div class="container">
+      <p class="section-label fade-up">Overview</p>
+      <h2 class="section-title fade-up">Built for High-Usage Spaces</h2>
+      <p class="section-desc fade-up">Institutional spaces demand more than basic furniture. They require well-planned layouts, strong materials, and practical designs that handle continuous usage without frequent maintenance.</p>
+    </div>
+  </section>
+
+  <section class="service-block" style="padding-top:0">
+    <div class="container service-block-grid">
+      <div class="service-block-image fade-up">
+        <img src="https://spacesolution.in/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-21-at-4.37.50-PM.jpeg" alt="Classroom Solutions">
+      </div>
+      <div class="service-block-content fade-up">
+        <p class="section-label">Education &amp; Learning</p>
+        <h3>Classroom Solutions</h3>
+        <p>Furniture designed for comfort, durability, and efficient space utilization in schools and colleges.</p>
+        <ul class="feature-list">
+          <li>Standard and customized classroom desks and chairs</li>
+          <li>Laboratory furniture and library shelving units</li>
+          <li>Staffroom workstations and executive desks</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-block">
+    <div class="container service-block-grid reverse">
+      <div class="service-block-image fade-up">
+        <img src="https://spacesolution.in/wp-content/uploads/2026/04/bedroom-with-bed-lamp-wall-scaled.jpg" alt="Hostel Furniture">
+      </div>
+      <div class="service-block-content fade-up">
+        <p class="section-label">Accommodation</p>
+        <h3>Hostel &amp; PG Furniture</h3>
+        <p>Solutions designed for student accommodation and shared living environments.</p>
+        <ul class="feature-list">
+          <li>Single beds, bunk beds, and dormitory setups</li>
+          <li>Wardrobes, personal lockers, and study units</li>
+          <li>Shoe racks and common storage units</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="why-choose">
+    <div class="container">
+      <h2 class="section-title fade-up" style="text-align:center">Solutions by Sector</h2>
+      <div class="why-grid" style="margin-top:48px">
+        <div class="why-card fade-up">
+          <div class="why-icon"><i class="fas fa-bed"></i></div>
+          <h3>Student Hostels</h3>
+          <p class="why-desc">Bunk beds, personal lockers, and shared study desks for efficient space utilization.</p>
+        </div>
+        <div class="why-card highlight fade-up">
+          <div class="why-icon"><i class="fas fa-house"></i></div>
+          <h3>PG Accommodations</h3>
+          <p class="why-desc">Modern beds with storage, compact wardrobes, and study tables for individual living.</p>
+        </div>
+        <div class="why-card fade-up">
+          <div class="why-icon"><i class="fas fa-school"></i></div>
+          <h3>Schools &amp; Colleges</h3>
+          <p class="why-desc">Durable classroom desks, lab furniture, and library shelving for continuous use.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaSection />
+</BaseLayout>

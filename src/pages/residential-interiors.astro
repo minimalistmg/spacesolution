@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaSection from '../components/CtaSection.astro';
+---
+
+<BaseLayout
+  title="Residential Interiors | Space Solutions"
+  description="Residential interior design in Mysuru — modular kitchens, bedrooms, living rooms, and complete home interiors by Space Solutions."
+  activePage="services"
+  headerScrolled={true}
+>
+  <PageHero
+    breadcrumb={'<a href="/" style="color:inherit">Home</a> / Residential Interiors'}
+    title="Residential Interiors"
+    description="Your home should reflect your personality. From modular kitchens to serene pooja rooms, we deliver end-to-end interior solutions."
+  />
+
+  <section class="service-block">
+    <div class="container service-block-grid">
+      <div class="service-block-image fade-up">
+        <img src="https://spacesolution.in/wp-content/uploads/2026/04/bedroom-with-bed-lamp-wall-scaled.jpg" alt="Living Room Interiors">
+      </div>
+      <div class="service-block-content fade-up">
+        <p class="section-label">Living Room Interiors</p>
+        <h3>The Heart of Your Home</h3>
+        <p>The living room is where first impressions are made. We focus on creating a balanced layout that maximizes seating without compromising on flow.</p>
+        <ul class="feature-list">
+          <li>Custom TV units, accent walls, and ergonomic sofa layouts</li>
+          <li>Layered lighting for day-to-evening transitions</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-block">
+    <div class="container service-block-grid reverse">
+      <div class="service-block-image fade-up">
+        <img src="https://spacesolution.in/wp-content/uploads/elementor/thumbs/WhatsApp-Image-2026-06-21-at-6.28.40-PM-rpa8tg1hn9nr184mmp4qpfbhpg5pnmsih6fcbazwhs.jpeg" alt="Modular Kitchen">
+      </div>
+      <div class="service-block-content fade-up">
+        <p class="section-label">Modular Kitchen</p>
+        <h3>Kitchens Built for Daily Use</h3>
+        <p>We design kitchens that prioritize the Golden Work Triangle — the distance between your sink, stove, and refrigerator.</p>
+        <ul class="feature-list">
+          <li>L-shaped, U-shaped, parallel, and island kitchens</li>
+          <li>Tandem drawers, corner carousels, and tall pantry units</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-block">
+    <div class="container service-block-grid">
+      <div class="service-block-image fade-up">
+        <img src="https://spacesolution.in/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-21-at-4.37.49-PM.jpeg" alt="Master Bedroom">
+      </div>
+      <div class="service-block-content fade-up">
+        <p class="section-label">Master Bedroom</p>
+        <h3>Your Private Sanctuary</h3>
+        <p>Your bedroom should be a retreat from the world. Our designs emphasize clutter-free surfaces and soothing color palettes.</p>
+        <ul class="feature-list">
+          <li>King-sized bed frames with hydraulic storage</li>
+          <li>Upholstered headboards and integrated vanity units</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-content" style="padding-top:0">
+    <div class="container">
+      <h2 class="section-title fade-up" style="text-align:center">Interior Design Options</h2>
+      <div class="service-table-wrap fade-up">
+        <table class="service-table">
+          <thead>
+            <tr><th>Category</th><th>Best For</th><th>Popular Material</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Modular Kitchen</td><td>High Utility / Cooking</td><td>Marine Ply / Acrylic Finish</td></tr>
+            <tr><td>Living Room</td><td>Entertaining / Socializing</td><td>Veneer / Italian Marble</td></tr>
+            <tr><td>Master Bedroom</td><td>Relaxation / Privacy</td><td>Laminate / Fabric Upholstery</td></tr>
+            <tr><td>Pooja Room</td><td>Spiritual / Traditional</td><td>Teak Wood / Corian</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="why-steps">
+        <div class="why-step fade-up">
+          <span class="step-num">01</span>
+          <h4>Custom 3D Visualizations</h4>
+          <p>See your home before the first brick is laid.</p>
+        </div>
+        <div class="why-step fade-up">
+          <span class="step-num">02</span>
+          <h4>Quality Materials</h4>
+          <p>Premium, moisture-resistant materials for longevity.</p>
+        </div>
+        <div class="why-step fade-up">
+          <span class="step-num">03</span>
+          <h4>Timely Delivery</h4>
+          <p>Transparent timeline from design to final handover.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaSection />
+</BaseLayout>

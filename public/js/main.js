@@ -27,7 +27,70 @@
     });
   }
 
+  function getFormData(form) {
+    var $form = $(form);
+    return {
+      name: $form.find('[name="name"]').val(),
+      country: $form.find('[name="country"]').val() || '+91',
+      phone: $form.find('[name="phone"]').val(),
+      email: $form.find('[name="email"]').val(),
+      location: $form.find('[name="location"]').val(),
+      service: $form.find('[name="service"]').val(),
+      source: $form.data('source') || 'enquiry'
+    };
+  }
+
+  function showFormFeedback($form, message, isError) {
+    var $feedback = $form.find('.form-feedback');
+    if (!$feedback.length) return;
+    $feedback
+      .text(message)
+      .removeClass('error success')
+      .addClass(isError ? 'error' : 'success');
+  }
+
+  function submitLeadForm(form, options) {
+    var $form = $(form);
+    var $submit = $form.find('[type="submit"]');
+    var originalText = $submit.text();
+
+    showFormFeedback($form, '', false);
+    $submit.prop('disabled', true).text('Sending...');
+
+    return fetch('/api/enquiry', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(getFormData(form))
+    })
+      .then(function (response) {
+        return response.json().then(function (data) {
+          return { ok: response.ok, data: data };
+        });
+      })
+      .then(function (result) {
+        if (!result.ok) {
+          throw new Error(result.data.error || 'Failed to submit. Please try again.');
+        }
+
+        showFormFeedback($form, result.data.message, false);
+
+        if (options.onSuccess) {
+          options.onSuccess();
+        }
+
+        form.reset();
+      })
+      .catch(function (err) {
+        showFormFeedback($form, err.message || 'Something went wrong. Please try again.', true);
+      })
+      .finally(function () {
+        $submit.prop('disabled', false).text(originalText);
+      });
+  }
+
   function initEnquiryModal() {
+    $('#enquiry-form').attr('data-source', 'enquiry');
+
     $('[data-open-modal="enquiry"]').on('click', function (e) {
       e.preventDefault();
       $modal.addClass('open');
@@ -48,10 +111,15 @@
 
     $('#enquiry-form').on('submit', function (e) {
       e.preventDefault();
-      alert('Thank you! We will contact you shortly.');
-      $modal.removeClass('open');
-      $('body').css('overflow', '');
-      this.reset();
+      var form = this;
+      submitLeadForm(form, {
+        onSuccess: function () {
+          setTimeout(function () {
+            $modal.removeClass('open');
+            $('body').css('overflow', '');
+          }, 1500);
+        }
+      });
     });
   }
 
@@ -126,10 +194,14 @@
   }
 
   function initContactForm() {
-    $('#contact-form').on('submit', function (e) {
+    var $contactForm = $('#contact-form');
+    if (!$contactForm.length) return;
+
+    $contactForm.attr('data-source', 'contact');
+
+    $contactForm.on('submit', function (e) {
       e.preventDefault();
-      alert('Thank you! We will contact you shortly.');
-      this.reset();
+      submitLeadForm(this, {});
     });
   }
 

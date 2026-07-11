@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaSection from '../components/CtaSection.astro';
+---
+
+<BaseLayout
+  title="Turnkey Fitout Solutions | Space Solutions"
+  description="Turnkey interior fitout solutions in Mysuru — complete execution from design to handover by Space Solutions."
+  activePage="services"
+  headerScrolled={true}
+>
+  <PageHero
+    breadcrumb={'<a href="/" style="color:inherit">Home</a> / Turnkey Fitout Solutions'}
+    title="Turnkey Fitout Solutions"
+    description="We handle complete interior execution so you don't have to coordinate multiple vendors."
+  />
+
+  <section class="page-content">
+    <div class="container">
+      <p class="section-label fade-up">Overview</p>
+      <h2 class="section-title fade-up">One Team. Complete Execution.</h2>
+      <p class="section-desc fade-up">A turnkey approach means a single team manages the entire project — from design and technical planning to execution and installation. This reduces coordination issues and keeps timelines under control.</p>
+
+      <div class="why-steps">
+        <div class="why-step fade-up">
+          <span class="step-num"><i class="fas fa-drafting-compass"></i></span>
+          <h4>Space Planning &amp; Design</h4>
+          <p>3D modeling, zoning, and ergonomic integration before work begins.</p>
+        </div>
+        <div class="why-step fade-up">
+          <span class="step-num"><i class="fas fa-bolt"></i></span>
+          <h4>Electrical &amp; Networking</h4>
+          <p>Power distribution, structured cabling, and smart automation.</p>
+        </div>
+        <div class="why-step fade-up">
+          <span class="step-num"><i class="fas fa-layer-group"></i></span>
+          <h4>Flooring &amp; Ceiling</h4>
+          <p>Acoustic tiles, durable flooring, and access flooring options.</p>
+        </div>
+        <div class="why-step fade-up">
+          <span class="step-num"><i class="fas fa-wind"></i></span>
+          <h4>HVAC Setup</h4>
+          <p>Energy-efficient climate control and ventilation systems.</p>
+        </div>
+        <div class="why-step fade-up">
+          <span class="step-num"><i class="fas fa-couch"></i></span>
+          <h4>Modular Furniture</h4>
+          <p>Workstations, partitions, and storage that adapt as you grow.</p>
+        </div>
+        <div class="why-step fade-up">
+          <span class="step-num"><i class="fas fa-check-circle"></i></span>
+          <h4>Final Handover</h4>
+          <p>Quality audit, safety compliance, and move-in ready delivery.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-block">
+    <div class="container">
+      <h2 class="section-title fade-up" style="text-align:center;margin-bottom:32px">Why Choose Turnkey?</h2>
+      <div class="service-table-wrap fade-up">
+        <table class="service-table">
+          <thead>
+            <tr><th>Feature</th><th>Traditional Contractors</th><th>Space Solutions Turnkey</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Vendor Management</td><td>User manages multiple teams</td><td>Single point of contact</td></tr>
+            <tr><td>Cost Control</td><td>Variable quotes and hidden fees</td><td>Transparent, fixed-budget model</td></tr>
+            <tr><td>Post-Handover</td><td>Limited support</td><td>Full-lifecycle support</td></tr>
+            <tr><td>Technology</td><td>Standard builds</td><td>Smart-office &amp; IoT integration</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <CtaSection />
+</BaseLayout>
