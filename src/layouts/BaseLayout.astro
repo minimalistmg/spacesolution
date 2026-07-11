@@ -28,7 +28,8 @@ const {
   ogImage,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const pathname = Astro.url.pathname.replace(/\.html$/, '') || '/';
+const canonicalURL = new URL(pathname, Astro.site);
 const defaultOgImage = await getImage({
   src: kitchen1,
   width: 1200,

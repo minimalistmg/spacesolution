@@ -5,9 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "node scripts/generate-menu-images.mjs && node scripts/generate-reel-thumbnails.mjs && node scripts/generate-redirects.mjs && node scripts/minify-js.mjs && astro dev",
-    "postinstall": "node scripts/prepare-vendor.mjs && node scripts/generate-menu-images.mjs && node scripts/generate-reel-thumbnails.mjs && node scripts/generate-redirects.mjs && node scripts/minify-js.mjs",
-    "build": "node scripts/generate-menu-images.mjs && node scripts/generate-reel-thumbnails.mjs && node scripts/generate-redirects.mjs && node scripts/minify-js.mjs && astro build",
+    "dev": "node scripts/generate-menu-images.mjs && node scripts/generate-reel-thumbnails.mjs && node scripts/minify-js.mjs && astro dev",
+    "postinstall": "node scripts/prepare-vendor.mjs && node scripts/generate-menu-images.mjs && node scripts/generate-reel-thumbnails.mjs && node scripts/minify-js.mjs",
+    "build": "node scripts/generate-menu-images.mjs && node scripts/generate-reel-thumbnails.mjs && node scripts/minify-js.mjs && astro build",
     "preview": "astro preview"
   },
   "repository": {
