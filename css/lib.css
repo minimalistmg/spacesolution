@@ -1,0 +1,6 @@
+/* Third-party CSS libraries */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
+
+/* Tailwind CSS is loaded via CDN script in HTML (requires JS runtime) */
