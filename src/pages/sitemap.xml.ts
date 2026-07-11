@@ -3,16 +3,16 @@ import { SITE } from '../data/site';
 
 const pages = [
   '/',
-  '/about/',
-  '/commercial-interiors/',
-  '/contact/',
-  '/faq/',
-  '/institutional-interiors/',
-  '/portfolio/',
-  '/privacy-policy/',
-  '/project-detail/',
-  '/residential-interiors/',
-  '/turnkey-fitout/',
+  '/about',
+  '/commercial-interiors',
+  '/contact',
+  '/faq',
+  '/institutional-interiors',
+  '/portfolio',
+  '/privacy-policy',
+  '/project-detail',
+  '/residential-interiors',
+  '/turnkey-fitout',
 ];
 
 export const GET: APIRoute = () => {

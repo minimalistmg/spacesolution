@@ -1,5 +1,6 @@
 import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faPlay } from '@fortawesome/free-solid-svg-icons/faPlay';
+import { faPause } from '@fortawesome/free-solid-svg-icons/faPause';
 import { faPlayCircle } from '@fortawesome/free-solid-svg-icons/faPlayCircle';
 import { faHouse } from '@fortawesome/free-solid-svg-icons/faHouse';
 import { faBuilding } from '@fortawesome/free-solid-svg-icons/faBuilding';
@@ -31,9 +32,13 @@ import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons/faScrewdr
 import { faFacebookF } from '@fortawesome/free-brands-svg-icons/faFacebookF';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons/faInstagram';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons/faWhatsapp';
+import { faVolumeHigh } from '@fortawesome/free-solid-svg-icons/faVolumeHigh';
+import { faVolumeXmark } from '@fortawesome/free-solid-svg-icons/faVolumeXmark';
+import { faExpand } from '@fortawesome/free-solid-svg-icons/faExpand';
 
 export type IconName =
   | 'play'
+  | 'pause'
   | 'play-circle'
   | 'house'
   | 'building'
@@ -64,7 +69,10 @@ export type IconName =
   | 'tools'
   | 'facebook'
   | 'instagram'
-  | 'whatsapp';
+  | 'whatsapp'
+  | 'volume-high'
+  | 'volume-xmark'
+  | 'expand';
 
 function toIconData(definition: IconDefinition) {
   const [width, height, , , path] = definition.icon;
@@ -77,6 +85,7 @@ function toIconData(definition: IconDefinition) {
 
 const icons = {
   play: toIconData(faPlay),
+  pause: toIconData(faPause),
   'play-circle': toIconData(faPlayCircle),
   house: toIconData(faHouse),
   building: toIconData(faBuilding),
@@ -108,6 +117,9 @@ const icons = {
   facebook: toIconData(faFacebookF),
   instagram: toIconData(faInstagram),
   whatsapp: toIconData(faWhatsapp),
+  'volume-high': toIconData(faVolumeHigh),
+  'volume-xmark': toIconData(faVolumeXmark),
+  expand: toIconData(faExpand),
 } satisfies Record<IconName, { width: number; height: number; path: string }>;
 
 export function getIcon(name: IconName) {
