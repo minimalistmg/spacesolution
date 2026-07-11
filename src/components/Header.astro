@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 export type NavPage = 'home' | 'about' | 'services' | 'portfolio' | 'contact';
 
 import ResponsiveImage from './ResponsiveImage.astro';
@@ -45,7 +46,7 @@ const { activePage = 'home', scrolled = false } = Astro.props;
     <a href="#" class="btn btn-outline-white header-cta" data-open-modal="enquiry">Get Started</a>
 
     <button class="menu-toggle" aria-label="Open menu">
-      <i class="fas fa-bars"></i>
+      <Icon name="bars" />
     </button>
   </div>
 </header>

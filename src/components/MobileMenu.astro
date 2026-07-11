@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 import type { NavPage } from './Header.astro';
 import ResponsiveImage from './ResponsiveImage.astro';
 import { logoImages } from '../data/images';
@@ -15,7 +16,7 @@ const { activePage = 'home' } = Astro.props;
     <a href="/">
       <ResponsiveImage src={logoImages.mobileMenu} alt="Space Solutions" preset="logo" />
     </a>
-    <button class="mobile-close" aria-label="Close menu"><i class="fas fa-times"></i></button>
+    <button class="mobile-close" aria-label="Close menu"><Icon name="times" /></button>
   </div>
   <nav class="mobile-nav">
     <a href="/">Home</a>

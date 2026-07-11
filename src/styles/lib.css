@@ -1,5 +1,5 @@
 /* Typography: self-hosted Montserrat (latin subset, WOFF2) */
 @import './fonts.css';
-@import url('https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css');
-/* Icons: Font Awesome 6 only — no other icon fonts */
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
+@import 'swiper/css';
+@import 'swiper/css/effect-fade';
+@import 'swiper/css/pagination';

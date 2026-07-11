@@ -1,4 +1,5 @@
 ---
+import Icon from '../components/Icon.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import ResponsiveImage from '../components/ResponsiveImage.astro';
@@ -39,7 +40,7 @@ import { heroImages, youtubeThumbs } from '../data/images';
                 alt="Project video"
                 preset="thumbnail"
               />
-              <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+              <div class="play-overlay"><Icon name="play-circle" /></div>
             </div>
           </div>
 
@@ -57,9 +58,9 @@ import { heroImages, youtubeThumbs } from '../data/images';
             <h3>Share to Social Media Now!</h3>
             <p>Elevate your voice and expand your reach by sharing engaging content across diverse social media networks.</p>
             <div class="share-links">
-              <a href="https://www.facebook.com/sharer/sharer.php?u=https://spacesolution.in" target="_blank" rel="noopener" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
-              <a href="https://www.instagram.com/spacesolutions.mys" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-              <a href="https://wa.me/?text=Check%20out%20this%20project%20from%20Space%20Solutions" target="_blank" rel="noopener" aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+              <a href="https://www.facebook.com/sharer/sharer.php?u=https://spacesolution.in" target="_blank" rel="noopener" aria-label="Share on Facebook"><Icon name="facebook" /></a>
+              <a href="https://www.instagram.com/spacesolutions.mys" target="_blank" rel="noopener" aria-label="Instagram"><Icon name="instagram" /></a>
+              <a href="https://wa.me/?text=Check%20out%20this%20project%20from%20Space%20Solutions" target="_blank" rel="noopener" aria-label="Share on WhatsApp"><Icon name="whatsapp" /></a>
             </div>
           </div>
         </div>

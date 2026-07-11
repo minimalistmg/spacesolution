@@ -5,8 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "dev": "node scripts/copy-client-js.mjs && astro dev",
+    "postinstall": "node scripts/prepare-vendor.mjs && node scripts/copy-client-js.mjs",
+    "build": "node scripts/minify-js.mjs && astro build",
     "preview": "astro preview"
   },
   "repository": {
@@ -21,7 +22,17 @@
   },
   "homepage": "https://github.com/minimalistmg/spacesolution#readme",
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.0",
+    "@fortawesome/fontawesome-svg-core": "^7.3.0",
+    "@fortawesome/free-brands-svg-icons": "^7.3.0",
+    "@fortawesome/free-solid-svg-icons": "^7.3.0",
     "astro": "^7.0.7",
-    "sharp": "^0.35.3"
+    "jquery": "^3.7.1",
+    "sharp": "^0.35.3",
+    "swiper": "^11.2.10"
+  },
+  "devDependencies": {
+    "terser": "^5.44.0",
+    "wrangler": "^4.110.0"
   }
 }

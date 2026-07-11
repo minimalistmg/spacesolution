@@ -1,4 +1,5 @@
 ---
+import Icon from '../components/Icon.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import ResponsiveImage from '../components/ResponsiveImage.astro';
@@ -41,17 +42,17 @@ import { projectImages } from '../data/images';
       <h2 class="section-title fade-up" style="text-align:center">Why Choose Us</h2>
       <div class="why-grid" style="margin-top:48px">
         <div class="why-card fade-up">
-          <div class="why-icon"><i class="fas fa-award"></i></div>
+          <div class="why-icon"><Icon name="award" /></div>
           <h3>15+ Years Experience</h3>
           <p class="why-desc">Hands-on industry experience across 800+ completed projects.</p>
         </div>
         <div class="why-card highlight fade-up">
-          <div class="why-icon"><i class="fas fa-industry"></i></div>
+          <div class="why-icon"><Icon name="industry" /></div>
           <h3>In-House Manufacturing</h3>
           <p class="why-desc">Full control over quality, materials, and timelines.</p>
         </div>
         <div class="why-card fade-up">
-          <div class="why-icon"><i class="fas fa-users"></i></div>
+          <div class="why-icon"><Icon name="users" /></div>
           <h3>30+ Professionals</h3>
           <p class="why-desc">Skilled team focused on delivering precise work.</p>
         </div>
