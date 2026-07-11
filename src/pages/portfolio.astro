@@ -2,87 +2,41 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaSection from '../components/CtaSection.astro';
-import ResponsiveImage from '../components/ResponsiveImage.astro';
-import { heroImages, projectImages } from '../data/images';
+import { portfolioVideos } from '../data/portfolio';
 ---
 
 <BaseLayout
   title="Portfolio | Space Solutions"
   description="Explore Space Solutions portfolio — residential, commercial, and institutional interior design projects across Karnataka."
   activePage="portfolio"
-  headerScrolled={true}
+  headerScrolled={false}
 >
   <PageHero
-    breadcrumb={'<a href="/" style="color:inherit">Home</a> / Portfolio'}
+    breadcrumb={'<a href="/">Home</a> <span class="breadcrumb-sep">/</span> Portfolio'}
     title="Portfolio"
     description="Turning ideas into well-executed spaces. A selection of projects that reflect our approach to planning, execution, and finishing."
   />
 
   <section class="page-content">
     <div class="container">
-      <div class="portfolio-filters fade-up">
-        <button class="active" data-filter="all">All</button>
-        <button data-filter="residential">Residential</button>
-        <button data-filter="corporate">Corporate</button>
-        <button data-filter="restaurant">Restaurant</button>
-        <button data-filter="commercial">Commercial</button>
-      </div>
+      <p class="section-label fade-up">Our Work</p>
+      <h2 class="section-title fade-up">Turning ideas into well-executed spaces.</h2>
+      <p class="section-desc fade-up">
+        Each project is designed to meet specific requirements while maintaining consistency in quality and usability.
+      </p>
 
-      <div class="portfolio-grid">
-        <div class="portfolio-item fade-up" data-category="residential">
-          <a href="/project-detail">
-            <ResponsiveImage src={heroImages.bedroom} alt="Residential Design" preset="grid" />
-            <div class="portfolio-overlay">
-              <span>Residential</span>
-              <h4>Residential Design</h4>
-            </div>
-          </a>
-        </div>
-        <div class="portfolio-item fade-up" data-category="corporate">
-          <a href="/project-detail">
-            <ResponsiveImage src={heroImages.kitchen1} alt="Corporate Design" preset="grid" />
-            <div class="portfolio-overlay">
-              <span>Corporate</span>
-              <h4>Corporate Design</h4>
-            </div>
-          </a>
-        </div>
-        <div class="portfolio-item fade-up" data-category="commercial">
-          <a href="/project-detail">
-            <ResponsiveImage src={heroImages.kitchen2} alt="Commercial Design" preset="grid" />
-            <div class="portfolio-overlay">
-              <span>Commercial</span>
-              <h4>Commercial Design</h4>
-            </div>
-          </a>
-        </div>
-        <div class="portfolio-item fade-up" data-category="restaurant">
-          <a href="/project-detail">
-            <ResponsiveImage src={projectImages.homeInterior3} alt="Restaurant Design" preset="grid" />
-            <div class="portfolio-overlay">
-              <span>Restaurant</span>
-              <h4>Restaurant Design</h4>
-            </div>
-          </a>
-        </div>
-        <div class="portfolio-item fade-up" data-category="residential">
-          <a href="/project-detail">
-            <ResponsiveImage src={projectImages.modularKitchen} alt="Residential Kitchen" preset="grid" />
-            <div class="portfolio-overlay">
-              <span>Residential</span>
-              <h4>Modular Kitchen</h4>
-            </div>
-          </a>
-        </div>
-        <div class="portfolio-item fade-up" data-category="corporate">
-          <a href="/project-detail">
-            <ResponsiveImage src={heroImages.kitchen1} alt="Office Interiors" preset="grid" />
-            <div class="portfolio-overlay">
-              <span>Corporate</span>
-              <h4>Office Interiors</h4>
-            </div>
-          </a>
-        </div>
+      <div class="portfolio-videos fade-up">
+        {portfolioVideos.map((video) => (
+          <div class="portfolio-video">
+            <iframe
+              src={`https://www.youtube.com/embed/${video.id}?controls=1&rel=0&playsinline=0`}
+              title={video.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              loading="lazy"
+            />
+          </div>
+        ))}
       </div>
     </div>
   </section>

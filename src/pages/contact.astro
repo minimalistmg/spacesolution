@@ -2,16 +2,17 @@
 import Icon from '../components/Icon.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
+import { SITE } from '../data/site';
 ---
 
 <BaseLayout
   title="Contact Us | Space Solutions"
   description="Contact Space Solutions for interior design in Mysuru and Karnataka. Call +91 63645 64563 or request a free quote."
   activePage="contact"
-  headerScrolled={true}
+  headerScrolled={false}
 >
   <PageHero
-    breadcrumb={'<a href="/" style="color:inherit">Home</a> / Contact Us'}
+    breadcrumb={'<a href="/">Home</a> <span class="breadcrumb-sep">/</span> Contact Us'}
     title="Contact Us"
     description="Let's bring your ideas to life with thoughtful design and practical solutions."
   />
@@ -19,7 +20,7 @@ import PageHero from '../components/PageHero.astro';
   <section class="page-content">
     <div class="container contact-grid">
       <div class="contact-info fade-up">
-        <h2>Get in touch</h2>
+        <h2 class="section-title">Get in touch</h2>
         <p>Reach out to create a space that's both functional and beautiful. Our team is ready to help with design, cost, and timeline.</p>
         <ul class="contact-details">
           <li>
@@ -73,10 +74,20 @@ import PageHero from '../components/PageHero.astro';
               <option>Turnkey Fitout Solutions</option>
             </select>
           </div>
-          <button type="submit" class="btn btn-gold">Submit</button>
+          <button type="submit" class="btn btn-gold-filled">Submit</button>
           <p class="form-feedback" aria-live="polite"></p>
         </form>
       </div>
+    </div>
+
+    <div class="container contact-map fade-up">
+      <iframe
+        src={SITE.mapEmbedUrl}
+        title="Space Solutions location on Google Maps"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      />
     </div>
   </section>
 </BaseLayout>

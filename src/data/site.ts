@@ -15,6 +15,8 @@ export const SITE = {
     facebook: 'https://www.facebook.com/spacesolutio',
     instagram: 'https://www.instagram.com/spacesolutions.mys',
   },
+  mapEmbedUrl:
+    'https://maps.google.com/maps?q=Space%20Solutions%20%2C%2090%2C%20Kalidasa%20Rd%2C%20opp.%20Muthoot%20Finance%2C%203rd%20A%20Block%2C%20Vani%20Vilas%20Mohalla%2C%20Mysuru%2C%20Karnataka%20570002&t=m&z=20&output=embed&iwloc=near',
 } as const;
 
 export function getLocalBusinessSchema(siteUrl: string) {

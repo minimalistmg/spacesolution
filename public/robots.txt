@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://spacesolution.in/sitemap-index.xml
+Sitemap: https://spacesolution.in/sitemap.xml

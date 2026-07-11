@@ -7,16 +7,17 @@ import PageHero from '../components/PageHero.astro';
 <BaseLayout
   title="FAQ | Space Solutions"
   description="Frequently asked questions about interior design services from Space Solutions in Karnataka."
-  headerScrolled={true}
+  headerScrolled={false}
 >
   <PageHero
-    breadcrumb={'<a href="/" style="color:inherit">Home</a> / FAQ'}
+    breadcrumb={'<a href="/">Home</a> <span class="breadcrumb-sep">/</span> FAQ'}
     title="FAQ"
+    description="Answers to common questions about our interior design services across Karnataka."
   />
 
   <section class="page-content">
     <div class="container">
-      <h2 class="section-title fade-up" style="text-align:center;margin-bottom:40px">Frequently Asked Questions</h2>
+      <h2 class="section-heading-lg section-heading-center fade-up">Frequently Asked Questions</h2>
 
       <div class="faq-list fade-up">
         <div class="faq-item open">

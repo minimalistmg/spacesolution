@@ -6,11 +6,12 @@ import PageHero from '../components/PageHero.astro';
 <BaseLayout
   title="Privacy Policy | Space Solutions"
   description="Privacy Policy for Space Solutions — how we collect, use, and protect your personal information."
-  headerScrolled={true}
+  headerScrolled={false}
 >
   <PageHero
-    breadcrumb={'<a href="/" style="color:inherit">Home</a> / Privacy Policy'}
+    breadcrumb={'<a href="/">Home</a> <span class="breadcrumb-sep">/</span> Privacy Policy'}
     title="Privacy Policy"
+    description="How we collect, use, and protect your personal information."
   />
 
   <section class="page-content">

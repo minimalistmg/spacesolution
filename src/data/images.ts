@@ -16,6 +16,8 @@ export const heroImages = {
   kitchen2,
 };
 
+export const pageHeroImage = kitchen1;
+
 export const projectImages = {
   modularKitchen,
   homeInterior3,

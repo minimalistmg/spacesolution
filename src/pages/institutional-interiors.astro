@@ -11,12 +11,12 @@ import { heroImages } from '../data/images';
   title="Institutional Interiors | Space Solutions"
   description="Institutional interior and furniture solutions for schools, hostels, and healthcare — durable, efficient layouts by Space Solutions."
   activePage="services"
-  headerScrolled={true}
+  headerScrolled={false}
 >
   <PageHero
-    breadcrumb={'<a href="/" style="color:inherit">Home</a> / Institutional Interiors'}
+    breadcrumb={'<a href="/">Home</a> <span class="breadcrumb-sep">/</span> Institutional Interiors'}
     title="Institutional Interiors"
-    description="Interior and furniture solutions for institutions that require durability, efficient layouts, and long-term usability."
+    description="Durable interior and furniture solutions for institutions that require efficient layouts and long-term usability."
   />
 
   <section class="page-content">
@@ -27,7 +27,7 @@ import { heroImages } from '../data/images';
     </div>
   </section>
 
-  <section class="service-block" style="padding-top:0">
+  <section class="service-block section-compact-top">
     <div class="container service-block-grid">
       <div class="service-block-image fade-up">
         <ResponsiveImage src={heroImages.kitchen1} alt="Classroom Solutions" preset="content" />
@@ -65,14 +65,14 @@ import { heroImages } from '../data/images';
 
   <section class="why-choose">
     <div class="container">
-      <h2 class="section-title fade-up" style="text-align:center">Solutions by Sector</h2>
-      <div class="why-grid" style="margin-top:48px">
+      <h2 class="section-heading-lg fade-up">Solutions by Sector</h2>
+      <div class="why-grid">
         <div class="why-card fade-up">
           <div class="why-icon"><Icon name="bed" /></div>
           <h3>Student Hostels</h3>
           <p class="why-desc">Bunk beds, personal lockers, and shared study desks for efficient space utilization.</p>
         </div>
-        <div class="why-card highlight fade-up">
+        <div class="why-card fade-up">
           <div class="why-icon"><Icon name="house" /></div>
           <h3>PG Accommodations</h3>
           <p class="why-desc">Modern beds with storage, compact wardrobes, and study tables for individual living.</p>

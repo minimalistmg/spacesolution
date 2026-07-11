@@ -4,7 +4,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import CtaSection from '../components/CtaSection.astro';
 import ResponsiveImage from '../components/ResponsiveImage.astro';
 import { getImage } from 'astro:assets';
-import { heroImages, projectImages, youtubeThumbs } from '../data/images';
+import { heroImages, projectImages } from '../data/images';
+import { galleryFilters, homeGalleryItems, homeServices } from '../data/home';
 
 const heroPreload = await getImage({
   src: heroImages.kitchen1,
@@ -12,6 +13,20 @@ const heroPreload = await getImage({
   format: 'avif',
   quality: 88,
 });
+
+const serviceHoverUrls = Object.fromEntries(
+  await Promise.all(
+    homeServices.map(async (service) => {
+      const optimized = await getImage({
+        src: service.hoverImage,
+        width: 900,
+        format: 'webp',
+        quality: 82,
+      });
+      return [service.href, optimized.src] as const;
+    })
+  )
+);
 ---
 
 <BaseLayout
@@ -82,7 +97,7 @@ const heroPreload = await getImage({
         <p class="section-label">About Us</p>
         <h2 class="section-title">We Don't Just Design.<br>We Deliver Complete Interiors.</h2>
         <p>At Space Solutions, every project starts with a clear understanding of how your space needs to function. Since 2011, we've worked with homeowners, businesses, and institutions across Karnataka to create interiors that are practical, durable, and well-finished. What makes us different is simple — we handle everything. From design and material selection to manufacturing and installation, every step is managed by our team. That means better quality, controlled timelines, and no guesswork.</p>
-        <a href="/about" class="btn btn-outline-dark">Know more</a>
+        <a href="/about" class="btn btn-gold-filled">Know more</a>
       </div>
     </div>
   </section>
@@ -91,31 +106,26 @@ const heroPreload = await getImage({
   <section class="services" id="services">
     <div class="container">
       <p class="section-label fade-up">Our Services</p>
-      <h2 class="section-title fade-up">Interior Solutions for Every Requirement</h2>
+      <h3 class="section-heading-lg fade-up">Interior Solutions for Every Requirement</h3>
       <p class="section-desc fade-up">Whether it's a home, office, or large-scale project, we design solutions that are built for real use.</p>
 
       <div class="services-grid">
-        <div class="service-card fade-up">
-          <div class="service-icon"><Icon name="house" /></div>
-          <h4>Residential Interiors</h4>
-          <p>Smart, functional home interiors designed for comfort, storage, and everyday living.</p>
-          <a href="/residential-interiors" class="service-link">Know More <Icon name="arrow-right" /></a>
-        </div>
-        <div class="service-card fade-up">
-          <div class="service-icon"><Icon name="building" /></div>
-          <h4>Commercial Interiors</h4>
-          <p>Efficient workspace solutions that support smooth operations and organized layouts.</p>
-          <a href="/commercial-interiors" class="service-link">Know More <Icon name="arrow-right" /></a>
-        </div>
-        <div class="service-card fade-up">
-          <div class="service-icon"><Icon name="school" /></div>
-          <h4>Institutional Interiors</h4>
-          <p>Durable interiors for high-usage spaces including schools, healthcare, retail, and hospitality.</p>
-          <a href="/institutional-interiors" class="service-link">Know More <Icon name="arrow-right" /></a>
-        </div>
+        {homeServices.map((service) => (
+          <div
+            class="service-card fade-up"
+            style={`--hover-bg: url(${serviceHoverUrls[service.href]})`}
+          >
+            <div class="service-card-inner">
+              <div class="service-icon"><Icon name={service.icon} /></div>
+              <h4>{service.title}</h4>
+              <p>{service.description}</p>
+              <a href={service.href} class="service-link">Know More <Icon name="arrow-right" /></a>
+            </div>
+          </div>
+        ))}
       </div>
 
-      <a href="/residential-interiors" class="btn btn-outline-dark fade-up">View All Services</a>
+      <a href="/residential-interiors" class="btn btn-gold-filled fade-up">View All Services</a>
     </div>
   </section>
 
@@ -124,38 +134,33 @@ const heroPreload = await getImage({
     <div class="container">
       <div class="projects-header">
         <div class="fade-up">
-          <h2 class="section-title">Latest Projects</h2>
+          <h3 class="section-heading-lg">Latest Projects</h3>
           <p class="section-desc">From compact homes to large commercial spaces, we've handled projects of all sizes. Our focus remains the same — deliver what was promised, with quality that lasts.</p>
         </div>
-        <a href="/portfolio" class="btn btn-outline-dark fade-up">View Our Portfolio</a>
+        <a href="/portfolio" class="btn btn-gold-filled fade-up">View Our Portfolio</a>
         <span class="projects-watermark">Portfolio</span>
       </div>
 
-      <div class="projects-videos">
-        <div class="video-card fade-up" data-youtube="bt9uVqRqT_c">
-          <ResponsiveImage
-            src={youtubeThumbs.bt9uVqRqT_c}
-            alt="Project video 1"
-            preset="thumbnail"
-          />
-          <div class="play-overlay"><Icon name="play-circle" /></div>
-        </div>
-        <div class="video-card fade-up" data-youtube="PPfFXoK4Dso">
-          <ResponsiveImage
-            src={youtubeThumbs.PPfFXoK4Dso}
-            alt="Project video 2"
-            preset="thumbnail"
-          />
-          <div class="play-overlay"><Icon name="play-circle" /></div>
-        </div>
-        <div class="video-card fade-up" data-youtube="86CQ7rvVkmQ">
-          <ResponsiveImage
-            src={youtubeThumbs['86CQ7rvVkmQ']}
-            alt="Project video 3"
-            preset="thumbnail"
-          />
-          <div class="play-overlay"><Icon name="play-circle" /></div>
-        </div>
+      <div class="portfolio-filters fade-up">
+        {galleryFilters.map((filter, index) => (
+          <button class:list={[{ active: index === 0 }]} data-filter={filter.id}>
+            {filter.label}
+          </button>
+        ))}
+      </div>
+
+      <div class="portfolio-grid">
+        {homeGalleryItems.map((item) => (
+          <div class="portfolio-item fade-up" data-category={item.category}>
+            <a href={item.href}>
+              <ResponsiveImage src={item.image} alt={item.title} preset="grid" />
+              <div class="portfolio-overlay">
+                <span>{item.label}</span>
+                <h4>{item.title}</h4>
+              </div>
+            </a>
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -163,7 +168,7 @@ const heroPreload = await getImage({
   <!-- Why Choose Us -->
   <section class="why-choose" id="why-us">
     <div class="container">
-      <h2 class="section-title fade-up">Why Clients Choose Space Solutions</h2>
+      <h3 class="section-heading-lg fade-up">Why Clients Choose Space Solutions</h3>
 
       <div class="why-grid">
         <div class="why-card fade-up">
@@ -171,7 +176,7 @@ const heroPreload = await getImage({
           <h3>Experience That Shows in Every Project</h3>
           <p class="why-desc">15+ years of hands-on industry experience.</p>
         </div>
-        <div class="why-card highlight fade-up">
+        <div class="why-card fade-up">
           <div class="why-icon"><Icon name="industry" /></div>
           <h3>In-House Manufacturing Advantage</h3>
           <p class="why-desc">Full control over quality, materials, and timelines.</p>
@@ -229,8 +234,8 @@ const heroPreload = await getImage({
 
   <!-- Testimonials -->
   <section class="testimonials" id="testimonials">
-    <div class="container">
-      <h2 class="section-title fade-up">Testimonials</h2>
+    <div class="container testimonials-frame">
+      <h3 class="section-heading-lg fade-up">Testimonials</h3>
 
       <div class="swiper testimonial-swiper">
         <div class="swiper-wrapper">
