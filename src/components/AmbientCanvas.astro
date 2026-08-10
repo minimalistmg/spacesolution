@@ -1,0 +1,93 @@
+---
+/**
+ * Soft Three.js ambient field for landing atmospheres.
+ * Decorative only — hidden under prefers-reduced-motion / coarse pointers.
+ */
+---
+
+<canvas class="ambient-canvas" aria-hidden="true" data-ambient-canvas></canvas>
+
+<script>
+  import * as THREE from 'three';
+
+  const canvas = document.querySelector('[data-ambient-canvas]');
+  if (canvas instanceof HTMLCanvasElement) {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) {
+      canvas.remove();
+    } else {
+      const renderer = new THREE.WebGLRenderer({
+        canvas,
+        alpha: true,
+        antialias: true,
+        powerPreference: 'low-power',
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+      camera.position.z = 6;
+
+      const geometry = new THREE.IcosahedronGeometry(2.4, 1);
+      const material = new THREE.MeshBasicMaterial({
+        color: 0xc5a23a,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.085,
+      });
+      const mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+
+      const pointsGeo = new THREE.BufferGeometry();
+      const count = 140;
+      const positions = new Float32Array(count * 3);
+      for (let i = 0; i < count; i += 1) {
+        positions[i * 3] = (Math.random() - 0.5) * 10;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 6;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 4;
+      }
+      pointsGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      const points = new THREE.Points(
+        pointsGeo,
+        new THREE.PointsMaterial({
+          color: 0xc5a23a,
+          size: 0.03,
+          transparent: true,
+          opacity: 0.35,
+        })
+      );
+      scene.add(points);
+
+      function resize() {
+        const parent = canvas.parentElement ?? document.body;
+        const width = parent.clientWidth;
+        const height = parent.clientHeight || window.innerHeight * 0.7;
+        renderer.setSize(width, height, false);
+        camera.aspect = width / Math.max(height, 1);
+        camera.updateProjectionMatrix();
+      }
+
+      resize();
+      window.addEventListener('resize', resize, { passive: true });
+
+      let frame = 0;
+      function tick() {
+        frame = requestAnimationFrame(tick);
+        mesh.rotation.x += 0.0012;
+        mesh.rotation.y += 0.0018;
+        points.rotation.y -= 0.0006;
+        renderer.render(scene, camera);
+      }
+      tick();
+
+      document.addEventListener(
+        'visibilitychange',
+        () => {
+          if (document.hidden) cancelAnimationFrame(frame);
+          else tick();
+        },
+        { passive: true }
+      );
+    }
+  }
+</script>

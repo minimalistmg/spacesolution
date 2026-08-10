@@ -1,0 +1,152 @@
+.pl-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  background: #eef1f4;
+  overflow: hidden;
+}
+
+.pl-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.35) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.35) 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0.65;
+}
+
+.pl-blueprint-lines {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(34, 211, 238, 0.08) 0%, transparent 45%),
+    repeating-linear-gradient(0deg, transparent, transparent 47px, rgba(148, 163, 184, 0.15) 48px);
+  pointer-events: none;
+}
+
+.pl-concrete {
+  position: absolute;
+  inset: 0;
+  background:
+    url('../../../src/assets/images/projects/home-interior-3.jpg') center / cover no-repeat;
+  opacity: 0;
+  transform: scale(1.04);
+}
+
+.pl-concrete::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.pl-stage {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px 120px;
+}
+
+.pl-lockup-host .brand-lockup {
+  transform: scale(1.05);
+}
+
+.pl-lockup-host .brand-icon-wrap {
+  width: clamp(96px, 14vw, 130px);
+}
+
+.pl-pen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  background: #22d3ee;
+  box-shadow: 0 0 12px #22d3ee, 0 0 24px rgba(34, 211, 238, 0.45);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pl-footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px clamp(20px, 4vw, 48px) 28px;
+  background: linear-gradient(180deg, transparent, rgba(238, 241, 244, 0.95) 35%);
+}
+
+.pl-progress {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.pl-progress__track {
+  flex: 1;
+  height: 4px;
+  background: rgba(84, 55, 39, 0.12);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.pl-progress__fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--ink-dark, #332015), var(--ink, #543727));
+  border-radius: inherit;
+}
+
+.pl-progress__pct {
+  min-width: 36px;
+  font-family: var(--font-brand);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+}
+
+.pl-enter {
+  padding: 12px 22px;
+  border: none;
+  background: var(--ink);
+  color: #fff;
+  font-family: var(--font-brand);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.pl-enter:hover {
+  background: var(--ink-dark);
+}
+
+.pl-enter.is-visible {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+[data-brand-space] .char,
+[data-brand-solution] .char {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pl-pen { display: none; }
+}

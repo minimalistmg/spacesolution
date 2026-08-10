@@ -1,5 +1,5 @@
 import type { ImageMetadata } from 'astro';
-import { heroImages, projectImages } from './images';
+import { heroImages, projectImages, roomImages } from './images';
 
 export interface HomeService {
   title: string;
@@ -24,7 +24,7 @@ export const homeServices: HomeService[] = [
       'Smart, functional home interiors designed for comfort, storage, and everyday living.',
     href: '/residential-interiors',
     icon: 'house',
-    hoverImage: heroImages.bedroom,
+    hoverImage: heroImages.residential,
   },
   {
     title: 'Commercial Interiors',
@@ -32,7 +32,7 @@ export const homeServices: HomeService[] = [
       'Efficient workspace solutions that support smooth operations and organized layouts.',
     href: '/commercial-interiors',
     icon: 'building',
-    hoverImage: heroImages.kitchen1,
+    hoverImage: heroImages.commercial,
   },
   {
     title: 'Institutional Interiors',
@@ -40,52 +40,52 @@ export const homeServices: HomeService[] = [
       'Durable interiors for high-usage spaces including schools, healthcare, retail, and hospitality.',
     href: '/institutional-interiors',
     icon: 'school',
-    hoverImage: heroImages.kitchen2,
+    hoverImage: heroImages.institutional,
   },
 ];
 
 export const homeGalleryItems: HomeGalleryItem[] = [
   {
-    title: 'Residential Design',
+    title: 'Vijayanagar Residence',
     category: 'residential',
     label: 'Residential',
-    image: heroImages.bedroom,
-    href: '/project-detail',
+    image: projectImages.apartment,
+    href: '/projects/vijayanagar-residence',
   },
   {
-    title: 'Corporate Design',
+    title: 'Infotech Workspace',
     category: 'corporate',
     label: 'Corporate',
-    image: heroImages.kitchen1,
-    href: '/project-detail',
+    image: roomImages.office,
+    href: '/projects/infotech-workspace',
   },
   {
-    title: 'Commercial Design',
+    title: 'Retail Pop-Up',
     category: 'commercial',
     label: 'Commercial',
-    image: heroImages.kitchen2,
-    href: '/project-detail',
+    image: roomImages.retail,
+    href: '/projects/retail-pop-up',
   },
   {
-    title: 'Restaurant Design',
+    title: 'Soft Café, Mysuru',
     category: 'restaurant',
-    label: 'Restaurant',
-    image: projectImages.modularKitchen,
-    href: '/project-detail',
+    label: 'Hospitality',
+    image: roomImages.cafe,
+    href: '/projects/soft-cafe-mysuru',
   },
   {
-    title: 'Residential Design',
+    title: 'Heritage Home',
     category: 'residential',
     label: 'Residential',
-    image: projectImages.homeInterior3,
-    href: '/project-detail',
+    image: projectImages.villa,
+    href: '/projects/heritage-home',
   },
   {
-    title: 'Restaurant Design',
-    category: 'restaurant',
-    label: 'Restaurant',
-    image: heroImages.kitchen1,
-    href: '/project-detail',
+    title: 'Co-working Lounge',
+    category: 'corporate',
+    label: 'Workplace',
+    image: projectImages.coworking,
+    href: '/projects/infotech-workspace',
   },
 ];
 

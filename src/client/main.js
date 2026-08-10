@@ -5,7 +5,6 @@
   'use strict';
 
   var $header = $('.site-header');
-  var $mobileMenu = $('.mobile-menu');
   var $modal = $('#enquiry-modal');
   var $videoModal = $('#video-modal');
   var HERO_VIDEO_SRC = '/images/videos/hero-showreel.mp4';
@@ -73,24 +72,6 @@
     $body.css('overflow', '');
     $body.css('padding-right', $body.data('scroll-padding') || '');
     $header.css('padding-right', $header.data('scroll-padding') || '');
-  }
-
-  function initHeaderScroll() {
-    $(window).on('scroll', function () {
-      $header.toggleClass('scrolled', $(this).scrollTop() > 50);
-    });
-  }
-
-  function initMobileMenu() {
-    $('.menu-toggle').on('click', function () {
-      $mobileMenu.addClass('open');
-      lockPageScroll();
-    });
-
-    $('.mobile-close, .mobile-menu-overlay').on('click', function () {
-      $mobileMenu.removeClass('open');
-      unlockPageScroll();
-    });
   }
 
   function validateEnquiryForm($form) {
@@ -907,13 +888,6 @@
     });
   }
 
-  function initSubmenuMobile() {
-    $('.mobile-nav .has-submenu > a').on('click', function (e) {
-      e.preventDefault();
-      $(this).next('.submenu-mobile').slideToggle(200);
-    });
-  }
-
   function initPortfolioFilter() {
     var $items = $('.portfolio-item');
     if (!$items.length) return;
@@ -967,13 +941,27 @@
   }
 
   $(document).ready(function () {
-    initHeaderScroll();
-    initMobileMenu();
+    if (window.SpaceSolutionsHeader) {
+      window.SpaceSolutionsHeader.init({
+        scrollLock: {
+          lock: lockPageScroll,
+          unlock: unlockPageScroll,
+        },
+      });
+    }
+
+    if (window.SpaceSolutionsHeaderContact) {
+      window.SpaceSolutionsHeaderContact.init();
+    }
+
+    if (window.SpaceSolutionsContactConfirm) {
+      window.SpaceSolutionsContactConfirm.init();
+    }
+
     initEnquiryModal();
     initVideoModal();
     scheduleMenuImagePreload();
     initScrollAnimations();
-    initSubmenuMobile();
     initPortfolioFilter();
     initContactForm();
     initFaqAccordion();
@@ -982,21 +970,15 @@
     if (window.SpaceLib) {
       window.SpaceLib.initAll();
     }
-
-    if ($modal.length && !sessionStorage.getItem('enquiryShown')) {
-      setTimeout(function () {
-        $modal.addClass('open');
-        lockPageScroll();
-        sessionStorage.setItem('enquiryShown', '1');
-      }, 2000);
-    }
   });
 
   $(document).on('keydown', function (e) {
     if (e.key === 'Escape') {
       $modal.removeClass('open');
       closeVideoModal();
-      $mobileMenu.removeClass('open');
+      if (window.SpaceSolutionsHeader) {
+        window.SpaceSolutionsHeader.closeOnEscape();
+      }
       resetPageScroll();
     }
   });

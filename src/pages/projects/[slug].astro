@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectDetailSection from '../../components/ProjectDetailSection.astro';
+import {
+  getProjectBySlug,
+  getProjectNeighbors,
+  projects,
+} from '../../data/projects';
+
+export function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const project = getProjectBySlug(slug!);
+
+if (!project) {
+  return Astro.redirect('/portfolio');
+}
+
+const { next } = getProjectNeighbors(project.slug);
+---
+
+<BaseLayout
+  title={`${project.title} | Projects | Space Solutions`}
+  description={project.headline}
+  activePage="portfolio"
+  headerScrolled={false}
+>
+  <ProjectDetailSection project={project} nextProject={next} />
+</BaseLayout>

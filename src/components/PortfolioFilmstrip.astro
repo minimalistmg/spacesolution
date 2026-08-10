@@ -1,0 +1,61 @@
+---
+import ResponsiveImage from './ResponsiveImage.astro';
+import type { HomeGalleryItem } from '../data/home';
+
+interface Props {
+  items: HomeGalleryItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="portfolio-filmstrip fade-up" aria-label="Featured projects">
+  <div class="portfolio-filmstrip-track">
+    {
+      items.map((item) => (
+        <a href={item.href} class="portfolio-filmstrip-item" data-category={item.category}>
+          <ResponsiveImage src={item.image} alt={item.title} preset="thumbnail" />
+          <span class="portfolio-filmstrip-meta">
+            <span class="portfolio-filmstrip-label">{item.label}</span>
+            <span class="portfolio-filmstrip-title">{item.title}</span>
+          </span>
+        </a>
+      ))
+    }
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var track = document.querySelector('.portfolio-filmstrip-track');
+    if (!track) return;
+
+    var dragging = false;
+    var startX = 0;
+    var scrollLeft = 0;
+
+    track.addEventListener('mousedown', function (event) {
+      dragging = true;
+      startX = event.pageX - track.offsetLeft;
+      scrollLeft = track.scrollLeft;
+      track.classList.add('is-dragging');
+    });
+
+    track.addEventListener('mouseleave', function () {
+      dragging = false;
+      track.classList.remove('is-dragging');
+    });
+
+    track.addEventListener('mouseup', function () {
+      dragging = false;
+      track.classList.remove('is-dragging');
+    });
+
+    track.addEventListener('mousemove', function (event) {
+      if (!dragging) return;
+      event.preventDefault();
+      var x = event.pageX - track.offsetLeft;
+      track.scrollLeft = scrollLeft - (x - startX) * 1.2;
+    });
+  })();
+</script>

@@ -2,15 +2,22 @@
 import type { NavPage } from '../components/Header.astro';
 import Header from '../components/Header.astro';
 import MobileMenu from '../components/MobileMenu.astro';
-import Footer from '../components/Footer.astro';
+import FooterGsap from '../components/FooterGsap.astro';
 import EnquiryModal from '../components/EnquiryModal.astro';
 import VideoModal from '../components/VideoModal.astro';
+import ColorPaletteSelector from '../components/ColorPaletteSelector.astro';
+import ContactActionConfirm from '../components/ContactActionConfirm.astro';
+import GoldForgePreloader from '../components/GoldForgePreloader.astro';
 import { getImage } from 'astro:assets';
-import kitchen1 from '../assets/images/hero/kitchen-1.jpeg';
+import ogFallback from '../assets/images/hero/hero-residential.jpg';
 import { SITE, getLocalBusinessSchema } from '../data/site';
 import { allMenuImageUrls } from '../data/menuImages';
+import { colorPalettes, DEFAULT_PALETTE_ID } from '../data/colorPalettes';
 import '../styles/lib.css';
 import '../styles/main.css';
+import '../styles/header.css';
+import '../styles/gold-forge-preloader.css';
+import '../styles/footer-gsap.css';
 
 interface Props {
   title: string;
@@ -31,7 +38,7 @@ const {
 const pathname = Astro.url.pathname.replace(/\.html$/, '') || '/';
 const canonicalURL = new URL(pathname, Astro.site);
 const defaultOgImage = await getImage({
-  src: kitchen1,
+  src: ogFallback,
   width: 1200,
   format: 'jpeg',
   quality: 88,
@@ -64,24 +71,89 @@ const schema = getLocalBusinessSchema(Astro.site?.href ?? SITE.url);
 
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..900;1,9..40,100..900&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap"
+      rel="stylesheet"
+    />
+
     <link
       rel="preload"
-      href="/fonts/montserrat-400.woff2"
+      href="/fonts/archivo-400.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href="/fonts/montserrat-700.woff2"
+      href="/fonts/archivo-600.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/archivo-800.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/syne-800.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/gotham/gothamblack-webfont.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/gotham/gothambook-webfont.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link rel="icon" href="/images/favicon.png" />
+    <script is:inline>
+      (function () {
+        try {
+          if (!sessionStorage.getItem('ss-preloader-seen')) {
+            document.documentElement.classList.add('ss-preloader-pending');
+          }
+        } catch (error) {
+          /* ignore */
+        }
+      })();
+    </script>
+    <script is:inline define:vars={{ colorPalettes, defaultPaletteId: DEFAULT_PALETTE_ID }}>
+      (function () {
+        try {
+          var preferredId = localStorage.getItem('ss-color-palette') || defaultPaletteId;
+          var palette = colorPalettes.find(function (item) {
+            return item.id === preferredId;
+          }) || colorPalettes[0];
+          if (!palette) return;
+          var root = document.documentElement;
+          Object.keys(palette.colors).forEach(function (key) {
+            root.style.setProperty(key, palette.colors[key]);
+          });
+          root.setAttribute('data-palette', palette.id);
+        } catch (error) {
+          /* ignore storage errors */
+        }
+      })();
+    </script>
     <slot name="head" />
   </head>
   <body data-menu-preload={JSON.stringify(allMenuImageUrls)}>
+    <GoldForgePreloader />
     <Header activePage={activePage} scrolled={headerScrolled} />
     <MobileMenu activePage={activePage} />
 
@@ -89,13 +161,23 @@ const schema = getLocalBusinessSchema(Astro.site?.href ?? SITE.url);
       <slot />
     </main>
 
-    <Footer />
+    <FooterGsap />
     <EnquiryModal />
     <VideoModal />
+    <ColorPaletteSelector />
+    <ContactActionConfirm />
 
     <script src="/vendor/jquery.min.js" defer></script>
     <script src="/vendor/swiper-bundle.min.js" defer></script>
     <script src="/js/lib.js" defer></script>
+    <script src="/js/header.js" defer></script>
+    <script src="/js/header-contact-menu.js" defer></script>
+    <script src="/js/contact-action-confirm.js" defer></script>
+    <script src="/vendor/gsap.min.js" defer></script>
+    <script src="/vendor/ScrollTrigger.min.js" defer></script>
+    <script src="/vendor/SplitText.min.js" defer></script>
+    <script src="/js/footer-gsap.js" defer></script>
     <script src="/js/main.js" defer></script>
+    <script src="/js/scroll-motion.js" defer></script>
   </body>
 </html>

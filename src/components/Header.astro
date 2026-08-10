@@ -1,228 +1,229 @@
 ---
-
 import Icon from './Icon.astro';
-
-export type NavPage = 'home' | 'services' | 'portfolio' | 'library' | 'enquire';
-
-
-
-import ResponsiveImage from './ResponsiveImage.astro';
-
-import { logoImages } from '../data/images';
-
-import { megaMenuServices } from '../data/navigation';
-
-import { designLibraryGuides, getGuideHref } from '../data/designLibrary';
-
-import {
-
-  getInteriorMenuImage,
-
-  getLibraryMenuImage,
-
-  MENU_IMAGE_DISPLAY_HEIGHT,
-
-  MENU_IMAGE_DISPLAY_WIDTH,
-
-} from '../data/menuImages';
-
+import MenuIcon from './MenuIcon.astro';
+import HeaderActions from './HeaderActions.astro';
+import SegmentMegaMenu from './SegmentMegaMenu.astro';
+import SiteLogo from './SiteLogo.astro';
+import { isNavPanelActive, mainNavPanels } from '../data/mainNav';
+import { isSegmentMegaMenuId, segmentMegaMenus } from '../data/segmentMegaMenus';
+import { MEGA_MENU_HOVER_ARROW } from '../data/headerMenuIcons';
 import { SITE } from '../data/site';
 
-
+export type NavPage =
+  | 'home-interiors'
+  | 'commercial'
+  | 'institutional'
+  | 'hospitality'
+  | 'studio'
+  | 'portfolio'
+  | 'library'
+  | 'enquire'
+  | 'services-residential'
+  | 'services-commercial'
+  | 'services-institutional'
+  | 'services-hospitality'
+  /** @deprecated use segment-specific keys above */
+  | 'home'
+  | 'services';
 
 interface Props {
-
   activePage?: NavPage;
-
   scrolled?: boolean;
-
 }
-
-
 
 const { activePage = 'home', scrolled = false } = Astro.props;
 
-
-
 const primaryPhone = SITE.phones[0];
+const whatsappHref = `https://wa.me/${primaryPhone.replace('+', '')}`;
 
-const phoneDisplay = '+91 63645 64563';
-
+const resolvedActive = activePage === 'services' ? 'home-interiors' : activePage;
 ---
 
-
-
 <header class:list={['site-header', { scrolled }]}>
-
   <div class="container header-inner">
-
-    <a href="/" class="logo">
-
-      <ResponsiveImage src={logoImages.header} alt="Space Solutions" preset="logo" />
-
-    </a>
-
-
+    <SiteLogo class="logo" />
 
     <nav class="header-nav" aria-label="Main navigation">
-
       <ul class="main-nav">
-
-        <li class:list={[{ active: activePage === 'home' }]}>
-
-          <a href="/#studio">Studio</a>
-
+        {
+          mainNavPanels.map((panel) => (
+            <li
+              class:list={['has-mega-menu', { active: isNavPanelActive(panel.id, resolvedActive) }]}
+              data-menu-panel={panel.id}
+            >
+              <a
+                href={panel.hubHref}
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="global-nav-popover"
+          >
+                {panel.label}
+          </a>
         </li>
-
-        <li class:list={['has-mega-menu', { active: activePage === 'services' }]}>
-
-          <a href="#">Interiors</a>
-
-          <div class="mega-menu">
-
-            {megaMenuServices.map((service) => (
-
-              <a href={service.href} class="mega-menu-item">
-
-                <img
-
-                  src={getInteriorMenuImage(service.href)}
-
-                  alt=""
-
-                  width={MENU_IMAGE_DISPLAY_WIDTH}
-
-                  height={MENU_IMAGE_DISPLAY_HEIGHT}
-
-                  loading="lazy"
-
-                  decoding="async"
-
-                />
-
-                <span class="mega-menu-copy">
-
-                  <strong>{service.title}</strong>
-
-                  <span>{service.description}</span>
-
-                </span>
-
-                <Icon name="arrow-right" class="mega-menu-arrow" />
-
-              </a>
-
-            ))}
-
-          </div>
-
-        </li>
-
-        <li class:list={[{ active: activePage === 'portfolio' }]}>
-
-          <a href="/portfolio">Projects</a>
-
-        </li>
-
-        <li class:list={['has-mega-menu', { active: activePage === 'library' }]}>
-
-          <a href="/design-library">Design Library</a>
-
-          <div class="mega-menu mega-menu-library">
-
-            {designLibraryGuides.map((guide) => (
-
-              <a href={getGuideHref(guide.slug)} class="mega-menu-item">
-
-                <img
-
-                  src={getLibraryMenuImage(guide.slug)}
-
-                  alt=""
-
-                  width={MENU_IMAGE_DISPLAY_WIDTH}
-
-                  height={MENU_IMAGE_DISPLAY_HEIGHT}
-
-                  loading="lazy"
-
-                  decoding="async"
-
-                />
-
-                <span class="mega-menu-copy">
-
-                  <strong>{guide.menuTitle}</strong>
-
-                  <span>{guide.description}</span>
-
-                </span>
-
-                <Icon name="arrow-right" class="mega-menu-arrow" />
-
-              </a>
-
-            ))}
-
-          </div>
-
-        </li>
-
-        <li class:list={[{ active: activePage === 'enquire' }]}>
-
-          <a href="/contact">Enquire</a>
-
-        </li>
-
+          ))
+        }
       </ul>
 
+      <div id="global-nav-popover" class="global-nav-popover" aria-hidden="true">
+        <div class="global-nav-popover-bridge" aria-hidden="true"></div>
+        <div class="global-nav-popover-shell">
+          <div class="global-nav-popover-surface">
+            <div class="global-nav-popover-body">
+            {
+              mainNavPanels.map((panel) => (
+                <div
+                  class:list={[
+                    'global-nav-panel',
+                    { 'global-nav-panel--segment': isSegmentMegaMenuId(panel.id) },
+                  ]}
+                  data-menu-panel={panel.id}
+                  data-panel-width={panel.width}
+              role="region"
+                  aria-label={panel.label}
+                >
+                  <a href={panel.featured.href} class="mega-menu-featured">
+                    <span class="mega-menu-featured-icon">
+                      <MenuIcon name={panel.featured.icon} />
+                    </span>
+                    <span class="mega-menu-featured-copy">
+                      <span class="mega-menu-link-copy">
+                        <strong class="mega-menu-link-label">{panel.featured.title}</strong>
+                        <span class="mega-menu-link-arrow" aria-hidden="true">
+                          <MenuIcon name={MEGA_MENU_HOVER_ARROW} />
+                        </span>
+                      </span>
+                      <span>{panel.featured.description}</span>
+                    </span>
+                  </a>
+
+                  {
+                    isSegmentMegaMenuId(panel.id) ? (
+                      <SegmentMegaMenu
+                        menu={segmentMegaMenus[panel.id]}
+                        toolsBand={panel.toolsBand}
+                        footerBand={panel.footerBand!}
+                      />
+                    ) : (
+                      <>
+                        <div class="mega-menu-home-body">
+                          <div
+                            class:list={[
+                              'mega-menu-home-spotlight',
+                              { 'mega-menu-home-spotlight--studio': panel.id === 'studio' },
+                            ]}
+                          >
+                            {
+                              panel.sections.map((section) => (
+                                <div class="mega-menu-home-spotlight-col">
+                                  <p class="mega-menu-section-heading">{section.heading}</p>
+                                  <ul class="mega-menu-room-list">
+                                    {
+                                      section.items.map((item) => (
+                                        <li>
+                                          <a
+                                            href={item.href}
+                                            class="mega-menu-link mega-menu-room-list-link"
+                                            data-open-modal={item.modal}
+                                          >
+                                            <span class="mega-menu-link-icon">
+                                              <MenuIcon name={item.icon} />
+                                            </span>
+                                            <span class="mega-menu-link-copy">
+                                              <span class="mega-menu-link-label">{item.label}</span>
+                                              <span class="mega-menu-link-arrow" aria-hidden="true">
+                                                <MenuIcon name={MEGA_MENU_HOVER_ARROW} />
+                                              </span>
+                                            </span>
+                                          </a>
+                                        </li>
+                                      ))
+                                    }
+                                  </ul>
+                                </div>
+                              ))
+                            }
+
+                            {
+                              (panel.toolsBand?.items.length || panel.footerBand?.items.length) && (
+                                <div class="mega-menu-home-spotlight-col mega-menu-home-spotlight-col--guides">
+                                  <div class="mega-menu-spotlight-block">
+                                    {
+                                      panel.toolsBand && panel.toolsBand.items.length > 0 && (
+                                        <>
+                                          <p class="mega-menu-section-heading">{panel.toolsBand.heading}</p>
+                                          <ul class="mega-menu-tools-list">
+                                            {
+                                              panel.toolsBand.items.map((item) => (
+                                                <li>
+                                                  <a href={item.href} class="mega-menu-link" data-open-modal={item.modal}>
+                                                    <span class="mega-menu-link-icon">
+                                                      <MenuIcon name={item.icon} />
+                                                    </span>
+                                                    <span class="mega-menu-link-copy">
+                                                      <span class="mega-menu-link-label">{item.label}</span>
+                                                      <span class="mega-menu-link-arrow" aria-hidden="true">
+                                                        <MenuIcon name={MEGA_MENU_HOVER_ARROW} />
+                                                      </span>
+                                                    </span>
+                                                  </a>
+                                                </li>
+                                              ))
+                                            }
+                                          </ul>
+                                        </>
+                                      )
+                                    }
+                                    {
+                                      panel.footerBand && panel.footerBand.items.length > 0 && (
+                                        <>
+                                          <p class="mega-menu-section-heading">{panel.footerBand.heading}</p>
+                                          <ul class="mega-menu-guides-list">
+                                            {
+                                              panel.footerBand.items.map((item) => (
+                                                <li>
+                                                  <a href={item.href} class="mega-menu-link" data-open-modal={item.modal}>
+                                                    <span class="mega-menu-link-icon">
+                                                      <MenuIcon name={item.icon} />
+                                                    </span>
+                                                    <span class="mega-menu-link-copy">
+                                                      <span class="mega-menu-link-label">{item.label}</span>
+                                                      <span class="mega-menu-link-arrow" aria-hidden="true">
+                                                        <MenuIcon name={MEGA_MENU_HOVER_ARROW} />
+                                                      </span>
+                                                    </span>
+                                                  </a>
+                                                </li>
+                                              ))
+                                            }
+                                          </ul>
+                                        </>
+                                      )
+                                    }
+                                  </div>
+                                </div>
+                              )
+                            }
+                          </div>
+                        </div>
+                      </>
+                    )
+                  }
+            </div>
+              ))
+            }
+          </div>
+        </div>
+        </div>
+      </div>
     </nav>
 
-
-
-    <div class="header-actions">
-
-      <a href={`tel:${primaryPhone}`} class="header-phone" aria-label={`Call ${phoneDisplay}`}>
-        <span class="header-phone-icon">
-          <Icon name="phone" />
-        </span>
-        <span class="header-phone-copy">
-          <small>Call us</small>
-          {phoneDisplay}
-        </span>
-      </a>
-
-      <a
-
-        href={`https://wa.me/${primaryPhone.replace('+', '')}`}
-
-        class="header-whatsapp"
-
-        target="_blank"
-
-        rel="noopener"
-
-        aria-label="WhatsApp us"
-
-      >
-
-        <Icon name="whatsapp" />
-
-      </a>
-
-      <a href="#" class="btn header-btn header-btn-quote" data-open-modal="enquiry">Get Quote</a>
-
-    </div>
-
-
+    <HeaderActions
+      primaryPhone={primaryPhone}
+      whatsappHref={whatsappHref}
+    />
 
     <button class="menu-toggle" type="button" aria-label="Open menu">
-
       <Icon name="bars" />
-
     </button>
-
   </div>
-
 </header>
-

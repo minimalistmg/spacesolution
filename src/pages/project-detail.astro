@@ -1,99 +1,74 @@
 ---
-import Icon from '../components/Icon.astro';
+/**
+ * Legacy URL kept for old bookmarks and homepage gallery links.
+ * Serves a proper projects gateway (not an empty redirect stub).
+ */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
-import ResponsiveImage from '../components/ResponsiveImage.astro';
-import VideoCard from '../components/VideoCard.astro';
-import { heroImages } from '../data/images';
+import CtaSection from '../components/CtaSection.astro';
+import ImageGallery from '../components/ImageGallery.astro';
+import DummyVideoBlock from '../components/DummyVideoBlock.astro';
+import { projects } from '../data/projects';
+import { heroImages, roomImages, projectImages } from '../data/images';
+
+const featured = projects.slice(0, 6);
 ---
 
 <BaseLayout
-  title="Project Detail | Space Solutions"
-  description="View project details from Space Solutions — residential and commercial interior design in Karnataka."
-  activePage="portfolio"
+  title="Project Details & Case Studies | Space Solutions Mysuru"
+  description="Browse Space Solutions project case studies — residential, commercial, hospitality, and wellness interiors delivered across Mysuru and Karnataka."
+  activePage="studio"
   headerScrolled={false}
 >
   <PageHero
-    breadcrumb={'<a href="/">Home</a> <span class="breadcrumb-sep">/</span> <a href="/portfolio">Portfolio</a> <span class="breadcrumb-sep">/</span> Project Detail'}
-    title="Project Detail"
-    description="Explore project scope, visuals, and delivery details from our portfolio."
+    breadcrumb={'<a href="/">Home</a> <span class="breadcrumb-sep">/</span> Project detail'}
+    title="Project case studies"
+    description="Explore completed interiors, then open any project for scope, timeline, and gallery detail."
+    image={heroImages.residential}
   />
 
   <section class="page-content">
-    <div class="container">
-      <div class="project-detail-hero fade-up">
-        <ResponsiveImage
-          src={heroImages.bedroom}
-          alt="Residential interior project"
-          preset="content"
-        />
-      </div>
-
-      <div class="project-detail-grid">
-        <div class="project-detail-main fade-up">
-          <h2>Project Info</h2>
-          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-
-          <div class="project-video-section">
-            <h3>Watch Video</h3>
-            <VideoCard
-              class="project-video-thumb"
-              youtubeId="bt9uVqRqT_c"
-              title="Project video"
-            />
-          </div>
-
-          <div class="project-description">
-            <h3>Project Description</h3>
-            <p>I feel calm and happy in this place, like beautiful spring mornings. Alone, but enjoying the existence here that feels designed for happiness like mine. Truly happy, lulled by the tranquil presence, that I forget about my talents. Right now, I am unable to do anything.</p>
-            <ul class="feature-list">
-              <li>Small river named Duden flows by their place</li>
-              <li>The Big Oxmox advised her not to do so</li>
-              <li>Question Marks and devious Semikoli</li>
-            </ul>
-          </div>
-
-          <div class="project-share fade-up">
-            <h3>Share to Social Media Now!</h3>
-            <p>Elevate your voice and expand your reach by sharing engaging content across diverse social media networks.</p>
-            <div class="share-links">
-              <a href="https://www.facebook.com/sharer/sharer.php?u=https://spacesolution.in" target="_blank" rel="noopener" aria-label="Share on Facebook"><Icon name="facebook" /></a>
-              <a href="https://www.instagram.com/spacesolutions.mys" target="_blank" rel="noopener" aria-label="Instagram"><Icon name="instagram" /></a>
-              <a href="https://wa.me/?text=Check%20out%20this%20project%20from%20Space%20Solutions" target="_blank" rel="noopener" aria-label="Share on WhatsApp"><Icon name="whatsapp" /></a>
-            </div>
-          </div>
-        </div>
-
-        <aside class="project-meta fade-up">
-          <h3>Project Details</h3>
-          <div class="project-meta-list">
-            <div class="project-meta-item">
-              <h6>Client</h6>
-              <p>Claudia Alves</p>
-            </div>
-            <div class="project-meta-item">
-              <h6>Location</h6>
-              <p>Seminyak, Kuta</p>
-            </div>
-            <div class="project-meta-item">
-              <h6>Project Year</h6>
-              <p>2020</p>
-            </div>
-            <div class="project-meta-item">
-              <h6>Price Value</h6>
-              <p>$250,000</p>
-            </div>
-            <div class="project-meta-item">
-              <h6>Surface Area</h6>
-              <p>400,000 m²</p>
-            </div>
-            <div class="project-meta-item">
-              <h6>Project Head</h6>
-              <p>Maximus Holden</p>
-            </div>
-          </div>
-        </aside>
-      </div>
+    <div class="container content-prose">
+      <p class="section-label fade-up">Portfolio gateway</p>
+      <h2 class="section-title fade-up">Every project, one clear story</h2>
+      <p class="content-body fade-up">
+        This page replaces an older project-detail URL. Choose a case study below, or visit the full
+        filterable portfolio for residential, commercial, hospitality, and wellness work.
+      </p>
+      <p class="fade-up" style="margin-top: 24px;">
+        <a href="/portfolio" class="btn btn-gold-filled">View full portfolio</a>
+      </p>
     </div>
   </section>
+
+  <section class="page-content section-compact-top">
+    <div class="container">
+      <h2 class="section-heading-lg fade-up">Featured projects</h2>
+      <ul class="service-related-links fade-up">
+        {
+          featured.map((project) => (
+            <li>
+              <a href={project.href}>
+                {project.title} — {project.location}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <ImageGallery
+    title="Spaces we deliver"
+    description="Homes, workplaces, clinics, cafés, and hospitality interiors — photographed in a light, practical palette."
+    items={[
+      { src: projectImages.apartment, alt: 'Residential living interior', caption: 'Residential' },
+      { src: roomImages.office, alt: 'Office workspace', caption: 'Commercial' },
+      { src: roomImages.cafe, alt: 'Café dining interior', caption: 'Hospitality' },
+      { src: roomImages.clinic, alt: 'Clinic reception', caption: 'Healthcare' },
+    ]}
+  />
+
+  <DummyVideoBlock />
+  <CtaSection />
 </BaseLayout>

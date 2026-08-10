@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Space Solution — Ribbon Draw Reveal</title>
+    <link rel="preload" href="../brand/icon-source.png" as="image" />
+    <link rel="stylesheet" href="../assets/fonts/gotham/gotham.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="hr-intro" data-hr-intro></div>
+
+    <header class="hr-header" data-hr-header>
+      <div class="hr-header-inner">
+        <div class="hr-logo-slot" data-hr-logo-slot></div>
+        <nav class="hr-nav" data-hr-nav>
+          <a href="#">About</a><a href="#">Services</a><a href="#">Projects</a><a href="#">Gallery</a><a href="#">Contact</a>
+        </nav>
+        <div class="hr-header-actions" data-hr-actions>
+          <a class="hr-phone" href="tel:+916364564563">+91 63645 64563</a>
+          <a class="btn btn-gold" href="#">Get Quote</a>
+        </div>
+      </div>
+      <div class="hr-header-line" data-hr-header-line></div>
+    </header>
+
+    <main>
+      <section class="hr-hero" data-hr-hero>
+        <div class="hr-media" data-hr-media>
+          <img src="../src/assets/images/hero/kitchen-1.jpeg" alt="" />
+          <div class="hr-media-shade"></div>
+        </div>
+
+        <div class="hr-stage" data-hr-stage>
+          <div class="hr-lockup hr-lockup--vertical" data-hr-lockup>
+            <svg class="hr-mark" viewBox="0 0 564 630" aria-hidden="true">
+              <defs>
+                <pattern id="hrGoldPattern" patternUnits="userSpaceOnUse" width="564" height="630">
+                  <image href="../brand/icon-source.png" width="564" height="630" />
+                </pattern>
+              </defs>
+              <path class="hr-fill" data-hr-fill fill="url(#hrGoldPattern)" opacity="0"
+                d="M69 30 L75 62 L87 92 L123 149 L168 194 L228 233 L331 281 L373 309 L392 328 L414 366 L420 390 L420 425 L404 463 L377 489 L353 501 L316 509 L295 509 L243 501 L182 483 L111 480 L78 491 L51 516 L33 546 L32 557 L90 542 L158 545 L218 560 L285 584 L345 599 L381 602 L419 599 L458 587 L488 566 L530 518 L548 479 L557 431 L554 363 L536 312 L509 270 L494 252 L452 216 L408 192 L365 177 L276 156 L190 122 L136 90 Z" />
+              <g fill="none" stroke="#a57e35" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                <path data-hr-stroke-up d="M69 30 C104 36 148 74 188 112 C214 138 236 162 246 182" />
+                <path data-hr-stroke-lo d="M69 32 C102 82 158 136 228 182 C328 252 408 322 468 388 C504 428 498 472 448 508 C360 562 210 518 105 492 C62 482 42 518 33 556" />
+              </g>
+            </svg>
+            <div class="hr-wordmark" data-hr-wordmark>
+              <span class="hr-space">space</span>
+              <span class="hr-solution">SOLUTION</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hr-body">
+          <div class="hr-copy" data-hr-copy>
+            <p class="hr-eyebrow" data-hr-eyebrow>Modular · Turnkey · Karnataka</p>
+            <h1 class="hr-title" data-hr-title>Crafted interiors,<br />built to endure.</h1>
+            <p class="hr-lead" data-hr-lead>Design, manufacturing and installation under one roof — from Mysuru to every corner of Karnataka.</p>
+            <div class="hr-cta" data-hr-cta>
+              <a class="btn btn-gold" href="#">Start a Project</a>
+              <a class="btn btn-outline" href="#">View Portfolio</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="hr-below">
+        <p class="hr-below-label">Variant 01 — Ribbon Draw</p>
+        <h2>DrawSVG ribbon → Flip header → SplitText hero</h2>
+        <p><a href="../home-horizon/">Variant 02 Horizon →</a> · <a href="../home-atelier/">Variant 03 Atelier →</a></p>
+      </section>
+    </main>
+
+    <button class="hr-skip" type="button" data-hr-skip>Skip</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Flip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/DrawSVGPlugin.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/CustomEase.min.js"></script>
+    <script src="./ribbon.js"></script>
+  </body>
+</html>

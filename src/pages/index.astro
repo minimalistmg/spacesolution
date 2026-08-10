@@ -2,17 +2,16 @@
 import Icon from '../components/Icon.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CtaSection from '../components/CtaSection.astro';
+import HomeHero from '../components/HomeHero.astro';
+import PortfolioFilmstrip from '../components/PortfolioFilmstrip.astro';
 import ResponsiveImage from '../components/ResponsiveImage.astro';
+import AmbientCanvas from '../components/AmbientCanvas.astro';
+import DummyVideoBlock from '../components/DummyVideoBlock.astro';
+import InspireBento from '../components/InspireBento.astro';
+import GalleryCard from '../components/GalleryCard.astro';
 import { getImage } from 'astro:assets';
-import { heroImages, projectImages } from '../data/images';
+import { projectImages, roomImages, studioImages } from '../data/images';
 import { galleryFilters, homeGalleryItems, homeServices } from '../data/home';
-
-const heroPreload = await getImage({
-  src: heroImages.kitchen1,
-  width: 1440,
-  format: 'avif',
-  quality: 88,
-});
 
 const serviceHoverUrls = Object.fromEntries(
   await Promise.all(
@@ -35,61 +34,16 @@ const serviceHoverUrls = Object.fromEntries(
   activePage="home"
   headerScrolled={false}
 >
-  <link
-    slot="head"
-    rel="preload"
-    as="image"
-    href={heroPreload.src}
-    type="image/avif"
-    fetchpriority="high"
-  />
-
-  <!-- Hero -->
-  <section class="hero">
-    <div class="swiper hero-swiper">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <div class="hero-slide-bg">
-            <ResponsiveImage src={heroImages.kitchen1} alt="" preset="hero" />
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="hero-slide-bg">
-            <ResponsiveImage src={heroImages.bedroom} alt="" preset="hero" />
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="hero-slide-bg">
-            <ResponsiveImage src={heroImages.kitchen2} alt="" preset="hero" />
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="hero-content">
-      <div class="container hero-grid">
-        <div class="hero-text fade-up">
-          <p class="section-label">Welcome To Space Solutions</p>
-          <h1>Interiors Designed to Work.<br>Built to Last.</h1>
-          <p>Modular furniture and interior solutions backed by 15+ years of experience, 800+ completed projects, and in-house manufacturing.</p>
-          <a href="/portfolio" class="btn btn-outline-white">View Portfolio</a>
-        </div>
-        <div class="video-btn-wrap fade-up">
-          <button class="video-btn hero-video-btn" aria-label="Play video">
-            <Icon name="play" />
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
+  <HomeHero />
 
   <!-- Studio -->
   <section class="about" id="studio">
+    <AmbientCanvas />
     <div class="container about-grid">
       <div class="about-image fade-up">
         <ResponsiveImage
-          src={projectImages.modularKitchen}
-          alt="Space Solutions interior project"
+          src={studioImages.craft}
+          alt="Material and finish samples laid out on the Space Solutions studio worktable"
           preset="content"
         />
       </div>
@@ -98,6 +52,7 @@ const serviceHoverUrls = Object.fromEntries(
         <h2 class="section-title">We Don't Just Design.<br>We Deliver Complete Interiors.</h2>
         <p>At Space Solutions, every project starts with a clear understanding of how your space needs to function. Since 2011, we've worked with homeowners, businesses, and institutions across Karnataka to create interiors that are practical, durable, and well-finished.</p>
         <p>What makes us different is simple — we handle everything. From design and material selection to manufacturing and installation, every step is managed by our team. That means better quality, controlled timelines, and no guesswork.</p>
+        <p class="about-seo">Looking for interior designers in Mysuru for modular kitchens, full-home interiors, or commercial fit-outs? Our studio combines design clarity with in-house production so residential and commercial projects stay consistent from first measure to final handover across Karnataka.</p>
         <a href="#" class="btn btn-gold-filled" data-open-modal="enquiry">Get In Touch</a>
       </div>
     </div>
@@ -142,6 +97,15 @@ const serviceHoverUrls = Object.fromEntries(
         <span class="projects-watermark">Portfolio</span>
       </div>
 
+      <PortfolioFilmstrip items={homeGalleryItems} />
+
+      <InspireBento
+        heroImage={projectImages.villa}
+        ctaImage={roomImages.modularKitchen}
+        heroHref="/projects/heritage-home"
+        ctaHref="/portfolio"
+      />
+
       <div class="portfolio-filters fade-up">
         {galleryFilters.map((filter, index) => (
           <button class:list={[{ active: index === 0 }]} data-filter={filter.id}>
@@ -150,17 +114,16 @@ const serviceHoverUrls = Object.fromEntries(
         ))}
       </div>
 
-      <div class="portfolio-grid">
+      <div class="portfolio-grid portfolio-grid--masonry">
         {homeGalleryItems.map((item) => (
-          <div class="portfolio-item fade-up" data-category={item.category}>
-            <a href={item.href}>
-              <ResponsiveImage src={item.image} alt={item.title} preset="grid" />
-              <div class="portfolio-overlay">
-                <span>{item.label}</span>
-                <h4>{item.title}</h4>
-              </div>
-            </a>
-          </div>
+          <GalleryCard
+            class="fade-up"
+            href={item.href}
+            title={item.title}
+            label={item.label}
+            image={item.image}
+            category={item.category}
+          />
         ))}
       </div>
     </div>
@@ -299,6 +262,8 @@ const serviceHoverUrls = Object.fromEntries(
       </div>
     </div>
   </section>
+
+  <DummyVideoBlock />
 
   <!-- CTA -->
   <CtaSection />

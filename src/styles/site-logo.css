@@ -1,0 +1,21 @@
+@import './brand-lockup.css';
+
+/* Header / menu — same lockup as preloader, smaller scale */
+.site-logo.brand-lockup {
+  --brand-icon-width: 54px;
+  --brand-space-size: clamp(24px, 2.2vw, 30px);
+  --brand-solution-size: calc(var(--brand-space-size) * 0.225);
+  text-decoration: none;
+  color: inherit;
+  flex-shrink: 0;
+}
+
+.site-logo .brand-icon-svg {
+  filter: drop-shadow(0 2px 4px rgba(114, 90, 41, 0.16));
+}
+
+@media (max-width: 1023px) {
+  .site-logo.brand-lockup {
+    --brand-icon-width: 48px;
+  }
+}

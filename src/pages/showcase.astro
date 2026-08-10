@@ -1,0 +1,170 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import {
+  showcaseLogos,
+  showcasePosts,
+  showcaseProcess,
+  showcaseServices,
+  showcaseStats,
+} from '../data/showcase';
+import '../styles/showcase.css';
+---
+
+<BaseLayout
+  title="Showcase | Space Solutions"
+  description="An interactive look at Space Solutions — interiors designed to work and built to last across Mysuru and Karnataka."
+  activePage="portfolio"
+  headerScrolled={false}
+>
+  <div class="desint" data-showcase>
+    <!-- Hero -->
+    <section class="desint-hero" data-section="hero">
+      <div class="desint-container desint-hero-grid">
+        <div class="desint-hero-copy">
+          <p class="desint-eyebrow desint-reveal">Interior studio</p>
+          <h1 class="desint-hero-title">
+            <span class="desint-line"><span>Spaces</span></span>
+            <span class="desint-line"><span>designed to</span></span>
+            <span class="desint-line"><span>work &amp; last</span></span>
+          </h1>
+          <p class="desint-hero-text desint-reveal">
+            Modular furniture and turnkey interiors backed by 15+ years of experience, in-house manufacturing, and 800+ completed projects across Karnataka.
+          </p>
+          <div class="desint-hero-actions desint-reveal">
+            <a href="/contact" class="desint-btn desint-btn-primary">Start a project</a>
+            <a href="/portfolio" class="desint-btn desint-btn-ghost">View portfolio</a>
+          </div>
+        </div>
+        <div class="desint-hero-media desint-reveal">
+          <img src="/images/showcase/hero-img.jpg" alt="Contemporary interior by Space Solutions" width="900" height="1100" />
+        </div>
+      </div>
+    </section>
+
+    <!-- About + stats -->
+    <section class="desint-about desint-section" data-section="about">
+      <div class="desint-container">
+        <div class="desint-about-grid">
+          <div class="desint-about-media desint-reveal">
+            <img src="/images/showcase/section-img-3.png" alt="Detailed interior finish" width="720" height="900" loading="lazy" />
+          </div>
+          <div class="desint-about-copy">
+            <p class="desint-eyebrow desint-reveal">Studio</p>
+            <h2 class="desint-title desint-reveal">We don’t just design. We deliver complete interiors.</h2>
+            <p class="desint-body desint-reveal">
+              Every project starts with how your space needs to function. From design and material selection to manufacturing and installation, our team manages the full journey — so quality, cost, and timeline stay clear.
+            </p>
+            <a href="/#studio" class="desint-text-link desint-reveal">About the studio</a>
+          </div>
+        </div>
+
+        <div class="desint-stats" data-stats>
+          {showcaseStats.map((stat) => (
+            <div class="desint-stat desint-reveal">
+              <p class="desint-stat-value">{stat.value}</p>
+              <p class="desint-stat-label">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+
+        <div class="desint-logos desint-reveal" aria-label="Trusted partners">
+          {showcaseLogos.map((logo) => (
+            <img src={logo} alt="" width="120" height="40" loading="lazy" />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section class="desint-services desint-section" data-section="services">
+      <div class="desint-container">
+        <div class="desint-section-head">
+          <p class="desint-eyebrow desint-reveal">Services</p>
+          <h2 class="desint-title desint-reveal">Interior solutions for every requirement</h2>
+        </div>
+      </div>
+
+      <div class="desint-services-rail" data-services-rail>
+        <div class="desint-services-track" data-services-track>
+          {showcaseServices.map((service, index) => (
+            <a class="desint-service-card" href={service.href} data-service-card>
+              <span class="desint-service-index">{String(index + 1).padStart(2, '0')}</span>
+              <div class="desint-service-media">
+                <img src={service.img} alt={service.title} width="640" height="800" loading="lazy" />
+              </div>
+              <h3 class="desint-service-title">{service.title}</h3>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Process -->
+    <section class="desint-process desint-section" data-section="process">
+      <div class="desint-container">
+        <div class="desint-section-head">
+          <p class="desint-eyebrow desint-reveal">Process</p>
+          <h2 class="desint-title desint-reveal">A clear process. No confusion.</h2>
+        </div>
+
+        <div class="desint-process-list">
+          {showcaseProcess.map((item) => (
+            <article class="desint-process-item desint-reveal" data-process-item>
+              <p class="desint-process-step">{item.step}</p>
+              <h3 class="desint-process-title">{item.title}</h3>
+              <p class="desint-body">{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog / library -->
+    <section class="desint-blog desint-section" data-section="blog">
+      <div class="desint-container">
+        <div class="desint-section-head desint-section-head-row">
+          <div>
+            <p class="desint-eyebrow desint-reveal">Insights</p>
+            <h2 class="desint-title desint-reveal">From the design library</h2>
+          </div>
+          <a href="/design-library" class="desint-text-link desint-reveal">View all guides</a>
+        </div>
+
+        <div class="desint-blog-grid">
+          {showcasePosts.map((post) => (
+            <a class="desint-blog-card desint-reveal" href={post.href}>
+              <div class="desint-blog-media">
+                <img src={post.img} alt="" width="640" height="420" loading="lazy" />
+              </div>
+              <p class="desint-blog-date">{post.date}</p>
+              <h3 class="desint-blog-title">{post.title}</h3>
+              <p class="desint-body">{post.text}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="desint-cta" data-section="cta">
+      <div class="desint-cta-media" aria-hidden="true">
+        <img src="/images/showcase/cta-img.png" alt="" width="1600" height="900" loading="lazy" />
+      </div>
+      <div class="desint-cta-overlay" aria-hidden="true"></div>
+      <div class="desint-container desint-cta-content">
+        <p class="desint-eyebrow desint-reveal">Get started</p>
+        <h2 class="desint-cta-title desint-reveal">Have a space to design?</h2>
+        <p class="desint-cta-text desint-reveal">
+          Speak with our team and get a clear plan for your interiors — design, cost, and timeline.
+        </p>
+        <a href="/contact" class="desint-btn desint-btn-primary desint-reveal">Request a quote</a>
+      </div>
+    </section>
+  </div>
+
+  <script src="/vendor/gsap.min.js" defer></script>
+  <script src="/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="/vendor/SplitText.min.js" defer></script>
+  <script src="/vendor/lenis.min.js" defer></script>
+  <script src="/js/showcase.js" defer></script>
+</BaseLayout>

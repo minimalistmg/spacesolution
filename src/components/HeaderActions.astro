@@ -1,0 +1,15 @@
+---
+import HeaderContactMenu from './HeaderContactMenu.astro';
+
+interface Props {
+  primaryPhone: string;
+  whatsappHref: string;
+}
+
+const { primaryPhone, whatsappHref } = Astro.props;
+---
+
+<HeaderContactMenu
+  primaryPhone={primaryPhone}
+  whatsappHref={whatsappHref}
+/>

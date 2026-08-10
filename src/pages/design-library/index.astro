@@ -3,6 +3,8 @@ import Icon from '../../components/Icon.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import CtaSection from '../../components/CtaSection.astro';
+import DummyVideoBlock from '../../components/DummyVideoBlock.astro';
+import FaqSection from '../../components/FaqSection.astro';
 import { getImage } from 'astro:assets';
 import {
   designLibraryGuides,
@@ -110,6 +112,33 @@ const featuredImage = await getImage({
       </div>
     </div>
   </section>
+
+  <FaqSection
+    items={[
+      {
+        question: 'Who are these design guides for?',
+        answer:
+          'Homeowners, business owners, and project managers planning interiors in Mysuru and Karnataka who want clear decisions before drawings begin.',
+      },
+      {
+        question: 'Do the guides replace a design consultation?',
+        answer:
+          'No. They prepare you with better questions. A Space Solutions consultation still covers measure, budget, materials, and timeline for your site.',
+      },
+      {
+        question: 'Can I share a guide with my architect or contractor?',
+        answer:
+          'Yes. Each guide is written to travel well — use it as a shared checklist so the whole team stays aligned on scope and finishes.',
+      },
+    ]}
+    title="About the design library"
+    description="Short answers before you dig into a guide."
+  />
+
+  <DummyVideoBlock
+    title="Guides that lead to real builds"
+    description="Read a guide, then see how Space Solutions turns planning into factory-made furniture and finished rooms."
+  />
 
   <CtaSection />
 </BaseLayout>

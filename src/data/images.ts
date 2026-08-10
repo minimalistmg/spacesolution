@@ -10,17 +10,75 @@ import youtubeBt9uVqRqT_c from '../assets/images/youtube/bt9uVqRqT_c.jpg';
 import youtubePPfFXoK4Dso from '../assets/images/youtube/PPfFXoK4Dso.jpg';
 import youtube86CQ7rvVkmQ from '../assets/images/youtube/86CQ7rvVkmQ.jpg';
 
+import heroResidential from '../assets/images/hero/hero-residential.jpg';
+import heroCommercial from '../assets/images/hero/hero-commercial.jpg';
+import heroInstitutional from '../assets/images/hero/hero-institutional.jpg';
+import heroHospitality from '../assets/images/hero/hero-hospitality.jpg';
+import ctaBanner from '../assets/images/hero/cta-banner.jpg';
+
+import livingDining from '../assets/images/rooms/living-dining.jpg';
+import modularKitchenLight from '../assets/images/rooms/modular-kitchen-light.jpg';
+import bedroomSuite from '../assets/images/rooms/bedroom-suite.jpg';
+import officeWorkspace from '../assets/images/rooms/office-workspace.jpg';
+import retailShowroom from '../assets/images/rooms/retail-showroom.jpg';
+import clinicHealthcare from '../assets/images/rooms/clinic-healthcare.jpg';
+import classroomFurniture from '../assets/images/rooms/classroom-furniture.jpg';
+import hostelFurniture from '../assets/images/rooms/hostel-furniture.jpg';
+import cafeRestaurant from '../assets/images/rooms/cafe-restaurant.jpg';
+import hotelLobby from '../assets/images/rooms/hotel-lobby.jpg';
+import salonWellness from '../assets/images/rooms/salon-wellness.jpg';
+import poojaRoom from '../assets/images/rooms/pooja-room.jpg';
+import libraryLab from '../assets/images/rooms/library-lab.jpg';
+import barLounge from '../assets/images/rooms/bar-lounge.jpg';
+import fullHome from '../assets/images/rooms/full-home.jpg';
+
+import studioCraft from '../assets/images/studio/studio-craft.jpg';
+import projectApartment from '../assets/images/projects/project-apartment.jpg';
+import projectVilla from '../assets/images/projects/project-villa.jpg';
+import projectCoworking from '../assets/images/projects/project-coworking.jpg';
+
 export const heroImages = {
   kitchen1,
   bedroom,
   kitchen2,
+  residential: heroResidential,
+  commercial: heroCommercial,
+  institutional: heroInstitutional,
+  hospitality: heroHospitality,
+  cta: ctaBanner,
 };
 
-export const pageHeroImage = kitchen1;
+export const pageHeroImage = heroResidential;
+
+/** Room-level photography, keyed to the service page each one belongs to. */
+export const roomImages = {
+  livingDining,
+  modularKitchen: modularKitchenLight,
+  bedroom: bedroomSuite,
+  office: officeWorkspace,
+  retail: retailShowroom,
+  clinic: clinicHealthcare,
+  classroom: classroomFurniture,
+  hostel: hostelFurniture,
+  cafe: cafeRestaurant,
+  hotel: hotelLobby,
+  salon: salonWellness,
+  pooja: poojaRoom,
+  libraryLab,
+  bar: barLounge,
+  fullHome,
+};
 
 export const projectImages = {
   modularKitchen,
   homeInterior3,
+  apartment: projectApartment,
+  villa: projectVilla,
+  coworking: projectCoworking,
+};
+
+export const studioImages = {
+  craft: studioCraft,
 };
 
 export const logoImages = {

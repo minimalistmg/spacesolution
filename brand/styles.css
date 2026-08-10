@@ -1,0 +1,163 @@
+/* Brand — catalogue lockup (icon + space / SOLUTION) */
+/* Sunshine palette — sampled from brand colour sheet */
+
+:root {
+  /* Col 1 — primary gold */
+  --gold-primary: #efc824;
+  --gold-secondary: #a49035;
+  /* Col 2 — deep gold */
+  --gold-deep: #a37a2b;
+  --gold-shadow: #725a29;
+  /* Col 3 — neutral gray */
+  --gray: #59504b;
+  --gray-dark: #3b3433;
+  /* Col 4 — espresso (wordmark ink) */
+  --ink: #543727;
+  --ink-dark: #332015;
+  /* Col 5 / paper */
+  --paper: #ffffff;
+  --surface: #f7f7f7;
+  --font-brand: 'Gotham', 'Avenir Next', system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100svh;
+  font-family: var(--font-brand);
+  background: var(--paper);
+  color: var(--ink);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.svg-preload {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.brand-stage {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  background: var(--paper);
+}
+
+/* Icon left, wordmark right — tight catalogue gap */
+.brand-lockup {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: clamp(4px, 0.55vw, 8px);
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.brand-lockup.is-ready {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.6s ease,
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.brand-icon-wrap {
+  flex-shrink: 0;
+  width: clamp(86px, 13.5vw, 122px);
+  line-height: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+.brand-icon-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 3px 6px rgba(114, 90, 41, 0.18));
+}
+
+.brand-icon-png {
+  display: none;
+}
+
+/* Hidden centerlines — enable for draw-on debug or GSAP DrawSVG */
+.brand-icon-stroke-guide {
+  opacity: 0;
+  pointer-events: none;
+  stroke-width: 2;
+}
+
+/* SOLUTION right-aligned under “ace”, flush with “e” */
+.brand-wordmark {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: max-content;
+  line-height: 1;
+}
+
+.brand-space {
+  display: block;
+  font-family: var(--font-brand);
+  font-size: clamp(44px, 7.8vw, 80px);
+  font-weight: 800;
+  letter-spacing: -0.048em;
+  line-height: 0.92;
+  color: var(--ink);
+  text-shadow: 0 1px 0 var(--ink-dark);
+}
+
+.brand-solution {
+  display: block;
+  margin-top: 0.22em;
+  font-family: var(--font-brand);
+  font-size: clamp(10px, 1.32vw, 13.5px);
+  font-weight: 400;
+  letter-spacing: 0.32em;
+  margin-right: -0.32em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-shadow: 0 1px 0 var(--ink-dark);
+}
+
+@media (max-width: 520px) {
+  .brand-lockup {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .brand-wordmark {
+    align-items: flex-end;
+  }
+
+  .brand-solution {
+    letter-spacing: 0.28em;
+    margin-right: -0.28em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-lockup {
+    opacity: 1;
+    transform: none;
+  }
+}

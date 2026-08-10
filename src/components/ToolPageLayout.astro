@@ -1,0 +1,233 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from './PageHero.astro';
+import CtaSection from './CtaSection.astro';
+import FaqSection from './FaqSection.astro';
+import DummyVideoBlock from './DummyVideoBlock.astro';
+import type { ToolPage } from '../data/tools';
+import { getToolHero } from '../data/toolHeroes';
+
+interface Props {
+  page: ToolPage;
+}
+
+const { page } = Astro.props;
+const calc = page.calculator;
+const heroImage = getToolHero(page.slug);
+const finishLabels: Record<number, string> = {
+  1: 'Practical',
+  2: 'Balanced',
+  3: 'Premium',
+};
+---
+
+<BaseLayout
+  title={page.seoTitle}
+  description={page.metaDescription}
+  activePage="studio"
+  headerScrolled={false}
+>
+  <PageHero
+    breadcrumb={`<a href="/">Home</a> <span class="breadcrumb-sep">/</span> <a href="/tools">Tools</a> <span class="breadcrumb-sep">/</span> ${page.title}`}
+    title={page.title}
+    description={page.lead}
+    image={heroImage}
+  />
+
+  <section class="page-content tool-page-intro">
+    <div class="container content-prose">
+      <p class="section-label fade-up">{page.eyebrow}</p>
+      <h2 class="section-title fade-up">How this tool helps</h2>
+      {page.body.map((paragraph) => <p class="content-body fade-up">{paragraph}</p>)}
+    </div>
+  </section>
+
+  <section class="tool-calc-section" aria-labelledby="tool-calc-heading">
+    <div class="container">
+      <div
+        class="tool-calc fade-up"
+        id="tool-calc"
+        data-calc-type={calc.type}
+        data-formula={calc.type === 'range-estimate' ? calc.formula : undefined}
+        data-default-days={calc.type === 'countdown' ? String(calc.defaultDays) : undefined}
+      >
+        <div class="tool-calc-header">
+          <p class="section-label">Interactive calculator</p>
+          <h2 class="section-title" id="tool-calc-heading">Try it now</h2>
+          <p class="section-desc">
+            Adjust the inputs for a rough planning figure. Final quotes always follow a site measure
+            and your chosen finishes.
+          </p>
+        </div>
+
+        {
+          calc.type === 'range-estimate' && (
+            <div class="tool-calc-body">
+              <div class="tool-fields">
+                {calc.fields.map((field) => (
+                  <div class="tool-field">
+                    <div class="tool-field-top">
+                      <label for={`tool-field-${field.id}`}>{field.label}</label>
+                      <output class="tool-field-value" data-output-for={field.id} for={`tool-field-${field.id}`}>
+                        {field.prefix}
+                        {field.value}
+                        {field.suffix ? ` ${field.suffix}` : ''}
+                        {(field.id === 'finish' ||
+                          field.id === 'intensity' ||
+                          field.id === 'storage' ||
+                          field.id === 'complexity') &&
+                          ` · ${finishLabels[field.value] ?? ''}`}
+                      </output>
+                    </div>
+                    <input
+                      type="range"
+                      id={`tool-field-${field.id}`}
+                      name={field.id}
+                      data-field-id={field.id}
+                      min={field.min}
+                      max={field.max}
+                      step={field.step}
+                      value={field.value}
+                      data-prefix={field.prefix ?? ''}
+                      data-suffix={field.suffix ?? ''}
+                      data-banded={
+                        field.id === 'finish' ||
+                        field.id === 'intensity' ||
+                        field.id === 'storage' ||
+                        field.id === 'complexity'
+                          ? 'true'
+                          : 'false'
+                      }
+                    />
+                    <div class="tool-field-scale" aria-hidden="true">
+                      <span>
+                        {field.prefix}
+                        {field.min}
+                        {field.suffix ? ` ${field.suffix}` : ''}
+                      </span>
+                      <span>
+                        {field.prefix}
+                        {field.max}
+                        {field.suffix ? ` ${field.suffix}` : ''}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div class="tool-result" id="tool-result" aria-live="polite">
+                <p class="tool-result-label">Indicative estimate</p>
+                <p class="tool-result-value" id="tool-result-value">—</p>
+                <p class="tool-result-note" id="tool-result-note"></p>
+              </div>
+            </div>
+          )
+        }
+
+        {
+          calc.type === 'layout-picker' && (
+            <div class="tool-calc-body">
+              <div class="tool-options" role="listbox" aria-label="Kitchen layout options">
+                {calc.options.map((option, index) => (
+                  <button
+                    type="button"
+                    class:list={['tool-option', { 'is-selected': index === 0 }]}
+                    role="option"
+                    aria-selected={index === 0 ? 'true' : 'false'}
+                    data-option-id={option.id}
+                    data-recommendation={option.description}
+                  >
+                    <span class="tool-option-label">{option.label}</span>
+                    <span class="tool-option-desc">{option.description}</span>
+                  </button>
+                ))}
+              </div>
+              <div class="tool-result" id="tool-result" aria-live="polite">
+                <p class="tool-result-label">Recommendation</p>
+                <p class="tool-result-value tool-result-value--text" id="tool-result-value">
+                  {calc.options[0]?.description}
+                </p>
+                <p class="tool-result-note">
+                  Share this preference in your consultation — we will confirm clearances on a site
+                  measure.
+                </p>
+              </div>
+            </div>
+          )
+        }
+
+        {
+          calc.type === 'countdown' && (
+            <div class="tool-calc-body tool-calc-body--countdown">
+              <div class="tool-field tool-field--date">
+                <label for="tool-countdown-date">Target opening date</label>
+                <input type="date" id="tool-countdown-date" name="openingDate" />
+              </div>
+              <div class="tool-result" id="tool-result" aria-live="polite">
+                <p class="tool-result-label">Days remaining</p>
+                <p class="tool-result-value" id="tool-result-value">—</p>
+                <p class="tool-result-note" id="tool-result-note">
+                  Use the buffer to freeze drawings, confirm materials, and schedule installation.
+                </p>
+              </div>
+            </div>
+          )
+        }
+
+        <p class="tool-calc-cta">
+          Ready for numbers you can build with?
+          <a href="#" data-open-modal="enquiry">Request a consultation</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-content section-compact-top">
+    <div class="container">
+      <p class="section-label fade-up">How it works</p>
+      <h2 class="section-heading-lg fade-up">Three simple steps</h2>
+      <div class="why-steps">
+        {
+          page.howItWorks.map((step, index) => (
+            <div class="why-step fade-up">
+              <span class="step-num">{String(index + 1).padStart(2, '0')}</span>
+              <h4>{step.title}</h4>
+              <p>{step.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <FaqSection
+    items={page.faqs}
+    title="Questions about this tool"
+    description="Quick answers before you enquire with Space Solutions."
+  />
+
+  {
+    page.related.length > 0 && (
+      <section class="page-content section-compact-top">
+        <div class="container">
+          <h2 class="section-heading-lg fade-up">Related</h2>
+          <ul class="service-related-links fade-up">
+            {page.related.map((link) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
+
+  <DummyVideoBlock
+    title="See how Space Solutions delivers a project"
+    description="From first measure to factory production and site handover — a clear process for homes, offices, and hospitality spaces in Mysuru."
+  />
+
+  <CtaSection />
+
+  <script src="/js/tools.js" defer></script>
+</BaseLayout>

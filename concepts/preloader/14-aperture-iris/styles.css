@@ -1,0 +1,172 @@
+/* Concept 14 — Aperture Iris */
+
+.pl-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: #faf8f5;
+  overflow: hidden;
+}
+
+.pl-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* Thin optical ring sitting behind the lockup */
+.pl-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(300px, 42vmin, 520px);
+  height: clamp(300px, 42vmin, 520px);
+  margin: 0;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(165, 126, 53, 0.28);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 1px rgba(239, 200, 36, 0.08),
+    0 0 40px rgba(239, 200, 36, 0.07) inset;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pl-lockup-host {
+  position: relative;
+  z-index: 1;
+}
+
+.pl-lockup-host .brand-lockup {
+  flex-direction: column;
+  align-items: center;
+}
+
+.pl-lockup-host .brand-wordmark {
+  align-items: center;
+  margin-top: 14px;
+}
+
+.pl-lockup-host .brand-icon-wrap {
+  width: clamp(96px, 16vw, 132px);
+}
+
+.pl-lockup-host .brand-space {
+  font-size: clamp(38px, 6.5vw, 64px);
+}
+
+.pl-lockup-host .brand-solution {
+  font-size: clamp(9px, 1.2vw, 12px);
+}
+
+/* No blueprint phase — hide the cyan DrawSVG guides, show the gold fill */
+.pl-lockup-host [data-brand-stroke-up],
+.pl-lockup-host [data-brand-stroke-lo] {
+  opacity: 0 !important;
+  visibility: hidden;
+}
+
+.pl-lockup-host [data-brand-wire] {
+  opacity: 0;
+}
+
+.pl-lockup-host [data-brand-fill] {
+  opacity: 1;
+}
+
+/* ---- Aperture ---------------------------------------------------------- */
+
+.pl-aperture {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Zero-size pivot pinned to the viewport centre; JS rotates this. */
+.pl-aperture__blade {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+/*
+ * Each leaf is a huge square anchored at the pivot, so it occupies the 90°
+ * quadrant that starts at the blade's own angle. Six quadrants at 60°
+ * increments overlap by 30° each, which guarantees the closed iris is
+ * completely opaque. JS slides the leaf along its local +Y (outward,
+ * perpendicular to the cutting edge) to open the centre. 90vmax comfortably
+ * exceeds the 70.7vmax worst-case viewport half-diagonal.
+ */
+.pl-aperture__leaf {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 90vmax;
+  height: 90vmax;
+  transform-origin: 0 0;
+  background-color: #ece4d7;
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 253, 247, 0.96) 0%,
+    rgba(247, 240, 229, 0.72) 22%,
+    rgba(230, 219, 202, 0.34) 56%,
+    rgba(214, 200, 178, 0) 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 26vmax;
+  border-top: 1px solid rgba(165, 126, 53, 0.5);
+  box-shadow:
+    0 1px 0 rgba(254, 236, 158, 0.6) inset,
+    0 -7px 26px rgba(165, 126, 53, 0.12);
+  will-change: transform;
+}
+
+/* Bright gold rim along the cutting edge, hottest near the centre */
+.pl-aperture__leaf::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    rgba(254, 236, 158, 0.95) 0%,
+    rgba(239, 200, 36, 0.85) 9%,
+    rgba(165, 126, 53, 0.42) 46%,
+    rgba(165, 126, 53, 0) 100%
+  );
+}
+
+/* Brushed sheen sweeping away from the pivot */
+.pl-aperture__leaf::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 52vmax;
+  height: 52vmax;
+  background: linear-gradient(
+    118deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0.12) 34%,
+    rgba(84, 55, 39, 0.05) 72%,
+    rgba(84, 55, 39, 0) 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pl-aperture {
+    display: none;
+  }
+}

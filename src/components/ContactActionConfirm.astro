@@ -1,0 +1,51 @@
+---
+import '../styles/contact-action-confirm.css';
+import { SITE } from '../data/site';
+
+const phoneDisplay = '+91 63645 64563';
+---
+
+<div
+  id="contact-action-confirm"
+  class="cac"
+  hidden
+  aria-live="polite"
+  data-phone-display={phoneDisplay}
+>
+  <div class="cac-toast" data-cac-ui="toast" hidden>
+    <div class="cac-toast-inner">
+      <div class="cac-toast-compact">
+        <span class="cac-spinner" aria-hidden="true"></span>
+        <span class="cac-toast-msg" data-cac-opening-msg>Opening…</span>
+      </div>
+      <div class="cac-toast-expanded" data-cac-expanded hidden>
+        <p class="cac-title" data-cac-title>Did it work?</p>
+        <p class="cac-sub" data-cac-sub></p>
+        <div class="cac-actions">
+          <button type="button" class="cac-btn cac-btn-yes" data-cac-outcome="yes">Yes, connected</button>
+          <button type="button" class="cac-btn cac-btn-retry" data-cac-outcome="retry">No, try again</button>
+        </div>
+        <button type="button" class="cac-dismiss" data-cac-dismiss>Not now</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="cac-sheet" data-cac-ui="sheet" hidden>
+    <button type="button" class="cac-sheet-backdrop" data-cac-dismiss aria-label="Close"></button>
+    <div class="cac-sheet-panel" role="dialog" aria-modal="true" aria-labelledby="cac-sheet-title">
+      <div class="cac-sheet-handle" aria-hidden="true"></div>
+      <p class="cac-sheet-opening" data-cac-opening-msg>Opening…</p>
+      <p class="cac-title" id="cac-sheet-title" data-cac-title>Did it work?</p>
+      <p class="cac-sub" data-cac-sub></p>
+      <div class="cac-actions cac-actions-stack">
+        <button type="button" class="cac-btn cac-btn-yes" data-cac-outcome="yes">Yes, connected</button>
+        <button type="button" class="cac-btn cac-btn-retry" data-cac-outcome="retry">No, try again</button>
+        <button type="button" class="cac-dismiss cac-dismiss-inline" data-cac-dismiss>Not now</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline define:vars={{ orgName: SITE.name }}>
+  window.__ssContactConfirmPhone = document.getElementById('contact-action-confirm')?.dataset.phoneDisplay || '';
+</script>

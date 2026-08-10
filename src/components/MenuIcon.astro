@@ -1,0 +1,22 @@
+---
+import { getMenuIcon, type MenuIconName } from '../data/headerMenuIcons';
+
+interface Props {
+  name: MenuIconName;
+  class?: string;
+}
+
+const { name, class: className } = Astro.props;
+const icon = getMenuIcon(name);
+const paths = Array.isArray(icon.path) ? icon.path : [icon.path];
+---
+
+<svg
+  class:list={['icon', 'menu-icon', className]}
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox={icon.viewBox}
+  fill="currentColor"
+  aria-hidden="true"
+>
+  {paths.map((d) => <path d={d} />)}
+</svg>

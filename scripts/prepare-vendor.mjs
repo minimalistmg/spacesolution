@@ -10,10 +10,29 @@ mkdirSync(vendorDir, { recursive: true });
 const copies = [
   ['node_modules/jquery/dist/jquery.min.js', 'jquery.min.js'],
   ['node_modules/swiper/swiper-bundle.min.js', 'swiper-bundle.min.js'],
+  ['node_modules/gsap/dist/gsap.min.js', 'gsap.min.js'],
+  ['node_modules/gsap/dist/CustomEase.min.js', 'CustomEase.min.js'],
+  ['node_modules/gsap/dist/ScrollTrigger.min.js', 'ScrollTrigger.min.js'],
+  ['node_modules/gsap/dist/SplitText.min.js', 'SplitText.min.js'],
+  ['node_modules/lenis/dist/lenis.min.js', 'lenis.min.js'],
 ];
 
 for (const [source, target] of copies) {
   cpSync(join(root, source), join(vendorDir, target));
 }
 
+const jsDir = join(root, 'public', 'js');
+mkdirSync(jsDir, { recursive: true });
+
+const preloaderCopies = [
+  ['concepts/preloader/_shared/preloader-utils.js', 'preloader-utils.js'],
+  ['concepts/preloader/_shared/brand-shape.js', 'brand-shape.js'],
+  ['concepts/preloader/19-gold-forge/gold-forge.js', 'gold-forge.js'],
+];
+
+for (const [source, target] of preloaderCopies) {
+  cpSync(join(root, source), join(jsDir, target));
+}
+
 console.log('Vendor assets copied to public/vendor/');
+console.log('Preloader assets copied to public/js/');

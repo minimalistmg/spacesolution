@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preloader — Liquid Gold</title>
+    <link rel="preload" href="../../../brand/icon-source.png" as="image" />
+    <link rel="stylesheet" href="../../../assets/fonts/gotham/gotham.css" />
+    <link rel="stylesheet" href="../_shared/brand.css" />
+    <link rel="stylesheet" href="../_shared/page-shell.css" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="is-preloading">
+    <header class="page-header">
+      <div class="page-header__slot"></div>
+      <nav class="page-nav" aria-label="Primary">
+        <a href="#">About</a><a href="#">Services</a><a href="#">Projects</a><a href="#">Contact</a>
+      </nav>
+    </header>
+
+    <main class="page-hero">
+      <div class="page-hero__media">
+        <img src="../../../src/assets/images/hero/bedroom.jpg" alt="" />
+        <div class="page-hero__shade"></div>
+      </div>
+      <div class="page-hero__copy">
+        <h1>Molten craft, refined space.</h1>
+        <p>Liquid gold pour — brand reveal from white canvas to full lockup.</p>
+      </div>
+    </main>
+
+    <div class="pl-preloader" data-pl-preloader>
+      <div class="pl-stage">
+        <div class="pl-lockup-host brand-lockup--center" data-pl-lockup-host></div>
+      </div>
+
+      <div class="pl-wave-wrap" data-pl-wave-wrap aria-hidden="true">
+        <svg class="pl-wave-svg" viewBox="0 0 1440 200" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="lgWaveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#a57e35" />
+              <stop offset="52%" stop-color="#efc824" />
+              <stop offset="100%" stop-color="#feec9e" />
+            </linearGradient>
+            <linearGradient id="lgWaveSheen" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="rgba(255,255,255,0.35)" />
+              <stop offset="45%" stop-color="rgba(255,255,255,0.08)" />
+              <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+            </linearGradient>
+          </defs>
+          <path
+            data-pl-wave-path
+            fill="url(#lgWaveGrad)"
+            d="M0,130 C240,95 480,155 720,115 C960,75 1200,145 1440,100 L1440,200 L0,200 Z"
+          />
+          <path
+            data-pl-wave-sheen
+            fill="url(#lgWaveSheen)"
+            d="M0,130 C240,95 480,155 720,115 C960,75 1200,145 1440,100 L1440,200 L0,200 Z"
+          />
+        </svg>
+      </div>
+
+      <footer class="pl-footer">
+        <p class="pl-status" data-pl-status>Pouring… 0%</p>
+        <div class="pl-progress">
+          <div class="pl-progress__track"><div class="pl-progress__fill" data-pl-progress-fill></div></div>
+        </div>
+      </footer>
+    </div>
+
+    <button type="button" class="preloader-skip preloader-skip--light" data-pl-skip>Skip</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/CustomEase.min.js"></script>
+    <script src="../_shared/brand-mark.js"></script>
+    <script src="../_shared/preloader-utils.js"></script>
+    <script src="./liquid-gold.js"></script>
+  </body>
+</html>

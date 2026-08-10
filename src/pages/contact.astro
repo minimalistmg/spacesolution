@@ -3,47 +3,119 @@ import Icon from '../components/Icon.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import EnquiryForm from '../components/EnquiryForm.astro';
+import FaqSection from '../components/FaqSection.astro';
+import DummyVideoBlock from '../components/DummyVideoBlock.astro';
+import CtaSection from '../components/CtaSection.astro';
 import { SITE } from '../data/site';
+
+const phoneDisplays = [
+  { tel: SITE.phones[0], label: '+91 63645 64563' },
+  { tel: SITE.phones[1], label: '+91 98452 41484' },
+];
+
+const fullAddress = `${SITE.address.streetAddress}, ${SITE.address.addressLocality}, ${SITE.address.addressRegion} ${SITE.address.postalCode}`;
+
+const bringList = [
+  'Floor plans or approximate room sizes (photos on your phone are fine)',
+  'A rough budget range and preferred move-in or opening timeline',
+  'Reference images for style — light, storage, and materials you like',
+  'Notes on must-haves: kitchen layout, wardrobe count, workstation count, or brand colours',
+];
+
+const visitTips = [
+  {
+    title: 'Experience centre hours',
+    description: 'Visit by appointment so a designer can walk you through materials and sample finishes without rush.',
+  },
+  {
+    title: 'Free consultation',
+    description: 'We discuss scope, ballpark cost drivers, and whether a turnkey or phased approach fits your project.',
+  },
+  {
+    title: 'What happens next',
+    description: 'If we are a fit, we schedule a site visit or plan review and share a clear path to 3D design and quotation.',
+  },
+];
+
+const faqs = [
+  {
+    question: 'How quickly will someone respond to my enquiry?',
+    answer:
+      'We aim to respond within one business day. For faster help, call or WhatsApp during working hours and mention whether your project is residential or commercial.',
+  },
+  {
+    question: 'Do I need a site visit before getting a quote?',
+    answer:
+      'A site visit or accurate floor plan makes estimates far more reliable. For early planning we can start with plans and photos, then confirm measurements before final pricing.',
+  },
+  {
+    question: 'Can I book a consultation without committing to a project?',
+    answer:
+      'Yes. Consultations are meant to clarify scope, timeline, and budget fit. There is no obligation to proceed until you approve a design and quotation.',
+  },
+  {
+    question: 'Where is Space Solutions located in Mysuru?',
+    answer: `Our experience centre is at ${fullAddress}. Use the map below or open directions in Google Maps before you visit.`,
+  },
+];
 ---
 
 <BaseLayout
-  title="Contact Us | Space Solutions"
-  description="Contact Space Solutions for interior design in Mysuru and Karnataka. Call +91 63645 64563 or request a free quote."
-  activePage="enquire"
+  title="Contact Space Solutions Mysuru | Book a Free Interior Consultation"
+  description={`Contact Space Solutions in Mysuru for home and commercial interiors. Call ${phoneDisplays[0].label}, email ${SITE.email}, or visit our Kalidasa Road experience centre for a free consultation.`}
+  activePage="studio"
   headerScrolled={false}
 >
   <PageHero
     breadcrumb={'<a href="/">Home</a> <span class="breadcrumb-sep">/</span> Contact Us'}
     title="Contact Us"
-    description="Let's bring your ideas to life with thoughtful design and practical solutions."
+    description="Book a free consultation for residential or commercial interiors in Mysuru — clear next steps on design, cost, and timeline."
   />
 
   <section class="page-content">
     <div class="container contact-grid">
       <div class="contact-info fade-up">
         <h2 class="section-title">Get in touch</h2>
-        <p>Reach out to create a space that's both functional and beautiful. Our team is ready to help with design, cost, and timeline.</p>
+        <p>
+          Reach out to plan a space that works day to day — kitchens, full homes, offices, clinics, or hospitality.
+          Tell us your location, approximate size, and timeline, and we will guide the next step.
+        </p>
         <ul class="contact-details">
           <li>
             <Icon name="phone" />
             <div>
-              <a href="tel:+916364564563">+91 63645 64563</a><br>
-              <a href="tel:+919845241484">+91 98452 41484</a>
+              {
+                phoneDisplays.map((phone, index) => (
+                  <>
+                    {index > 0 && <br />}
+                    <a href={`tel:${phone.tel}`}>{phone.label}</a>
+                  </>
+                ))
+              }
             </div>
           </li>
           <li>
             <Icon name="envelope" />
-            <a href="mailto:marketing@spacesolution.co.in">marketing@spacesolution.co.in</a>
+            <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
           </li>
           <li>
             <Icon name="location-dot" />
-            <span>90, Kalidasa Rd, opp. Muthoot Finance, 3rd A Block, Vani Vilas Mohalla, Mysuru, Karnataka 570002</span>
+            <span>{fullAddress}</span>
           </li>
         </ul>
+        <div class="contact-actions">
+          <a href={SITE.mapDirectionsUrl} class="btn btn-gold-filled" target="_blank" rel="noopener noreferrer">
+            Get directions
+          </a>
+          <a href="#" class="btn btn-outline-dark" data-open-modal="enquiry">Request a callback</a>
+        </div>
       </div>
 
       <div class="contact-form-wrap fade-up">
-        <h3>Contact Form</h3>
+        <h3>Contact form</h3>
+        <p class="contact-form-lead">
+          Share a few details and we will get back with availability for a consultation or site visit.
+        </p>
         <EnquiryForm formId="contact-form" dataSource="contact" />
       </div>
     </div>
@@ -55,7 +127,62 @@ import { SITE } from '../data/site';
         allowfullscreen
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
-      />
+      ></iframe>
     </div>
   </section>
+
+  <section class="page-content section-compact-top">
+    <div class="container content-prose">
+      <p class="section-label fade-up">Visit us</p>
+      <h2 class="section-title fade-up">Plan your consultation</h2>
+      <p class="section-desc fade-up">
+        Our Kalidasa Road experience centre is the easiest place to talk materials, storage ideas, and project scope
+        face to face. Appointments help us give you focused time with the right designer.
+      </p>
+      <div class="why-grid">
+        {
+          visitTips.map((tip) => (
+            <div class="why-card fade-up">
+              <h3>{tip.title}</h3>
+              <p class="why-desc">{tip.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="service-block">
+    <div class="container">
+      <p class="section-label fade-up">Before you visit</p>
+      <h2 class="section-title fade-up">What to bring to your consultation</h2>
+      <p class="section-desc fade-up content-body">
+        You do not need a finished brief. A few practical details help us give useful guidance in the first meeting —
+        whether you are planning a modular kitchen, a full home, or a commercial fitout.
+      </p>
+      <ul class="feature-list fade-up">
+        {bringList.map((item) => <li>{item}</li>)}
+      </ul>
+      <p class="content-body fade-up" style="margin-top: 28px;">
+        Prefer to talk first? Call{' '}
+        <a href={`tel:${SITE.phones[0]}`}>{phoneDisplays[0].label}</a>
+        {' '}or email{' '}
+        <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+      </p>
+    </div>
+  </section>
+
+  <DummyVideoBlock
+    eyebrow="Studio"
+    title="Get a feel for how we work"
+    description="A short look at how Space Solutions moves from conversation to design, factory production, and finished interiors in Mysuru."
+  />
+
+  <FaqSection
+    title="Contact &amp; visit FAQs"
+    description="Helpful details before you call, write, or stop by our Mysuru experience centre."
+    items={faqs}
+  />
+
+  <CtaSection />
 </BaseLayout>

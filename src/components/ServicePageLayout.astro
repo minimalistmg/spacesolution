@@ -1,0 +1,216 @@
+---
+import Icon from './Icon.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaSection from './CtaSection.astro';
+import ResponsiveImage from './ResponsiveImage.astro';
+import FaqSection from './FaqSection.astro';
+import ImageGallery from './ImageGallery.astro';
+import DummyVideoBlock from './DummyVideoBlock.astro';
+import type { ServicePageData } from '../data/servicePages';
+
+interface Props {
+  page: ServicePageData;
+}
+
+const { page } = Astro.props;
+const seoTitle = page.seoTitle ?? `${page.heroTitle} in Mysuru | Space Solutions`;
+const isHospitality = page.activePage === 'hospitality';
+const isCommercial = page.activePage === 'commercial';
+const heroStats = isHospitality ? page.stats : undefined;
+const showStandaloneStats = !isHospitality && Boolean(page.stats?.length);
+---
+
+<BaseLayout
+  title={seoTitle}
+  description={page.metaDescription}
+  activePage={page.activePage}
+  headerScrolled={false}
+>
+  <PageHero
+    breadcrumb={page.breadcrumb}
+    title={page.heroTitle}
+    description={page.heroDescription}
+    image={page.heroImage}
+    stats={heroStats}
+  />
+
+  {
+    showStandaloneStats && (
+      <section class="content-stats">
+        <div class="container content-stats-grid">
+          {page.stats!.map((stat) => (
+            <div class="content-stat fade-up">
+              <span class="content-stat-value">{stat.value}</span>
+              <span class="content-stat-label">{stat.label}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  {
+    page.overview && (
+      <section class:list={['page-content', { 'band-cool': isCommercial }]}>
+        <div class="container content-prose">
+          <p class="section-label fade-up">{page.overview.label}</p>
+          <h2 class="section-title fade-up">{page.overview.title}</h2>
+          <p class="section-desc fade-up">{page.overview.description}</p>
+          {page.body?.map((paragraph) => (
+            <p class="content-body fade-up">{paragraph}</p>
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  {
+    !page.overview && page.body && page.body.length > 0 && (
+      <section class:list={['page-content', { 'band-cool': isCommercial }]}>
+        <div class="container content-prose">
+          {page.body.map((paragraph) => (
+            <p class="content-body fade-up">{paragraph}</p>
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  {
+    page.blocks.map((section, index) => (
+      <section class:list={['service-block', { 'section-compact-top': index === 0 && page.overview }]}>
+        <div class:list={['container service-block-grid', { reverse: section.reverse }]}>
+          <div class="service-block-image fade-up">
+            <ResponsiveImage src={section.image} alt={section.title} preset="content" />
+          </div>
+          <div class="service-block-content fade-up">
+            <p class="section-label">{section.label}</p>
+            <h3>{section.title}</h3>
+            <p>{section.description}</p>
+            <ul class="feature-list">
+              {section.bullets.map((bullet) => (
+                <li>{bullet}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  {
+    page.gallery && page.gallery.length > 0 && (
+      <ImageGallery
+        title={page.galleryTitle}
+        description={page.galleryDescription}
+        items={page.gallery}
+      />
+    )
+  }
+
+  {
+    page.showVideo !== false && (
+      <DummyVideoBlock
+        title={page.videoTitle}
+        description={page.videoDescription}
+      />
+    )
+  }
+
+  {
+    page.cards && (
+      <section class:list={['why-choose', 'section-compact-top', { 'band-cool': isCommercial && !page.overview && !(page.body && page.body.length) }]}>
+        <div class="container">
+          <p class="section-label fade-up">Why it works</p>
+          <h2 class="section-heading-lg fade-up">{page.cardsHeading ?? 'What you can expect'}</h2>
+          <div class="why-grid">
+            {page.cards.map((card) => (
+              <div class="why-card fade-up">
+                <div class="why-icon">
+                  <Icon name={card.icon} />
+                </div>
+                <h3>{card.title}</h3>
+                <p class="why-desc">{card.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    (page.table || page.steps) && (
+      <section class="page-content section-compact-top">
+        <div class="container">
+          {
+            page.table && (
+              <>
+                <h2 class="section-heading-lg section-heading-center fade-up">At a glance</h2>
+                <div class="service-table-wrap fade-up">
+                  <table class="service-table">
+                    <thead>
+                      <tr>
+                        {page.table.headers.map((header) => (
+                          <th>{header}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {page.table.rows.map((row) => (
+                        <tr>
+                          {row.map((cell) => (
+                            <td>{cell}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </>
+            )
+          }
+          {
+            page.steps && (
+              <div class="why-steps">
+                {page.steps.map((step, index) => (
+                  <div class="why-step fade-up">
+                    <span class="step-num">{String(index + 1).padStart(2, '0')}</span>
+                    <h4>{step.title}</h4>
+                    <p>{step.description}</p>
+                  </div>
+                ))}
+              </div>
+            )
+          }
+        </div>
+      </section>
+    )
+  }
+
+  {
+    page.faqs && page.faqs.length > 0 && (
+      <FaqSection items={page.faqs} title={page.faqTitle} description={page.faqDescription} />
+    )
+  }
+
+  {
+    page.relatedLinks && page.relatedLinks.length > 0 && (
+      <section class="page-content section-compact-top">
+        <div class="container">
+          <h2 class="section-heading-lg fade-up">{page.relatedHeading ?? 'Related'}</h2>
+          <ul class="service-related-links fade-up">
+            {page.relatedLinks.map((link) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
+
+  <CtaSection />
+</BaseLayout>

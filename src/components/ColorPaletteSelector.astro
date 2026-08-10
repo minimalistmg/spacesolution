@@ -1,0 +1,114 @@
+---
+import { colorPalettes } from '../data/colorPalettes';
+import '../styles/color-palette-selector.css';
+---
+
+<div
+  class="palette-selector"
+  id="palette-selector"
+  data-palettes={JSON.stringify(colorPalettes)}
+  hidden
+>
+  <button
+    type="button"
+    class="palette-fab"
+    id="palette-fab"
+    aria-label="Open color palette selector"
+    aria-expanded="false"
+    aria-controls="palette-panel"
+  >
+    <span class="palette-fab-swatches" aria-hidden="true">
+      <i style={`background:${colorPalettes[0].colors['--cream']}`}></i>
+      <i style={`background:${colorPalettes[0].colors['--gold']}`}></i>
+      <i style={`background:${colorPalettes[0].colors['--brown']}`}></i>
+      <i style={`background:${colorPalettes[0].colors['--dark']}`}></i>
+    </span>
+    <span class="palette-fab-label">Palettes</span>
+  </button>
+
+  <div
+    class="palette-panel"
+    id="palette-panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="palette-panel-title"
+    hidden
+  >
+    <div class="palette-panel-header">
+      <div>
+        <h2 id="palette-panel-title">Interior Palettes</h2>
+        <p>Choose a palette, then apply it to update the site.</p>
+      </div>
+      <button type="button" class="palette-panel-close" id="palette-panel-close" aria-label="Close palette selector">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="palette-grid" id="palette-grid">
+      {colorPalettes.map((palette) => (
+        <button
+          type="button"
+          class="palette-card"
+          data-palette-id={palette.id}
+          aria-label={`Preview ${palette.name} palette`}
+          aria-pressed="false"
+        >
+          <span class="palette-card-preview">
+            <canvas
+              class="palette-preview-canvas"
+              data-palette-id={palette.id}
+              width="280"
+              height="180"
+              aria-hidden="true"
+            />
+          </span>
+          <span class="palette-card-body">
+            <span class="palette-card-name">{palette.name}</span>
+            <span class="palette-card-tagline">{palette.tagline}</span>
+            <span class="palette-swatches" aria-hidden="true">
+              <span style={`background:${palette.colors['--cream']}`} />
+              <span style={`background:${palette.colors['--gold']}`} />
+              <span style={`background:${palette.colors['--brown']}`} />
+              <span style={`background:${palette.colors['--dark']}`} />
+            </span>
+          </span>
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <div class="palette-preview-modal" id="palette-preview-modal" hidden aria-hidden="true">
+    <div class="palette-preview-backdrop" id="palette-preview-backdrop"></div>
+    <div class="palette-preview-dialog" role="dialog" aria-labelledby="palette-preview-title" aria-modal="true">
+      <button type="button" class="palette-preview-close" id="palette-preview-close" aria-label="Close preview">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </button>
+
+      <div class="palette-preview-image-wrap">
+        <canvas id="palette-preview-large" width="560" height="310" aria-hidden="true" />
+      </div>
+
+      <div class="palette-preview-info">
+        <h3 id="palette-preview-title">Palette Name</h3>
+        <p id="palette-preview-tagline">Palette description</p>
+        <div class="palette-preview-swatches" id="palette-preview-swatches" />
+        <p class="palette-preview-note">Apply this palette to update colors across the site.</p>
+      </div>
+
+      <div class="palette-preview-actions">
+        <button type="button" class="btn btn-outline-dark palette-preview-cancel" id="palette-preview-cancel">
+          Cancel
+        </button>
+        <button type="button" class="btn btn-gold palette-preview-apply" id="palette-preview-apply">
+          Apply Palette
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/color-palette-selector.js" defer></script>

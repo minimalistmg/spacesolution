@@ -1,0 +1,81 @@
+---
+import type { ImageMetadata } from 'astro';
+import ResponsiveImage from './ResponsiveImage.astro';
+
+interface Props {
+  heroImage: ImageMetadata;
+  ctaImage: ImageMetadata;
+  heroHref?: string;
+  ctaHref?: string;
+  heroPill?: string;
+  heroTitle?: string;
+  heroTitleLine2?: string;
+  heroText?: string;
+  sidePill?: string;
+  sideTitle?: string;
+  sideText?: string;
+  ctaPill?: string;
+}
+
+const {
+  heroImage,
+  ctaImage,
+  heroHref = '/portfolio',
+  ctaHref = '/portfolio',
+  heroPill = 'Featured interiors',
+  heroTitle = 'Crafted',
+  heroTitleLine2 = 'Living',
+  heroText,
+  sidePill = 'Portfolio',
+  sideTitle = 'Into a gallery of finished spaces',
+  sideText = 'Homes, workplaces, and hospitality interiors delivered turnkey across Mysuru and Karnataka.',
+  ctaPill = 'View work',
+} = Astro.props;
+---
+
+<div class="inspire-bento fade-up">
+  <a class="inspire-bento-hero" href={heroHref}>
+    <div class="inspire-bento-hero-media">
+      <ResponsiveImage
+        src={heroImage}
+        alt="Featured interior by Space Solutions"
+        preset="content"
+      />
+    </div>
+    <div class="inspire-bento-hero-panel">
+      <span class="inspire-pill">{heroPill}</span>
+      <h3 class="inspire-bento-hero-title">
+        <span>{heroTitle}</span>
+        {heroTitleLine2 && <span>{heroTitleLine2}</span>}
+      </h3>
+      {heroText && <p class="inspire-bento-hero-text">{heroText}</p>}
+    </div>
+  </a>
+
+  <div class="inspire-bento-side">
+    <div class="inspire-bento-copy">
+      <span class="inspire-pill">{sidePill}</span>
+      <p class="inspire-bento-side-text">{sideText}</p>
+      <h3 class="inspire-bento-side-title">{sideTitle}</h3>
+    </div>
+
+    <a class="inspire-bento-cta-card" href={ctaHref} aria-label="View portfolio">
+      <div class="inspire-bento-cta-media">
+        <ResponsiveImage
+          src={ctaImage}
+          alt="Browse Space Solutions portfolio"
+          preset="grid"
+        />
+        <span class="inspire-pill inspire-pill--on-media">{ctaPill}</span>
+      </div>
+      <span class="inspire-bento-cta-notch" aria-hidden="true">
+        <span class="inspire-bento-round-cta">
+          <svg viewBox="0 0 14 14" focusable="false">
+            <path d="M3 11 L11 3"></path>
+            <path d="M5.5 3 H11 V8.5"></path>
+          </svg>
+        </span>
+      </span>
+    </a>
+  </div>
+</div>

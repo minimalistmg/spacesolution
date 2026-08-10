@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Space Solution — Preloader Concepts</title>
+    <link rel="stylesheet" href="../../assets/fonts/gotham/gotham.css" />
+    <style>
+      :root {
+        --ink: #543727;
+        --paper: #faf8f5;
+        --gold: #efc824;
+        --font-brand: 'Gotham', system-ui, sans-serif;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: var(--font-brand);
+        background: var(--paper);
+        color: var(--ink);
+        padding: 48px 24px 64px;
+      }
+      .hub {
+        max-width: 720px;
+        margin: 0 auto;
+      }
+      h1 {
+        margin: 0 0 8px;
+        font-size: clamp(28px, 4vw, 40px);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+      }
+      .lead {
+        margin: 0 0 36px;
+        font-size: 15px;
+        line-height: 1.6;
+        opacity: 0.75;
+      }
+      .cards {
+        display: grid;
+        gap: 16px;
+      }
+      a.card {
+        display: block;
+        padding: 22px 24px;
+        border: 1px solid rgba(84, 55, 39, 0.12);
+        border-radius: 4px;
+        background: #fff;
+        color: inherit;
+        text-decoration: none;
+        transition: border-color 0.2s, box-shadow 0.2s;
+      }
+      a.card:hover {
+        border-color: var(--gold);
+        box-shadow: 0 8px 24px rgba(84, 55, 39, 0.08);
+      }
+      a.card--featured {
+        border-color: rgba(239, 200, 36, 0.55);
+        box-shadow: 0 6px 20px rgba(84, 55, 39, 0.06);
+      }
+      a.card--featured .card__meta {
+        opacity: 0.75;
+        line-height: 1.5;
+      }
+      .card__num {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 6px;
+      }
+      .card__title {
+        font-size: 18px;
+        font-weight: 800;
+        margin-bottom: 6px;
+      }
+      .card__meta {
+        font-size: 12px;
+        opacity: 0.6;
+      }
+      .back {
+        display: inline-block;
+        margin-top: 32px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--ink);
+        opacity: 0.6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hub">
+      <h1>Preloader concepts</h1>
+      <p class="lead">
+        Preloaders using the brand lockup from <code>brand/</code> — SVG icon,
+        <strong>space</strong>, <strong>SOLUTION</strong>. Each loads a mock page
+        behind the overlay. <strong>19</strong> is the gold brand reveal and
+        <strong>20</strong> is the same reveal rebuilt in canvas;
+        <strong>17</strong> and <strong>18</strong> are the photography-led
+        versions; the rest are earlier explorations.
+      </p>
+      <div class="cards">
+        <a class="card card--featured" href="./20-brand-canvas-animation/">
+          <div class="card__num">Concept 20 · Recommended</div>
+          <div class="card__title">Brand Canvas</div>
+          <div class="card__meta">
+            The canvas cut of 19 — gold is deposited grain by grain in geodesic
+            order out of the tail tip, so the molten edge is made of the grains
+            and throws embers — Canvas 2D + GSAP, ~2.95s
+          </div>
+        </a>
+        <a class="card card--featured" href="./19-gold-forge/">
+          <div class="card__num">Concept 19 · Recommended</div>
+          <div class="card__title">Gold Forge</div>
+          <div class="card__meta">
+            On paper — the mark traces itself in gold, molten metal runs in from
+            the tail tip and along the form, a specular sweep sets the surface —
+            GSAP + SVG, ~2.93s
+          </div>
+        </a>
+        <a class="card card--featured" href="./17-editorial-curtain/">
+          <div class="card__num">Concept 17 · Recommended</div>
+          <div class="card__title">Editorial Curtain</div>
+          <div class="card__meta">
+            Project photography · editorial HUD · counter · the image parts as a
+            curtain while the mark holds — GSAP, ~2.95s
+          </div>
+        </a>
+        <a class="card card--featured" href="./18-webgl-dissolve/">
+          <div class="card__num">Concept 18 · Recommended</div>
+          <div class="card__title">WebGL Dissolve</div>
+          <div class="card__meta">
+            three.js fragment shader · gold-edged noise dissolves through the
+            portfolio · layer dissolves off to reveal the site — ~3.05s
+          </div>
+        </a>
+        <a class="card" href="./01-blueprint-reveal/">
+          <div class="card__num">Concept 01</div>
+          <div class="card__title">Blueprint Reveal</div>
+          <div class="card__meta">GSAP DrawSVG · SplitText · grid wireframe → enter site</div>
+        </a>
+        <a class="card" href="./02-spatial-flow/">
+          <div class="card__num">Concept 02</div>
+          <div class="card__title">Spatial Flow</div>
+          <div class="card__meta">Three.js particles · GSAP progress ring · dark corridor</div>
+        </a>
+        <a class="card" href="./03-minimalist-stagger/">
+          <div class="card__num">Concept 03</div>
+          <div class="card__title">Minimalist Stagger</div>
+          <div class="card__meta">GSAP Timeline · MARK → TEXT → SOLUTION sequential reveal</div>
+        </a>
+        <a class="card" href="./04-materiality-form/">
+          <div class="card__num">Concept 04</div>
+          <div class="card__title">Materiality &amp; Form</div>
+          <div class="card__meta">GSAP MotionPath · material swatches → kinetic in-lay lockup</div>
+        </a>
+        <a class="card" href="./05-ambiance-illumination/">
+          <div class="card__num">Concept 05</div>
+          <div class="card__title">Ambiance &amp; Illumination</div>
+          <div class="card__meta">GSAP light layers · backlit logo sign · progressive reveal</div>
+        </a>
+        <a class="card" href="./06-interlocking-planes/">
+          <div class="card__num">Concept 06</div>
+          <div class="card__title">Interlocking Planes</div>
+          <div class="card__meta">GSAP 3D planes · scatter → convergence → fusion on dark slab</div>
+        </a>
+        <a class="card" href="./07-dynamic-blueprint/">
+          <div class="card__num">Concept 07</div>
+          <div class="card__title">Dynamic Blueprint</div>
+          <div class="card__meta">DrawSVG trace · quadrant mask convergence · concrete reveal</div>
+        </a>
+        <a class="card" href="./08-gallery-reveal/">
+          <div class="card__num">Concept 08</div>
+          <div class="card__title">Gallery Reveal</div>
+          <div class="card__meta">Pedestal cubes · material curation → wall installation</div>
+        </a>
+        <a class="card" href="./09-neumorphism-reveal/">
+          <div class="card__num">Concept 09</div>
+          <div class="card__title">Neumorphism Reveal</div>
+          <div class="card__meta">GSAP back.out rings · lockup bloom · CodePen by Shunya Koide</div>
+        </a>
+        <a class="card" href="./10-perspective-grid/">
+          <div class="card__num">Concept 10</div>
+          <div class="card__title">Perspective Grid</div>
+          <div class="card__meta">Canvas perspective grid · iris reveal · 3s snap</div>
+        </a>
+        <a class="card" href="./11-gold-shutter/">
+          <div class="card__num">Concept 11</div>
+          <div class="card__title">Gold Shutter</div>
+          <div class="card__meta">Five gold blades stagger open · lockup revealed</div>
+        </a>
+        <a class="card" href="./12-orbit-assembly/">
+          <div class="card__num">Concept 12</div>
+          <div class="card__title">Orbit Assembly</div>
+          <div class="card__meta">Dark field · orbiting rings · icon snap-in</div>
+        </a>
+        <a class="card" href="./13-liquid-gold/">
+          <div class="card__num">Concept 13</div>
+          <div class="card__title">Liquid Gold</div>
+          <div class="card__meta">Molten wave rise · drain · lockup settle</div>
+        </a>
+        <a class="card" href="./14-aperture-iris/">
+          <div class="card__num">Concept 14</div>
+          <div class="card__title">Aperture Iris</div>
+          <div class="card__meta">Six gold blades rotate open · lens diaphragm · 3s</div>
+        </a>
+        <a class="card" href="./15-kinetic-lock/">
+          <div class="card__num">Concept 15</div>
+          <div class="card__title">Kinetic Lock</div>
+          <div class="card__meta">Type marquee whips · decelerates · locks centre · 3s</div>
+        </a>
+        <a class="card" href="./16-split-flap/">
+          <div class="card__num">Concept 16</div>
+          <div class="card__title">Split-Flap Mosaic</div>
+          <div class="card__meta">Tile grid flaps away in a diagonal wave · 3s</div>
+        </a>
+      </div>
+      <a class="back" href="../../brand/">← Brand catalogue</a>
+    </div>
+  </body>
+</html>

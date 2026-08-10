@@ -1,0 +1,176 @@
+---
+/**
+ * Bolt-style project detail (HTML)
+ * Edit alongside: src/styles/project-detail.css + src/client/project-detail.js
+ */
+import type { ProjectItem } from '../data/projects';
+import { getImage } from 'astro:assets';
+import DummyVideoBlock from './DummyVideoBlock.astro';
+import '../styles/project-detail.css';
+
+interface Props {
+  project: ProjectItem;
+  nextProject: ProjectItem | null;
+}
+
+const { project, nextProject } = Astro.props;
+
+const hero = await getImage({
+  src: project.images[0].src,
+  width: 1920,
+  format: 'webp',
+  quality: 84,
+});
+
+const galleryAll = await Promise.all(
+  project.images.map(async (image, index) => {
+    const optimized = await getImage({
+      src: image.src,
+      width: index === 0 ? 1600 : 1200,
+      format: 'webp',
+      quality: 82,
+    });
+    return {
+      alt: image.alt,
+      src: optimized.src,
+      width: optimized.attributes.width,
+      height: optimized.attributes.height,
+    };
+  }),
+);
+
+const faqs = project.faqs ?? [];
+const scope = project.scope ?? [];
+---
+
+<article class="ss-project-detail" data-project-detail>
+  <div class="ss-pd-hero">
+    <img
+      src={hero.src}
+      alt={project.images[0].alt}
+      width={hero.attributes.width}
+      height={hero.attributes.height}
+      fetchpriority="high"
+      decoding="async"
+    />
+  </div>
+
+  <div class="ss-pd-body">
+    <div class="ss-pd-frame">
+      <header class="ss-pd-title-row">
+        <h1 class="ss-pd-title">{project.title}</h1>
+        <p class="ss-pd-role">{project.role}</p>
+      </header>
+
+      <div class="ss-pd-meta-row">
+        <dl class="ss-pd-facts">
+          <div class="ss-pd-fact">
+            <dt>Size</dt>
+            <dd>{project.size}</dd>
+          </div>
+          <div class="ss-pd-fact">
+            <dt>Timeline</dt>
+            <dd>{project.timeline}</dd>
+          </div>
+          <div class="ss-pd-fact">
+            <dt>Location</dt>
+            <dd>{project.location}</dd>
+          </div>
+        </dl>
+
+        <div class="ss-pd-services">
+          <p class="ss-pd-services-label">Services</p>
+          <ul class="ss-pd-services-list">
+            {project.services.map((service) => (
+              <li>{service}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="ss-pd-copy">
+          <h2 class="ss-pd-headline">{project.headline}</h2>
+          <div class="ss-pd-summary is-collapsed" data-pd-summary>
+            {project.summary.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+          <button type="button" class="ss-pd-read-more" data-pd-read-more aria-label="Read More">
+            Read More
+          </button>
+        </div>
+      </div>
+
+      {
+        scope.length > 0 && (
+          <div class="ss-pd-scope">
+            <p class="ss-pd-services-label">Scope of work</p>
+            <ul class="ss-pd-scope-list">
+              {scope.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+
+      <div class="ss-pd-gallery">
+        {galleryAll.slice(1).map((image) => (
+          <figure>
+            <img
+              src={image.src}
+              alt={image.alt}
+              width={image.width}
+              height={image.height}
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+        ))}
+      </div>
+
+      {
+        faqs.length > 0 && (
+          <section class="ss-pd-faqs" aria-labelledby="ss-pd-faq-heading">
+            <p class="ss-pd-services-label">FAQ</p>
+            <h2 id="ss-pd-faq-heading" class="ss-pd-faq-title">Project questions</h2>
+            <div class="faq-list">
+              {faqs.map((item) => (
+                <div class="faq-item fade-up">
+                  <button type="button" class="faq-question" aria-expanded="false">
+                    <span>{item.question}</span>
+                    <span class="faq-toggle" aria-hidden="true">+</span>
+                  </button>
+                  <div class="faq-answer">
+                    <p>{item.answer}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )
+      }
+
+      <DummyVideoBlock
+        eyebrow="Project film"
+        title={`A closer look at ${project.title}`}
+        description="Design, in-house production, and site installation — how Space Solutions brings a fit-out from measure to handover."
+      />
+
+      <nav class="ss-pd-nav" aria-label="Project navigation">
+        <a class="ss-pd-nav-link ss-pd-nav-back" href="/portfolio">
+          <p class="ss-pd-nav-label">Return to Project List</p>
+          <p class="ss-pd-nav-action">←</p>
+        </a>
+
+        {nextProject && (
+          <a class="ss-pd-nav-link ss-pd-nav-next" href={nextProject.href}>
+            <p class="ss-pd-nav-label">Next Project</p>
+            <p class="ss-pd-nav-action">{nextProject.title} →</p>
+          </a>
+        )}
+      </nav>
+    </div>
+  </div>
+</article>
+
+<script src="/js/project-detail.js" defer></script>

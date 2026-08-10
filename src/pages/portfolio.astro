@@ -1,44 +1,80 @@
----
-import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/PageHero.astro';
-import CtaSection from '../components/CtaSection.astro';
-import InstagramReelsSection from '../components/InstagramReelsSection.astro';
-import VideoCard from '../components/VideoCard.astro';
-import { portfolioVideos } from '../data/portfolio';
----
-
-<BaseLayout
-  title="Portfolio | Space Solutions"
-  description="Explore Space Solutions portfolio — residential, commercial, and institutional interior design projects across Karnataka."
-  activePage="portfolio"
-  headerScrolled={false}
->
-  <PageHero
-    breadcrumb={'<a href="/">Home</a> <span class="breadcrumb-sep">/</span> Portfolio'}
-    title="Portfolio"
-    description="Turning ideas into well-executed spaces. A selection of projects that reflect our approach to planning, execution, and finishing."
-  />
-
-  <InstagramReelsSection />
-
-  <section class="page-content portfolio-videos-section">
-    <div class="container">
-      <p class="section-label fade-up">Project Videos</p>
-      <h2 class="section-title fade-up">Turning ideas into well-executed spaces.</h2>
-      <p class="section-desc fade-up">
-        Each project is designed to meet specific requirements while maintaining consistency in quality and usability.
-      </p>
-
-      <div class="portfolio-videos fade-up">
-        {portfolioVideos.map((video) => (
-          <div class="portfolio-video-item">
-            <VideoCard youtubeId={video.id} title={video.title} />
-            <p class="portfolio-video-title">{video.title}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <CtaSection />
-</BaseLayout>
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ProjectsSection from '../components/ProjectsSection.astro';
+import GalleryCard from '../components/GalleryCard.astro';
+import DummyVideoBlock from '../components/DummyVideoBlock.astro';
+import CtaSection from '../components/CtaSection.astro';
+import { projects } from '../data/projects';
+
+const inspireProjects = projects.slice(0, 6).map((project) => ({
+  href: project.href,
+  title: project.title,
+  label: project.categories[0] ?? 'Project',
+  image: project.images[0].src,
+  alt: project.images[0].alt,
+}));
+---
+
+<BaseLayout
+  title="Interior Design Portfolio Mysuru | Space Solutions Projects"
+  description="Explore Space Solutions projects in Mysuru and Karnataka — residential homes, modular kitchens, commercial offices, hospitality, and wellness interiors delivered turnkey."
+  activePage="portfolio"
+  headerScrolled={false}
+>
+  <PageHero
+    breadcrumb={'<a href="/">Home</a> <span class="breadcrumb-sep">/</span> Projects'}
+    title="Projects"
+    description="Turning ideas into well-executed spaces — a selection of residential, commercial, hospitality, and wellness interiors across Karnataka."
+  />
+
+  <section class="page-content">
+    <div class="container content-prose">
+      <p class="section-label fade-up">Portfolio</p>
+      <h2 class="section-title fade-up">Work shaped in Mysuru, delivered across Karnataka</h2>
+      <p class="section-desc fade-up">
+        Every project below reflects how Space Solutions works: clear planning, in-house manufacturing where it
+        matters, and installation that matches the approved design. Filter by category to explore homes, workplaces,
+        and hospitality spaces.
+      </p>
+      <p class="content-body fade-up">
+        Looking for a similar outcome for your apartment, villa, office, or café? Browse the case studies, then{' '}
+        <a href="/contact">book a consultation</a> or explore our{' '}
+        <a href="/turnkey-fitout">turnkey fitout</a> approach for end-to-end delivery.
+      </p>
+    </div>
+  </section>
+
+  <section class="portfolio-inspire-section">
+    <div class="container">
+      <p class="section-label fade-up">Selected work</p>
+      <h2 class="section-heading-lg fade-up">Spaces worth a closer look</h2>
+      <p class="section-desc fade-up">
+        A visual cut of recent interiors — open any card for the full case study.
+      </p>
+      <div class="portfolio-grid portfolio-grid--masonry">
+        {
+          inspireProjects.map((project) => (
+            <GalleryCard
+              class="fade-up"
+              href={project.href}
+              title={project.title}
+              label={project.label}
+              image={project.image}
+              alt={project.alt}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <ProjectsSection />
+
+  <DummyVideoBlock
+    title="From drawing to finished space"
+    description="See the rhythm of a Space Solutions project — design reviews, factory production, and interiors ready for everyday use."
+  />
+
+  <CtaSection />
+</BaseLayout>

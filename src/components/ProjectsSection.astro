@@ -1,0 +1,129 @@
+---
+/**
+ * Bolt-style projects listing (HTML)
+ * Edit alongside: src/styles/projects.css + src/client/projects.js
+ */
+import { getImage } from 'astro:assets';
+import { projectFilters, projects } from '../data/projects';
+import '../styles/projects.css';
+
+const prepared = await Promise.all(
+  projects.map(async (project) => ({
+    ...project,
+    images: await Promise.all(
+      project.images.map(async (image) => {
+        const optimized = await getImage({
+          src: image.src,
+          height: 800,
+          format: 'webp',
+          quality: 82,
+        });
+        return {
+          alt: image.alt,
+          src: optimized.src,
+          width: optimized.attributes.width,
+          height: optimized.attributes.height,
+        };
+      }),
+    ),
+  })),
+);
+---
+
+<section class="ss-projects" data-projects-section aria-label="Projects">
+  <div class="ss-projects-toolbar">
+    <div class="ss-projects-toolbar-inner">
+      <div class="ss-projects-toolbar-frame">
+        <div class="ss-projects-toolbar-grid">
+          <h2 class="ss-projects-title">Projects</h2>
+          <div class="ss-projects-filters-wrap">
+            <p class="ss-projects-filter-label">Filter by</p>
+            <div class="ss-projects-filters" role="group" aria-label="Filter projects by category">
+              {projectFilters.map((filter) => (
+                <button
+                  type="button"
+                  class="ss-projects-filter"
+                  data-projects-filter={filter}
+                  aria-label={`Filter by ${filter}`}
+                >
+                  {filter}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div class="ss-projects-cols" aria-hidden="true">
+          <span>Role</span>
+          <span>Size</span>
+          <span>Timeline</span>
+          <span>Location</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ss-projects-list">
+    {prepared.map((project) => (
+      <a
+        class="ss-projects-item"
+        href={project.href}
+        data-projects-item
+        data-categories={project.categories.join('|')}
+      >
+        <div class="ss-projects-item-frame">
+          <div class="ss-projects-meta">
+            <h3 class="ss-projects-name">{project.title}</h3>
+            <p class="ss-projects-role">{project.role}</p>
+            <p class="ss-projects-size">{project.size}</p>
+            <p class="ss-projects-timeline">{project.timeline}</p>
+            <p class="ss-projects-location">{project.location}</p>
+            <p class="ss-projects-link">
+              See Full Project
+              <svg class="ss-projects-arrow" viewBox="0 0 14 14" aria-hidden="true" focusable="false">
+                <path d="M3 11 L11 3" />
+                <path d="M5.5 3 H11 V8.5" />
+              </svg>
+            </p>
+          </div>
+
+          <div class="ss-projects-gallery-wrap">
+            <div class="ss-projects-gallery" data-projects-gallery>
+              {project.images.map((image) => (
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  width={image.width}
+                  height={image.height}
+                  loading="lazy"
+                  decoding="async"
+                />
+              ))}
+            </div>
+          </div>
+
+          <dl class="ss-projects-meta-mobile">
+            <div>
+              <dt>Size</dt>
+              <dd>{project.size}</dd>
+            </div>
+            <div>
+              <dt>Timeline</dt>
+              <dd>{project.timeline}</dd>
+            </div>
+            <div>
+              <dt>Location</dt>
+              <dd>{project.location}</dd>
+            </div>
+          </dl>
+        </div>
+      </a>
+    ))}
+
+    <p class="ss-projects-empty" data-projects-empty>
+      No projects match the selected filters.
+    </p>
+  </div>
+</section>
+
+<script src="/js/projects.js" defer></script>

@@ -1,0 +1,99 @@
+/* Gold Forge preloader shell */
+
+@import './brand-lockup.css';
+
+:root {
+  --gold-primary: #efc824;
+  --gold-deep: #a37a2b;
+  --ink: #543727;
+  --ink-dark: #332015;
+  --paper: #ffffff;
+  --font-brand: 'Gotham', 'Archivo', system-ui, sans-serif;
+}
+
+html.ss-preloader-pending body {
+  overflow: hidden;
+}
+
+.pl-preloader {
+  display: none;
+}
+
+html.ss-preloader-pending .pl-preloader {
+  display: block;
+}
+
+.pl-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.pl-bloom {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(130vw, 1180px);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(239, 200, 36, 0.16) 0%,
+    rgba(163, 122, 43, 0.07) 36%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  opacity: 0;
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+
+.pl-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 50% 48%,
+    rgba(255, 255, 255, 0) 46%,
+    rgba(84, 55, 39, 0.07) 100%
+  );
+}
+
+.pl-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+.pl-lockup-host {
+  --gf-scale: 1;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  transform: translate(-50%, calc(-50% - 50px)) scale(var(--gf-scale));
+}
+
+.gf-lockup {
+  --brand-icon-width: clamp(110px, 18vw, 160px);
+}
+
+.gf-lockup .brand-icon-svg {
+  filter: none;
+}
+
+.brand-space,
+.brand-solution {
+  will-change: transform, opacity, letter-spacing;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pl-bloom {
+    opacity: 1;
+  }
+}

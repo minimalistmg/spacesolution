@@ -1,0 +1,224 @@
+/* Concept 17 — Editorial Curtain
+   Project photography cycles behind an editorial HUD, then the image
+   parts as a curtain while the mark holds. */
+
+.pl-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  overflow: hidden;
+  background: #14100d;
+}
+
+/* ── Curtain: two halves that compose one continuous image ── */
+
+.pl-curtain {
+  position: absolute;
+  inset: 0;
+}
+
+.pl-half {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50%;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.pl-half--top {
+  top: 0;
+}
+
+.pl-half--bottom {
+  bottom: 0;
+}
+
+/* Each stack is a full-viewport copy, offset so the halves line up */
+.pl-stack {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 200%;
+}
+
+.pl-half--top .pl-stack {
+  top: 0;
+}
+
+.pl-half--bottom .pl-stack {
+  bottom: 0;
+}
+
+.pl-frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  clip-path: inset(0 0 100% 0);
+}
+
+.pl-frame:first-child {
+  clip-path: inset(0 0 0 0);
+}
+
+.pl-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+/* Warm grade so the photography sits in the brand palette */
+.pl-grade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(20, 16, 13, 0.55) 0%, rgba(20, 16, 13, 0.15) 38%, rgba(20, 16, 13, 0.72) 100%),
+    linear-gradient(115deg, rgba(84, 55, 39, 0.35) 0%, transparent 55%),
+    radial-gradient(ellipse 80% 70% at 50% 50%, transparent 40%, rgba(20, 16, 13, 0.5) 100%);
+}
+
+.pl-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── Editorial HUD ── */
+
+.pl-hud {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  color: #fff;
+  font-family: var(--font-brand);
+}
+
+.pl-hud__top {
+  position: absolute;
+  top: clamp(22px, 4vh, 40px);
+  left: clamp(22px, 4vw, 48px);
+  right: clamp(22px, 4vw, 48px);
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.pl-hud__mark,
+.pl-hud__loc {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  opacity: 0.72;
+}
+
+.pl-hud__foot {
+  position: absolute;
+  left: clamp(22px, 4vw, 48px);
+  right: clamp(22px, 4vw, 48px);
+  bottom: clamp(30px, 5vh, 54px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.pl-counter {
+  display: block;
+  font-size: clamp(56px, 11vw, 132px);
+  font-weight: 800;
+  line-height: 0.82;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.35);
+}
+
+.pl-caption {
+  padding-bottom: 8px;
+  max-width: 40ch;
+  text-align: right;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+/* Full-bleed gold hairline */
+.pl-rule {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.pl-rule__fill {
+  display: block;
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #a57e35 0%, #efc824 55%, #feec9e 100%);
+  box-shadow: 0 0 18px rgba(239, 200, 36, 0.5);
+}
+
+/* ── Brand lockup ── */
+
+.pl-lockup-host {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 5;
+  transform: translate(-50%, -50%);
+  clip-path: inset(0 0 100% 0);
+  will-change: transform, opacity, clip-path;
+}
+
+.pl-lockup-host .brand-lockup {
+  flex-direction: column;
+  align-items: center;
+}
+
+.pl-lockup-host .brand-wordmark {
+  align-items: center;
+  margin-top: 16px;
+}
+
+.pl-lockup-host .brand-icon-wrap {
+  width: clamp(84px, 12vw, 112px);
+}
+
+.pl-lockup-host .brand-space {
+  font-size: clamp(34px, 5.4vw, 56px);
+}
+
+.pl-lockup-host .brand-solution {
+  font-size: clamp(9px, 1.05vw, 11px);
+}
+
+.pl-lockup-host .brand-icon-svg {
+  filter: drop-shadow(0 6px 22px rgba(0, 0, 0, 0.45));
+}
+
+/* No blueprint guide strokes in this concept */
+.pl-lockup-host [data-brand-stroke-up],
+.pl-lockup-host [data-brand-stroke-lo] {
+  opacity: 0 !important;
+  visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pl-frame {
+    clip-path: none;
+  }
+
+  .pl-lockup-host {
+    clip-path: none;
+  }
+}

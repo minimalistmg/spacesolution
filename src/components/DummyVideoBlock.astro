@@ -1,0 +1,44 @@
+---
+/**
+ * Single sitewide dummy showreel block — reuses the existing hero MP4.
+ * No new video assets are generated.
+ */
+interface Props {
+  title?: string;
+  description?: string;
+  eyebrow?: string;
+}
+
+const {
+  eyebrow = 'Studio showreel',
+  title = 'See how a Space Solutions project comes together',
+  description = 'From first measure to final handover — design, factory production, and site installation as one process.',
+} = Astro.props;
+---
+
+<section class="dummy-video-block">
+  <div class="container dummy-video-grid">
+    <div class="dummy-video-copy fade-up">
+      <p class="section-label">{eyebrow}</p>
+      <h2 class="section-title">{title}</h2>
+      <p class="section-desc">{description}</p>
+      <button type="button" class="btn btn-gold-filled hero-video-btn">Watch the reel</button>
+    </div>
+    <div class="dummy-video-frame fade-up">
+      <video
+        class="dummy-video-el"
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        autoplay
+        aria-label="Space Solutions studio showreel placeholder"
+      >
+        <source src="/videos/home-hero.mp4" type="video/mp4" />
+      </video>
+      <button type="button" class="dummy-video-play hero-video-btn" aria-label="Play showreel">
+        <span>Play</span>
+      </button>
+    </div>
+  </div>
+</section>

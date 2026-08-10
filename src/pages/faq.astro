@@ -2,104 +2,187 @@
 import Icon from '../components/Icon.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
+import CtaSection from '../components/CtaSection.astro';
+
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+interface FaqCategory {
+  id: string;
+  title: string;
+  intro: string;
+  items: FaqItem[];
+}
+
+const categories: FaqCategory[] = [
+  {
+    id: 'residential',
+    title: 'Residential interiors',
+    intro: 'Homes, apartments, kitchens, and wardrobes across Mysuru and Karnataka.',
+    items: [
+      {
+        question: 'What residential interior services does Space Solutions offer in Mysuru?',
+        answer:
+          'We design and deliver modular kitchens, wardrobes, living and dining, bedrooms, pooja spaces, and full-home turnkey interiors. Most cabinetry is manufactured in our Mysuru factory so finishes stay consistent from room to room.',
+      },
+      {
+        question: 'Can you renovate a single room, or only full homes?',
+        answer:
+          'Both. Many clients start with a kitchen or wardrobe package and expand later. Full-home programmes work best when you want one design language and one timeline across the house.',
+      },
+      {
+        question: 'Do you provide 3D designs before manufacturing begins?',
+        answer:
+          'Yes. After the brief and measurements, we share space plans and 3D views for approval. Production starts once layout, materials, and scope are confirmed — so you are not guessing on site.',
+      },
+      {
+        question: 'Are your modular kitchens suitable for Indian cooking and storage needs?',
+        answer:
+          'Yes. We plan for wet and dry zones, tall units, appliance niches, and durable worktops. Layouts are tailored to how your household cooks and stores, not a one-size template.',
+      },
+    ],
+  },
+  {
+    id: 'commercial',
+    title: 'Commercial &amp; workplace',
+    intro: 'Offices, clinics, retail, hospitality, and institutional spaces.',
+    items: [
+      {
+        question: 'What commercial interior projects do you take on?',
+        answer:
+          'We deliver offices, clinics and healthcare spaces, retail showrooms, co-working, cafés and restaurants, hotels, and institutional interiors. Scope can include furniture, partitions, storage, and coordinated finishes.',
+      },
+      {
+        question: 'Can Space Solutions handle a turnkey office or clinic fitout?',
+        answer:
+          'Yes. Turnkey commercial fitouts cover planning, joinery, furniture, and installation under one team. That reduces vendor juggling and keeps opening dates more predictable.',
+      },
+      {
+        question: 'Do you work outside Mysuru for commercial projects?',
+        answer:
+          'Our studio and factory are in Mysuru, and we regularly deliver commercial and institutional projects across Karnataka. Share the city, carpet area, and target handover date when you enquire.',
+      },
+      {
+        question: 'Can brand guidelines and operational workflows be built into the design?',
+        answer:
+          'Absolutely. We plan zoning for customer flow, staff efficiency, storage, and brand presence — then specify durable materials suited to daily commercial use.',
+      },
+    ],
+  },
+  {
+    id: 'process',
+    title: 'Process &amp; timeline',
+    intro: 'How projects move from first call to final handover.',
+    items: [
+      {
+        question: 'How does the interior design process work at Space Solutions?',
+        answer:
+          'We begin with consultation and measurement, then move to concept, 3D, material selection, factory production, site installation, and handover. You get regular updates and a single accountable team through the project.',
+      },
+      {
+        question: 'How long does a typical project take?',
+        answer:
+          'Timelines depend on scope. A modular kitchen may take several weeks after design approval; full-home or commercial turnkey programmes often run from a few weeks to a few months. We share a schedule before production starts.',
+      },
+      {
+        question: 'Who manages site work and vendor coordination?',
+        answer:
+          'For turnkey projects, Space Solutions coordinates design, manufacturing, and installation. You deal with one project contact instead of separate carpenters, painters, and furniture vendors for every trade we own.',
+      },
+      {
+        question: 'Can I see previous projects before deciding?',
+        answer:
+          'Yes. Browse our <a href="/portfolio">portfolio</a> for residential, commercial, hospitality, and wellness work, or visit the Mysuru experience centre to discuss materials and recent installations.',
+      },
+    ],
+  },
+  {
+    id: 'pricing',
+    title: 'Pricing &amp; materials',
+    intro: 'Budgets, quotations, and what drives cost.',
+    items: [
+      {
+        question: 'What is the cost of hiring an interior designer in Mysuru?',
+        answer:
+          'Cost depends on carpet area, scope (kitchen-only vs full home or commercial fitout), materials, and custom joinery. We provide detailed estimates after understanding your requirements — not a one-line price without context.',
+      },
+      {
+        question: 'Do you offer fixed quotations for turnkey work?',
+        answer:
+          'After design and material selection are locked, we quote a clear scope. Changes mid-project can affect cost and timeline; we flag those before proceeding so budgets stay transparent.',
+      },
+      {
+        question: 'Which materials and brands do you typically use?',
+        answer:
+          'We specify materials suited to use — plywood or board systems, laminates, veneers, quartz or granite counters, and hardware matched to the duty cycle of a home or commercial space. Options are presented during design so you can balance look and budget.',
+      },
+      {
+        question: 'How do I get started with a quote?',
+        answer:
+          'Contact us via the <a href="/contact">contact page</a>, call our Mysuru studio, or request a callback. Share plans or approximate sizes, location, and timeline — we will guide the consultation and next steps.',
+      },
+    ],
+  },
+];
 ---
 
 <BaseLayout
-  title="FAQ | Space Solutions"
-  description="Frequently asked questions about interior design services from Space Solutions in Karnataka."
+  title="Interior Design FAQ Mysuru | Space Solutions"
+  description="Frequently asked questions about residential and commercial interior design in Mysuru — process, timelines, pricing, materials, and turnkey fitouts from Space Solutions."
   headerScrolled={false}
 >
   <PageHero
     breadcrumb={'<a href="/">Home</a> <span class="breadcrumb-sep">/</span> FAQ'}
-    title="FAQ"
-    description="Answers to common questions about our interior design services across Karnataka."
+    title="Frequently asked questions"
+    description="Clear answers on home interiors, commercial fitouts, timelines, and pricing — from Space Solutions in Mysuru."
   />
 
   <section class="page-content">
-    <div class="container">
-      <h2 class="section-heading-lg section-heading-center fade-up">Frequently Asked Questions</h2>
-
-      <div class="faq-list fade-up">
-        <div class="faq-item open">
-          <button class="faq-question" type="button">
-            What interior design services does Space Solution offer in Karnataka?
-            <Icon name="chevron-down" />
-          </button>
-          <div class="faq-answer">Space Solution provides comprehensive interior design services across Karnataka, including home interior design, commercial interior design, and institutional interior design. Our expert team specializes in space planning, furniture selection, turnkey solutions, and custom design for residential, commercial, and institutional spaces.</div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" type="button">
-            How does the interior design process work at Space Solution?
-            <Icon name="chevron-down" />
-          </button>
-          <div class="faq-answer">Our interior design process involves an initial consultation to understand your needs, followed by concept development, space planning, material selection, and execution. We ensure transparent communication and regular updates throughout your home, commercial, or institutional interior design project.</div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" type="button">
-            Can Space Solution customize interior design solutions for my home or business?
-            <Icon name="chevron-down" />
-          </button>
-          <div class="faq-answer">Yes, we offer personalized interior design solutions tailored to your style, requirements, and budget. Whether you need modern home interiors, functional office spaces, or innovative institutional designs, our team delivers bespoke results for every client.</div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" type="button">
-            What is the cost of hiring an interior designer in Karnataka?
-            <Icon name="chevron-down" />
-          </button>
-          <div class="faq-answer">Interior design costs vary depending on the size of the project, the type of space (home, commercial, or institutional), materials chosen, and the scope of work. We provide detailed estimates after understanding your requirements and offer competitive pricing for all interior design services in Karnataka.</div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" type="button">
-            What makes Space Solution different from other interior design companies in Karnataka?
-            <Icon name="chevron-down" />
-          </button>
-          <div class="faq-answer">Our interior design company stands out for its client-centric approach, innovative designs, attention to detail, and commitment to quality. We blend creativity with functionality to deliver interiors that reflect your vision and enhance your lifestyle or business environment.</div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" type="button">
-            How long does an interior design project take to complete?
-            <Icon name="chevron-down" />
-          </button>
-          <div class="faq-answer">The timeline for completing an interior design project depends on the complexity and scale of the work. Typically, residential and commercial interior design projects can range from a few weeks to a few months. We provide a clear project schedule and strive to meet all agreed deadlines.</div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" type="button">
-            Does Space Solution handle turnkey interior design projects?
-            <Icon name="chevron-down" />
-          </button>
-          <div class="faq-answer">Absolutely. We offer turnkey interior design solutions, managing every aspect from concept and design to execution and final handover. This ensures a hassle-free experience for clients seeking home, commercial, or institutional interiors in Karnataka.</div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" type="button">
-            Can I see samples of your previous interior design projects?
-            <Icon name="chevron-down" />
-          </button>
-          <div class="faq-answer">Yes, you can explore our portfolio showcasing a wide range of completed home interiors, commercial spaces, and institutional projects across Karnataka. Please visit our <a href="/portfolio">portfolio page</a> to view our work and get inspired for your own space.</div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" type="button">
-            Do you offer interior design services outside major cities in Karnataka?
-            <Icon name="chevron-down" />
-          </button>
-          <div class="faq-answer">Space Solution provides interior design services throughout Karnataka, not just in major cities. We are committed to delivering high-quality interior solutions to clients in urban and rural locations across the state.</div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" type="button">
-            How do I get started with Space Solution for my interior design project?
-            <Icon name="chevron-down" />
-          </button>
-          <div class="faq-answer">Getting started is easy! <a href="/contact">Contact us</a> through our website or call our team to schedule an initial consultation. We will discuss your requirements, provide expert guidance, and help you begin your journey toward beautiful and functional interiors in Karnataka.</div>
-        </div>
-      </div>
+    <div class="container content-prose">
+      <p class="section-label fade-up">Help centre</p>
+      <h2 class="section-title fade-up">Everything clients ask before they start</h2>
+      <p class="section-desc fade-up">
+        Whether you are planning a modular kitchen, a full-home interior, or a commercial fitout in Karnataka, these
+        answers cover how Space Solutions works — design, in-house manufacturing, timelines, and cost drivers.
+      </p>
+      <p class="content-body fade-up">
+        Still deciding between a single room and a turnkey programme? Jump to a category below, or{' '}
+        <a href="/contact">contact our Mysuru studio</a> for advice on your floor plan and budget.
+      </p>
+      <nav class="faq-category-nav fade-up" aria-label="FAQ categories">
+        {
+          categories.map((category) => (
+            <a href={`#${category.id}`}>{category.title.replace(/&amp;/g, '&')}</a>
+          ))
+        }
+      </nav>
     </div>
   </section>
+
+  {
+    categories.map((category, categoryIndex) => (
+      <section class="page-content content-faq" id={category.id}>
+        <div class="container">
+          <p class="section-label fade-up">{String(categoryIndex + 1).padStart(2, '0')}</p>
+          <h2 class="section-title fade-up" set:html={category.title} />
+          <p class="section-desc fade-up">{category.intro}</p>
+          <div class="faq-list">
+            {category.items.map((item, itemIndex) => (
+              <div class:list={['faq-item', 'fade-up', { open: categoryIndex === 0 && itemIndex === 0 }]}>
+                <button class="faq-question" type="button" aria-expanded={categoryIndex === 0 && itemIndex === 0 ? 'true' : 'false'}>
+                  {item.question}
+                  <Icon name="chevron-down" />
+                </button>
+                <div class="faq-answer" set:html={item.answer} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <CtaSection />
 </BaseLayout>

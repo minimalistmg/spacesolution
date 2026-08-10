@@ -1,0 +1,468 @@
+/* Flip Orbit — self-contained home header + hero landing */
+
+:root {
+  --gold: #c5a23a;
+  --gold-rgb: 197, 162, 58;
+  --gold-hover: #b8932f;
+  --on-gold: #181818;
+  --dark: #0a0a0a;
+  --white: #ffffff;
+  --header-h: 90px;
+  --container: min(1180px, calc(100% - 48px));
+  --font-display: 'Gilda Display', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Manrope', system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--dark);
+  color: var(--white);
+  overflow-x: hidden;
+}
+
+body.is-intro {
+  overflow: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 22px;
+  border: 1px solid transparent;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.btn-gold {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--on-gold);
+}
+
+.btn-gold:hover {
+  background: var(--gold-hover);
+  border-color: var(--gold-hover);
+}
+
+.btn-outline-white {
+  background: rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.85);
+  color: var(--white);
+  backdrop-filter: blur(6px);
+}
+
+.btn-outline-white:hover {
+  background: var(--white);
+  color: var(--dark);
+}
+
+/* —— Intro veil —— */
+.orbit-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: #050505;
+  pointer-events: none;
+}
+
+/* —— Header —— */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  height: var(--header-h);
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.site-header.is-ready {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  background: rgba(10, 10, 10, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+.header-inner {
+  width: var(--container);
+  margin: 0 auto;
+  height: 100%;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo-slot {
+  display: flex;
+  align-items: center;
+  min-width: 140px;
+  min-height: 62px;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  opacity: 0;
+}
+
+.header-nav a {
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.header-nav a:hover {
+  color: var(--gold);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  opacity: 0;
+}
+
+.header-phone {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+}
+
+.header-actions .btn {
+  min-height: 42px;
+  padding: 0 16px;
+}
+
+/* —— Logo states —— */
+.logo-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 45;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.orbit-logo {
+  width: auto;
+  height: auto;
+  will-change: transform;
+}
+
+.orbit-logo--hero {
+  width: min(520px, 72vw);
+  max-width: 90vw;
+  filter: drop-shadow(0 18px 40px rgba(197, 162, 58, 0.18));
+}
+
+.orbit-logo--header {
+  height: 62px;
+  width: auto;
+  filter: none;
+}
+
+/* —— Hero —— */
+.home-hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--dark);
+  color: var(--white);
+}
+
+.home-hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  transform: scale(1.06);
+}
+
+.home-hero-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--dark);
+}
+
+.home-hero-shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      105deg,
+      rgba(0, 0, 0, 0.72) 0%,
+      rgba(0, 0, 0, 0.48) 38%,
+      rgba(0, 0, 0, 0.18) 62%,
+      rgba(0, 0, 0, 0.28) 100%
+    ),
+    linear-gradient(to top, rgba(0, 0, 0, 0.5) 0%, transparent 42%);
+  pointer-events: none;
+}
+
+.home-hero-body {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  width: var(--container);
+  margin: 0 auto;
+  padding: calc(var(--header-h) + 32px) 0 160px;
+}
+
+.home-hero-copy {
+  max-width: 640px;
+  opacity: 0;
+}
+
+.home-hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 22px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.home-hero-eyebrow-line {
+  display: block;
+  width: 36px;
+  height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
+  transform-origin: left center;
+}
+
+.home-hero-title {
+  margin: 0 0 20px;
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5.6vw, 64px);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: 0.01em;
+}
+
+.home-hero-title .char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.home-hero-lead {
+  margin: 0 0 32px;
+  max-width: 520px;
+  font-size: clamp(15px, 1.5vw, 17px);
+  font-weight: 500;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.home-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+/* —— Gallery thumbs —— */
+.orbit-gallery {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 28px;
+  z-index: 2;
+  width: var(--container);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.orbit-thumb {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border: 1px solid rgba(var(--gold-rgb), 0.45);
+  background: #111;
+  opacity: 0;
+  transform: translateY(48px);
+  aspect-ratio: 16 / 10;
+}
+
+.orbit-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+.orbit-thumb span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+}
+
+.orbit-thumb:hover img {
+  transform: scale(1.05);
+}
+
+/* —— MotionPath orbit tracer —— */
+.orbit-tracer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 55;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #f0e2a8 0%, var(--gold) 55%, transparent 75%);
+  box-shadow: 0 0 18px rgba(var(--gold-rgb), 0.55);
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* —— Replay —— */
+.orbit-replay {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 60;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(10, 10, 10, 0.75);
+  color: var(--white);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+
+.orbit-replay:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.orbit-replay[hidden] {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  :root {
+    --header-h: 74px;
+    --container: min(100% - 32px, 1180px);
+  }
+
+  .header-nav,
+  .header-phone {
+    display: none;
+  }
+
+  .orbit-logo--hero {
+    width: min(360px, 78vw);
+  }
+
+  .orbit-logo--header {
+    height: 48px;
+  }
+
+  .home-hero-body {
+    align-items: flex-end;
+    padding-bottom: 200px;
+  }
+
+  .orbit-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    bottom: 16px;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .home-hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .home-hero-actions .btn {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-hero-video {
+    display: none;
+  }
+
+  .home-hero-media {
+    opacity: 1;
+    transform: none;
+    background:
+      linear-gradient(105deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.25)),
+      url('../src/assets/images/hero/bedroom.jpg') center / cover;
+  }
+}

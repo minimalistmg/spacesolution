@@ -1,0 +1,180 @@
+---
+import MenuIcon from './MenuIcon.astro';
+import type { MainNavFooterBand } from '../data/mainNav';
+import type { SegmentMegaMenuConfig } from '../data/segmentMegaMenus';
+import {
+  SEGMENT_MENU_DESIGN_LIBRARY_HREF,
+  SEGMENT_MENU_DESIGN_LIBRARY_ICON,
+  SEGMENT_MENU_DESIGN_LIBRARY_LABEL,
+  SEGMENT_MENU_PORTFOLIO_HREF,
+  SEGMENT_MENU_PORTFOLIO_LABEL,
+  SEGMENT_MENU_PROJECT_ICON,
+  SEGMENT_MENU_PROJECTS_HEADING,
+  getSegmentMenuProjectCount,
+  resolveSegmentMenuProjectPlaceIcon,
+} from '../data/segmentMegaMenus';
+import { MEGA_MENU_HOVER_ARROW } from '../data/headerMenuIcons';
+
+interface Props {
+  menu: SegmentMegaMenuConfig;
+  toolsBand?: MainNavFooterBand;
+  footerBand: MainNavFooterBand;
+}
+
+const { menu, toolsBand, footerBand } = Astro.props;
+const visibleProjects = menu.projects.slice(0, getSegmentMenuProjectCount(menu));
+---
+
+<div class="mega-menu-home">
+  <div class="mega-menu-home-body">
+    <div class="mega-menu-home-spotlight">
+      <div class="mega-menu-home-spotlight-col mega-menu-home-spotlight-col--rooms">
+        <div class="mega-menu-spotlight-block">
+          <p class="mega-menu-section-heading">{menu.spacesHeading}</p>
+          <ul class="mega-menu-room-list">
+            {
+              menu.spaces.map((space) => (
+                <li>
+                  <a href={space.href} class="mega-menu-link mega-menu-room-list-link">
+                    <span class="mega-menu-link-icon">
+                      <MenuIcon name={space.icon} />
+                    </span>
+                    <span class="mega-menu-link-copy">
+                      <span class="mega-menu-link-label">{space.label}</span>
+                      <span class="mega-menu-link-arrow" aria-hidden="true">
+                        <MenuIcon name={MEGA_MENU_HOVER_ARROW} />
+                      </span>
+                    </span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+          <p class="mega-menu-section-heading">Turnkey</p>
+          <ul class="mega-menu-room-list">
+            {
+              menu.turnkey.map((item) => (
+                <li>
+                  <a href={item.href} class="mega-menu-link mega-menu-room-list-link">
+                    <span class="mega-menu-link-icon">
+                      <MenuIcon name={item.icon} />
+                    </span>
+                    <span class="mega-menu-link-copy">
+                      <span class="mega-menu-link-label">{item.label}</span>
+                      <span class="mega-menu-link-arrow" aria-hidden="true">
+                        <MenuIcon name={MEGA_MENU_HOVER_ARROW} />
+                      </span>
+                    </span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+
+      <div class="mega-menu-home-spotlight-col mega-menu-home-spotlight-col--work">
+        <div class="mega-menu-spotlight-block">
+          <p class="mega-menu-section-heading">{SEGMENT_MENU_PROJECTS_HEADING}</p>
+          <ul class="mega-menu-project-list">
+            {
+              visibleProjects.map((project) => (
+                <li>
+                  <a href={project.href} class="mega-menu-link mega-menu-project-row-link">
+                    <span class="mega-menu-link-icon">
+                      <MenuIcon name={resolveSegmentMenuProjectPlaceIcon(project)} />
+                    </span>
+                    <span class="mega-menu-link-copy">
+                      <span class="mega-menu-link-label">{project.label}</span>
+                      <span class="mega-menu-project-row-location">{project.location}</span>
+                      <span class="mega-menu-link-arrow" aria-hidden="true">
+                        <MenuIcon name={MEGA_MENU_HOVER_ARROW} />
+                      </span>
+                    </span>
+                  </a>
+                </li>
+              ))
+            }
+            <li>
+              <a href={SEGMENT_MENU_PORTFOLIO_HREF} class="mega-menu-link mega-menu-project-row-link">
+                <span class="mega-menu-link-icon">
+                  <MenuIcon name={SEGMENT_MENU_PROJECT_ICON} />
+                </span>
+                <span class="mega-menu-link-copy">
+                  <span class="mega-menu-link-label">{SEGMENT_MENU_PORTFOLIO_LABEL}</span>
+                  <span class="mega-menu-link-arrow" aria-hidden="true">
+                    <MenuIcon name={MEGA_MENU_HOVER_ARROW} />
+                  </span>
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mega-menu-home-spotlight-col mega-menu-home-spotlight-col--guides">
+        <div class="mega-menu-spotlight-block">
+          {
+            toolsBand && toolsBand.items.length > 0 && (
+              <>
+                <p class="mega-menu-section-heading">{toolsBand.heading}</p>
+                <ul class="mega-menu-tools-list">
+                  {
+                    toolsBand.items.map((item) => (
+                      <li>
+                        <a href={item.href} class="mega-menu-link">
+                          <span class="mega-menu-link-icon">
+                            <MenuIcon name={item.icon} />
+                          </span>
+                          <span class="mega-menu-link-copy">
+                            <span class="mega-menu-link-label">{item.label}</span>
+                            <span class="mega-menu-link-arrow" aria-hidden="true">
+                              <MenuIcon name={MEGA_MENU_HOVER_ARROW} />
+                            </span>
+                          </span>
+                        </a>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </>
+            )
+          }
+          <p class="mega-menu-section-heading">{footerBand.heading}</p>
+          <ul class="mega-menu-guides-list">
+            {
+              footerBand.items.map((item) => (
+                <li>
+                  <a href={item.href} class="mega-menu-link">
+                    <span class="mega-menu-link-icon">
+                      <MenuIcon name={item.icon} />
+                    </span>
+                    <span class="mega-menu-link-copy">
+                      <span class="mega-menu-link-label">{item.label}</span>
+                      <span class="mega-menu-link-arrow" aria-hidden="true">
+                        <MenuIcon name={MEGA_MENU_HOVER_ARROW} />
+                      </span>
+                    </span>
+                  </a>
+                </li>
+              ))
+            }
+            <li>
+              <a href={SEGMENT_MENU_DESIGN_LIBRARY_HREF} class="mega-menu-link">
+                <span class="mega-menu-link-icon">
+                  <MenuIcon name={SEGMENT_MENU_DESIGN_LIBRARY_ICON} />
+                </span>
+                <span class="mega-menu-link-copy">
+                  <span class="mega-menu-link-label">{SEGMENT_MENU_DESIGN_LIBRARY_LABEL}</span>
+                  <span class="mega-menu-link-arrow" aria-hidden="true">
+                    <MenuIcon name={MEGA_MENU_HOVER_ARROW} />
+                  </span>
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

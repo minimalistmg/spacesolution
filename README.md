@@ -36,6 +36,16 @@ Preview the production build locally:
 npm run preview
 ```
 
+## Website features
+
+Interactive theme options (try links, params, storage keys):
+
+**[website_features.md](./website_features.md)**
+
+Quick start:
+
+- [Open color palette switcher](https://spacesolution.in/?color_pallet=true)
+
 ## Project structure
 
 ```
@@ -46,12 +56,14 @@ spacesolution/
 │       └── enquiry.js      # Resend email handler (Cloudflare Pages Function)
 ├── public/
 │   ├── fonts/              # Montserrat WOFF2 (400+700 active; 500+600 reserved)
-│   └── js/                 # Client-side scripts
+│   └── js/                 # Client-side scripts (incl. color-palette-selector.js, showcase.js)
 ├── src/
-│   ├── components/         # Reusable Astro components
+│   ├── components/         # Reusable Astro components (incl. ColorPaletteSelector)
+│   ├── data/               # Site data (incl. colorPalettes.js)
 │   ├── layouts/            # Page layouts
 │   ├── pages/              # Routes (file-based routing)
-│   └── styles/             # Global CSS
+│   ├── client/             # Source client JS (minified to public/js)
+│   └── styles/             # Global CSS (incl. color-palette-selector.css)
 └── dist/                   # Build output (deployed to Cloudflare Pages)
 ```
 
@@ -70,3 +82,4 @@ spacesolution/
 | Commercial Interiors | `/commercial-interiors` |
 | Institutional Interiors | `/institutional-interiors` |
 | Turnkey Fitout | `/turnkey-fitout` |
+| Project Showcase | `/showcase` | Desint-style GSAP experience (Hero → About → Services → Process → Library → CTA) |

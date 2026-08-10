@@ -1,9 +1,8 @@
 ---
 import Icon from './Icon.astro';
 import type { NavPage } from './Header.astro';
-import ResponsiveImage from './ResponsiveImage.astro';
-import { logoImages } from '../data/images';
-import { designLibraryGuides, getGuideHref } from '../data/designLibrary';
+import SiteLogo from './SiteLogo.astro';
+import { isNavPanelActive, mainNavPanels } from '../data/mainNav';
 import { SITE } from '../data/site';
 
 interface Props {
@@ -14,18 +13,18 @@ const { activePage = 'home' } = Astro.props;
 
 const primaryPhone = SITE.phones[0];
 const phoneDisplay = '+91 63645 64563';
+
+const resolvedActive = activePage === 'services' ? 'home-interiors' : activePage;
 ---
 
 <div class="mobile-menu">
   <div class="mobile-menu-header">
-    <a href="/">
-      <ResponsiveImage src={logoImages.mobileMenu} alt="Space Solutions" preset="logo" />
-    </a>
+    <SiteLogo />
     <button class="mobile-close" type="button" aria-label="Close menu"><Icon name="times" /></button>
   </div>
 
   <div class="mobile-menu-actions">
-    <a href={`tel:${primaryPhone}`} class="mobile-menu-phone">
+    <a href={`tel:${primaryPhone}`} class="mobile-menu-phone" data-contact-action="call">
       <Icon name="phone" />
       <span>{phoneDisplay}</span>
     </a>
@@ -36,6 +35,7 @@ const phoneDisplay = '+91 63645 64563';
         target="_blank"
         rel="noopener"
         aria-label="WhatsApp us"
+        data-contact-action="whatsapp"
       >
         <Icon name="whatsapp" />
       </a>
@@ -44,26 +44,56 @@ const phoneDisplay = '+91 63645 64563';
   </div>
 
   <nav class="mobile-nav" aria-label="Mobile navigation">
-    <a href="/#studio" class:list={[{ active: activePage === 'home' }]}>Studio</a>
-    <div class="has-submenu">
-      <a href="#">Interiors</a>
-      <div class="submenu-mobile" style="display:none">
-        <a href="/residential-interiors">Residential Interiors</a>
-        <a href="/commercial-interiors">Commercial Interiors</a>
-        <a href="/institutional-interiors">Institutional Interiors</a>
-        <a href="/turnkey-fitout">Turnkey Fitout Solutions</a>
-      </div>
-    </div>
-    <a href="/portfolio" class:list={[{ active: activePage === 'portfolio' }]}>Projects</a>
-    <div class="has-submenu">
-      <a href="#">Design Library</a>
-      <div class="submenu-mobile" style="display:none">
-        <a href="/design-library">All Guides</a>
-        {designLibraryGuides.map((guide) => (
-          <a href={getGuideHref(guide.slug)}>{guide.menuTitle}</a>
-        ))}
-      </div>
-    </div>
-    <a href="/contact" class:list={[{ active: activePage === 'enquire' }]}>Enquire</a>
+    {
+      mainNavPanels.map((panel) => (
+        <div class="has-submenu">
+          <a
+            href={panel.hubHref}
+            class:list={[{ active: isNavPanelActive(panel.id, resolvedActive) }]}
+          >
+            {panel.label}
+          </a>
+          <div class="submenu-mobile" style="display:none">
+            <a href={panel.featured.href} class="mobile-nav-featured">
+              {panel.featured.title}
+            </a>
+            {panel.sections.map((section) => (
+              <>
+                <span class="mobile-nav-group">{section.heading}</span>
+                {section.items.map((item) => (
+                  <a href={item.href} data-open-modal={item.modal}>
+                    {item.label}
+                  </a>
+                ))}
+              </>
+            ))}
+            {
+              panel.toolsBand && panel.toolsBand.items.length > 0 && (
+                <>
+                  <span class="mobile-nav-group">{panel.toolsBand.heading}</span>
+                  {panel.toolsBand.items.map((item) => (
+                    <a href={item.href} class="mobile-nav-turnkey">
+                      {item.label}
+                    </a>
+                  ))}
+                </>
+              )
+            }
+            {
+              panel.footerBand && panel.footerBand.items.length > 0 && (
+                <>
+                  <span class="mobile-nav-group">{panel.footerBand.heading}</span>
+                  {panel.footerBand.items.map((item) => (
+                    <a href={item.href} class="mobile-nav-turnkey">
+                      {item.label}
+                    </a>
+                  ))}
+                </>
+              )
+            }
+          </div>
+        </div>
+      ))
+    }
   </nav>
 </div>

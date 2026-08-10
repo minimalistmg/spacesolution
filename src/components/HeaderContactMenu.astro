@@ -1,0 +1,552 @@
+---
+
+import Icon from './Icon.astro';
+
+import type { IconName } from '../data/iconPaths';
+
+import { SITE } from '../data/site';
+
+import {
+
+  CALENDAR_PLATFORM_LINKS,
+
+  calendarLinkOpensExternal,
+
+  type CalendarPlatformId,
+
+} from '../data/calendarPlatforms';
+
+import '../styles/header-contact-menu.css';
+
+
+
+interface Props {
+
+  primaryPhone: string;
+
+  whatsappHref: string;
+
+}
+
+
+
+const { primaryPhone, whatsappHref } = Astro.props;
+
+const telHref = `tel:${primaryPhone}`;
+
+const smsHref = `sms:${primaryPhone}`;
+
+const emailHref = `mailto:${SITE.email}`;
+
+const consultHref = '/contact?intent=consult';
+
+const quoteModal = 'enquiry';
+
+const phoneDisplay = primaryPhone.replace(/^(\+91)(\d{5})(\d{5})$/, '$1 $2 $3');
+
+const facebookHref = SITE.social.facebook;
+
+const instagramHref = SITE.social.instagram;
+
+const linkedinHref = SITE.social.linkedin;
+
+
+
+const scheduleIconByPlatform: Record<CalendarPlatformId, IconName> = {
+
+  meet: 'video',
+
+  zoom: 'video',
+
+  teams: 'users',
+
+};
+
+
+
+const hubCycleItems = [
+
+  { icon: 'phone', label: 'Call' },
+
+  { icon: 'clipboard-list', label: 'Enquire' },
+
+  { icon: 'bookmark', label: 'Save' },
+
+  { icon: 'whatsapp', label: 'Chat' },
+
+  { icon: 'calendar-days', label: 'Schedule' },
+
+  { icon: 'instagram', label: 'Social' },
+
+] as const;
+
+---
+
+
+
+<div class="header-actions" id="header-contact-actions">
+
+  <div class="hc-smart hc-hub" data-contact-smart data-hub-cycle-root>
+
+    <button
+
+      type="button"
+
+      class="hc-hub-trigger"
+
+      data-contact-trigger="hub"
+
+      aria-expanded="false"
+
+      aria-label="Connect — hover for contact options"
+
+    >
+
+      <span class="hc-hub-trigger-main">
+
+        <span class="hc-hub-trigger-static" aria-hidden="true">Connect</span>
+
+        <span class="hc-hub-trigger-body">
+
+          <span class="hc-hub-cycle" data-hub-cycle aria-live="polite">
+
+            <span class="hc-hub-cycle-icon-slot" aria-hidden="true">
+
+              {hubCycleItems.map((item, index) => (
+
+                <span class:list={['hc-hub-cycle-icon', { 'is-active': index === 0 }]}>
+
+                  <Icon name={item.icon} />
+
+                </span>
+
+              ))}
+
+            </span>
+
+            <span class="hc-hub-cycle-meta">
+
+              <span class="hc-hub-cycle-track" data-hub-cycle-track>
+
+                {hubCycleItems.map((item, index) => (
+
+                  <span class:list={['hc-hub-cycle-item', { 'is-active': index === 0 }]}>
+
+                    <span class="hc-hub-cycle-label">{item.label}</span>
+
+                  </span>
+
+                ))}
+
+              </span>
+
+              <span class="hc-hub-cycle-dots" data-hub-cycle-dots aria-hidden="true">
+
+                {hubCycleItems.map((_, index) => (
+
+                  <span class:list={['hc-hub-cycle-dot', { 'is-active': index === 0 }]} data-hub-cycle-dot={index} />
+
+                ))}
+
+              </span>
+
+            </span>
+
+          </span>
+
+        </span>
+
+      </span>
+
+      <span class="hc-hub-trigger-chevron" aria-hidden="true">
+
+        <Icon name="chevron-down" class="hc-hub-chevron" />
+
+      </span>
+
+    </button>
+
+
+
+    <div class="hc-hub-panel" data-contact-panel="hub" hidden>
+
+      <p class="hc-hub-panel-intro">How would you like to connect?</p>
+
+      <div class="hc-hub-grid">
+
+        <article class="hc-hub-card hc-hub-card--elev-up" data-hub-card="call">
+
+          <div class="hc-hub-card-head">
+
+            <div class="hc-hub-card-copy">
+
+              <h3 class="hc-hub-card-title">Call</h3>
+
+              <p class="hc-hub-card-desc">Reach our team by phone</p>
+
+            </div>
+
+          </div>
+
+          <div class="hc-hub-card-links">
+
+            <a href={telHref} class="hc-menu-link" data-contact-action="call">
+
+              <span class="hc-menu-link-icon"><Icon name="phone" /></span>
+
+              <span class="hc-menu-link-copy">
+
+                <span class="hc-menu-link-label">Call now</span>
+
+                <span class="hc-menu-link-arrow" aria-hidden="true"><Icon name="arrow-right" /></span>
+
+              </span>
+
+            </a>
+
+            <a href={whatsappHref} class="hc-menu-link" target="_blank" rel="noopener" data-contact-action="whatsapp">
+
+              <span class="hc-menu-link-icon"><Icon name="whatsapp" /></span>
+
+              <span class="hc-menu-link-copy">
+
+                <span class="hc-menu-link-label">WhatsApp call</span>
+
+                <span class="hc-menu-link-arrow" aria-hidden="true"><Icon name="arrow-right" /></span>
+
+              </span>
+
+            </a>
+
+          </div>
+
+        </article>
+
+
+
+        <article class="hc-hub-card hc-hub-card--elev-up" data-hub-card="enquire">
+
+          <div class="hc-hub-card-head">
+
+            <div class="hc-hub-card-copy">
+
+              <h3 class="hc-hub-card-title">Enquire</h3>
+
+              <p class="hc-hub-card-desc">Share your project requirements</p>
+
+            </div>
+
+          </div>
+
+          <div class="hc-hub-card-links">
+
+            <a href="#" class="hc-menu-link" data-open-modal={quoteModal}>
+
+              <span class="hc-menu-link-icon"><Icon name="clipboard-list" /></span>
+
+              <span class="hc-menu-link-copy">
+
+                <span class="hc-menu-link-label">Get quotation</span>
+
+                <span class="hc-menu-link-arrow" aria-hidden="true"><Icon name="arrow-right" /></span>
+
+              </span>
+
+            </a>
+
+            <a href={consultHref} class="hc-menu-link">
+
+              <span class="hc-menu-link-icon"><Icon name="compass" /></span>
+
+              <span class="hc-menu-link-copy">
+
+                <span class="hc-menu-link-label">Book consultation</span>
+
+                <span class="hc-menu-link-arrow" aria-hidden="true"><Icon name="arrow-right" /></span>
+
+              </span>
+
+            </a>
+
+          </div>
+
+        </article>
+
+
+
+        <article class="hc-hub-card hc-hub-card--elev-up" data-hub-card="save">
+
+          <div class="hc-hub-card-head">
+
+            <div class="hc-hub-card-copy">
+
+              <h3 class="hc-hub-card-title">Save</h3>
+
+              <p class="hc-hub-card-desc">Keep our contact details handy</p>
+
+            </div>
+
+          </div>
+
+          <div class="hc-hub-card-links">
+
+            <button
+
+              type="button"
+
+              class="hc-menu-link hc-menu-link-btn"
+
+              data-contact-copy-phone
+
+              data-copy-value={phoneDisplay}
+
+            >
+
+              <span class="hc-menu-link-icon"><Icon name="copy" /></span>
+
+              <span class="hc-menu-link-copy">
+
+                <span class="hc-menu-link-label">Copy number</span>
+
+                <span class="hc-menu-link-arrow" aria-hidden="true"><Icon name="arrow-right" /></span>
+
+              </span>
+
+            </button>
+
+            <button
+
+              type="button"
+
+              class="hc-menu-link hc-menu-link-btn"
+
+              data-contact-vcard
+
+              data-vcard-name={SITE.name}
+
+              data-vcard-phone={primaryPhone}
+
+              data-vcard-email={SITE.email}
+
+            >
+
+              <span class="hc-menu-link-icon"><Icon name="bookmark" /></span>
+
+              <span class="hc-menu-link-copy">
+
+                <span class="hc-menu-link-label">Save contact</span>
+
+                <span class="hc-menu-link-arrow" aria-hidden="true"><Icon name="arrow-right" /></span>
+
+              </span>
+
+            </button>
+
+          </div>
+
+        </article>
+
+
+
+        <article class="hc-hub-card hc-hub-card--elev-down" data-hub-card="chat">
+
+          <div class="hc-hub-card-head">
+
+            <div class="hc-hub-card-copy">
+
+              <h3 class="hc-hub-card-title">Chat</h3>
+
+              <p class="hc-hub-card-desc">Message our team directly</p>
+
+            </div>
+
+          </div>
+
+          <div class="hc-hub-card-links">
+
+            <a href={smsHref} class="hc-menu-link" data-contact-action="sms">
+
+              <span class="hc-menu-link-icon"><Icon name="envelope" /></span>
+
+              <span class="hc-menu-link-copy">
+
+                <span class="hc-menu-link-label">Send SMS</span>
+
+                <span class="hc-menu-link-arrow" aria-hidden="true"><Icon name="arrow-right" /></span>
+
+              </span>
+
+            </a>
+
+            <a href={whatsappHref} class="hc-menu-link" target="_blank" rel="noopener" data-contact-action="whatsapp">
+
+              <span class="hc-menu-link-icon"><Icon name="whatsapp" /></span>
+
+              <span class="hc-menu-link-copy">
+
+                <span class="hc-menu-link-label">WhatsApp chat</span>
+
+                <span class="hc-menu-link-arrow" aria-hidden="true"><Icon name="arrow-right" /></span>
+
+              </span>
+
+            </a>
+
+            <a href={emailHref} class="hc-menu-link" data-contact-action="email">
+
+              <span class="hc-menu-link-icon"><Icon name="envelope" /></span>
+
+              <span class="hc-menu-link-copy">
+
+                <span class="hc-menu-link-label">Email</span>
+
+                <span class="hc-menu-link-arrow" aria-hidden="true"><Icon name="arrow-right" /></span>
+
+              </span>
+
+            </a>
+
+          </div>
+
+        </article>
+
+
+
+        <article class="hc-hub-card hc-hub-card--elev-down" data-hub-card="schedule">
+
+          <div class="hc-hub-card-head">
+
+            <div class="hc-hub-card-copy">
+
+              <h3 class="hc-hub-card-title">Schedule</h3>
+
+              <p class="hc-hub-card-desc">Book on your preferred platform</p>
+
+            </div>
+
+          </div>
+
+          <div class="hc-hub-card-links">
+
+            {CALENDAR_PLATFORM_LINKS.map((item) => (
+
+              <a
+
+                href={item.href}
+
+                class="hc-menu-link"
+
+                target={calendarLinkOpensExternal(item.href) ? '_blank' : undefined}
+
+                rel={calendarLinkOpensExternal(item.href) ? 'noopener' : undefined}
+
+              >
+
+                <span class="hc-menu-link-icon">
+
+                  <Icon name={scheduleIconByPlatform[item.id]} />
+
+                </span>
+
+                <span class="hc-menu-link-copy">
+
+                  <span class="hc-menu-link-label">{item.label}</span>
+
+                  <span class="hc-menu-link-arrow" aria-hidden="true"><Icon name="arrow-right" /></span>
+
+                </span>
+
+              </a>
+
+            ))}
+
+          </div>
+
+        </article>
+
+
+
+        <article class="hc-hub-card hc-hub-card--elev-down" data-hub-card="social">
+
+          <div class="hc-hub-card-head">
+
+            <div class="hc-hub-card-copy">
+
+              <h3 class="hc-hub-card-title">Social</h3>
+
+              <p class="hc-hub-card-desc">Follow our latest work</p>
+
+            </div>
+
+          </div>
+
+          <div class="hc-hub-card-links">
+
+            <a href={facebookHref} class="hc-menu-link" target="_blank" rel="noopener">
+
+              <span class="hc-menu-link-icon"><Icon name="facebook" /></span>
+
+              <span class="hc-menu-link-copy">
+
+                <span class="hc-menu-link-label">Facebook</span>
+
+                <span class="hc-menu-link-arrow" aria-hidden="true"><Icon name="arrow-right" /></span>
+
+              </span>
+
+            </a>
+
+            <a href={instagramHref} class="hc-menu-link" target="_blank" rel="noopener">
+
+              <span class="hc-menu-link-icon"><Icon name="instagram" /></span>
+
+              <span class="hc-menu-link-copy">
+
+                <span class="hc-menu-link-label">Instagram</span>
+
+                <span class="hc-menu-link-arrow" aria-hidden="true"><Icon name="arrow-right" /></span>
+
+              </span>
+
+            </a>
+
+            <a href={linkedinHref} class="hc-menu-link" target="_blank" rel="noopener">
+
+              <span class="hc-menu-link-icon"><Icon name="linkedin" /></span>
+
+              <span class="hc-menu-link-copy">
+
+                <span class="hc-menu-link-label">LinkedIn</span>
+
+                <span class="hc-menu-link-arrow" aria-hidden="true"><Icon name="arrow-right" /></span>
+
+              </span>
+
+            </a>
+
+          </div>
+
+        </article>
+
+      </div>
+
+      <p class="hc-hub-panel-footer">
+
+        <span>{SITE.name}</span>
+
+        <span class="hc-hub-panel-footer-sep" aria-hidden="true">·</span>
+
+        <span>{SITE.address.addressLocality}</span>
+
+        <span class="hc-hub-panel-footer-sep" aria-hidden="true">·</span>
+
+        <a href={telHref} class="hc-hub-panel-footer-link" data-contact-action="call">{phoneDisplay}</a>
+
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+

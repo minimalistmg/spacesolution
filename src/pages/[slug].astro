@@ -1,0 +1,17 @@
+---
+import ServicePageLayout from '../components/ServicePageLayout.astro';
+import { getServiceLandingPage, getServiceLandingSlugs } from '../data/servicePages';
+
+export function getStaticPaths() {
+  return getServiceLandingSlugs().map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const page = getServiceLandingPage(slug!);
+
+if (!page) {
+  return Astro.redirect('/');
+}
+---
+
+<ServicePageLayout page={page} />

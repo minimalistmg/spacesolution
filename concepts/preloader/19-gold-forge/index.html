@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preloader — Gold Forge</title>
+    <link
+      rel="preload"
+      href="../../../assets/fonts/gotham/gothamblack-webfont.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="../../../assets/fonts/gotham/gothambook-webfont.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="../../../assets/fonts/gotham/gotham.css" />
+    <link rel="stylesheet" href="../_shared/brand.css" />
+    <link rel="stylesheet" href="../_shared/page-shell.css" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="is-preloading">
+    <header class="page-header">
+      <div class="page-header__slot"></div>
+      <nav class="page-nav" aria-label="Primary">
+        <a href="#">About</a><a href="#">Services</a><a href="#">Projects</a><a href="#">Contact</a>
+      </nav>
+    </header>
+
+    <main class="page-hero">
+      <div class="page-hero__media">
+        <img src="../../../src/assets/images/hero/kitchen-1.jpeg" alt="" />
+        <div class="page-hero__shade"></div>
+      </div>
+      <div class="page-hero__copy">
+        <h1>Interiors, end to end.</h1>
+        <p>Design, manufacturing and installation — delivered by one team in Mysuru.</p>
+      </div>
+    </main>
+
+    <div class="pl-preloader" data-pl-preloader>
+      <div class="pl-bloom" data-pl-bloom aria-hidden="true"></div>
+      <div class="pl-vignette" aria-hidden="true"></div>
+      <div class="pl-grain" aria-hidden="true"></div>
+      <div class="pl-lockup-host" data-pl-lockup-host></div>
+    </div>
+
+    <button type="button" class="preloader-skip preloader-skip--light" data-pl-skip>Skip</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/CustomEase.min.js"></script>
+    <script src="../_shared/preloader-utils.js"></script>
+    <script src="../_shared/brand-shape.js"></script>
+    <script src="./gold-forge.js"></script>
+  </body>
+</html>

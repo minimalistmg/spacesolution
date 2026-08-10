@@ -1,0 +1,70 @@
+/* Shared brand lockup — icon + space / SOLUTION (preloader, header, footer) */
+
+.brand-lockup {
+  --brand-ink: #543727;
+  --brand-ink-dark: #332015;
+  --brand-font: 'Gotham', var(--font, 'Archivo'), system-ui, sans-serif;
+  --brand-icon-width: clamp(86px, 13.5vw, 122px);
+  --brand-space-size: clamp(44px, 7.8vw, 80px);
+  --brand-solution-size: clamp(10px, 1.32vw, 13.5px);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: clamp(4px, 0.55vw, 8px);
+}
+
+.brand-lockup--center {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.brand-icon-wrap {
+  flex-shrink: 0;
+  width: var(--brand-icon-width);
+  line-height: 0;
+}
+
+.brand-icon-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.brand-wordmark {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: max-content;
+  line-height: 1;
+}
+
+.brand-lockup--center .brand-wordmark {
+  align-items: flex-end;
+}
+
+.brand-space {
+  display: block;
+  font-family: var(--brand-font);
+  font-size: var(--brand-space-size);
+  font-weight: 800;
+  letter-spacing: -0.09em;
+  line-height: 0.92;
+  color: var(--brand-ink);
+  text-shadow: 0 1px 0 var(--brand-ink-dark);
+}
+
+.brand-solution {
+  display: block;
+  margin-top: 0.28em;
+  margin-right: -0.32em;
+  font-family: var(--brand-font);
+  font-size: var(--brand-solution-size);
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--brand-ink);
+}

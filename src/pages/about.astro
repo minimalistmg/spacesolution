@@ -1,17 +1,261 @@
 ---
-// Legacy /about URL — redirect to the Studio section on the homepage.
+import Icon from '../components/Icon.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaSection from '../components/CtaSection.astro';
+import ResponsiveImage from '../components/ResponsiveImage.astro';
+import FaqSection from '../components/FaqSection.astro';
+import ImageGallery from '../components/ImageGallery.astro';
+import DummyVideoBlock from '../components/DummyVideoBlock.astro';
+import { heroImages, projectImages, roomImages, studioImages } from '../data/images';
+import { SITE } from '../data/site';
+
+const phoneDisplay = '+91 63645 64563';
+
+const values = [
+  {
+    icon: 'pencil-ruler' as const,
+    title: 'Design with purpose',
+    description:
+      'Layouts start from how you live or work — storage, light, and circulation — then the finishes follow.',
+  },
+  {
+    icon: 'industry' as const,
+    title: 'Factory-backed quality',
+    description:
+      'Cabinetry and modular furniture are produced in our Mysuru facility, so detailing stays consistent site to site.',
+  },
+  {
+    icon: 'clock' as const,
+    title: 'Clear timelines',
+    description:
+      'One accountable team for design, production, and installation means fewer handoffs and fewer delays.',
+  },
+  {
+    icon: 'award' as const,
+    title: 'Practical luxury',
+    description:
+      'We aim for spaces that feel refined every day — durable materials, calm detailing, and lasting workmanship.',
+  },
+];
+
+const processSteps = [
+  {
+    title: 'Listen & measure',
+    description: 'Site visit or plans review, lifestyle brief, and budget range so the design stays realistic from day one.',
+  },
+  {
+    title: 'Design & 3D',
+    description: 'Space planning, material options, and 3D views so you can approve the look before production begins.',
+  },
+  {
+    title: 'Manufacture',
+    description: 'Joinery and modular units are built in-house with quality checks before anything ships to site.',
+  },
+  {
+    title: 'Install & handover',
+    description: 'Coordinated installation, snag list, and a clean handover — ready to move in or open for business.',
+  },
+];
+
+const galleryItems = [
+  {
+    src: studioImages.craft,
+    alt: 'Space Solutions craft and joinery detailing',
+    caption: 'In-house craft',
+  },
+  {
+    src: roomImages.modularKitchen,
+    alt: 'Modular kitchen by Space Solutions Mysuru',
+    caption: 'Modular kitchen',
+  },
+  {
+    src: projectImages.villa,
+    alt: 'Residential villa interior project',
+    caption: 'Residential interiors',
+  },
+  {
+    src: projectImages.coworking,
+    alt: 'Commercial coworking interior fitout',
+    caption: 'Commercial fitout',
+  },
+];
+
+const faqs = [
+  {
+    question: 'How long has Space Solutions been designing interiors in Mysuru?',
+    answer:
+      'Space Solutions has been delivering residential and commercial interiors in Mysuru since 2011. Over that time we have completed 800+ projects across Karnataka with an in-house design studio and manufacturing facility.',
+  },
+  {
+    question: 'What does “in-house factory” mean for my project?',
+    answer:
+      'Most modular kitchens, wardrobes, and custom cabinetry are produced in our Mysuru factory rather than outsourced to multiple workshops. That keeps finish quality consistent, shortens production feedback loops, and helps us hold project timelines.',
+  },
+  {
+    question: 'Do you only work in Mysuru?',
+    answer:
+      'Our studio and factory are based in Mysuru, and we regularly deliver projects across Karnataka — from apartments and villas to offices, clinics, hospitality, and institutional spaces.',
+  },
+  {
+    question: 'Can I visit the experience centre before starting?',
+    answer: `Yes. Visit us at ${SITE.address.streetAddress}, ${SITE.address.addressLocality}. Call ${phoneDisplay} or request a free consultation online — we can walk you through materials, sample finishes, and recent project work.`,
+  },
+];
 ---
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Redirecting to Studio | Space Solutions</title>
-    <meta http-equiv="refresh" content="0;url=/#studio" />
-    <link rel="canonical" href="https://spacesolution.in/" />
-    <script is:inline>window.location.replace('/#studio');</script>
-  </head>
-  <body>
-    <p><a href="/#studio">Continue to Space Solutions</a></p>
-  </body>
-</html>
+
+<BaseLayout
+  title="About Space Solutions Mysuru | Interior Designers Since 2011"
+  description="Space Solutions Mysuru — interior designers since 2011 with an in-house factory. Modular furniture, home interiors, and turnkey fitouts across Karnataka. 800+ projects delivered."
+  activePage="studio"
+  headerScrolled={false}
+>
+  <PageHero
+    breadcrumb={'<a href="/">Home</a> <span class="breadcrumb-sep">/</span> About'}
+    title="About Space Solutions"
+    description="Interior designers in Mysuru since 2011 — design studio, in-house factory, and turnkey delivery under one roof."
+    image={studioImages.craft}
+  />
+
+  <section class="content-stats">
+    <div class="container content-stats-grid">
+      <div class="content-stat fade-up">
+        <span class="content-stat-value">2011</span>
+        <span class="content-stat-label">Studio founded in Mysuru</span>
+      </div>
+      <div class="content-stat fade-up">
+        <span class="content-stat-value">800+</span>
+        <span class="content-stat-label">Projects across Karnataka</span>
+      </div>
+      <div class="content-stat fade-up">
+        <span class="content-stat-value">1</span>
+        <span class="content-stat-label">In-house manufacturing unit</span>
+      </div>
+      <div class="content-stat fade-up">
+        <span class="content-stat-value">End-to-end</span>
+        <span class="content-stat-label">Design to installation</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="about page-content">
+    <div class="container about-grid">
+      <div class="about-image fade-up">
+        <ResponsiveImage
+          src={heroImages.residential}
+          alt="Residential interior by Space Solutions Mysuru"
+          preset="content"
+        />
+      </div>
+      <div class="about-content fade-up">
+        <p class="section-label">Our story</p>
+        <h2 class="section-title">We don't just design.<br />We deliver complete interiors.</h2>
+        <p>
+          At Space Solutions, every project starts with a clear understanding of how your space needs to function.
+          Since 2011, we've worked with homeowners, businesses, and institutions across Karnataka to create interiors
+          that are practical, durable, and well-finished.
+        </p>
+        <p>
+          What makes us different is simple — we handle everything. From design and material selection to manufacturing
+          and installation, every step is managed by our team. That means better quality, controlled timelines, and no
+          guesswork between vendors.
+        </p>
+        <p>
+          Visit our experience centre at {SITE.address.streetAddress}, {SITE.address.addressLocality}. Call{' '}
+          <a href={`tel:${SITE.phones[0]}`}>{phoneDisplay}</a> or book a free 3D consultation.
+        </p>
+        <a href="#" class="btn btn-gold-filled" data-open-modal="enquiry">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-block">
+    <div class="container service-block-grid reverse">
+      <div class="service-block-image fade-up">
+        <ResponsiveImage
+          src={projectImages.modularKitchen}
+          alt="Factory-made modular kitchen cabinetry"
+          preset="content"
+        />
+      </div>
+      <div class="service-block-content fade-up">
+        <p class="section-label">Manufacturing advantage</p>
+        <h3>Design studio + in-house factory</h3>
+        <p>
+          Many interior firms stop at drawings. We take the next step — producing modular kitchens, wardrobes, and
+          custom joinery in our Mysuru facility so what you approve in 3D is what arrives on site.
+        </p>
+        <ul class="feature-list">
+          <li>Consistent edge banding, hardware, and finish quality across rooms</li>
+          <li>Faster revisions when a detail needs adjusting mid-project</li>
+          <li>Fewer third-party workshops to coordinate</li>
+          <li>Clear ownership from cutting list to final install</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="why-choose">
+    <div class="container">
+      <p class="section-label fade-up">How we work</p>
+      <h2 class="section-heading-lg fade-up">Values that show up on site</h2>
+      <p class="section-desc fade-up">
+        Practical luxury for Mysuru homes and workplaces — thoughtful planning, honest materials, and finish quality you can live with every day.
+      </p>
+      <div class="why-grid">
+        {
+          values.map((value) => (
+            <div class="why-card fade-up">
+              <div class="why-icon">
+                <Icon name={value.icon} />
+              </div>
+              <h3>{value.title}</h3>
+              <p class="why-desc">{value.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="page-content section-compact-top">
+    <div class="container">
+      <p class="section-label fade-up">Team &amp; process</p>
+      <h2 class="section-title fade-up">From brief to handover</h2>
+      <p class="section-desc fade-up content-body">
+        Designers, project coordinators, and factory teams work as one unit. You get a single point of contact while
+        specialists handle planning, production, and site execution — so decisions stay clear and progress stays visible.
+      </p>
+      <div class="why-steps">
+        {
+          processSteps.map((step, index) => (
+            <div class="why-step fade-up">
+              <span class="step-num">{String(index + 1).padStart(2, '0')}</span>
+              <h4>{step.title}</h4>
+              <p>{step.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <ImageGallery
+    title="A glimpse of our work"
+    description="Homes, kitchens, and commercial interiors shaped in Mysuru — from factory detailing to finished rooms."
+    items={galleryItems}
+  />
+
+  <DummyVideoBlock
+    title="See how a Space Solutions project comes together"
+    description="From first measure to final handover — design, factory production, and site installation as one process in Mysuru."
+  />
+
+  <FaqSection
+    title="About Space Solutions"
+    description="Quick answers about our studio, factory, and how we deliver projects across Karnataka."
+    items={faqs}
+  />
+
+  <CtaSection />
+</BaseLayout>

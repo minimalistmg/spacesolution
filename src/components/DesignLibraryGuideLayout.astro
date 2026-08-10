@@ -3,6 +3,9 @@ import Icon from './Icon.astro';
 import PageHero from './PageHero.astro';
 import CtaSection from './CtaSection.astro';
 import ResponsiveImage from './ResponsiveImage.astro';
+import FaqSection from './FaqSection.astro';
+import ImageGallery from './ImageGallery.astro';
+import DummyVideoBlock from './DummyVideoBlock.astro';
 import type { DesignLibraryGuide } from '../data/designLibrary';
 import { designLibraryGuides, getGuideHref } from '../data/designLibrary';
 
@@ -15,6 +18,9 @@ const { guide } = Astro.props;
 const relatedGuides = designLibraryGuides
   .filter((item) => item.slug !== guide.slug)
   .slice(0, 3);
+
+const galleryItems = guide.gallery ?? [];
+const faqs = guide.faqs ?? [];
 ---
 
 <PageHero
@@ -87,6 +93,32 @@ const relatedGuides = designLibraryGuides
     </section>
   )
 }
+
+{
+  galleryItems.length > 0 && (
+    <ImageGallery
+      title={guide.galleryTitle ?? 'Visual references'}
+      description={guide.galleryDescription ?? 'Spaces and details that illustrate the ideas in this guide.'}
+      items={galleryItems}
+    />
+  )
+}
+
+{
+  faqs.length > 0 && (
+    <FaqSection
+      title={guide.faqTitle ?? 'Guide FAQs'}
+      description={guide.faqDescription ?? 'Practical answers before you start designing or renovating.'}
+      items={faqs}
+    />
+  )
+}
+
+<DummyVideoBlock
+  eyebrow="From the studio"
+  title="Watch how design becomes a finished interior"
+  description="A short look at how Space Solutions moves from planning and materials to factory production and site installation."
+/>
 
 <section class="page-content library-related">
   <div class="container">

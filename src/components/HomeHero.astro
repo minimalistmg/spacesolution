@@ -1,0 +1,109 @@
+---
+/**
+ * Home hero — light editorial split.
+ * Warm off-white stage, dark type, photography and the showreel carried in
+ * framed media cards rather than a full-bleed video behind a black scrim.
+ */
+import ResponsiveImage from './ResponsiveImage.astro';
+import Icon from './Icon.astro';
+import { heroImages } from '../data/images';
+import '../styles/home-hero.css';
+
+const stats = [
+  { value: '15+', label: 'Years of Expertise' },
+  { value: '800+', label: 'Projects Delivered' },
+  { value: 'In-House', label: 'Manufacturing' },
+  { value: 'Mysuru', label: 'Karnataka' },
+] as const;
+---
+
+<section class="home-hero" aria-label="Introduction">
+  <div class="home-hero-wash" aria-hidden="true"></div>
+
+  <div class="container home-hero-inner">
+    <div class="home-hero-copy">
+      <p class="home-hero-eyebrow" data-hero-reveal>
+        <span class="home-hero-eyebrow-line" aria-hidden="true"></span>
+        Residential · Commercial · Turnkey Fit-Out
+      </p>
+      <h1 class="home-hero-title" data-hero-reveal>
+        Interiors,<br />
+        <span class="home-hero-title-accent">end to end.</span>
+      </h1>
+      <p class="home-hero-lead" data-hero-reveal>
+        Design, manufacturing and installation — delivered by one team in Mysuru.
+        Fifteen years of turnkey interiors, finished to the drawing.
+      </p>
+      <div class="home-hero-actions" data-hero-reveal>
+        <a href="#" class="btn btn-gold-filled" data-open-modal="enquiry">Get Consultation</a>
+        <a href="/portfolio" class="btn btn-outline-dark">View Portfolio</a>
+      </div>
+    </div>
+
+    <div class="home-hero-media">
+      <figure class="home-hero-still" data-hero-parallax>
+        <ResponsiveImage
+          src={heroImages.residential}
+          alt="Sunlit living room with an oak slatted feature wall and linen seating"
+          preset="hero"
+        />
+      </figure>
+
+      <div class="home-hero-reel">
+        <video
+          class="home-hero-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          aria-label="Space Solutions studio showreel"
+        >
+          <source src="/videos/home-hero.mp4" type="video/mp4" />
+        </video>
+        <button type="button" class="home-hero-reel-cta hero-video-btn">
+          <span class="home-hero-reel-icon" aria-hidden="true"><Icon name="play" /></span>
+          <span class="home-hero-reel-text">Watch the reel</span>
+        </button>
+      </div>
+
+      <span class="home-hero-badge" aria-hidden="true">
+        <span class="home-hero-badge-value">2011</span>
+        <span class="home-hero-badge-label">Since</span>
+      </span>
+    </div>
+  </div>
+
+  <div class="home-hero-stats" aria-label="Company highlights">
+    <div class="container home-hero-stats-grid">
+      {
+        stats.map((stat) => (
+          <div class="home-hero-stat" data-hero-reveal>
+            <span class="home-hero-stat-value">{stat.value}</span>
+            <span class="home-hero-stat-label">{stat.label}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    var video = document.querySelector('.home-hero-video');
+    if (!video) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      video.removeAttribute('autoplay');
+      video.pause();
+      return;
+    }
+
+    var play = video.play();
+    if (play && typeof play.catch === 'function') {
+      play.catch(function () {
+        /* autoplay may be blocked; the first frame still shows */
+      });
+    }
+  })();
+</script>

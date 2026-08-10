@@ -1,0 +1,25 @@
+---
+import LogoMark from './LogoMark.astro';
+import '../styles/site-logo.css';
+
+interface Props {
+  class?: string;
+  layout?: 'inline' | 'stack';
+}
+
+const { class: className, layout = 'inline' } = Astro.props;
+---
+
+<a
+  href="/"
+  class:list={['site-logo', 'brand-lockup', layout === 'stack' && 'brand-lockup--center', className]}
+  aria-label="Space Solution home"
+>
+  <span class="brand-icon-wrap" aria-hidden="true">
+    <LogoMark />
+  </span>
+  <span class="brand-wordmark">
+    <span class="brand-space">space</span>
+    <span class="brand-solution">SOLUTION</span>
+  </span>
+</a>

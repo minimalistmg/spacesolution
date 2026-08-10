@@ -1,0 +1,86 @@
+/* Shared brand lockup — from brand/styles.css */
+:root {
+  --gold-primary: #efc824;
+  --gold-deep: #a37a2b;
+  --ink: #543727;
+  --ink-dark: #332015;
+  --paper: #ffffff;
+  --font-brand: 'Gotham', 'Avenir Next', system-ui, sans-serif;
+}
+
+.brand-lockup {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: clamp(4px, 0.55vw, 8px);
+}
+
+.brand-icon-wrap {
+  flex-shrink: 0;
+  width: clamp(86px, 13.5vw, 122px);
+  line-height: 0;
+}
+
+.brand-icon-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 3px 6px rgba(114, 90, 41, 0.18));
+}
+
+.brand-wordmark {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: max-content;
+  line-height: 1;
+}
+
+.brand-space {
+  display: block;
+  font-family: var(--font-brand);
+  font-size: clamp(44px, 7.8vw, 80px);
+  font-weight: 800;
+  letter-spacing: -0.048em;
+  line-height: 0.92;
+  color: var(--ink);
+  text-shadow: 0 1px 0 var(--ink-dark);
+}
+
+.brand-solution {
+  display: block;
+  margin-top: 0.22em;
+  font-family: var(--font-brand);
+  font-size: clamp(10px, 1.32vw, 13.5px);
+  font-weight: 400;
+  letter-spacing: 0.32em;
+  margin-right: -0.32em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-shadow: 0 1px 0 var(--ink-dark);
+}
+
+.brand-lockup--dark .brand-space,
+.brand-lockup--dark .brand-solution {
+  color: #fff;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+}
+
+.brand-lockup--dark .brand-solution {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.brand-lockup--center {
+  flex-direction: column;
+  text-align: center;
+}
+
+.brand-lockup--center .brand-wordmark {
+  align-items: center;
+  margin-top: 14px;
+}
+
+.brand-lockup--center .brand-icon-wrap {
+  width: clamp(110px, 18vw, 160px);
+}

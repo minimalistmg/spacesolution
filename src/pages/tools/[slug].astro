@@ -1,0 +1,19 @@
+---
+import ToolPageLayout from '../../components/ToolPageLayout.astro';
+import { getToolPage, getToolSlugs } from '../../data/tools';
+
+export function getStaticPaths() {
+  return getToolSlugs().map((slug) => ({
+    params: { slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const page = getToolPage(slug!);
+
+if (!page) {
+  throw new Error(`Unknown tool slug: ${slug}`);
+}
+---
+
+<ToolPageLayout page={page} />

@@ -1,0 +1,43 @@
+---
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  title?: string;
+  description?: string;
+  items: FaqItem[];
+}
+
+const {
+  title = 'Frequently asked questions',
+  description = 'Clear answers before you start your project.',
+  items,
+} = Astro.props;
+---
+
+{
+  items.length > 0 && (
+    <section class="page-content content-faq">
+      <div class="container">
+        <p class="section-label fade-up">FAQ</p>
+        <h2 class="section-title fade-up">{title}</h2>
+        <p class="section-desc fade-up">{description}</p>
+        <div class="faq-list">
+          {items.map((item) => (
+            <div class="faq-item fade-up">
+              <button type="button" class="faq-question" aria-expanded="false">
+                <span>{item.question}</span>
+                <span class="faq-toggle" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>{item.answer}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

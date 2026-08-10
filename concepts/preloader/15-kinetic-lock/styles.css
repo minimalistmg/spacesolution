@@ -1,0 +1,120 @@
+/* Concept 15 — Kinetic Lock */
+
+.pl-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: #faf8f5;
+  overflow: hidden;
+}
+
+/* ── Ghost marquee strip ───────────────────────────── */
+
+.pl-marquee {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  z-index: 1;
+  height: clamp(78px, 12vh, 128px);
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 1) 16%,
+    rgba(0, 0, 0, 1) 84%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 1) 16%,
+    rgba(0, 0, 0, 1) 84%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.pl-marquee__track {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: clamp(26px, 4vw, 58px);
+  width: max-content;
+  transform-origin: 50% 50%;
+  will-change: transform, filter;
+}
+
+.pl-marquee__word {
+  display: block;
+  font-family: var(--font-brand);
+  font-size: clamp(38px, 6.5vw, 64px);
+  font-weight: 800;
+  letter-spacing: -0.048em;
+  line-height: 0.92;
+  white-space: nowrap;
+  color: rgba(84, 55, 39, 0.12);
+}
+
+/* ── Centred lockup ────────────────────────────────── */
+
+.pl-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pl-lockup-host {
+  position: relative;
+  z-index: 2;
+}
+
+.pl-lockup-host .brand-lockup {
+  flex-direction: column;
+  align-items: center;
+}
+
+.pl-lockup-host .brand-wordmark {
+  align-items: center;
+  margin-top: 14px;
+}
+
+.pl-lockup-host .brand-icon-wrap {
+  width: clamp(96px, 16vw, 130px);
+}
+
+.pl-lockup-host .brand-space {
+  font-size: clamp(38px, 6.5vw, 64px);
+}
+
+.pl-lockup-host .brand-solution {
+  font-size: clamp(9px, 1.2vw, 12px);
+}
+
+/* No blueprint guides — gold fill only */
+.pl-lockup-host [data-brand-stroke-up],
+.pl-lockup-host [data-brand-stroke-lo] {
+  opacity: 0 !important;
+  visibility: hidden;
+}
+
+.pl-lockup-host [data-brand-wire] {
+  opacity: 0;
+}
+
+.pl-lockup-host [data-brand-fill] {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pl-marquee {
+    display: none;
+  }
+}

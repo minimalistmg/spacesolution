@@ -1,0 +1,35 @@
+---
+import type { ImageMetadata } from 'astro';
+import ResponsiveImage from './ResponsiveImage.astro';
+
+interface Props {
+  href: string;
+  title: string;
+  image: ImageMetadata;
+  alt?: string;
+  category?: string;
+  label?: string;
+  class?: string;
+}
+
+const { href, title, image, alt, category, label, class: className } = Astro.props;
+---
+
+<a
+  class:list={['gallery-card', 'portfolio-item', className]}
+  href={href}
+  data-category={category}
+>
+  <ResponsiveImage src={image} alt={alt ?? title} preset="grid" />
+  <span class="gallery-card-shade" aria-hidden="true"></span>
+  <span class="gallery-card-copy">
+    {label && <span class="gallery-card-label">{label}</span>}
+    <h4 class="gallery-card-title">{title}</h4>
+  </span>
+  <span class="gallery-card-cta" aria-hidden="true">
+    <svg viewBox="0 0 14 14" focusable="false">
+      <path d="M3 11 L11 3"></path>
+      <path d="M5.5 3 H11 V8.5"></path>
+    </svg>
+  </span>
+</a>

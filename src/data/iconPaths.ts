@@ -33,13 +33,21 @@ import { faStore } from '@fortawesome/free-solid-svg-icons/faStore';
 import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons/faScrewdriverWrench';
 import { faFacebookF } from '@fortawesome/free-brands-svg-icons/faFacebookF';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons/faInstagram';
+import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons/faLinkedinIn';
+import { faYoutube } from '@fortawesome/free-brands-svg-icons/faYoutube';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons/faWhatsapp';
+import { faCompass } from '@fortawesome/free-solid-svg-icons/faCompass';
+import { faKey } from '@fortawesome/free-solid-svg-icons/faKey';
 import { faVolumeHigh } from '@fortawesome/free-solid-svg-icons/faVolumeHigh';
 import { faVolumeXmark } from '@fortawesome/free-solid-svg-icons/faVolumeXmark';
 import { faExpand } from '@fortawesome/free-solid-svg-icons/faExpand';
 import { faGear } from '@fortawesome/free-solid-svg-icons/faGear';
 import { faLink } from '@fortawesome/free-solid-svg-icons/faLink';
 import { faCopy } from '@fortawesome/free-solid-svg-icons/faCopy';
+import { faCalendarDays } from '@fortawesome/free-solid-svg-icons/faCalendarDays';
+import { faClipboardList } from '@fortawesome/free-solid-svg-icons/faClipboardList';
+import { faBookmark } from '@fortawesome/free-solid-svg-icons/faBookmark';
+import { faVideo } from '@fortawesome/free-solid-svg-icons/faVideo';
 
 export type IconName =
   | 'play'
@@ -76,13 +84,21 @@ export type IconName =
   | 'tools'
   | 'facebook'
   | 'instagram'
+  | 'linkedin'
+  | 'youtube'
   | 'whatsapp'
+  | 'compass'
+  | 'key'
   | 'volume-high'
   | 'volume-xmark'
   | 'expand'
   | 'gear'
   | 'link'
-  | 'copy';
+  | 'copy'
+  | 'calendar-days'
+  | 'clipboard-list'
+  | 'bookmark'
+  | 'video';
 
 function toIconData(definition: IconDefinition) {
   const [width, height, , , path] = definition.icon;
@@ -128,13 +144,21 @@ const icons = {
   tools: toIconData(faScrewdriverWrench),
   facebook: toIconData(faFacebookF),
   instagram: toIconData(faInstagram),
+  linkedin: toIconData(faLinkedinIn),
+  youtube: toIconData(faYoutube),
   whatsapp: toIconData(faWhatsapp),
+  compass: toIconData(faCompass),
+  key: toIconData(faKey),
   'volume-high': toIconData(faVolumeHigh),
   'volume-xmark': toIconData(faVolumeXmark),
   expand: toIconData(faExpand),
   gear: toIconData(faGear),
   link: toIconData(faLink),
   copy: toIconData(faCopy),
+  'calendar-days': toIconData(faCalendarDays),
+  'clipboard-list': toIconData(faClipboardList),
+  bookmark: toIconData(faBookmark),
+  video: toIconData(faVideo),
 } satisfies Record<IconName, { width: number; height: number; path: string }>;
 
 export function getIcon(name: IconName) {

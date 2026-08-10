@@ -1,0 +1,130 @@
+@font-face {
+  font-family: 'Gilda Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    url('/fonts/gilda-display-400.woff2') format('woff2'),
+    url('/fonts/gilda-display-400.ttf') format('truetype');
+}
+
+.footer-lets-talk {
+  background: var(--footer-cta-bg);
+  padding: clamp(28px, 4vw, 48px) 24px clamp(48px, 8vw, 88px);
+  text-align: center;
+  overflow: visible;
+}
+
+.footer-lets-talk-link {
+  display: inline-block;
+  color: var(--white);
+  text-decoration: none;
+  transition: opacity 0.25s ease;
+}
+
+.footer-lets-talk-link:hover {
+  opacity: 0.88;
+}
+
+.footer-lets-talk-link:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 8px;
+}
+
+.footer-lets-talk-title {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  justify-content: center;
+  margin: 0;
+  font-family: 'Gilda Display', serif;
+  font-size: clamp(4.5rem, 11vw, 9.5rem);
+  font-weight: 400;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  white-space: nowrap;
+}
+
+.footer-lets-talk-part {
+  margin: 0;
+  font: inherit;
+  color: inherit;
+}
+
+.footer-lets-talk-space {
+  white-space: pre;
+}
+
+.footer-lets-talk-letter {
+  position: relative;
+  /* Em-based so gaps stay proportional on mobile */
+  margin: 0 -0.025em;
+}
+
+.footer-lets-talk-letter-fallback {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  opacity: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.footer-lets-talk-frames {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+  /* width/height set in JS from font-size */
+}
+
+.footer-lets-talk-chair-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.footer-lets-talk.is-ready .footer-lets-talk-letter-fallback {
+  opacity: 0;
+}
+
+.footer-lets-talk.is-ready .footer-lets-talk-frames {
+  opacity: 1;
+}
+
+.footer-lets-talk.no-canvas .footer-lets-talk-letter-fallback {
+  opacity: 1;
+}
+
+.footer-lets-talk.no-canvas .footer-lets-talk-frames {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-lets-talk-letter-fallback {
+    opacity: 1;
+  }
+
+  .footer-lets-talk-frames {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .footer-lets-talk {
+    padding: 56px 12px;
+  }
+
+  .footer-lets-talk-title {
+    /* Fill most of the row width */
+    font-size: clamp(3.75rem, 22vw, 6.25rem);
+  }
+
+  .footer-lets-talk-letter {
+    margin: 0 -0.08em;
+  }
+}

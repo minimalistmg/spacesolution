@@ -1,0 +1,42 @@
+---
+import type { ImageMetadata } from 'astro';
+import ResponsiveImage from './ResponsiveImage.astro';
+
+interface GalleryItem {
+  src: ImageMetadata;
+  alt: string;
+  caption?: string;
+}
+
+interface Props {
+  title?: string;
+  description?: string;
+  items: GalleryItem[];
+}
+
+const {
+  title = 'Project inspiration',
+  description = 'Spaces shaped around light, storage, and lasting materials.',
+  items,
+} = Astro.props;
+---
+
+{
+  items.length > 0 && (
+    <section class="page-content content-gallery">
+      <div class="container">
+        <p class="section-label fade-up">Gallery</p>
+        <h2 class="section-title fade-up">{title}</h2>
+        <p class="section-desc fade-up">{description}</p>
+        <div class={`content-gallery-grid count-${Math.min(items.length, 4)}`}>
+          {items.map((item) => (
+            <figure class="content-gallery-item fade-up">
+              <ResponsiveImage src={item.src} alt={item.alt} preset="grid" />
+              {item.caption && <figcaption>{item.caption}</figcaption>}
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

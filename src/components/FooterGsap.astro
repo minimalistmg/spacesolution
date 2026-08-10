@@ -1,0 +1,102 @@
+---
+import Icon from './Icon.astro';
+import LogoMark from './LogoMark.astro';
+import { SITE } from '../data/site';
+import { FOOTER_BLUEPRINT_COLUMNS } from '../data/footerBlueprintLinks';
+import { FOOTER_LOOP_OBJECTS } from '../data/footerGsapLayouts';
+import '../styles/footer-gsap.css';
+
+/* Duplicate track for seamless infinite loop */
+const trackObjects = [...FOOTER_LOOP_OBJECTS, ...FOOTER_LOOP_OBJECTS];
+---
+
+<footer
+  class="fgsap-footer"
+  data-fgsap-variant="v1"
+  aria-label="Space Solutions footer — unified object loop"
+>
+  <div class="fgsap-inner">
+    <div class="fgsap-content">
+      <div class="fgsap-brand">
+        <a href="/" class="fgsap-logo-mark" aria-label="Space Solutions home">
+          <LogoMark />
+        </a>
+        <div class="fgsap-brand-copy">
+          <a href="/" class="fgsap-logo-text" aria-label="Space Solutions home">
+            <span class="fgsap-logo-name">SPACE SOLUTIONS</span>
+            <span class="fgsap-logo-tag">Space, elevated.</span>
+            <span class="fgsap-logo-sub">
+              End-to-end interiors — we design, furnish, and hand over homes and workplaces across Mysuru.
+            </span>
+          </a>
+          <div class="fgsap-connect">
+            <div class="fgsap-social">
+              <a href={SITE.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <Icon name="instagram" />
+              </a>
+              <a href={SITE.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <Icon name="facebook" />
+              </a>
+              <a href={SITE.social.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <Icon name="linkedin" />
+              </a>
+              <a href={SITE.social.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                <Icon name="youtube" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fgsap-nav">
+        {
+          FOOTER_BLUEPRINT_COLUMNS.map((col) => (
+            <div class="fgsap-col">
+              <h4>{col.title}</h4>
+              <ul>
+                {col.links.map((link) => (
+                  <li>
+                    <a href={link.href} class="fgsap-link">
+                      <span class="fgsap-link-label">{link.label}</span>
+                      <span class="fgsap-link-arrow" aria-hidden="true">
+                        <Icon name="arrow-right" />
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="fgsap-stage" aria-hidden="true">
+    <div class="fgsap-track" data-fgsap-track>
+      {
+        trackObjects.map((obj, index) => (
+          <div
+            class="fgsap-object"
+            data-fgsap-object={obj.id}
+            data-rotate={obj.rotate}
+            data-lift={obj.lift}
+            style={`width:${obj.width}px; --fgsap-rotate:${obj.rotate}deg; --fgsap-lift:${obj.lift}px`}
+          >
+            <img
+              class="fgsap-object-img"
+              src={obj.src}
+              alt=""
+              width={obj.width}
+              height={Math.round(obj.width * 0.75)}
+              loading="eager"
+              decoding="async"
+              draggable="false"
+            />
+            <span class="fgsap-object-label">{obj.shortLabel}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</footer>

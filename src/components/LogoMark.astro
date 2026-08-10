@@ -1,0 +1,55 @@
+---
+import iconPaths from '../../brand/icon-paths.json';
+
+interface Props {
+  class?: string;
+  uid?: string;
+}
+
+const { class: className, uid = Astro.id } = Astro.props;
+const ribbon = iconPaths.ribbon;
+const iconSrc = '/images/brand/icon-source.png';
+---
+
+<svg
+  class:list={['brand-icon-svg', className]}
+  viewBox="0 0 564 630"
+  aria-hidden="true"
+  focusable="false"
+>
+  <defs>
+    <filter id={`${uid}-soft`} x="-12%" y="-12%" width="124%" height="124%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="2.2" />
+    </filter>
+    <mask id={`${uid}-inner`} maskUnits="userSpaceOnUse" x="0" y="0" width="564" height="630">
+      <g filter={`url(#${uid}-soft)`}>
+        <path fill="#fff" d={ribbon} />
+        <path fill="none" stroke="#000" stroke-width="7" d={ribbon} />
+      </g>
+    </mask>
+    <linearGradient id={`${uid}-gold-base`} x1="14%" y1="8%" x2="86%" y2="92%">
+      <stop offset="5%" stop-color="#a57e35" />
+      <stop offset="50%" stop-color="#eccd57" />
+      <stop offset="95%" stop-color="#feec9e" />
+    </linearGradient>
+    <linearGradient id={`${uid}-gold-edge`} x1="10%" y1="0%" x2="90%" y2="100%">
+      <stop offset="0%" stop-color="#a57e35" />
+      <stop offset="100%" stop-color="#b98a2c" />
+    </linearGradient>
+    <clipPath id={`${uid}-shape-clip`}>
+      <path d={ribbon} />
+    </clipPath>
+  </defs>
+  <path fill={`url(#${uid}-gold-base)`} d={ribbon} />
+  <g clip-path={`url(#${uid}-shape-clip)`}>
+    <image href={iconSrc} width="564" height="630" preserveAspectRatio="xMidYMid meet" mask={`url(#${uid}-inner)`} />
+    <path
+      fill="none"
+      stroke={`url(#${uid}-gold-edge)`}
+      stroke-width="8"
+      opacity="0.22"
+      filter={`url(#${uid}-soft)`}
+      d={ribbon}
+    />
+  </g>
+</svg>
