@@ -7,6 +7,8 @@ import ResponsiveImage from './ResponsiveImage.astro';
 import FaqSection from './FaqSection.astro';
 import ImageGallery from './ImageGallery.astro';
 import DummyVideoBlock from './DummyVideoBlock.astro';
+import PastelStoryCards from './PastelStoryCards.astro';
+import ResidentialOpenHouse from './ResidentialOpenHouse.astro';
 import type { ServicePageData } from '../data/servicePages';
 
 interface Props {
@@ -17,8 +19,9 @@ const { page } = Astro.props;
 const seoTitle = page.seoTitle ?? `${page.heroTitle} in Mysuru | Space Solutions`;
 const isHospitality = page.activePage === 'hospitality';
 const isCommercial = page.activePage === 'commercial';
+const isResidentialHub = page.slug === 'residential-interiors';
 const heroStats = isHospitality ? page.stats : undefined;
-const showStandaloneStats = !isHospitality && Boolean(page.stats?.length);
+const showStandaloneStats = !isHospitality && !isResidentialHub && Boolean(page.stats?.length);
 ---
 
 <BaseLayout
@@ -27,13 +30,24 @@ const showStandaloneStats = !isHospitality && Boolean(page.stats?.length);
   activePage={page.activePage}
   headerScrolled={false}
 >
-  <PageHero
-    breadcrumb={page.breadcrumb}
-    title={page.heroTitle}
-    description={page.heroDescription}
-    image={page.heroImage}
-    stats={heroStats}
-  />
+  {
+    isResidentialHub && page.stats?.length ? (
+      <ResidentialOpenHouse
+        breadcrumb={page.breadcrumb}
+        title={page.heroTitle}
+        description={page.heroDescription}
+        stats={page.stats}
+      />
+    ) : (
+      <PageHero
+        breadcrumb={page.breadcrumb}
+        title={page.heroTitle}
+        description={page.heroDescription}
+        image={page.heroImage}
+        stats={heroStats}
+      />
+    )
+  }
 
   {
     showStandaloneStats && (
@@ -196,19 +210,24 @@ const showStandaloneStats = !isHospitality && Boolean(page.stats?.length);
   }
 
   {
-    page.relatedLinks && page.relatedLinks.length > 0 && (
-      <section class="page-content section-compact-top">
-        <div class="container">
-          <h2 class="section-heading-lg fade-up">{page.relatedHeading ?? 'Related'}</h2>
-          <ul class="service-related-links fade-up">
-            {page.relatedLinks.map((link) => (
-              <li>
-                <a href={link.href}>{link.label}</a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+    page.pastelCards && page.pastelCards.length > 0 ? (
+      <PastelStoryCards heading={page.relatedHeading ?? 'Explore'} cards={page.pastelCards} />
+    ) : (
+      page.relatedLinks &&
+      page.relatedLinks.length > 0 && (
+        <section class="page-content section-compact-top">
+          <div class="container">
+            <h2 class="section-heading-lg fade-up">{page.relatedHeading ?? 'Related'}</h2>
+            <ul class="service-related-links fade-up">
+              {page.relatedLinks.map((link) => (
+                <li>
+                  <a href={link.href}>{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )
     )
   }
 

@@ -9,6 +9,7 @@ import AmbientCanvas from '../components/AmbientCanvas.astro';
 import DummyVideoBlock from '../components/DummyVideoBlock.astro';
 import InspireBento from '../components/InspireBento.astro';
 import GalleryCard from '../components/GalleryCard.astro';
+import StorytellingBand from '../components/StorytellingBand.astro';
 import { getImage } from 'astro:assets';
 import { projectImages, roomImages, studioImages } from '../data/images';
 import { galleryFilters, homeGalleryItems, homeServices } from '../data/home';
@@ -83,6 +84,11 @@ const serviceHoverUrls = Object.fromEntries(
 
       <a href="/residential-interiors" class="btn btn-gold-filled fade-up">View All Services</a>
     </div>
+    <div class="bg-bump" style="--bump-to: var(--white)" aria-hidden="true">
+      <svg viewBox="0 0 1200 48" preserveAspectRatio="none" focusable="false">
+        <path fill="currentColor" d="M0 48V34C280 34 420 6 600 6s320 28 600 28v14H0Z"></path>
+      </svg>
+    </div>
   </section>
 
   <!-- Projects -->
@@ -129,45 +135,9 @@ const serviceHoverUrls = Object.fromEntries(
     </div>
   </section>
 
-  <!-- Why Choose Us -->
-  <section class="why-choose" id="why-us">
-    <div class="container">
-      <h3 class="section-heading-lg fade-up">Why Clients Choose Space Solutions</h3>
-
-      <div class="why-grid">
-        <div class="why-card fade-up">
-          <div class="why-icon"><Icon name="award" /></div>
-          <h3>Experience That Shows in Every Project</h3>
-          <p class="why-desc">15+ years of hands-on industry experience.</p>
-        </div>
-        <div class="why-card fade-up">
-          <div class="why-icon"><Icon name="industry" /></div>
-          <h3>In-House Manufacturing Advantage</h3>
-          <p class="why-desc">Full control over quality, materials, and timelines.</p>
-        </div>
-        <div class="why-card fade-up">
-          <div class="why-icon"><Icon name="clock" /></div>
-          <h3>Built for Long-Term Use</h3>
-          <p class="why-desc">We use materials that are made to handle daily wear.</p>
-        </div>
-        <div class="why-card fade-up">
-          <div class="why-icon"><Icon name="tags" /></div>
-          <h3>Clear Pricing</h3>
-          <p class="why-desc">No confusion. No hidden costs.</p>
-        </div>
-        <div class="why-card fade-up">
-          <div class="why-icon"><Icon name="users" /></div>
-          <h3>Skilled Team</h3>
-          <p class="why-desc">30+ professionals focused on delivering precise work.</p>
-        </div>
-        <div class="why-card fade-up">
-          <div class="why-icon"><Icon name="pencil-ruler" /></div>
-          <h3>Custom Solutions</h3>
-          <p class="why-desc">Every project is designed based on your space and requirement.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <div id="why-us">
+    <StorytellingBand />
+  </div>
 
   <!-- Process -->
   <section class="process" id="process">

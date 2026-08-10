@@ -1,6 +1,6 @@
 import type { ImageMetadata } from 'astro';
 import type { IconName } from './iconPaths';
-import { heroImages, projectImages, roomImages, studioImages } from './images';
+import { cutoutImages, heroImages, projectImages, roomImages, studioImages } from './images';
 
 export type ServiceActivePage = 'home-interiors' | 'commercial' | 'institutional' | 'hospitality';
 
@@ -32,6 +32,14 @@ export interface ServiceStep {
 export interface ServiceRelatedLink {
   label: string;
   href: string;
+}
+
+export interface ServicePastelCard {
+  title: string;
+  description: string;
+  href: string;
+  image: ImageMetadata;
+  tone?: 'blue' | 'peach' | 'yellow' | 'sage' | 'sand' | 'mist';
 }
 
 export interface ServiceFaq {
@@ -79,6 +87,8 @@ export interface ServicePageData {
   faqDescription?: string;
   relatedLinks?: ServiceRelatedLink[];
   relatedHeading?: string;
+  /** Soft pastel product cards (e.g. residential explore-by-room). Replaces relatedLinks list when set. */
+  pastelCards?: ServicePastelCard[];
 }
 
 function crumb(parent: { label: string; href: string } | null, current: string): string {
@@ -215,6 +225,50 @@ export const residentialHub: ServicePageData = {
     { label: 'Bedrooms', href: '/bedrooms' },
     { label: 'Pooja Room', href: '/pooja-room' },
     { label: 'Full Home Interiors', href: '/full-home-interiors' },
+  ],
+  pastelCards: [
+    {
+      title: 'Modular Kitchen',
+      description: 'Layouts and storage built for how you cook every day.',
+      href: '/modular-kitchen',
+      image: cutoutImages.kitchen,
+      tone: 'peach',
+    },
+    {
+      title: 'Wardrobes & Storage',
+      description: 'Closets and storage systems that stay calm and organised.',
+      href: '/wardrobes-storage',
+      image: cutoutImages.wardrobe,
+      tone: 'blue',
+    },
+    {
+      title: 'Living & Dining',
+      description: 'Seating, flow, and lighting for the heart of the home.',
+      href: '/living-dining',
+      image: cutoutImages.sofa,
+      tone: 'yellow',
+    },
+    {
+      title: 'Bedrooms',
+      description: 'Restful suites with storage beds and soft finishes.',
+      href: '/bedrooms',
+      image: cutoutImages.bed,
+      tone: 'sage',
+    },
+    {
+      title: 'Pooja Room',
+      description: 'Quiet mandir spaces with warm timber and clean light.',
+      href: '/pooja-room',
+      image: cutoutImages.pooja,
+      tone: 'sand',
+    },
+    {
+      title: 'Full Home Interiors',
+      description: 'One design language from kitchen to bedrooms — turnkey.',
+      href: '/full-home-interiors',
+      image: cutoutImages.chair,
+      tone: 'mist',
+    },
   ],
 };
 

@@ -1,0 +1,120 @@
+---
+/**
+ * Residential hub page hero — Truww-style split:
+ * left copy + CTA, right stats over transitioning open-house dioramas.
+ */
+import type { ImageMetadata } from 'astro';
+import ResponsiveImage from './ResponsiveImage.astro';
+import { openHouseImages } from '../data/images';
+import '../styles/residential-open-house.css';
+
+interface Stat {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  breadcrumb: string;
+  title: string;
+  description?: string;
+  stats: Stat[];
+  images?: readonly ImageMetadata[];
+}
+
+const { breadcrumb, description, stats, images = openHouseImages } = Astro.props;
+
+/** Prefer three stats for the Truww-style rail; fall back to whatever is provided. */
+const railStats = stats.length > 3 ? stats.slice(0, 3) : stats;
+---
+
+<section class="residential-hero" aria-label="Residential interiors">
+  <div class="container residential-hero-grid">
+    <div class="residential-hero-copy">
+      <nav class="breadcrumb residential-hero-breadcrumb" aria-label="Breadcrumb" set:html={breadcrumb} />
+
+      <h1 class="residential-hero-title">
+        <span class="residential-hero-title-light">Free 3D</span>
+        <span class="residential-hero-title-dark">Home Interiors</span>
+      </h1>
+
+      {
+        description && (
+          <p class="residential-hero-lead">{description}</p>
+        )
+      }
+
+      <a href="#" class="btn btn-gold-filled residential-hero-cta" data-open-modal="enquiry">
+        Get Quote Now
+      </a>
+    </div>
+
+    <div class="residential-hero-visual">
+      <div class="residential-hero-stats" role="list">
+        {
+          railStats.map((stat) => (
+            <div class="residential-hero-stat" role="listitem">
+              <span class="residential-hero-stat-value">{stat.value}</span>
+              <span class="residential-hero-stat-label">{stat.label}</span>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="residential-hero-stage" data-open-house>
+        {
+          images.map((image, index) => (
+            <figure
+              class:list={['residential-hero-slide', { 'is-active': index === 0 }]}
+              data-open-house-slide
+              aria-hidden={index === 0 ? 'false' : 'true'}
+            >
+              <ResponsiveImage
+                src={image}
+                alt={`Open-house view of a Space Solutions home interior, slide ${index + 1}`}
+                preset="hero"
+                loading={index === 0 ? 'eager' : 'lazy'}
+              />
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    var root = document.querySelector('[data-open-house]');
+    if (!root) return;
+
+    var slides = root.querySelectorAll('[data-open-house-slide]');
+    if (slides.length < 2) return;
+
+    var index = 0;
+    var timer;
+
+    function show(next) {
+      slides[index].classList.remove('is-active');
+      slides[index].setAttribute('aria-hidden', 'true');
+      index = next;
+      slides[index].classList.add('is-active');
+      slides[index].setAttribute('aria-hidden', 'false');
+    }
+
+    function tick() {
+      show((index + 1) % slides.length);
+    }
+
+    function start() {
+      stop();
+      timer = window.setInterval(tick, 4200);
+    }
+
+    function stop() {
+      if (timer) window.clearInterval(timer);
+    }
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    start();
+  })();
+</script>

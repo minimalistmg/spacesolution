@@ -1,7 +1,7 @@
 ---
 import Icon from '../components/Icon.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/PageHero.astro';
+import TurnkeyHero from '../components/TurnkeyHero.astro';
 import CtaSection from '../components/CtaSection.astro';
 import ResponsiveImage from '../components/ResponsiveImage.astro';
 import FaqSection from '../components/FaqSection.astro';
@@ -132,11 +132,8 @@ const faqs = [
   activePage="home-interiors"
   headerScrolled={false}
 >
-  <PageHero
+  <TurnkeyHero
     breadcrumb={'<a href="/">Home</a> <span class="breadcrumb-sep">/</span> Turnkey Fitout Solutions'}
-    title="Turnkey Fitout Solutions"
-    description="One team for design, factory production, and installation — so your home or workplace finishes on a clear plan."
-    image={heroImages.commercial}
   />
 
   <section class="content-stats">

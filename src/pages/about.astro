@@ -1,5 +1,4 @@
 ---
-import Icon from '../components/Icon.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaSection from '../components/CtaSection.astro';
@@ -7,37 +6,11 @@ import ResponsiveImage from '../components/ResponsiveImage.astro';
 import FaqSection from '../components/FaqSection.astro';
 import ImageGallery from '../components/ImageGallery.astro';
 import DummyVideoBlock from '../components/DummyVideoBlock.astro';
+import StorytellingBand from '../components/StorytellingBand.astro';
 import { heroImages, projectImages, roomImages, studioImages } from '../data/images';
 import { SITE } from '../data/site';
 
 const phoneDisplay = '+91 63645 64563';
-
-const values = [
-  {
-    icon: 'pencil-ruler' as const,
-    title: 'Design with purpose',
-    description:
-      'Layouts start from how you live or work — storage, light, and circulation — then the finishes follow.',
-  },
-  {
-    icon: 'industry' as const,
-    title: 'Factory-backed quality',
-    description:
-      'Cabinetry and modular furniture are produced in our Mysuru facility, so detailing stays consistent site to site.',
-  },
-  {
-    icon: 'clock' as const,
-    title: 'Clear timelines',
-    description:
-      'One accountable team for design, production, and installation means fewer handoffs and fewer delays.',
-  },
-  {
-    icon: 'award' as const,
-    title: 'Practical luxury',
-    description:
-      'We aim for spaces that feel refined every day — durable materials, calm detailing, and lasting workmanship.',
-  },
-];
 
 const processSteps = [
   {
@@ -117,24 +90,35 @@ const faqs = [
     image={studioImages.craft}
   />
 
-  <section class="content-stats">
-    <div class="container content-stats-grid">
-      <div class="content-stat fade-up">
-        <span class="content-stat-value">2011</span>
-        <span class="content-stat-label">Studio founded in Mysuru</span>
+  <section class="about-proof" aria-label="Studio proof points">
+    <div class="container">
+      <div class="about-proof-lockup fade-up">
+        <p class="about-proof-watermark" aria-hidden="true">big results</p>
+        <h2 class="about-proof-title">Small team,</h2>
       </div>
-      <div class="content-stat fade-up">
-        <span class="content-stat-value">800+</span>
-        <span class="content-stat-label">Projects across Karnataka</span>
+      <div class="about-proof-stats">
+        <div class="about-proof-stat fade-up">
+          <span class="about-proof-stat-value">2011</span>
+          <span class="about-proof-stat-label">Studio founded in Mysuru</span>
+        </div>
+        <div class="about-proof-stat fade-up">
+          <span class="about-proof-stat-value">800+</span>
+          <span class="about-proof-stat-label">Projects across Karnataka</span>
+        </div>
+        <div class="about-proof-stat fade-up">
+          <span class="about-proof-stat-value">1</span>
+          <span class="about-proof-stat-label">In-house manufacturing unit</span>
+        </div>
+        <div class="about-proof-stat fade-up">
+          <span class="about-proof-stat-value">End-to-end</span>
+          <span class="about-proof-stat-label">Design to installation</span>
+        </div>
       </div>
-      <div class="content-stat fade-up">
-        <span class="content-stat-value">1</span>
-        <span class="content-stat-label">In-house manufacturing unit</span>
-      </div>
-      <div class="content-stat fade-up">
-        <span class="content-stat-value">End-to-end</span>
-        <span class="content-stat-label">Design to installation</span>
-      </div>
+    </div>
+    <div class="bg-bump" style="--bump-to: #faf8f3" aria-hidden="true">
+      <svg viewBox="0 0 1200 48" preserveAspectRatio="none" focusable="false">
+        <path fill="currentColor" d="M0 48V34C280 34 420 6 600 6s320 28 600 28v14H0Z"></path>
+      </svg>
     </div>
   </section>
 
@@ -195,28 +179,7 @@ const faqs = [
     </div>
   </section>
 
-  <section class="why-choose">
-    <div class="container">
-      <p class="section-label fade-up">How we work</p>
-      <h2 class="section-heading-lg fade-up">Values that show up on site</h2>
-      <p class="section-desc fade-up">
-        Practical luxury for Mysuru homes and workplaces — thoughtful planning, honest materials, and finish quality you can live with every day.
-      </p>
-      <div class="why-grid">
-        {
-          values.map((value) => (
-            <div class="why-card fade-up">
-              <div class="why-icon">
-                <Icon name={value.icon} />
-              </div>
-              <h3>{value.title}</h3>
-              <p class="why-desc">{value.description}</p>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
+  <StorytellingBand heading="how we show up for every project" />
 
   <section class="page-content section-compact-top">
     <div class="container">

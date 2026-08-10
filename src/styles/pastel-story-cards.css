@@ -1,0 +1,189 @@
+.pastel-story {
+  padding: clamp(56px, 7vw, 88px) 0;
+  background: #fff;
+}
+
+.pastel-story-heading {
+  margin: 0 0 36px;
+  font-family: var(--font);
+  font-size: clamp(26px, 3vw, 36px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--dark);
+  text-align: center;
+}
+
+.pastel-story-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.pastel-story-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 32px;
+  padding: 36px 24px 28px;
+  min-height: 420px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pastel-story-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(40, 30, 20, 0.08);
+}
+
+.pastel-story-card--blue {
+  background: linear-gradient(180deg, #e8f1f8 0%, #dceaf4 100%);
+}
+
+.pastel-story-card--peach {
+  background: linear-gradient(180deg, #f8ebe3 0%, #f3e0d4 100%);
+}
+
+.pastel-story-card--yellow {
+  background: linear-gradient(180deg, #f7f0d8 0%, #f0e6c0 100%);
+}
+
+.pastel-story-card--sage {
+  background: linear-gradient(180deg, #e7efe8 0%, #d8e6da 100%);
+}
+
+.pastel-story-card--sand {
+  background: linear-gradient(180deg, #f3eee6 0%, #ebe3d6 100%);
+}
+
+.pastel-story-card--mist {
+  background: linear-gradient(180deg, #eceef2 0%, #e0e4ea 100%);
+}
+
+.pastel-story-media {
+  width: min(100%, 240px);
+  aspect-ratio: 1;
+  margin-bottom: 28px;
+  display: grid;
+  place-items: center;
+  background: transparent;
+}
+
+.pastel-story-media picture,
+.pastel-story-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  transition: transform 0.45s ease;
+}
+
+.pastel-story-card:hover .pastel-story-media img {
+  transform: scale(1.04) translateY(-4px);
+}
+
+.pastel-story-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  flex: 1;
+}
+
+.pastel-story-title {
+  margin: 0 0 10px;
+  font-family: var(--font);
+  font-size: clamp(18px, 1.8vw, 22px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: #1a1a1a;
+}
+
+.pastel-story-desc {
+  margin: 0 0 24px;
+  max-width: 28ch;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #6a6560;
+}
+
+.pastel-story-btn {
+  margin-top: auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  color: #1a1a1a;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.pastel-story-card--blue .pastel-story-btn {
+  background: #fff;
+  border-color: transparent;
+}
+
+.pastel-story-card--peach .pastel-story-btn {
+  background: #e8d3c4;
+  border-color: transparent;
+}
+
+.pastel-story-card--yellow .pastel-story-btn {
+  background: #e8d98a;
+  border-color: transparent;
+}
+
+.pastel-story-card--sage .pastel-story-btn {
+  background: #c9dbc9;
+  border-color: transparent;
+}
+
+.pastel-story-card--sand .pastel-story-btn {
+  background: #ddd0bc;
+  border-color: transparent;
+}
+
+.pastel-story-card--mist .pastel-story-btn {
+  background: #fff;
+  border-color: transparent;
+}
+
+.pastel-story-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pastel-story-card:hover .pastel-story-btn {
+  transform: translateX(3px);
+}
+
+@media (max-width: 1023px) {
+  .pastel-story-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pastel-story-card {
+    min-height: 380px;
+  }
+}
+
+@media (max-width: 640px) {
+  .pastel-story-grid {
+    grid-template-columns: 1fr;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+}

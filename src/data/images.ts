@@ -37,6 +37,19 @@ import projectApartment from '../assets/images/projects/project-apartment.jpg';
 import projectVilla from '../assets/images/projects/project-villa.jpg';
 import projectCoworking from '../assets/images/projects/project-coworking.jpg';
 
+import cutoutChair from '../assets/images/cutouts/cutout-chair.png';
+import cutoutLamp from '../assets/images/cutouts/cutout-lamp.png';
+import cutoutPendants from '../assets/images/cutouts/cutout-pendants.png';
+import cutoutKitchen from '../assets/images/cutouts/cutout-kitchen.png';
+import cutoutWardrobe from '../assets/images/cutouts/cutout-wardrobe.png';
+import cutoutBed from '../assets/images/cutouts/cutout-bed.png';
+import cutoutPooja from '../assets/images/cutouts/cutout-pooja.png';
+import cutoutSofa from '../assets/images/cutouts/cutout-sofa.png';
+
+import openHouse1 from '../assets/images/open-house/open-house-1.png';
+import openHouse2 from '../assets/images/open-house/open-house-2.png';
+import openHouse3 from '../assets/images/open-house/open-house-3.png';
+
 export const heroImages = {
   kitchen1,
   bedroom,
@@ -80,6 +93,21 @@ export const projectImages = {
 export const studioImages = {
   craft: studioCraft,
 };
+
+/** Single-object transparent PNGs for pastel product-style cards. */
+export const cutoutImages = {
+  chair: cutoutChair,
+  lamp: cutoutLamp,
+  pendants: cutoutPendants,
+  kitchen: cutoutKitchen,
+  wardrobe: cutoutWardrobe,
+  bed: cutoutBed,
+  pooja: cutoutPooja,
+  sofa: cutoutSofa,
+};
+
+/** Residential hub — isometric open-house dioramas (transition set). */
+export const openHouseImages = [openHouse1, openHouse2, openHouse3] as const;
 
 export const logoImages = {
   header: logoHeader,

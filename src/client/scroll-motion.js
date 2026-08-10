@@ -132,7 +132,7 @@
   /** Cards rise and settle as their grid scrolls into frame. */
   function gridReveals() {
     var groups = gsap.utils.toArray(
-      '.services-grid, .portfolio-grid, .why-grid, .process-steps, .why-steps'
+      '.services-grid, .portfolio-grid, .why-grid, .story-band-grid, .pastel-story-grid, .process-steps, .why-steps'
     );
 
     groups.forEach(function (group) {

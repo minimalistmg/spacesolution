@@ -1,20 +1,13 @@
 ---
 import type { ImageMetadata } from 'astro';
 import ResponsiveImage from './ResponsiveImage.astro';
+import '../styles/inspire-bento.css';
 
 interface Props {
   heroImage: ImageMetadata;
   ctaImage: ImageMetadata;
   heroHref?: string;
   ctaHref?: string;
-  heroPill?: string;
-  heroTitle?: string;
-  heroTitleLine2?: string;
-  heroText?: string;
-  sidePill?: string;
-  sideTitle?: string;
-  sideText?: string;
-  ctaPill?: string;
 }
 
 const {
@@ -22,59 +15,62 @@ const {
   ctaImage,
   heroHref = '/portfolio',
   ctaHref = '/portfolio',
-  heroPill = 'Featured interiors',
-  heroTitle = 'Crafted',
-  heroTitleLine2 = 'Living',
-  heroText,
-  sidePill = 'Portfolio',
-  sideTitle = 'Into a gallery of finished spaces',
-  sideText = 'Homes, workplaces, and hospitality interiors delivered turnkey across Mysuru and Karnataka.',
-  ctaPill = 'View work',
 } = Astro.props;
 ---
 
 <div class="inspire-bento fade-up">
-  <a class="inspire-bento-hero" href={heroHref}>
-    <div class="inspire-bento-hero-media">
+  <a class="inspire-main" href={heroHref}>
+    <div class="inspire-main-media">
       <ResponsiveImage
         src={heroImage}
         alt="Featured interior by Space Solutions"
         preset="content"
       />
     </div>
-    <div class="inspire-bento-hero-panel">
-      <span class="inspire-pill">{heroPill}</span>
-      <h3 class="inspire-bento-hero-title">
-        <span>{heroTitle}</span>
-        {heroTitleLine2 && <span>{heroTitleLine2}</span>}
-      </h3>
-      {heroText && <p class="inspire-bento-hero-text">{heroText}</p>}
+
+    {/* 3-step curtain: pill → Modern → Minimalist (matches concept) */}
+    <div class="inspire-steps">
+      <div class="inspire-step inspire-step--1">
+        <span class="inspire-pill">Gorgeous Interior</span>
+      </div>
+      <div class="inspire-step inspire-step--2">
+        <span class="inspire-step-word">Modern</span>
+      </div>
+      <div class="inspire-step inspire-step--3">
+        <span class="inspire-step-word">Minimalist</span>
+      </div>
     </div>
   </a>
 
-  <div class="inspire-bento-side">
-    <div class="inspire-bento-copy">
-      <span class="inspire-pill">{sidePill}</span>
-      <p class="inspire-bento-side-text">{sideText}</p>
-      <h3 class="inspire-bento-side-title">{sideTitle}</h3>
+  <div class="inspire-aside">
+    <div class="inspire-aside-copy">
+      <span class="inspire-pill">Aesthetic</span>
+      <p class="inspire-aside-text">
+        Aesthetic furniture where every piece tells a story of style
+      </p>
+      <h3 class="inspire-aside-title">
+        Into a gallery<br />of elegance
+      </h3>
     </div>
 
-    <a class="inspire-bento-cta-card" href={ctaHref} aria-label="View portfolio">
-      <div class="inspire-bento-cta-media">
+    <a class="inspire-cta" href={ctaHref} aria-label="View portfolio">
+      <div class="inspire-cta-media">
         <ResponsiveImage
           src={ctaImage}
           alt="Browse Space Solutions portfolio"
           preset="grid"
         />
-        <span class="inspire-pill inspire-pill--on-media">{ctaPill}</span>
       </div>
-      <span class="inspire-bento-cta-notch" aria-hidden="true">
-        <span class="inspire-bento-round-cta">
-          <svg viewBox="0 0 14 14" focusable="false">
-            <path d="M3 11 L11 3"></path>
-            <path d="M5.5 3 H11 V8.5"></path>
-          </svg>
-        </span>
+      <div class="inspire-cta-overlay">
+        <span class="inspire-pill inspire-pill--light">Best Furniture</span>
+        <p>Indulge in the artistry<br />of everyday living</p>
+      </div>
+      <span class="inspire-cta-notch" aria-hidden="true"></span>
+      <span class="inspire-cta-btn" aria-hidden="true">
+        <svg viewBox="0 0 14 14" focusable="false">
+          <path d="M3 11 L11 3"></path>
+          <path d="M5.5 3 H11 V8.5"></path>
+        </svg>
       </span>
     </a>
   </div>

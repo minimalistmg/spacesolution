@@ -1,0 +1,52 @@
+---
+/**
+ * Turnkey fitout hero — editorial 3-line title + full-width image with centered cut-in.
+ * Scoped to /turnkey-fitout only.
+ */
+import ResponsiveImage from './ResponsiveImage.astro';
+import { heroImages, roomImages } from '../data/images';
+import '../styles/turnkey-hero.css';
+
+interface Props {
+  breadcrumb: string;
+}
+
+const { breadcrumb } = Astro.props;
+---
+
+<section class="turnkey-hero" aria-label="Turnkey fitout introduction">
+  <div class="container turnkey-hero-inner">
+    <nav class="breadcrumb turnkey-hero-breadcrumb" aria-label="Breadcrumb" set:html={breadcrumb} />
+
+    <h1 class="turnkey-hero-title">
+      <span class="turnkey-hero-title-line">Complete Design</span>
+      <span class="turnkey-hero-title-mid">
+        <span class="turnkey-hero-pill" aria-hidden="true">
+          <ResponsiveImage src={roomImages.modularKitchen} alt="" preset="thumbnail" />
+        </span>
+        <span class="turnkey-hero-title-and">And</span>
+        <span class="turnkey-hero-pill" aria-hidden="true">
+          <ResponsiveImage src={roomImages.office} alt="" preset="thumbnail" />
+        </span>
+      </span>
+      <span class="turnkey-hero-title-line">Turnkey Delivery</span>
+    </h1>
+
+    <p class="turnkey-hero-lead">
+      One team for design, factory production, and installation — so your home or workplace finishes on a clear plan.
+    </p>
+  </div>
+
+  <div class="turnkey-hero-stage">
+    <div class="turnkey-hero-cutin-wrap">
+      <a href="#" class="turnkey-hero-cutin" data-open-modal="enquiry">Get Consultation</a>
+    </div>
+    <figure class="turnkey-hero-still">
+      <ResponsiveImage
+        src={heroImages.commercial}
+        alt="Turnkey commercial interior by Space Solutions"
+        preset="hero"
+      />
+    </figure>
+  </div>
+</section>

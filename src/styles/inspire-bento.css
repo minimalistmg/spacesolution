@@ -1,0 +1,370 @@
+/**
+ * Inspire bento — concept match
+ * Left cutout = 3-step staircase with concave scoops between tiers.
+ */
+
+.inspire-bento {
+  --ib-r: 32px;
+  --ib-gap: 18px;
+  --ib-cream: #f2eee6;
+  --ib-ink: #0a0a0a;
+  --ib-scoop: 22px;
+  --ib-step-r: 28px;
+  --ib-notch: 84px;
+  --ib-btn: 52px;
+  --ib-font: var(--font-inspire, 'Plus Jakarta Sans', sans-serif);
+
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(270px, 0.95fr);
+  gap: var(--ib-gap);
+  margin: 0 0 48px;
+  font-family: var(--ib-font);
+  color: var(--ib-ink);
+}
+
+/* ——— Left hero ——— */
+.inspire-main {
+  position: relative;
+  isolation: isolate;
+  min-height: 500px;
+  border-radius: var(--ib-r);
+  background: #fff;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.inspire-main-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: var(--ib-r);
+  overflow: hidden;
+}
+
+.inspire-main-media picture,
+.inspire-main-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.65s ease;
+}
+
+.inspire-main:hover .inspire-main-media img {
+  transform: scale(1.03);
+}
+
+/* 3-step white curtain — each tier wider than the one above */
+.inspire-steps {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  pointer-events: none;
+}
+
+.inspire-step {
+  position: relative;
+  background: #fff;
+  border-top-right-radius: var(--ib-step-r);
+  box-sizing: border-box;
+}
+
+/* Concave scoop between a narrower step and the wider step below */
+.inspire-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: calc(var(--ib-scoop) * -1);
+  width: var(--ib-scoop);
+  height: var(--ib-scoop);
+  background: radial-gradient(
+    circle at bottom left,
+    transparent 69%,
+    #fff 71%
+  );
+  pointer-events: none;
+}
+
+/* Concave scoop at top-left where photo meets first step */
+.inspire-step--1::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: calc(var(--ib-scoop) * -1);
+  width: var(--ib-scoop);
+  height: var(--ib-scoop);
+  background: radial-gradient(
+    circle at top right,
+    transparent 69%,
+    #fff 71%
+  );
+  pointer-events: none;
+}
+
+/* Step 1 — pill (narrowest) */
+.inspire-step--1 {
+  z-index: 3;
+  width: 12.25rem;
+  padding: 16px 22px 12px 20px;
+}
+
+/* Step 2 — Modern */
+.inspire-step--2 {
+  z-index: 2;
+  width: 14.75rem;
+  padding: 2px 26px 4px 20px;
+}
+
+/* Step 3 — Minimalist (widest) */
+.inspire-step--3 {
+  z-index: 1;
+  width: 18rem;
+  padding: 2px 32px 18px 20px;
+}
+
+.inspire-step-word {
+  display: block;
+  font-family: var(--ib-font);
+  font-size: clamp(36px, 4.2vw, 52px);
+  font-weight: 800;
+  letter-spacing: -0.055em;
+  line-height: 0.92;
+  color: var(--ib-ink);
+}
+
+/* ——— Shared pill ——— */
+.inspire-pill {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 8px 15px;
+  border: 1px solid rgba(10, 10, 10, 0.22);
+  border-radius: 999px;
+  font-family: var(--ib-font);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.2;
+  color: var(--ib-ink);
+  background: transparent;
+}
+
+.inspire-pill--light {
+  border-color: rgba(255, 255, 255, 0.9);
+  color: #fff;
+}
+
+/* ——— Right column ——— */
+.inspire-aside {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: var(--ib-gap);
+  min-height: 500px;
+}
+
+.inspire-aside-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 30px 28px 32px;
+  background: var(--ib-cream);
+  border-radius: var(--ib-r);
+}
+
+.inspire-aside-text {
+  margin: 0;
+  font-family: var(--ib-font);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: #5a554c;
+}
+
+.inspire-aside-title {
+  margin: 2px 0 0;
+  font-family: var(--ib-font);
+  font-size: clamp(22px, 2.35vw, 28px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.12;
+  color: var(--ib-ink);
+}
+
+/* ——— CTA card ——— */
+.inspire-cta {
+  position: relative;
+  isolation: isolate;
+  display: block;
+  min-height: 250px;
+  border-radius: var(--ib-r);
+  background: #fff;
+  text-decoration: none;
+  color: inherit;
+}
+
+.inspire-cta-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: var(--ib-r);
+  overflow: hidden;
+}
+
+.inspire-cta-media picture,
+.inspire-cta-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.55s ease;
+}
+
+.inspire-cta:hover .inspire-cta-media img {
+  transform: scale(1.04);
+}
+
+.inspire-cta-overlay {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 2;
+  max-width: calc(100% - var(--ib-notch) - 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.inspire-cta-overlay p {
+  margin: 0;
+  font-family: var(--ib-font);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #fff;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.4);
+}
+
+.inspire-cta-notch {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  width: var(--ib-notch);
+  height: var(--ib-notch);
+  background: #fff;
+  border-top-left-radius: calc(var(--ib-notch) * 0.58);
+  pointer-events: none;
+}
+
+.inspire-cta-notch::before,
+.inspire-cta-notch::after {
+  content: '';
+  position: absolute;
+  width: var(--ib-scoop);
+  height: var(--ib-scoop);
+  background: transparent;
+  border-bottom-right-radius: var(--ib-scoop);
+  box-shadow: 11px 11px 0 11px #fff;
+  pointer-events: none;
+}
+
+.inspire-cta-notch::before {
+  left: calc(var(--ib-scoop) * -1);
+  bottom: 0;
+}
+
+.inspire-cta-notch::after {
+  right: 0;
+  top: calc(var(--ib-scoop) * -1);
+}
+
+.inspire-cta-btn {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  z-index: 3;
+  width: var(--ib-btn);
+  height: var(--ib-btn);
+  border-radius: 50%;
+  background: #111;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.inspire-cta-btn svg {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.inspire-cta:hover .inspire-cta-btn {
+  transform: translate(2px, -2px);
+  background: #000;
+}
+
+@media (max-width: 1023px) {
+  .inspire-bento {
+    grid-template-columns: 1fr;
+  }
+
+  .inspire-main,
+  .inspire-aside {
+    min-height: 0;
+  }
+
+  .inspire-main {
+    min-height: 420px;
+  }
+
+  .inspire-cta {
+    min-height: 260px;
+  }
+}
+
+@media (max-width: 640px) {
+  .inspire-bento {
+    --ib-r: 28px;
+    --ib-scoop: 18px;
+    --ib-step-r: 22px;
+    --ib-notch: 76px;
+    --ib-btn: 48px;
+    --ib-gap: 14px;
+  }
+
+  .inspire-step--1 {
+    width: 10.5rem;
+    padding: 14px 16px 10px 14px;
+  }
+
+  .inspire-step--2 {
+    width: 12.5rem;
+    padding: 2px 20px 2px 14px;
+  }
+
+  .inspire-step--3 {
+    width: 15.25rem;
+    padding: 2px 24px 14px 14px;
+  }
+
+  .inspire-step-word {
+    font-size: clamp(30px, 8.5vw, 40px);
+  }
+
+  .inspire-cta-notch::before,
+  .inspire-cta-notch::after {
+    box-shadow: 9px 9px 0 9px #fff;
+  }
+}
