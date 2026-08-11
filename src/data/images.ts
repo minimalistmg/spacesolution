@@ -50,6 +50,20 @@ import openHouse1 from '../assets/images/open-house/open-house-1.png';
 import openHouse2 from '../assets/images/open-house/open-house-2.png';
 import openHouse3 from '../assets/images/open-house/open-house-3.png';
 
+import wallCenterTile from '../assets/images/gallery-backgrounds/wall-center-tile.jpg';
+import wallCapLeft from '../assets/images/gallery-backgrounds/wall-cap-left.jpg';
+import wallCapRight from '../assets/images/gallery-backgrounds/wall-cap-right.jpg';
+import baseboardStrip from '../assets/images/gallery-backgrounds/baseboard-strip.png';
+import floorGround from '../assets/images/gallery-backgrounds/floor-ground.jpg';
+
+import viewerBackWoman from '../assets/images/gallery-spectators/viewer-back-woman.png';
+import viewerBackMan from '../assets/images/gallery-spectators/viewer-back-man.png';
+import viewerBackGirl from '../assets/images/gallery-spectators/viewer-back-girl.png';
+
+import galleryFloorPlant from '../assets/images/gallery-spectators/gallery-floor-plant.png';
+import galleryFloorLamp from '../assets/images/gallery-spectators/gallery-floor-lamp.png';
+import galleryAccentPlinth from '../assets/images/gallery-spectators/gallery-accent-plinth.png';
+
 export const heroImages = {
   kitchen1,
   bedroom,
@@ -108,6 +122,30 @@ export const cutoutImages = {
 
 /** Residential hub — isometric open-house dioramas (transition set). */
 export const openHouseImages = [openHouse1, openHouse2, openHouse3] as const;
+
+/** About gallery — modular wall/floor patch assets (see docs/about-gallery-scene-brief.md). */
+export const galleryPatches = {
+  wallCenter: wallCenterTile,
+  capLeft: wallCapLeft,
+  capRight: wallCapRight,
+  baseboard: baseboardStrip,
+  floorGround,
+} as const;
+
+/** About gallery — back-view watcher cutouts beside video frame. */
+export const galleryWatchers = {
+  woman: viewerBackWoman,
+  man: viewerBackMan,
+  boy: viewerBackMan,
+  girl: viewerBackGirl,
+} as const;
+
+/** About gallery — large-screen accent props before watcher (rotate per slide). */
+export const galleryAccentProps = {
+  plant: galleryFloorPlant,
+  lamp: galleryFloorLamp,
+  plinth: galleryAccentPlinth,
+} as const;
 
 export const logoImages = {
   header: logoHeader,

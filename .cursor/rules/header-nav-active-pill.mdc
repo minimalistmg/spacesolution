@@ -1,0 +1,23 @@
+---
+description: Keep desktop header active nav pill styling — do not remove when editing header CSS
+globs: src/styles/header.css
+alwaysApply: false
+---
+
+# Header active nav pill (required)
+
+The desktop main nav **must** keep a pill background on the current page link (`.main-nav > li.active > a`).
+
+## Do not remove
+
+- Pill fill: `color-mix(in srgb, var(--nav-accent, var(--gold)) 14%, transparent)`
+- Shape: `border-radius: var(--radius-pill)` with `padding: 6px 18px` (vertical pill padding at breakpoints too)
+- Segment accent colors on `.has-mega-menu[data-menu-panel=…]` (`--nav-accent`)
+- Active accent text: `.main-nav > li.has-mega-menu.active > a { color: var(--nav-accent); }`
+- Hover on active item only: hide pill, keep accent text (`.has-mega-menu.active:is(:hover, .is-menu-open) > a { background: transparent; }`)
+
+## Do not re-add
+
+- De-emphasis that clears active pill/color when another mega menu is open.
+
+CTA/button work in `header-contact-menu.css` is separate — changing the Connect button must **not** strip nav pill rules from `header.css`.

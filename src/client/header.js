@@ -33,7 +33,11 @@
         return;
       }
 
-      if (!pastThreshold) {
+      // About gallery pin: keep header hidden while scrubbing (either direction)
+      if (document.documentElement.classList.contains('is-about-gallery-pinned')) {
+        shouldHide = true;
+        shouldSolid = true;
+      } else if (!pastThreshold) {
         shouldHide = false;
         shouldSolid = false;
       } else if (scrollingDown) {
@@ -185,6 +189,10 @@
     function openMenu(index) {
       if (!isDesktop()) return;
 
+      if (window.SpaceSolutionsHeaderContact) {
+        window.SpaceSolutionsHeaderContact.closeAll();
+      }
+
       window.clearTimeout(closeTimer);
       var wasOpen = popover.classList.contains('is-open');
 
@@ -313,6 +321,11 @@
 
   function closeOnEscape() {
     var closed = false;
+
+    if (window.SpaceSolutionsHeaderContact && window.SpaceSolutionsHeaderContact.isOpen()) {
+      window.SpaceSolutionsHeaderContact.closeAll();
+      closed = true;
+    }
 
     if (window.SpaceSolutionsGlobalNav && window.SpaceSolutionsGlobalNav.isOpen()) {
       window.SpaceSolutionsGlobalNav.close();

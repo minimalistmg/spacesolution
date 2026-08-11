@@ -60,12 +60,14 @@
 
 .gf-lockup .brand-wordmark {
   align-items: flex-end;
+  text-align: right;
 }
 
 /* The catalogue's 0 1px 0 shadow reads as a crisp edge at 80px, but on SOLUTION
    at 13.5px it doubles the strokes once the lockup is scaled up. */
 .gf-lockup .brand-solution {
   text-shadow: none;
+  margin-right: -0.32em;
 }
 
 /* Catalogue type scale and ink are inherited untouched; only the whole assembly

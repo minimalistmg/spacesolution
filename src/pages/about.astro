@@ -7,6 +7,7 @@ import FaqSection from '../components/FaqSection.astro';
 import ImageGallery from '../components/ImageGallery.astro';
 import DummyVideoBlock from '../components/DummyVideoBlock.astro';
 import StorytellingBand from '../components/StorytellingBand.astro';
+import AboutGalleryCarousel from '../components/AboutGalleryCarousel.astro';
 import { heroImages, projectImages, roomImages, studioImages } from '../data/images';
 import { SITE } from '../data/site';
 
@@ -90,37 +91,35 @@ const faqs = [
     image={studioImages.craft}
   />
 
-  <section class="about-proof" aria-label="Studio proof points">
+  <section class="about-proof about-proof-headline" aria-label="Studio headline">
     <div class="container">
       <div class="about-proof-lockup fade-up">
         <p class="about-proof-watermark" aria-hidden="true">big results</p>
         <h2 class="about-proof-title">Small team,</h2>
       </div>
-      <div class="about-proof-stats">
-        <div class="about-proof-stat fade-up">
-          <span class="about-proof-stat-value">2011</span>
-          <span class="about-proof-stat-label">Studio founded in Mysuru</span>
-        </div>
-        <div class="about-proof-stat fade-up">
-          <span class="about-proof-stat-value">800+</span>
-          <span class="about-proof-stat-label">Projects across Karnataka</span>
-        </div>
-        <div class="about-proof-stat fade-up">
-          <span class="about-proof-stat-value">1</span>
-          <span class="about-proof-stat-label">In-house manufacturing unit</span>
-        </div>
-        <div class="about-proof-stat fade-up">
-          <span class="about-proof-stat-value">End-to-end</span>
-          <span class="about-proof-stat-label">Design to installation</span>
-        </div>
-      </div>
-    </div>
-    <div class="bg-bump" style="--bump-to: #faf8f3" aria-hidden="true">
-      <svg viewBox="0 0 1200 48" preserveAspectRatio="none" focusable="false">
-        <path fill="currentColor" d="M0 48V34C280 34 420 6 600 6s320 28 600 28v14H0Z"></path>
-      </svg>
     </div>
   </section>
+
+  <AboutGalleryCarousel>
+    <div slot="stats" class="about-proof-stats about-gallery-stats" aria-label="Studio proof points">
+      <div class="about-proof-stat fade-up">
+        <span class="about-proof-stat-value">2011</span>
+        <span class="about-proof-stat-label">Studio founded in Mysuru</span>
+      </div>
+      <div class="about-proof-stat fade-up">
+        <span class="about-proof-stat-value">800+</span>
+        <span class="about-proof-stat-label">Projects across Karnataka</span>
+      </div>
+      <div class="about-proof-stat fade-up">
+        <span class="about-proof-stat-value">1</span>
+        <span class="about-proof-stat-label">In-house manufacturing unit</span>
+      </div>
+      <div class="about-proof-stat fade-up">
+        <span class="about-proof-stat-value">End-to-end</span>
+        <span class="about-proof-stat-label">Design to installation</span>
+      </div>
+    </div>
+  </AboutGalleryCarousel>
 
   <section class="about page-content">
     <div class="container about-grid">
@@ -221,4 +220,6 @@ const faqs = [
   />
 
   <CtaSection />
+
+  <script src="/vendor/lenis.min.js" defer></script>
 </BaseLayout>

@@ -3,7 +3,7 @@
 /* Header / menu — same lockup as preloader, smaller scale */
 .site-logo.brand-lockup {
   --brand-icon-width: 54px;
-  --brand-space-size: clamp(24px, 2.2vw, 30px);
+  --brand-space-size: 3em;
   --brand-solution-size: calc(var(--brand-space-size) * 0.225);
   text-decoration: none;
   color: inherit;

@@ -16,6 +16,33 @@
   gsap.registerPlugin(ScrollTrigger);
 
   var EASE_OUT = 'power3.out';
+  var lenis = null;
+
+  /**
+   * Lenis + GSAP ticker — same pattern as showcase.
+   * Keeps pinned scrub sections from shaking against native wheel scroll.
+   */
+  function initSmoothScroll() {
+    if (!window.Lenis || lenis) return;
+
+    // CSS smooth scroll fights ScrollTrigger scrub (jitter / shake).
+    document.documentElement.style.scrollBehavior = 'auto';
+
+    lenis = new window.Lenis({
+      duration: 1.05,
+      smoothWheel: true,
+      touchMultiplier: 1.1,
+    });
+
+    lenis.on('scroll', ScrollTrigger.update);
+
+    gsap.ticker.add(function (time) {
+      lenis.raf(time * 1000);
+    });
+    gsap.ticker.lagSmoothing(0);
+
+    window.__ssLenis = lenis;
+  }
 
   function heroIntro() {
     var reveals = gsap.utils.toArray('[data-hero-reveal]');
@@ -157,12 +184,121 @@
     });
   }
 
+  /**
+   * About gallery — pin full viewport, hold → horizontal scrub → hold.
+   * Driven by Lenis + GSAP ticker when available (no native-wheel shake).
+   */
+  var galleryPinned = false;
+
+  function aboutGalleryHorizontal() {
+    if (galleryPinned) return;
+
+    var section = document.querySelector('[data-about-gallery]');
+    if (!section) return;
+
+    // Wait until page-shell scale is gone so we can use a stable fixed pin.
+    if (document.documentElement.classList.contains('ss-preloader-pending')) {
+      return;
+    }
+
+    var pin = section.querySelector('.about-gallery-pin');
+    var track = section.querySelector('[data-about-gallery-track]');
+    if (!pin || !track) return;
+
+    var slides = gsap.utils.toArray(track.querySelectorAll('.about-gallery-slide'));
+    if (slides.length < 2) return;
+
+    galleryPinned = true;
+    document.documentElement.style.scrollBehavior = 'auto';
+
+    function peekPx(vw) {
+      // CSS: clamp(120px, 14vw, 200px)
+      return Math.min(200, Math.max(120, Math.round(vw * 0.14)));
+    }
+
+    function syncSize() {
+      var vh = window.innerHeight;
+      var vw = document.documentElement.clientWidth || window.innerWidth;
+      var peek = peekPx(vw);
+      var slideW = Math.max(vw - peek, 320);
+
+      section.style.setProperty('--gallery-h', vh + 'px');
+      section.style.setProperty('--gallery-peek', peek + 'px');
+      gsap.set(pin, { height: vh, maxHeight: vh });
+      slides.forEach(function (slide) {
+        gsap.set(slide, { width: slideW, flexBasis: slideW, maxWidth: slideW });
+      });
+      if (lenis && typeof lenis.resize === 'function') lenis.resize();
+    }
+
+    function travel() {
+      var viewport = section.querySelector('.about-gallery-viewport');
+      var viewW = viewport ? viewport.clientWidth : window.innerWidth;
+      return Math.max(track.scrollWidth - viewW, 0);
+    }
+
+    syncSize();
+    gsap.set(track, { x: 0, force3D: true });
+
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: function () {
+            var hold = window.innerHeight;
+            var scrubDist = Math.max(travel(), window.innerHeight * (slides.length - 1));
+            return '+=' + (hold + scrubDist + hold);
+          },
+          pin: pin,
+          pinSpacing: true,
+          pinType: 'fixed',
+          scrub: 0.55,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          fastScrollEnd: true,
+          onRefresh: syncSize,
+          onToggle: function (self) {
+            document.documentElement.classList.toggle('is-about-gallery-pinned', !!self.isActive);
+            if (self.isActive) {
+              var header = document.querySelector('.site-header');
+              if (header) header.classList.add('is-hidden', 'scrolled');
+            }
+          },
+        },
+      })
+      .to(track, { x: 0, duration: 1, ease: 'none' })
+      .to(track, {
+        x: function () {
+          return -travel();
+        },
+        duration: function () {
+          return Math.max(travel() / window.innerHeight, slides.length - 1);
+        },
+        ease: 'none',
+      })
+      .to(track, {
+        x: function () {
+          return -travel();
+        },
+        duration: 1,
+        ease: 'none',
+      });
+
+    window.addEventListener('resize', function () {
+      syncSize();
+      ScrollTrigger.refresh();
+    });
+  }
+
   function init() {
+    initSmoothScroll();
     heroIntro();
     mediaParallax();
     headlineReveals();
     statCounters();
     gridReveals();
+    aboutGalleryHorizontal();
     ScrollTrigger.refresh();
   }
 
@@ -172,10 +308,33 @@
     init();
   }
 
-  // Fonts settling changes line boxes, which invalidates split positions.
+  function refreshTriggers() {
+    ScrollTrigger.refresh();
+  }
+
+  // Fonts / late layout (preloader, images) — keep pin distances accurate
   if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(function () {
-      ScrollTrigger.refresh();
+    document.fonts.ready.then(refreshTriggers);
+  }
+
+  window.addEventListener('load', refreshTriggers);
+
+  // Preloader scales [data-ss-page-shell]; build gallery pin + refresh after clear.
+  window.addEventListener('ss:preloader-done', function () {
+    requestAnimationFrame(function () {
+      aboutGalleryHorizontal();
+      refreshTriggers();
+      window.setTimeout(function () {
+        if (lenis && typeof lenis.resize === 'function') lenis.resize();
+        refreshTriggers();
+      }, 50);
     });
+  });
+
+  window.setTimeout(refreshTriggers, 600);
+
+  // If preloader already finished before this script ran, remeasure once more.
+  if (!document.documentElement.classList.contains('ss-preloader-pending')) {
+    window.setTimeout(refreshTriggers, 0);
   }
 })();

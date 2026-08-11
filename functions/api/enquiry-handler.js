@@ -20,6 +20,7 @@ function buildLeadEmailHtml(data) {
   var sourceLabel = data.source === 'contact' ? 'Contact Page' : 'Website Enquiry';
   var service = (data.service && data.service.trim()) || 'Not specified';
   var location = (data.location && data.location.trim()) || 'Not specified';
+  var message = (data.message && data.message.trim()) || '';
   var name = (data.name && data.name.trim()) || 'Not provided';
   var phone = data.phone && data.phone.trim();
   var email = data.email && data.email.trim();
@@ -67,6 +68,7 @@ function buildLeadEmailHtml(data) {
     row('Email', emailRowValue, '✉️') +
     row('Location', escapeHtml(location), '📍') +
     row('Service Interest', escapeHtml(service), '✨') +
+    (message ? row('Project Details', escapeHtml(message).replace(/\n/g, '<br>'), '📝') : '') +
     '</table></td></tr>' +
     '<tr><td style="padding:28px 32px 32px;text-align:center;">' +
     callButton +
@@ -96,6 +98,7 @@ export async function handleEnquiryPost(request) {
     var email = body.email && body.email.trim();
     var country = (body.country && body.country.trim()) || '+91';
     var location = (body.location && body.location.trim()) || '';
+    var message = (body.message && body.message.trim()) || '';
     var service = (body.service && body.service.trim()) || '';
     var source = (body.source && body.source.trim()) || 'enquiry';
 
@@ -119,6 +122,7 @@ export async function handleEnquiryPost(request) {
       email: email,
       country: country,
       location: location,
+      message: message,
       service: service,
       source: source,
     };

@@ -75,6 +75,10 @@
   }
 
   function validateEnquiryForm($form) {
+    if ($form.is('#header-connect-form') && window.SpaceSolutionsHeaderContact) {
+      return window.SpaceSolutionsHeaderContact.validateForm($form.get(0));
+    }
+
     var phone = ($form.find('[name="phone"]').val() || '').trim();
     var email = ($form.find('[name="email"]').val() || '').trim();
 
@@ -104,6 +108,7 @@
       phone: $form.find('[name="phone"]').val(),
       email: $form.find('[name="email"]').val(),
       location: $form.find('[name="location"]').val(),
+      message: $form.find('[name="message"]').val(),
       service: services.join(', '),
       source: $form.data('source') || 'enquiry'
     };
@@ -121,7 +126,8 @@
   function submitLeadForm(form, options) {
     var $form = $(form);
     var $submit = $form.find('[type="submit"]');
-    var originalText = $submit.text();
+    var $submitLabel = $submit.find('[data-submit-label]');
+    var originalText = $submitLabel.length ? $submitLabel.text() : $submit.text();
     var validationMessage = validateEnquiryForm($form);
 
     showFormFeedback($form, '', false);
@@ -131,7 +137,12 @@
       return Promise.resolve();
     }
 
-    $submit.prop('disabled', true).text('Sending...');
+    $submit.prop('disabled', true);
+    if ($submitLabel.length) {
+      $submitLabel.text('Sending...');
+    } else {
+      $submit.text('Sending...');
+    }
 
     return fetch('/api/enquiry', {
       method: 'POST',
@@ -155,12 +166,21 @@
         }
 
         form.reset();
+
+        if (form.id === 'header-connect-form' && window.SpaceSolutionsHeaderContact) {
+          window.SpaceSolutionsHeaderContact.clearDraft();
+        }
       })
       .catch(function (err) {
         showFormFeedback($form, err.message || 'Something went wrong. Please try again.', true);
       })
       .finally(function () {
-        $submit.prop('disabled', false).text(originalText);
+        $submit.prop('disabled', false);
+        if ($submitLabel.length) {
+          $submitLabel.text(originalText);
+        } else {
+          $submit.text(originalText);
+        }
       });
   }
 
@@ -916,6 +936,18 @@
     });
   }
 
+  function initHeaderConnectForm() {
+    var $headerForm = $('#header-connect-form');
+    if (!$headerForm.length) return;
+
+    $headerForm.attr('data-source', 'connect');
+
+    $headerForm.on('submit', function (e) {
+      e.preventDefault();
+      submitLeadForm(this, {});
+    });
+  }
+
   function initFaqAccordion() {
     $('.faq-question').on('click', function () {
       var $item = $(this).closest('.faq-item');
@@ -964,6 +996,7 @@
     initScrollAnimations();
     initPortfolioFilter();
     initContactForm();
+    initHeaderConnectForm();
     initFaqAccordion();
     initHashScroll();
 

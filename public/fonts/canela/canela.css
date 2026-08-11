@@ -1,0 +1,32 @@
+/* Canela — display / hero headlines (Commercial Type) */
+@font-face {
+  font-family: 'Canela';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('./Canela-Light-Web.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Canela';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('./Canela-Bold-Web.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Canela';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./Canela-Bold-Web.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Canela';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('./Canela-Bold-Web.woff2') format('woff2');
+}

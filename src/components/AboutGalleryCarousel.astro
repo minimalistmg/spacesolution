@@ -1,0 +1,185 @@
+---
+/**
+ * About gallery — modular museum walkthrough (docs/about-gallery-scene-brief.md v3.4)
+ */
+import ResponsiveImage from './ResponsiveImage.astro';
+import {
+  projectImages,
+  roomImages,
+  studioImages,
+  galleryPatches,
+  galleryWatchers,
+  galleryAccentProps,
+} from '../data/images';
+import '../styles/about-gallery-carousel.css';
+
+const patches = galleryPatches;
+
+const slides = [
+  {
+    id: 'craft',
+    layout: 'copy-before-video' as const,
+    watcher: 'woman' as const,
+    accentProp: 'plant' as const,
+    ceilingLights: 1 as const,
+    title: 'In-house craft',
+    meta: '2011 • Mysuru • Factory',
+    label: 'Studio craft',
+    ctaHref: '#',
+    ctaLabel: 'See more',
+    openModal: true,
+    thumb: studioImages.craft,
+    thumbAlt: 'In-house craft and joinery at Space Solutions Mysuru',
+  },
+  {
+    id: 'factory',
+    layout: 'copy-beside-video' as const,
+    watcher: 'man' as const,
+    accentProp: 'lamp' as const,
+    ceilingLights: 1 as const,
+    title: 'Factory finish',
+    meta: 'CNC • Soft-close • Site fit',
+    label: 'Modular kitchen',
+    ctaHref: '/residential-interiors',
+    ctaLabel: 'See more',
+    openModal: false,
+    thumb: roomImages.modularKitchen,
+    thumbAlt: 'Modular kitchen by Space Solutions Mysuru',
+  },
+  {
+    id: 'spaces',
+    layout: 'copy-before-video' as const,
+    watcher: 'girl' as const,
+    accentProp: 'plinth' as const,
+    ceilingLights: 2 as const,
+    title: 'Built spaces',
+    meta: 'Homes • Work • Hospitality',
+    label: 'Project walkthrough',
+    ctaHref: '/portfolio',
+    ctaLabel: 'See more',
+    openModal: false,
+    thumb: projectImages.villa,
+    thumbAlt: 'Residential villa interior by Space Solutions',
+  },
+];
+---
+
+<section class="about-gallery" data-about-gallery aria-label="Studio gallery walkthrough">
+  <div class="about-gallery-pin">
+    <div class="about-gallery-stats-band">
+      <div class="container">
+        <slot name="stats" />
+      </div>
+    </div>
+
+    <div class="about-gallery-stage">
+      <div class="about-gallery-viewport">
+        <div class="about-gallery-track" data-about-gallery-track>
+          {
+            slides.map((slide) => {
+              const copyLeft = slide.layout === 'copy-before-video';
+              const spotlight = copyLeft ? 'left' : 'right';
+              const prop = galleryAccentProps[slide.accentProp];
+              const watcher = galleryWatchers[slide.watcher];
+
+              return (
+                <article
+                  class:list={[
+                    'about-gallery-slide',
+                    `is-${slide.layout}`,
+                    `is-prop-${slide.accentProp}`,
+                    slide.ceilingLights === 2 && 'is-dual-ceiling-lights',
+                  ]}
+                  data-gallery-slide={slide.id}
+                >
+                  <div class="about-gallery-scene" aria-hidden="true">
+                    <div class="about-gallery-wall">
+                      <div
+                        class="about-gallery-cap about-gallery-cap--left"
+                        style={`background-image: url("${patches.capLeft.src}")`}
+                      />
+                      <div
+                        class="about-gallery-mid"
+                        style={`background-image: url("${patches.wallCenter.src}")`}
+                      />
+                      <div
+                        class="about-gallery-cap about-gallery-cap--right"
+                        style={`background-image: url("${patches.capRight.src}")`}
+                      />
+                    </div>
+
+                    <div class={`about-gallery-spotlight about-gallery-spotlight--${spotlight}`} />
+
+                    <div class={`about-gallery-ceiling about-gallery-ceiling--${spotlight}`}>
+                      <span class="about-gallery-bulb" />
+                      {slide.ceilingLights === 2 && <span class="about-gallery-bulb" />}
+                    </div>
+                  </div>
+
+                  <div class="about-gallery-bay">
+                    <div class="about-gallery-copy">
+                      <h3 class="about-gallery-title">{slide.title}</h3>
+                      <p class="about-gallery-meta">{slide.meta}</p>
+                      <a
+                        href={slide.ctaHref}
+                        class="btn btn-gold-filled about-gallery-cta"
+                        {...(slide.openModal ? { 'data-open-modal': 'enquiry' } : {})}
+                      >
+                        {slide.ctaLabel} <span aria-hidden="true">→</span>
+                      </a>
+                    </div>
+
+                    <div class="about-gallery-ensemble">
+                      <div class="about-gallery-cluster">
+                        <img
+                          class="about-gallery-prop"
+                          src={prop.src}
+                          alt=""
+                          width={prop.width}
+                          height={prop.height}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        <img
+                          class="about-gallery-watcher"
+                          src={watcher.src}
+                          alt=""
+                          width={watcher.width}
+                          height={watcher.height}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        <figure class="about-gallery-frame">
+                          <button
+                            type="button"
+                            class="about-gallery-video hero-video-btn"
+                            aria-label={`Play ${slide.label} video`}
+                          >
+                            <ResponsiveImage
+                              src={slide.thumb}
+                              alt={slide.thumbAlt}
+                              preset="content"
+                              class="about-gallery-thumb"
+                            />
+                            <span class="about-gallery-play" aria-hidden="true" />
+                          </button>
+                          <figcaption class="about-gallery-caption">{slide.label}</figcaption>
+                        </figure>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              );
+            })
+          }
+        </div>
+      </div>
+
+      <!-- One continuous floor under the scrubbing track (no per-slide seams). -->
+      <div class="about-gallery-ground" aria-hidden="true">
+        <div class="about-gallery-baseboard"></div>
+        <div class="about-gallery-floor"></div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,15 +1,18 @@
 ---
 import HeaderContactMenu from './HeaderContactMenu.astro';
+import type { NavPage } from './Header.astro';
 
 interface Props {
   primaryPhone: string;
   whatsappHref: string;
+  activePage?: NavPage;
 }
 
-const { primaryPhone, whatsappHref } = Astro.props;
+const { primaryPhone, whatsappHref, activePage = 'home' } = Astro.props;
 ---
 
 <HeaderContactMenu
   primaryPhone={primaryPhone}
   whatsappHref={whatsappHref}
+  activePage={activePage}
 />

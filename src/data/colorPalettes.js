@@ -78,8 +78,8 @@ function buildPalette({ id, name, tagline, colors }) {
       '--overlay': rgba(dark, 0.22),
       '--veil-hero': `linear-gradient(100deg, ${rgba(veilBase, 0.93)} 0%, ${rgba(veilBase, 0.78)} 42%, ${rgba(veilBase, 0.5)} 100%)`,
       '--veil-card': `linear-gradient(to top, ${rgba(veilBase, 0.95)} 0%, ${rgba(veilBase, 0)} 62%)`,
-      '--header-bg': 'floralwhite',
-      '--header-bg-scrolled': 'floralwhite',
+      '--header-bg': '#ffffff',
+      '--header-bg-scrolled': '#ffffff',
       '--header-glass-border': colors['--header-glass-border'] ?? '#eeeeee',
       '--header-glass-border-scrolled':
         colors['--header-glass-border-scrolled'] ?? '#e3e3e3',

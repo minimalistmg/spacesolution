@@ -15,11 +15,19 @@ html.ss-preloader-pending body {
   overflow: hidden;
 }
 
+html.ss-preloader-pending [data-ss-page-shell] {
+  visibility: hidden;
+  transform: scale(1.08);
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
 .pl-preloader {
   display: none;
 }
 
-html.ss-preloader-pending .pl-preloader {
+html.ss-preloader-pending .pl-preloader,
+.pl-preloader.is-exiting {
   display: block;
 }
 
@@ -29,6 +37,18 @@ html.ss-preloader-pending .pl-preloader {
   z-index: 10001;
   overflow: hidden;
   background: var(--paper);
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+.pl-preloader.is-exiting {
+  pointer-events: none;
+}
+
+[data-ss-page-shell] {
+  transform-origin: 50% 50%;
+  /* Do NOT leave will-change:transform here — it creates a containing block
+     that breaks GSAP ScrollTrigger position:fixed pins (white gap on scroll). */
 }
 
 .pl-bloom {
@@ -79,8 +99,52 @@ html.ss-preloader-pending .pl-preloader {
   transform: translate(-50%, calc(-50% - 50px)) scale(var(--gf-scale));
 }
 
+html.ss-preloader-pending .pl-lockup-host {
+  visibility: hidden;
+}
+
+html.ss-preloader-pending .pl-lockup-host.is-forge-live {
+  visibility: visible;
+}
+
 .gf-lockup {
   --brand-icon-width: clamp(110px, 18vw, 160px);
+  position: relative;
+}
+
+.gf-lockup .brand-icon-wrap {
+  position: relative;
+  will-change: transform;
+}
+
+/* Wordmark centred under icon; SOLUTION flush with the end of space. */
+.gf-lockup .brand-wordmark {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: max-content;
+  margin-top: 14px;
+  translate: -50% 0;
+  align-items: flex-end;
+  text-align: right;
+  opacity: 0;
+  visibility: hidden;
+  transform-origin: 50% 0%;
+}
+
+.gf-lockup .brand-space {
+  display: block;
+  width: max-content;
+  text-align: left;
+  box-sizing: border-box;
+  padding-right: 0.09em;
+  transform-origin: 50% 0%;
+}
+
+.gf-lockup .brand-solution {
+  display: block;
+  text-shadow: none;
+  margin-right: -0.32em;
 }
 
 .gf-lockup .brand-icon-svg {

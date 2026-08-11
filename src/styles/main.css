@@ -31,8 +31,8 @@
     rgba(255, 250, 240, 0.5) 100%
   );
   --veil-card: linear-gradient(to top, rgba(255, 253, 247, 0.95) 0%, rgba(255, 253, 247, 0) 62%);
-  --header-bg: floralwhite;
-  --header-bg-scrolled: floralwhite;
+  --header-bg: var(--white);
+  --header-bg-scrolled: var(--white);
   --header-glass-border: var(--border);
   --header-glass-border-scrolled: var(--border-strong);
   --header-glass-blur: 0px;
@@ -42,7 +42,8 @@
   --footer-cta-bg: #0a0a0a;
   --hero-bg: #f9f5ee;
   --font: 'DM Sans', 'Archivo', sans-serif;
-  --font-display: 'Fraunces', 'Syne', 'Archivo', serif;
+  --font-soehne-breit: 'Söhne Breit', 'DM Sans', sans-serif;
+  --font-display: 'Domaine Display', 'Canela', 'Fraunces', 'Syne', 'Archivo', serif;
   --font-inspire: 'Plus Jakarta Sans', 'DM Sans', sans-serif;
   --container: 1200px;
   --header-h: 90px;
@@ -1811,9 +1812,10 @@ ul {
 /* Contact */
 .contact-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 60px;
   align-items: start;
+  max-width: 640px;
 }
 
 .contact-info h2 {
@@ -3686,23 +3688,30 @@ ul {
 /* About proof — cream watermark type (small team / big results) */
 .about-proof {
   position: relative;
-  padding: clamp(56px, 7vw, 88px) 0 0;
+  z-index: 2;
+  padding: clamp(28px, 3.5vw, 48px) 0 clamp(20px, 2.5vw, 32px);
   background: #fdfbf7;
-  border-bottom: none;
+  border-bottom: 1px solid var(--hairline);
   overflow: hidden;
   text-align: center;
 }
 
+.about-proof-headline .about-proof-lockup {
+  margin-bottom: 0;
+  min-height: clamp(64px, 8vw, 100px);
+}
+
 .about-proof > .container {
-  padding-bottom: clamp(36px, 5vw, 52px);
+  padding-bottom: clamp(16px, 2.4vw, 24px);
+  overflow: hidden;
 }
 
 .about-proof-lockup {
   position: relative;
   display: grid;
   place-items: center;
-  min-height: clamp(120px, 18vw, 200px);
-  margin: 0 auto 36px;
+  min-height: clamp(72px, 10vw, 120px);
+  margin: 0 auto 20px;
 }
 
 .about-proof-watermark {

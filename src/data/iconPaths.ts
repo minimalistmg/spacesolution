@@ -47,6 +47,8 @@ import { faCopy } from '@fortawesome/free-solid-svg-icons/faCopy';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons/faCalendarDays';
 import { faClipboardList } from '@fortawesome/free-solid-svg-icons/faClipboardList';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons/faBookmark';
+import { faCommentDots } from '@fortawesome/free-solid-svg-icons/faCommentDots';
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons/faPaperPlane';
 import { faVideo } from '@fortawesome/free-solid-svg-icons/faVideo';
 
 export type IconName =
@@ -97,6 +99,8 @@ export type IconName =
   | 'copy'
   | 'calendar-days'
   | 'clipboard-list'
+  | 'comment-dots'
+  | 'paper-plane'
   | 'bookmark'
   | 'video';
 
@@ -157,6 +161,8 @@ const icons = {
   copy: toIconData(faCopy),
   'calendar-days': toIconData(faCalendarDays),
   'clipboard-list': toIconData(faClipboardList),
+  'comment-dots': toIconData(faCommentDots),
+  'paper-plane': toIconData(faPaperPlane),
   bookmark: toIconData(faBookmark),
   video: toIconData(faVideo),
 } satisfies Record<IconName, { width: number; height: number; path: string }>;

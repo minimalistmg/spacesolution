@@ -2,7 +2,7 @@
 import Icon from '../components/Icon.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
-import EnquiryForm from '../components/EnquiryForm.astro';
+import FloatingContactForm from '../components/FloatingContactForm.astro';
 import FaqSection from '../components/FaqSection.astro';
 import DummyVideoBlock from '../components/DummyVideoBlock.astro';
 import CtaSection from '../components/CtaSection.astro';
@@ -110,13 +110,11 @@ const faqs = [
           <a href="#" class="btn btn-outline-dark" data-open-modal="enquiry">Request a callback</a>
         </div>
       </div>
+    </div>
 
-      <div class="contact-form-wrap fade-up">
-        <h3>Contact form</h3>
-        <p class="contact-form-lead">
-          Share a few details and we will get back with availability for a consultation or site visit.
-        </p>
-        <EnquiryForm formId="contact-form" dataSource="contact" />
+    <div class="contact-floating-form-section">
+      <div class="contact-floating-form-wrap fade-up">
+        <FloatingContactForm formId="contact-form" />
       </div>
     </div>
 

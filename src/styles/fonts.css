@@ -1,6 +1,33 @@
 /* Gotham — brand lockup in Gold Forge preloader (must stay first) */
 @import url('/fonts/gotham/gotham.css');
 
+/* Canela — display / hero headlines */
+@import url('/fonts/canela/canela.css');
+
+/* Domaine Display — display / hero headlines */
+@import url('/fonts/domaine-display/domaine-display.css');
+
+/* Söhne Breit Bold — turnkey hero display (CDN: OnlineWebFonts) */
+@font-face {
+  font-family: 'Söhne Breit';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src:
+    url('https://db.onlinewebfonts.com/t/b84fdd0510a528dc2edfab5e31266765.woff2') format('woff2'),
+    url('https://db.onlinewebfonts.com/t/b84fdd0510a528dc2edfab5e31266765.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Söhne Breit';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src:
+    url('https://db.onlinewebfonts.com/t/b84fdd0510a528dc2edfab5e31266765.woff2') format('woff2'),
+    url('https://db.onlinewebfonts.com/t/b84fdd0510a528dc2edfab5e31266765.woff') format('woff');
+}
+
 /* Self-hosted Archivo — body / UI */
 @font-face {
   font-family: 'Archivo';

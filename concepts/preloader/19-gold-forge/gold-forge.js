@@ -7,11 +7,10 @@
   'use strict';
 
   var STORAGE_KEY = 'ss-preloader-seen';
-  var PRELOADER_HOLD = false;
   var preloader = document.querySelector('[data-pl-preloader]');
 
   try {
-    if (!PRELOADER_HOLD && sessionStorage.getItem(STORAGE_KEY)) {
+    if (sessionStorage.getItem(STORAGE_KEY)) {
       document.documentElement.classList.remove('ss-preloader-pending');
       if (preloader) preloader.hidden = true;
       return;
@@ -21,10 +20,8 @@
   }
 
   if (typeof gsap === 'undefined') {
-    if (!PRELOADER_HOLD) {
-      document.documentElement.classList.remove('ss-preloader-pending');
-      if (preloader) preloader.hidden = true;
-    }
+    document.documentElement.classList.remove('ss-preloader-pending');
+    if (preloader) preloader.hidden = true;
     return;
   }
 
@@ -34,19 +31,26 @@
 
   var host = document.querySelector('[data-pl-lockup-host]');
   var bloom = document.querySelector('[data-pl-bloom]');
+  var pageShell = document.querySelector('[data-ss-page-shell]');
 
   if (!preloader || !host) {
-    if (!PRELOADER_HOLD) {
-      document.documentElement.classList.remove('ss-preloader-pending');
-    }
+    document.documentElement.classList.remove('ss-preloader-pending');
     return;
   }
 
   function markSeen() {
-    if (PRELOADER_HOLD) return;
     try {
       sessionStorage.setItem(STORAGE_KEY, '1');
     } catch (storageError) {
+      /* ignore */
+    }
+  }
+
+  /** Let ScrollTrigger remeasure after page-shell scale is cleared (avoids pin white-gap). */
+  function notifyPreloaderDone() {
+    try {
+      window.dispatchEvent(new CustomEvent('ss:preloader-done'));
+    } catch (error) {
       /* ignore */
     }
   }
@@ -382,10 +386,10 @@
        as a lump where the tip narrows to a point. */
     '<circle data-gf-spark r="4.6" cx="23.05" cy="563.17" fill="url(#gfSparkFill)" opacity="0" filter="url(#gfSpark)"/>' +
     '</svg>' +
-    '</div>' +
     '<div class="brand-wordmark">' +
     '<span class="brand-space">space</span>' +
     '<span class="brand-solution">SOLUTION</span>' +
+    '</div>' +
     '</div>' +
     '</div>';
 
@@ -397,6 +401,7 @@
   var wordmark = host.querySelector('.brand-wordmark');
   var spaceEl = host.querySelector('.brand-space');
   var solutionEl = host.querySelector('.brand-solution');
+  var iconWrap = host.querySelector('.brand-icon-wrap');
   var revealFn = host.querySelectorAll('[data-gf-reveal] > *');
   var bandFn = host.querySelectorAll('[data-gf-band] > *');
 
@@ -434,10 +439,168 @@
   }
 
   fitLockup();
-  /* Gotham arrives after first paint and widens the wordmark, which changes the
-     fit. */
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitLockup);
-  window.addEventListener('resize', fitLockup);
+
+  var WORDMARK_GAP = 14;
+  var REVEAL_AT = 2.15;
+  var REVEAL_DUR = 1.2;
+  var REVEAL_EASE = 'power4.out';
+  var EXIT_DUR = 1.25;
+  var EXIT_EASE = 'power3.in';
+  var EXIT_ZOOM = 10;
+  var EXIT_PAGE_START = 1.08;
+  var revealMotion = { startY: 0, endY: 0 };
+  var spaceAlignX = 0;
+  var wordmarkRevealed = false;
+
+  function getHostScale() {
+    return parseFloat(getComputedStyle(host).getPropertyValue('--gf-scale')) || 1;
+  }
+
+  function setWordmarkHidden() {
+    gsap.set(wordmark, {
+      autoAlpha: 0,
+      scale: 3,
+      opacity: 0,
+      transformOrigin: '50% 0%',
+    });
+    gsap.set(spaceEl, {
+      scale: 1,
+      opacity: 1,
+      x: spaceAlignX,
+      letterSpacing: '-0.09em',
+      transformOrigin: '50% 0%',
+      clearProps: 'rotation',
+    });
+    gsap.set(solutionEl, {
+      autoAlpha: 1,
+      scale: 1,
+      opacity: 1,
+      rotation: 0,
+      transformOrigin: '50% 50%',
+      clearProps: 'rotationY,rotationX,transformPerspective,yPercent',
+    });
+  }
+
+  function setWordmarkVisible() {
+    gsap.set(wordmark, {
+      autoAlpha: 1,
+      scale: 1,
+      opacity: 1,
+      transformOrigin: '50% 0%',
+    });
+    gsap.set(spaceEl, {
+      scale: 1,
+      opacity: 1,
+      x: spaceAlignX,
+      letterSpacing: '-0.09em',
+      transformOrigin: '50% 0%',
+    });
+    gsap.set(solutionEl, {
+      autoAlpha: 1,
+      scale: 1,
+      opacity: 1,
+      rotation: 0,
+      transformOrigin: '50% 50%',
+    });
+    wordmarkRevealed = true;
+  }
+
+  function applyWordmarkStackLayout() {
+    gsap.set(lockup, { position: 'relative' });
+    gsap.set(iconWrap, { position: 'relative' });
+    gsap.set(wordmark, {
+      position: 'absolute',
+      top: '100%',
+      left: '50%',
+      xPercent: -50,
+      width: 'max-content',
+      marginTop: WORDMARK_GAP,
+      x: 0,
+      y: 0,
+    });
+  }
+
+  function alignSpaceUnderIcon() {
+    var svg = iconWrap.querySelector('.brand-icon-svg');
+    if (!svg) return 0;
+
+    var prevScale = gsap.getProperty(spaceEl, 'scale');
+    var prevOpacity = gsap.getProperty(spaceEl, 'opacity');
+    gsap.set(spaceEl, { scale: 1, opacity: 1, x: 0 });
+
+    var iconRect = svg.getBoundingClientRect();
+    var spaceRect = spaceEl.getBoundingClientRect();
+    var iconCx = iconRect.left + iconRect.width * 0.5;
+    var spaceCx = spaceRect.left + spaceRect.width * 0.5;
+    var offset = (iconCx - spaceCx) / getHostScale();
+
+    gsap.set(spaceEl, { x: offset, scale: prevScale, opacity: prevOpacity });
+    spaceAlignX = offset;
+    return offset;
+  }
+
+  function measureRevealMotion() {
+    applyWordmarkStackLayout();
+    gsap.set(iconWrap, { y: 0, transformOrigin: '50% 50%' });
+    gsap.set(wordmark, {
+      autoAlpha: 1,
+      scale: 1,
+      opacity: 1,
+      transformOrigin: '50% 0%',
+    });
+    gsap.set(spaceEl, {
+      scale: 1,
+      opacity: 1,
+      y: 0,
+      letterSpacing: '-0.09em',
+      transformOrigin: '50% 0%',
+    });
+    gsap.set(solutionEl, {
+      autoAlpha: 1,
+      scale: 1,
+      rotation: 0,
+      opacity: 1,
+      transformOrigin: '50% 50%',
+      clearProps: 'rotationY,rotationX,transformPerspective,yPercent',
+    });
+    fitLockup();
+    alignSpaceUnderIcon();
+
+    var viewCy = window.innerHeight * 0.5;
+    var iconRect = iconWrap.getBoundingClientRect();
+    var baseCy = iconRect.top + iconRect.height * 0.5;
+    var stackHeight = iconRect.height + WORDMARK_GAP + wordmark.offsetHeight;
+    var targetIconCy = viewCy - stackHeight * 0.5 + iconRect.height * 0.5;
+
+    revealMotion.startY = viewCy - baseCy;
+    revealMotion.endY = targetIconCy - baseCy;
+  }
+
+  function syncForgeIconPosition() {
+    measureRevealMotion();
+    gsap.set(iconWrap, { y: revealMotion.startY, transformOrigin: '50% 50%' });
+    setWordmarkHidden();
+  }
+
+  setWordmarkHidden();
+
+  if (pageShell) {
+    gsap.set(pageShell, {
+      scale: EXIT_PAGE_START,
+      transformOrigin: '50% 50%',
+    });
+  }
+
+  function onViewportChange() {
+    fitLockup();
+    if (wordmarkRevealed) {
+      measureRevealMotion();
+      setWordmarkVisible();
+      gsap.set(iconWrap, { y: revealMotion.endY, transformOrigin: '50% 50%' });
+      return;
+    }
+    syncForgeIconPosition();
+  }
 
   gsap.registerPlugin(CustomEase);
   /* Slow to commit, then confident — reads as a hand drawing rather than a wipe. */
@@ -467,17 +630,65 @@
     spark.setAttribute('cy', String(pt.y));
   }
 
+  function prepareForgeFrame() {
+    setFront(1);
+    outline.style.strokeDasharray = String(pathLen);
+    setDraw(0);
+    gsap.set(outline, { opacity: 1 });
+    gsap.set(spark, { opacity: 0 });
+    gsap.set(meniscus, { opacity: 0 });
+    gsap.set(sheen, { opacity: 0 });
+  }
+
+  prepareForgeFrame();
+
   var tl = null;
   var exited = false;
 
   function exit() {
-    if (PRELOADER_HOLD || exited) return;
+    if (exited) return;
     exited = true;
     markSeen();
     if (tl) tl.kill();
-    window.removeEventListener('resize', fitLockup);
+    window.removeEventListener('resize', onViewportChange);
+
+    preloader.classList.add('is-exiting');
     document.documentElement.classList.remove('ss-preloader-pending');
-    U.exitPreloader(preloader);
+    gsap.set(preloader, { scale: 1, transformOrigin: '50% 50%', force3D: true });
+
+    var exitTl = gsap.timeline({
+      onComplete: function () {
+        preloader.hidden = true;
+        preloader.classList.remove('is-exiting');
+        gsap.set(preloader, { clearProps: 'transform' });
+        if (pageShell) gsap.set(pageShell, { clearProps: 'transform' });
+        notifyPreloaderDone();
+      },
+    });
+
+    exitTl.to(
+      preloader,
+      {
+        scale: EXIT_ZOOM,
+        duration: EXIT_DUR,
+        ease: EXIT_EASE,
+        transformOrigin: '50% 50%',
+      },
+      0
+    );
+
+    if (pageShell) {
+      exitTl.to(
+        pageShell,
+        {
+          scale: 1,
+          duration: EXIT_DUR,
+          ease: EXIT_EASE,
+          transformOrigin: '50% 50%',
+        },
+        0
+      );
+    }
   }
 
   function settle() {
@@ -491,22 +702,27 @@
     gsap.set(bloom, { opacity: 1, scale: 1 });
     gsap.set(wordmark, { autoAlpha: 1, y: 0 });
     gsap.set(lockup, { scale: 1, autoAlpha: 1 });
-    gsap.set(spaceEl, { autoAlpha: 1, y: 0, letterSpacing: '-0.09em' });
-    gsap.set(solutionEl, { autoAlpha: 1, y: 0, x: 0, letterSpacing: '0.32em' });
-    if (PRELOADER_HOLD) return;
+    gsap.set(iconWrap, { y: revealMotion.endY, transformOrigin: '50% 50%' });
+    setWordmarkVisible();
+    host.classList.add('is-forge-live');
+    if (pageShell) gsap.set(pageShell, { scale: 1, clearProps: 'transform' });
     document.documentElement.classList.remove('ss-preloader-pending');
     preloader.hidden = true;
+    notifyPreloaderDone();
   }
 
   function play() {
+    wordmarkRevealed = false;
+    syncForgeIconPosition();
+    prepareForgeFrame();
+    host.classList.add('is-forge-live');
+
     outline.style.strokeDasharray = String(pathLen);
     gsap.set(outline, { opacity: 1 });
     gsap.set(meniscus, { opacity: 0 });
     gsap.set(sheen, { opacity: 0 });
     gsap.set(bloom, { opacity: 0, scale: 0.82 });
-    gsap.set(wordmark, { autoAlpha: 1, y: 0 });
-    gsap.set(spaceEl, { autoAlpha: 0, y: 8, letterSpacing: '1px' });
-    gsap.set(solutionEl, { autoAlpha: 0, y: 8, x: -28, letterSpacing: '0.32em' });
+    gsap.set(wordmark, { y: 0 });
     gsap.set(lockup, { scale: 0.97, autoAlpha: 1, transformOrigin: '50% 50%' });
     setFront(1);
     setDraw(0);
@@ -517,10 +733,7 @@
 
     tl = gsap.timeline({
       onComplete: function () {
-        if (inspect || PRELOADER_HOLD) return;
-        /* Timeline already ran 2.14s, so this gate only needs to cover a slow
-           load. Building the distance field costs ~14ms up front, which put the
-           total at 2998ms — trimming here keeps a usable margin under 3s. */
+        if (inspect) return;
         U.waitForReady(110).then(exit);
       },
     });
@@ -577,22 +790,30 @@
       )
       .to(sheen, { opacity: 0, duration: 0.32, ease: 'power1.in' }, 2.35)
 
-      /* IV — Wordmark: space and SOLUTION reveal together */
-      .to(lockup, { scale: 1, duration: 0.46, ease: 'power2.out' }, 2.15)
-      .to(spaceEl, { autoAlpha: 1, y: 0, duration: 0.42, ease: 'power3.out' }, 2.15)
+      /* IV — Icon rises + wordmark zoom-out (space + SOLUTION together) */
+      .add('wordmark', REVEAL_AT)
+      .to(lockup, { scale: 1, duration: 0.46, ease: 'power2.out' }, 'wordmark')
       .to(
-        spaceEl,
-        { letterSpacing: '-0.09em', duration: 0.72, ease: 'power3.out' },
-        2.15
+        iconWrap,
+        { y: revealMotion.endY, duration: REVEAL_DUR, ease: REVEAL_EASE },
+        'wordmark'
       )
       .to(
-        solutionEl,
-        { autoAlpha: 1, y: 0, x: 0, duration: 0.72, ease: 'power3.out' },
-        2.15
+        wordmark,
+        {
+          scale: 1,
+          opacity: 1,
+          autoAlpha: 1,
+          duration: REVEAL_DUR,
+          ease: REVEAL_EASE,
+          transformOrigin: '50% 0%',
+          onComplete: setWordmarkVisible,
+        },
+        'wordmark'
       )
 
       /* V — Hold */
-      .to({}, { duration: 0.35 }, 3.22);
+      .to({}, { duration: 0.35 }, REVEAL_AT + REVEAL_DUR + 0.2);
 
     if (inspect) {
       tl.pause(0);
@@ -610,10 +831,20 @@
     }
   }
 
-  if (reduce) {
-    settle();
-    return;
+  function begin() {
+    syncForgeIconPosition();
+    if (reduce) {
+      settle();
+      return;
+    }
+    play();
   }
 
-  play();
+  window.addEventListener('resize', onViewportChange);
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(begin);
+  } else {
+    begin();
+  }
 })();

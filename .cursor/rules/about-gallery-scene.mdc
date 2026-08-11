@@ -1,0 +1,19 @@
+---
+description: About gallery modular scene — always read the brief before generating assets or changing gallery scroll/layout
+globs: src/components/AboutGalleryCarousel.astro,src/styles/about-gallery-carousel.css,src/client/scroll-motion.js,src/pages/about.astro,src/data/images.ts,src/assets/images/gallery-backgrounds/**,src/assets/images/gallery-spectators/**
+alwaysApply: false
+---
+
+# About gallery scene — use the canonical brief
+
+Before **generating images**, **replacing assets**, or **changing** the About gallery carousel (layout, layers, scroll, or wiring):
+
+1. **Read** `docs/about-gallery-scene-brief.md` in full — follow **Image generation protocol (mandatory)**.
+2. **Copy prompts verbatim** from **Exact generation prompts** — never paraphrase. Same filename, aspect ratio, and path every time.
+3. **Reuse existing assets** listed in the inventory. Regenerate only when missing or user approves per brief version bump.
+4. Scene = seamless museum wall; **CSS radial-gradient spotlight** on copy; narrow caps for pillar seams only.
+5. **Gallery watcher (back view)** beside video; **rotate bay accent props** on **≥1400px** (plant slide 1, floor lamp slide 2, creative object slide 3 — not plant every slide); **slide 3 = two ceiling lights**.
+6. Regenerate mockups: **MOCKUP** (slide 1), **MOCKUP-SLIDE-2** (slide 2), **MOCKUP-SLIDE-3** (slide 3).
+7. HTML only for stats, copy, CTA, video, play icon, accent prop + watcher PNG overlays. Never bake into wall JPGs.
+
+If the brief and user request conflict, ask once; otherwise the brief wins.
