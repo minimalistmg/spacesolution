@@ -10,14 +10,51 @@
   var MESSAGE_MIN = 3;
   var MESSAGE_MAX = 500;
   var CONNECT_DRAFT_KEY = 'ss-connect-form-draft';
-  var MOBILE_CONNECT_MQ = window.matchMedia('(max-width: 767px)');
+  var breakpoints = window.SpaceSolutionsHeaderBreakpoints;
+  var MOBILE_CONNECT_MQ = breakpoints
+    ? window.matchMedia(breakpoints.mq.mobileConnect)
+    : window.matchMedia('(max-width: 767px)');
   var connectSheetScrollLocked = false;
   var mobileSheetCloseTimer = null;
+  var hubFocusTraps = new WeakMap();
 
   var isRestoringConnectDraft = false;
 
   function isMobileConnect() {
-    return MOBILE_CONNECT_MQ.matches;
+    return breakpoints ? breakpoints.isMobileConnect() : MOBILE_CONNECT_MQ.matches;
+  }
+
+  function isTabletViewport() {
+    return breakpoints
+      ? breakpoints.isTabletNav()
+      : window.matchMedia('(min-width: 768px) and (max-width: 1366px) and (pointer: fine)').matches;
+  }
+
+  function shouldTrapConnectFocus() {
+    return isMobileConnect() || isTabletViewport();
+  }
+
+  function deactivateHubFocusTrap(root) {
+    var trap = hubFocusTraps.get(root);
+    if (!trap) return;
+    trap.deactivate();
+    hubFocusTraps.delete(root);
+  }
+
+  function activateHubFocusTrap(root, panel) {
+    if (!window.SpaceSolutionsFocusTrap || !panel) return;
+
+    deactivateHubFocusTrap(root);
+
+    var trap = window.SpaceSolutionsFocusTrap.create(panel);
+    trap.activate();
+    hubFocusTraps.set(root, trap);
+  }
+
+  function closeMobileMenuIfOpen() {
+    if (window.SpaceSolutionsHeader && window.SpaceSolutionsHeader.closeMobileMenu) {
+      window.SpaceSolutionsHeader.closeMobileMenu();
+    }
   }
 
   function getHubSheet(root) {
@@ -115,6 +152,8 @@
       mobileSheetCloseTimer = null;
     }
 
+    deactivateHubFocusTrap(root);
+
     var sheet = getHubSheet(root);
 
     if (sheet.panel) {
@@ -123,6 +162,9 @@
 
     root.querySelectorAll('[data-contact-trigger]').forEach(function (trigger) {
       trigger.setAttribute('aria-expanded', 'false');
+      if (typeof trigger.blur === 'function') {
+        trigger.blur();
+      }
     });
     root.classList.remove('is-open');
     root.classList.remove('hc-hub--from-menu');
@@ -144,6 +186,10 @@
     }
 
     unlockConnectSheetScroll();
+
+    if (window.SpaceSolutionsContactConfirm) {
+      window.SpaceSolutionsContactConfirm.dismiss();
+    }
   }
 
   function closeMobileSheet(root) {
@@ -199,6 +245,9 @@
     window.requestAnimationFrame(function () {
       window.requestAnimationFrame(function () {
         setMobileSheetVisible(root, true);
+        if (shouldTrapConnectFocus()) {
+          activateHubFocusTrap(root, panel);
+        }
       });
     });
   }
@@ -607,6 +656,10 @@
 
     if (!panel.hidden && trigger.getAttribute('aria-expanded') === 'true') return;
 
+    if (isTabletViewport()) {
+      closeMobileMenuIfOpen();
+    }
+
     closeAll(root);
 
     panel.hidden = false;
@@ -619,6 +672,10 @@
       if (!isMobileConnect()) {
         focusFirstEmptyConnectField(panel);
       }
+    }
+
+    if (shouldTrapConnectFocus()) {
+      activateHubFocusTrap(root, panel);
     }
   }
 
@@ -756,7 +813,7 @@
     var closeTimer = null;
 
     function openHub() {
-      if (isMobileConnect()) return;
+      if (isMobileConnect() || isTabletViewport()) return;
 
       if (closeTimer) {
         clearTimeout(closeTimer);
@@ -766,7 +823,7 @@
     }
 
     function scheduleClose() {
-      if (isMobileConnect()) return;
+      if (isMobileConnect() || isTabletViewport()) return;
 
       if (closeTimer) clearTimeout(closeTimer);
       closeTimer = setTimeout(function () {
@@ -783,7 +840,7 @@
     root.addEventListener('mouseleave', scheduleClose);
 
     panel.addEventListener('focusin', function () {
-      if (isMobileConnect()) return;
+      if (isMobileConnect() || isTabletViewport()) return;
 
       if (closeTimer) {
         clearTimeout(closeTimer);
@@ -793,13 +850,32 @@
 
     trigger.addEventListener('click', function (event) {
       event.preventDefault();
-      if (!isMobileConnect()) return;
+      event.stopPropagation();
+
+      if (closeTimer) {
+        clearTimeout(closeTimer);
+        closeTimer = null;
+      }
+
+      if (isMobileConnect()) {
+        if (root.classList.contains('is-open')) {
+          closeMobileSheet(root);
+        } else {
+          openMobileSheet(root, trigger, panel);
+        }
+        return;
+      }
 
       if (root.classList.contains('is-open')) {
-        closeMobileSheet(root);
-      } else {
-        openMobileSheet(root, trigger, panel);
+        closeAll(root);
+        return;
       }
+
+      if (isTabletViewport()) {
+        closeMobileMenuIfOpen();
+      }
+
+      openPanel(root, trigger, 'hub');
     });
 
     if (backdrop) {

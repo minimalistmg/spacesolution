@@ -1,0 +1,58 @@
+import type { NavResourceSegment } from './navResourceSegments';
+import { TURNKEY_PATHS } from './navResourceSegments';
+
+export interface TurnkeyFitoutPageConfig {
+  segment: NavResourceSegment;
+  path: string;
+  seoTitle: string;
+  metaDescription: string;
+  breadcrumbCurrent: string;
+  heroLead: string;
+}
+
+export const turnkeyFitoutPages: Record<NavResourceSegment, TurnkeyFitoutPageConfig> = {
+  'home-interiors': {
+    segment: 'home-interiors',
+    path: TURNKEY_PATHS.home,
+    seoTitle: 'Turnkey Home Interior Fitout Mysuru | Space Solutions',
+    metaDescription:
+      'Turnkey home interior fitout in Mysuru — design, in-house manufacturing, and installation for kitchens, wardrobes, and full homes by Space Solutions.',
+    breadcrumbCurrent: 'Turnkey home interiors',
+    heroLead:
+      'One team for design, factory production, and installation — so your home finishes on a clear plan before move-in.',
+  },
+  commercial: {
+    segment: 'commercial',
+    path: TURNKEY_PATHS.commercial,
+    seoTitle: 'Turnkey Commercial Fitout Mysuru | Space Solutions',
+    metaDescription:
+      'Turnkey commercial interior fitout in Mysuru — offices, clinics, and retail delivered design-to-handover by Space Solutions.',
+    breadcrumbCurrent: 'Turnkey commercial fitout',
+    heroLead:
+      'One team for workplace design, factory joinery, and site installation — so your office or store opens on schedule.',
+  },
+  institutional: {
+    segment: 'institutional',
+    path: TURNKEY_PATHS.institutional,
+    seoTitle: 'Turnkey Institutional Fitout Mysuru | Space Solutions',
+    metaDescription:
+      'Turnkey institutional interior fitout in Mysuru — classrooms, hostels, labs, and admin spaces built to last by Space Solutions.',
+    breadcrumbCurrent: 'Turnkey institutional fitout',
+    heroLead:
+      'One team for durable institutional interiors — furniture, storage, and finishes planned for daily student and staff use.',
+  },
+  hospitality: {
+    segment: 'hospitality',
+    path: TURNKEY_PATHS.hospitality,
+    seoTitle: 'Turnkey Hospitality Fitout Mysuru | Space Solutions',
+    metaDescription:
+      'Turnkey hospitality interior fitout in Mysuru — cafés, hotels, bars, and salons ready for opening day by Space Solutions.',
+    breadcrumbCurrent: 'Turnkey hospitality fitout',
+    heroLead:
+      'One team for guest-facing hospitality interiors — counters, seating, and back-of-house coordination before you open.',
+  },
+};
+
+export function getTurnkeyFitoutPage(segment: NavResourceSegment): TurnkeyFitoutPageConfig {
+  return turnkeyFitoutPages[segment];
+}

@@ -14,32 +14,50 @@ const phoneDisplay = '+91 63645 64563';
 >
   <div class="cac-toast" data-cac-ui="toast" hidden>
     <div class="cac-toast-inner">
-      <div class="cac-toast-compact">
-        <span class="cac-spinner" aria-hidden="true"></span>
-        <span class="cac-toast-msg" data-cac-opening-msg>Opening…</span>
-      </div>
-      <div class="cac-toast-expanded" data-cac-expanded hidden>
+      <div class="cac-toast-confirm" data-cac-panel="confirm">
+        <p class="cac-badge" data-cac-badge>Call</p>
         <p class="cac-title" data-cac-title>Did it work?</p>
         <p class="cac-sub" data-cac-sub></p>
         <div class="cac-actions">
-          <button type="button" class="cac-btn cac-btn-yes" data-cac-outcome="yes">Yes, connected</button>
-          <button type="button" class="cac-btn cac-btn-retry" data-cac-outcome="retry">No, try again</button>
+          <button type="button" class="cac-btn cac-btn-yes" data-cac-outcome="yes">Yes, we spoke</button>
+          <button type="button" class="cac-btn cac-btn-retry" data-cac-outcome="retry">Try again</button>
         </div>
         <button type="button" class="cac-dismiss" data-cac-dismiss>Not now</button>
       </div>
+      <div class="cac-toast-feedback cac-toast-feedback--success" data-cac-panel="success" hidden>
+        <span class="cac-feedback-icon cac-feedback-icon--success" aria-hidden="true">✓</span>
+        <span class="cac-feedback-msg" data-cac-success-msg>Thanks! We&rsquo;ll follow up if needed.</span>
+      </div>
+      <div class="cac-toast-feedback cac-toast-feedback--micro" data-cac-panel="micro" hidden>
+        <span class="cac-feedback-icon cac-feedback-icon--micro" aria-hidden="true">↗</span>
+        <span class="cac-feedback-msg" data-cac-micro-msg>Opened in new tab</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cac-banner" data-cac-ui="banner" hidden role="status">
+    <div class="cac-banner-inner" data-cac-banner-inner>
+      <span class="cac-feedback-icon" data-cac-banner-icon aria-hidden="true">✓</span>
+      <span class="cac-feedback-msg" data-cac-banner-msg></span>
     </div>
   </div>
 
   <div class="cac-sheet" data-cac-ui="sheet" hidden>
     <button type="button" class="cac-sheet-backdrop" data-cac-dismiss aria-label="Close"></button>
-    <div class="cac-sheet-panel" role="dialog" aria-modal="true" aria-labelledby="cac-sheet-title">
+    <div
+      class="cac-sheet-panel"
+      role="alertdialog"
+      aria-modal="true"
+      aria-labelledby="cac-sheet-title"
+      aria-describedby="cac-sheet-sub"
+    >
       <div class="cac-sheet-handle" aria-hidden="true"></div>
-      <p class="cac-sheet-opening" data-cac-opening-msg>Opening…</p>
+      <p class="cac-badge cac-badge--sheet" data-cac-badge>Call</p>
       <p class="cac-title" id="cac-sheet-title" data-cac-title>Did it work?</p>
-      <p class="cac-sub" data-cac-sub></p>
+      <p class="cac-sub" id="cac-sheet-sub" data-cac-sub></p>
       <div class="cac-actions cac-actions-stack">
-        <button type="button" class="cac-btn cac-btn-yes" data-cac-outcome="yes">Yes, connected</button>
-        <button type="button" class="cac-btn cac-btn-retry" data-cac-outcome="retry">No, try again</button>
+        <button type="button" class="cac-btn cac-btn-yes" data-cac-outcome="yes">Yes, we spoke</button>
+        <button type="button" class="cac-btn cac-btn-retry" data-cac-outcome="retry">Try again</button>
         <button type="button" class="cac-dismiss cac-dismiss-inline" data-cac-dismiss>Not now</button>
       </div>
     </div>

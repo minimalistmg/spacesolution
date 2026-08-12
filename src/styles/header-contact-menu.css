@@ -56,8 +56,19 @@
   line-height: 1;
 }
 
-.hc-hub.is-open .hc-hub-trigger,
+.hc-hub.is-open .hc-hub-trigger {
+  background: transparent;
+  border-color: var(--header-action-border, #c49a14);
+  color: var(--header-action-bg, #d4a017);
+}
+
 .hc-hub-trigger:hover {
+  background: var(--header-action-bg-hover, #c8960c);
+  border-color: var(--header-action-border-hover, #b8870b);
+  color: var(--header-action-text, #fff);
+}
+
+.hc-hub.is-open .hc-hub-trigger:hover {
   background: transparent;
   border-color: var(--header-action-border, #c49a14);
   color: var(--header-action-bg, #d4a017);

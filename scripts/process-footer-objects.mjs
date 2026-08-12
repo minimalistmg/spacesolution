@@ -19,6 +19,7 @@ const FILES = [
   'ss-obj-living-dining.png',
   'ss-obj-bedroom.png',
   'ss-obj-pooja.png',
+  'ss-obj-full-home.png',
   'ss-obj-office.png',
   'ss-obj-clinic.png',
   'ss-obj-retail.png',

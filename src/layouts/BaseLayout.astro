@@ -11,6 +11,7 @@ import GoldForgePreloader from '../components/GoldForgePreloader.astro';
 import { getImage } from 'astro:assets';
 import ogFallback from '../assets/images/hero/hero-residential.jpg';
 import { SITE, getLocalBusinessSchema } from '../data/site';
+import { resolveNavActive } from '../data/resolveNavActive';
 import { allMenuImageUrls } from '../data/menuImages';
 import { colorPalettes, DEFAULT_PALETTE_ID } from '../data/colorPalettes';
 import '../styles/lib.css';
@@ -30,12 +31,13 @@ interface Props {
 const {
   title,
   description,
-  activePage = 'home',
+  activePage: activePageOverride,
   headerScrolled = false,
   ogImage,
 } = Astro.props;
 
 const pathname = Astro.url.pathname.replace(/\.html$/, '') || '/';
+const activePage = resolveNavActive(pathname, activePageOverride);
 const canonicalURL = new URL(pathname, Astro.site);
 const defaultOgImage = await getImage({
   src: ogFallback,
@@ -173,6 +175,7 @@ const schema = getLocalBusinessSchema(Astro.site?.href ?? SITE.url);
     <script src="/vendor/jquery.min.js" defer></script>
     <script src="/vendor/swiper-bundle.min.js" defer></script>
     <script src="/js/lib.js" defer></script>
+    <script src="/js/header-breakpoints.js" defer></script>
     <script src="/js/header.js" defer></script>
     <script src="/js/header-contact-menu.js" defer></script>
     <script src="/js/contact-action-confirm.js" defer></script>

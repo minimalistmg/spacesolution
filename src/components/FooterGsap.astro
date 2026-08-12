@@ -52,19 +52,36 @@ const trackObjects = [...FOOTER_LOOP_OBJECTS, ...FOOTER_LOOP_OBJECTS];
         {
           FOOTER_BLUEPRINT_COLUMNS.map((col) => (
             <div class="fgsap-col">
-              <h4>{col.title}</h4>
-              <ul>
-                {col.links.map((link) => (
-                  <li>
-                    <a href={link.href} class="fgsap-link">
-                      <span class="fgsap-link-label">{link.label}</span>
-                      <span class="fgsap-link-arrow" aria-hidden="true">
-                        <Icon name="arrow-right" />
-                      </span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              <div class="fgsap-col-grid">
+                <h4>{col.title}</h4>
+                <ul>
+                  {col.links.map((link) => (
+                    <li>
+                      <a href={link.href} class="fgsap-link">
+                        <span class="fgsap-link-label">{link.label}</span>
+                        <span class="fgsap-link-arrow" aria-hidden="true">
+                          <Icon name="arrow-right" />
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div class="fgsap-col-inline">
+                <h4 class="fgsap-col-inline-heading">{col.title}</h4>
+                <div class="fgsap-col-inline-links">
+                  {
+                    col.links.map((link, index) => (
+                      <a href={link.href} class="fgsap-link fgsap-link--inline">
+                        <span class="fgsap-link-label">{link.label}</span>
+                        {index < col.links.length - 1 && (
+                          <span class="fgsap-inline-sep" aria-hidden="true"> ·</span>
+                        )}
+                      </a>
+                    ))
+                  }
+                </div>
+              </div>
             </div>
           ))
         }
@@ -72,11 +89,12 @@ const trackObjects = [...FOOTER_LOOP_OBJECTS, ...FOOTER_LOOP_OBJECTS];
     </div>
   </div>
 
-  <div class="fgsap-stage" aria-hidden="true">
+  <div class="fgsap-stage" aria-label="Browse our interior services">
     <div class="fgsap-track" data-fgsap-track>
       {
-        trackObjects.map((obj, index) => (
-          <div
+        trackObjects.map((obj) => (
+          <a
+            href={obj.href}
             class="fgsap-object"
             data-fgsap-object={obj.id}
             data-rotate={obj.rotate}
@@ -86,15 +104,20 @@ const trackObjects = [...FOOTER_LOOP_OBJECTS, ...FOOTER_LOOP_OBJECTS];
             <img
               class="fgsap-object-img"
               src={obj.src}
-              alt=""
+              alt={obj.label}
               width={obj.width}
               height={Math.round(obj.width * 0.75)}
               loading="eager"
               decoding="async"
               draggable="false"
             />
-            <span class="fgsap-object-label">{obj.shortLabel}</span>
-          </div>
+            <span class="fgsap-object-caption">
+              <span class="fgsap-object-label">{obj.shortLabel}</span>
+              <span class="fgsap-object-arrow" aria-hidden="true">
+                <Icon name="arrow-right" />
+              </span>
+            </span>
+          </a>
         ))
       }
     </div>

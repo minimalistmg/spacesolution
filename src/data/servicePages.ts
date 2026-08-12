@@ -1047,6 +1047,38 @@ export const serviceLandingPages: ServicePageData[] = [
     ],
   },
   {
+    slug: 'admin-office-interiors',
+    metaDescription:
+      'Admin and staff office interiors for schools, colleges, and institutions in Mysuru — durable workstations and storage.',
+    seoTitle: 'Admin & Staff Office Interiors Mysuru | Space Solutions',
+    activePage: 'institutional',
+    breadcrumb: crumb(institutionalParent, 'Admin & Staff Offices'),
+    heroTitle: 'Admin & Staff Offices',
+    heroDescription: 'Back-office and admin zones planned for daily institutional use.',
+    heroImage: heroImages.commercial,
+    body: [
+      'Admin and staff offices in schools, colleges, and campuses need durable desks, storage, and meeting space without feeling temporary. Space Solutions plans institutional back-office zones with factory-made joinery and clear circulation.',
+      'We coordinate workstations, filing, meeting rooms, and reception areas so admin teams can work efficiently while staying aligned with the wider campus finish palette.',
+      'Turnkey institutional fitouts can include admin offices alongside classrooms and hostel furniture under one accountable team and timeline.',
+    ],
+    blocks: [
+      block(
+        'Admin offices',
+        'Staff Spaces That Last',
+        'Workstations and storage for registrar, admin, and faculty teams.',
+        ['Executive and staff workstations', 'Meeting rooms and reception counters'],
+        roomImages.office
+      ),
+    ],
+    faqs: [
+      {
+        question: 'Do you fit admin offices within school and college projects?',
+        answer:
+          'Yes. We plan admin and staff zones alongside classrooms, labs, and hostel furniture so one team owns the full institutional scope.',
+      },
+    ],
+  },
+  {
     slug: 'clinic-interiors',
     metaDescription: 'Clinic and healthcare interior fitouts in Mysuru — reception, consultation, and procedure rooms.',
     seoTitle: 'Clinic Interiors in Mysuru & Karnataka | Space Solutions',

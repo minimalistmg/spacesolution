@@ -5,10 +5,44 @@
   'use strict';
 
   var SCROLL_THRESHOLD = 50;
+  var breakpoints = window.SpaceSolutionsHeaderBreakpoints;
 
   var $header = $('.site-header');
   var $mobileMenu = $('.mobile-menu');
   var scrollLock = null;
+  var mobileMenuFocusTrap = null;
+
+  function isMobileNavViewport() {
+    return breakpoints ? breakpoints.isMobileNav() : window.matchMedia('(max-width: 1366px)').matches;
+  }
+
+  function isTabletViewport() {
+    return breakpoints ? breakpoints.isTabletNav() : window.matchMedia('(min-width: 768px) and (max-width: 1366px) and (pointer: fine)').matches;
+  }
+
+  function deactivateMobileMenuFocusTrap() {
+    if (!mobileMenuFocusTrap) return;
+    mobileMenuFocusTrap.deactivate();
+    mobileMenuFocusTrap = null;
+  }
+
+  function activateMobileMenuFocusTrap() {
+    if (!window.SpaceSolutionsFocusTrap || !$mobileMenu.length) return;
+
+    deactivateMobileMenuFocusTrap();
+
+    mobileMenuFocusTrap = window.SpaceSolutionsFocusTrap.create($mobileMenu[0], {
+      initialFocus: function () {
+        var preferred = $mobileMenu.find('.mobile-menu-rail-item.is-active').first();
+        var fallback = $mobileMenu.find('.mobile-menu-rail-item').first();
+        var target = preferred.length ? preferred[0] : fallback.length ? fallback[0] : null;
+        if (target && typeof target.focus === 'function') {
+          target.focus({ preventScroll: true });
+        }
+      },
+    });
+    mobileMenuFocusTrap.activate();
+  }
 
   function isNavOpen() {
     if ($mobileMenu.hasClass('open')) return true;
@@ -29,6 +63,13 @@
 
       if (isNavOpen()) {
         $header.removeClass('is-hidden');
+        lastScrollY = scrollY;
+        return;
+      }
+
+      if (isMobileNavViewport()) {
+        $header.removeClass('is-hidden');
+        $header.toggleClass('scrolled', pastThreshold);
         lastScrollY = scrollY;
         return;
       }
@@ -66,7 +107,12 @@
   }
 
   function initGlobalNavMenu() {
-    var DESKTOP_MQ = window.matchMedia('(min-width: 1024px)');
+    var desktopMq = breakpoints
+      ? window.matchMedia(breakpoints.mq.desktopNav)
+      : window.matchMedia('(min-width: 1367px)');
+    var coarseMq = breakpoints
+      ? window.matchMedia(breakpoints.mq.coarsePointer)
+      : window.matchMedia('(pointer: coarse)');
     var nav = document.querySelector('.header-nav');
     if (!nav) return;
 
@@ -84,7 +130,13 @@
     });
 
     function isDesktop() {
-      return DESKTOP_MQ.matches;
+      return desktopMq.matches;
+    }
+
+    function blurNavFocus() {
+      if (nav.contains(document.activeElement) && typeof document.activeElement.blur === 'function') {
+        document.activeElement.blur();
+      }
     }
 
     var MEGA_MENU_WIDTH = 780;
@@ -228,6 +280,8 @@
       triggers.forEach(function (trigger) {
         trigger.classList.remove('is-menu-open');
       });
+
+      blurNavFocus();
     }
 
     function scheduleClose() {
@@ -243,16 +297,34 @@
 
     triggers.forEach(function (trigger, index) {
       trigger.addEventListener('mouseenter', function () {
+        if (coarseMq.matches) return;
         openMenu(index);
       });
 
       trigger.addEventListener('focusin', function () {
         openMenu(index);
       });
+
+      trigger.addEventListener('click', function (event) {
+        if (!isDesktop() || !coarseMq.matches) return;
+
+        var link = trigger.querySelector('a');
+        if (!link) return;
+
+        if (popover.classList.contains('is-open') && activeIndex === index) {
+          return;
+        }
+
+        event.preventDefault();
+        openMenu(index);
+      });
     });
 
     nav.addEventListener('mouseenter', cancelClose);
-    nav.addEventListener('mouseleave', scheduleClose);
+    nav.addEventListener('mouseleave', function () {
+      if (coarseMq.matches) return;
+      scheduleClose();
+    });
     nav.addEventListener('focusin', cancelClose);
     nav.addEventListener('focusout', function (event) {
       if (!nav.contains(event.relatedTarget)) {
@@ -267,8 +339,12 @@
       }
     });
 
-    DESKTOP_MQ.addEventListener('change', function () {
+    desktopMq.addEventListener('change', function () {
       measurePanels();
+      closeMenu();
+    });
+
+    coarseMq.addEventListener('change', function () {
       closeMenu();
     });
 
@@ -323,17 +399,24 @@
   function setMobileMenuOpen(isOpen) {
     $mobileMenu.toggleClass('open', isOpen);
     $('body').toggleClass('mobile-menu-open', isOpen);
-    $('.menu-toggle, .menu-toggle-fab').attr('aria-expanded', isOpen ? 'true' : 'false');
-    $('.menu-toggle-fab').attr('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    $('.menu-toggle, .menu-toggle-fab, .menu-toggle-round').attr('aria-expanded', isOpen ? 'true' : 'false');
+    $('.menu-toggle-fab, .menu-toggle-round').attr('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    $('.mobile-menu-backdrop').attr('aria-hidden', isOpen ? 'false' : 'true');
     resetMobileMenuDragState();
 
     if (isOpen) {
+      if (isTabletViewport() && window.SpaceSolutionsHeaderContact) {
+        window.SpaceSolutionsHeaderContact.closeAll();
+      }
       $header.removeClass('is-hidden');
       if (scrollLock && scrollLock.lock) {
         scrollLock.lock();
       }
+      activateMobileMenuFocusTrap();
       return;
     }
+
+    deactivateMobileMenuFocusTrap();
 
     if (scrollLock && scrollLock.unlock) {
       scrollLock.unlock();
@@ -345,7 +428,9 @@
     if (!menu || menu.dataset.menuDragInit === 'true') return;
     menu.dataset.menuDragInit = 'true';
 
-    var MOBILE_MENU_MQ = window.matchMedia('(max-width: 1023px)');
+    var MOBILE_MENU_MQ = breakpoints
+      ? window.matchMedia(breakpoints.mq.mobileNav)
+      : window.matchMedia('(max-width: 1366px)');
     var DRAG_START = 6;
     var DRAG_CLOSE_X = 80;
     var DRAG_CLOSE_Y = 72;
@@ -534,14 +619,50 @@
     menu.addEventListener('pointercancel', onPointerEnd, true);
   }
 
+  function initMobileMenuOutsideClose() {
+    if (document.documentElement.dataset.mobileMenuOutsideInit === 'true') return;
+    document.documentElement.dataset.mobileMenuOutsideInit = 'true';
+
+    document.addEventListener(
+      'pointerdown',
+      function (event) {
+        if (!isTabletViewport() || !$mobileMenu.hasClass('open')) return;
+
+        var target = event.target;
+        if (!target || typeof target.closest !== 'function') return;
+        if (target.closest('.mobile-menu')) return;
+        if (target.closest('.menu-toggle-round, .menu-toggle-fab, .menu-toggle')) return;
+
+        setMobileMenuOpen(false);
+      },
+      true
+    );
+  }
+
+  function initMobileMenuViewportGuard() {
+    var mobileNavMq = breakpoints
+      ? window.matchMedia(breakpoints.mq.mobileNav)
+      : window.matchMedia('(max-width: 1366px)');
+
+    mobileNavMq.addEventListener('change', function (event) {
+      if (!event.matches) {
+        closeMobileMenu();
+      }
+    });
+  }
+
   function initMobileMenu() {
-    $('.menu-toggle, .menu-toggle-fab').on('click', function () {
+    $('.menu-toggle, .menu-toggle-fab, .menu-toggle-round').on('click', function () {
       setMobileMenuOpen(!$mobileMenu.hasClass('open'));
     });
 
-    $('.mobile-menu-overlay').on('click', function () {
+    $('.mobile-menu-overlay, .mobile-menu-backdrop').on('pointerdown', function (event) {
+      if (!isTabletViewport()) return;
+      event.preventDefault();
       setMobileMenuOpen(false);
     });
+
+    initMobileMenuOutsideClose();
   }
 
   function closeMobileMenu() {
@@ -552,23 +673,21 @@
   }
 
   function closeOnEscape() {
-    var closed = false;
-
     if (window.SpaceSolutionsHeaderContact && window.SpaceSolutionsHeaderContact.isOpen()) {
       window.SpaceSolutionsHeaderContact.closeAll();
-      closed = true;
+      return true;
     }
 
     if (window.SpaceSolutionsGlobalNav && window.SpaceSolutionsGlobalNav.isOpen()) {
       window.SpaceSolutionsGlobalNav.close();
-      closed = true;
+      return true;
     }
 
     if (closeMobileMenu()) {
-      closed = true;
+      return true;
     }
 
-    return closed;
+    return false;
   }
 
   window.SpaceSolutionsHeader = {
@@ -577,6 +696,7 @@
       initHeaderScroll();
       initGlobalNavMenu();
       initMobileMenu();
+      initMobileMenuViewportGuard();
       initMobileMenuDrag();
       initMobileMasterDetail();
     },

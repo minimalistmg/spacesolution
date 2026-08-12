@@ -1,0 +1,343 @@
+---
+import Icon from './Icon.astro';
+import TurnkeyHero from './TurnkeyHero.astro';
+import CtaSection from './CtaSection.astro';
+import ResponsiveImage from './ResponsiveImage.astro';
+import FaqSection from './FaqSection.astro';
+import ImageGallery from './ImageGallery.astro';
+import DummyVideoBlock from './DummyVideoBlock.astro';
+import type { TurnkeyFitoutPageConfig } from '../data/turnkeyFitoutPages';
+import { heroImages, projectImages, roomImages } from '../data/images';
+
+interface Props {
+  page: TurnkeyFitoutPageConfig;
+}
+
+const { page } = Astro.props;
+
+const includes = [
+  {
+    icon: 'drafting-compass' as const,
+    title: 'Space planning & design',
+    description: 'Zoning, 3D visualisation, and material selection before any production starts.',
+  },
+  {
+    icon: 'industry' as const,
+    title: 'Factory joinery',
+    description: 'Modular kitchens, wardrobes, storage, and custom furniture built in Mysuru.',
+  },
+  {
+    icon: 'bolt' as const,
+    title: 'Services coordination',
+    description: 'Electrical, lighting, and networking planned with furniture and ceiling layouts.',
+  },
+  {
+    icon: 'layer-group' as const,
+    title: 'Finishes & surfaces',
+    description: 'Flooring, ceilings, partitions, and paint coordinated to one design language.',
+  },
+  {
+    icon: 'couch' as const,
+    title: 'Furniture & fitments',
+    description: 'Workstations, loose furniture, and fixed joinery specified for real daily use.',
+  },
+  {
+    icon: 'check-circle' as const,
+    title: 'Install & handover',
+    description: 'Site installation, snagging, and a move-in or opening-ready delivery.',
+  },
+];
+
+const phases = [
+  {
+    title: 'Discover',
+    description: 'Brief, site or plan review, budget range, and success criteria for home or workplace.',
+  },
+  {
+    title: 'Design',
+    description: 'Layouts, 3D, materials, and a clear scope document you can approve with confidence.',
+  },
+  {
+    title: 'Produce',
+    description: 'In-house manufacturing and procurement aligned to the locked design and schedule.',
+  },
+  {
+    title: 'Install',
+    description: 'Coordinated site work, quality checks, and a structured snag list before handover.',
+  },
+];
+
+const audience = [
+  {
+    title: 'Homeowners',
+    description:
+      'Apartments and villas that need a kitchen, wardrobes, or a full-home interior without managing multiple contractors.',
+  },
+  {
+    title: 'Businesses',
+    description:
+      'Offices, clinics, and retail brands that need a reliable opening date and durable everyday finishes.',
+  },
+  {
+    title: 'Hospitality & institutions',
+    description:
+      'Cafés, hotels, schools, and hostels where guest or student experience must stay consistent at scale.',
+  },
+];
+
+const galleryItems = [
+  {
+    src: roomImages.fullHome,
+    alt: 'Full home turnkey interior',
+    caption: 'Full-home turnkey',
+  },
+  {
+    src: roomImages.office,
+    alt: 'Office turnkey fitout',
+    caption: 'Office fitout',
+  },
+  {
+    src: roomImages.cafe,
+    alt: 'Café hospitality interior',
+    caption: 'Hospitality',
+  },
+  {
+    src: projectImages.apartment,
+    alt: 'Apartment interior project',
+    caption: 'Apartment living',
+  },
+];
+
+const faqs = [
+  {
+    question: 'What does turnkey fitout mean at Space Solutions?',
+    answer:
+      'Turnkey means one team owns the journey from design and technical planning through manufacturing and installation. You get a single point of contact instead of coordinating separate vendors for every trade we deliver.',
+  },
+  {
+    question: 'Is turnkey available for both homes and commercial spaces?',
+    answer:
+      'Yes. We deliver turnkey residential interiors — kitchens to full homes — and commercial fitouts for offices, clinics, retail, hospitality, and institutional spaces across Mysuru and Karnataka.',
+  },
+  {
+    question: 'How is turnkey different from hiring separate contractors?',
+    answer:
+      'Traditional projects often split design, carpentry, electrical, and furniture across vendors. Turnkey keeps scope, budget, and schedule under one accountable team, which reduces gaps between drawings and what gets built.',
+  },
+  {
+    question: 'When should I choose turnkey instead of a single-room package?',
+    answer:
+      'Choose turnkey when multiple rooms or trades must finish together — for example a full home before move-in, or an office before opening. Single-room packages still work well if you want to phase the work.',
+  },
+];
+
+const breadcrumb = `<a href="/">Home</a> <span class="breadcrumb-sep">/</span> ${page.breadcrumbCurrent}`;
+---
+
+<TurnkeyHero breadcrumb={breadcrumb} lead={page.heroLead} />
+
+<section class="content-stats">
+  <div class="container content-stats-grid">
+    <div class="content-stat fade-up">
+      <span class="content-stat-value">1 team</span>
+      <span class="content-stat-label">Design to handover</span>
+    </div>
+    <div class="content-stat fade-up">
+      <span class="content-stat-value">Factory</span>
+      <span class="content-stat-label">In-house Mysuru production</span>
+    </div>
+    <div class="content-stat fade-up">
+      <span class="content-stat-value">Home + work</span>
+      <span class="content-stat-label">Residential &amp; commercial</span>
+    </div>
+    <div class="content-stat fade-up">
+      <span class="content-stat-value">Clear scope</span>
+      <span class="content-stat-label">Timeline and budget ownership</span>
+    </div>
+  </div>
+</section>
+
+<section class="page-content">
+  <div class="container content-prose">
+    <p class="section-label fade-up">Overview</p>
+    <h2 class="section-title fade-up">One team. Complete execution.</h2>
+    <p class="section-desc fade-up">
+      A turnkey approach means Space Solutions manages the interior programme end to end — from first brief and 3D
+      design to factory joinery and final snag list. That reduces coordination gaps and keeps timelines under control.
+    </p>
+    <p class="content-body fade-up">
+      Whether you are finishing an apartment in Mysuru or opening a clinic or café elsewhere in Karnataka, turnkey
+      delivery gives you practical luxury without juggling a dozen vendors for every decision.
+    </p>
+  </div>
+</section>
+
+<section class="why-choose">
+  <div class="container">
+    <p class="section-label fade-up">What's included</p>
+    <h2 class="section-heading-lg fade-up">What a turnkey fitout covers</h2>
+    <p class="section-desc fade-up">
+      Scope is tailored to your project, but most turnkey programmes include the following building blocks.
+    </p>
+    <div class="why-grid">
+      {
+        includes.map((item) => (
+          <div class="why-card fade-up">
+            <div class="why-icon">
+              <Icon name={item.icon} />
+            </div>
+            <h3>{item.title}</h3>
+            <p class="why-desc">{item.description}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<section class="page-content section-compact-top">
+  <div class="container">
+    <p class="section-label fade-up">Phases</p>
+    <h2 class="section-title fade-up">How delivery unfolds</h2>
+    <p class="section-desc fade-up content-body">
+      A simple four-phase path keeps decisions sequenced — design locked before production, production ready before
+      site, site closed with a proper handover.
+    </p>
+    <div class="why-steps">
+      {
+        phases.map((phase, index) => (
+          <div class="why-step fade-up">
+            <span class="step-num">{String(index + 1).padStart(2, '0')}</span>
+            <h4>{phase.title}</h4>
+            <p>{phase.description}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<section class="service-block">
+  <div class="container service-block-grid">
+    <div class="service-block-image fade-up">
+      <ResponsiveImage
+        src={roomImages.livingDining}
+        alt="Residential turnkey living and dining interior"
+        preset="content"
+      />
+    </div>
+    <div class="service-block-content fade-up">
+      <p class="section-label">Residential turnkey</p>
+      <h3>Homes finished as one story</h3>
+      <p>
+        Full-home and multi-room residential programmes align kitchen, wardrobes, living, and bedrooms under one
+        material palette and schedule — ideal before move-in or during a planned renovation window.
+      </p>
+      <ul class="feature-list">
+        <li>Modular kitchen and storage planned with living layouts</li>
+        <li>Wardrobes and bedrooms in the same finish language</li>
+        <li>Factory production for consistent cabinetry</li>
+        <li>Single snag list at handover</li>
+      </ul>
+      <a href="/residential-interiors" class="btn btn-outline-dark">Explore residential interiors</a>
+    </div>
+  </div>
+</section>
+
+<section class="service-block">
+  <div class="container service-block-grid reverse">
+    <div class="service-block-image fade-up">
+      <ResponsiveImage src={heroImages.commercial} alt="Commercial turnkey office fitout" preset="content" />
+    </div>
+    <div class="service-block-content fade-up">
+      <p class="section-label">Commercial turnkey</p>
+      <h3>Workplaces ready to open</h3>
+      <p>
+        Offices, clinics, retail, and hospitality spaces need durable finishes and a dependable opening date. Our
+        commercial turnkey fitouts coordinate furniture, partitions, and services so operations can start smoothly.
+      </p>
+      <ul class="feature-list">
+        <li>Workflow-led space planning</li>
+        <li>Furniture and joinery matched to brand and duty cycle</li>
+        <li>Coordinated electrical and ceiling planning</li>
+        <li>Handover suited to staff move-in or guest opening</li>
+      </ul>
+      <a href="/commercial-interiors" class="btn btn-outline-dark">Explore commercial interiors</a>
+    </div>
+  </div>
+</section>
+
+<section class="page-content section-compact-top">
+  <div class="container">
+    <p class="section-label fade-up">Who it's for</p>
+    <h2 class="section-title fade-up">Built for people who want clarity</h2>
+    <div class="why-grid">
+      {
+        audience.map((item) => (
+          <div class="why-card fade-up">
+            <h3>{item.title}</h3>
+            <p class="why-desc">{item.description}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<section class="service-block">
+  <div class="container">
+    <h2 class="section-heading-lg section-heading-center mb-md fade-up">Why choose turnkey?</h2>
+    <div class="service-table-wrap fade-up">
+      <table class="service-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Traditional contractors</th>
+            <th>Space Solutions turnkey</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Vendor management</td>
+            <td>You manage multiple teams</td>
+            <td>Single point of contact</td>
+          </tr>
+          <tr>
+            <td>Cost control</td>
+            <td>Variable quotes and hidden fees</td>
+            <td>Transparent scope after design lock</td>
+          </tr>
+          <tr>
+            <td>Manufacturing</td>
+            <td>Scattered workshops</td>
+            <td>In-house Mysuru factory for joinery</td>
+          </tr>
+          <tr>
+            <td>Post-handover</td>
+            <td>Limited support</td>
+            <td>Snag closure and clear ownership</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<ImageGallery
+  title="Turnkey spaces in context"
+  description="Homes and workplaces where planning, production, and installation stayed under one roof."
+  items={galleryItems}
+/>
+
+<DummyVideoBlock
+  title="Watch the turnkey journey"
+  description="A look at how Space Solutions moves from brief and 3D design to factory production and finished interiors."
+/>
+
+<FaqSection
+  title="Turnkey fitout FAQs"
+  description="Common questions about end-to-end interior delivery in Mysuru and across Karnataka."
+  items={faqs}
+/>
+
+<CtaSection />

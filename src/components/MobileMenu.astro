@@ -42,6 +42,8 @@ function detailGroups(panel: MainNavPanel): { heading: string; items: MainNavSec
 }
 ---
 
+<div class="mobile-menu-backdrop mobile-menu-overlay" aria-hidden="true"></div>
+
 <div class="mobile-menu mobile-menu--master-detail">
   <div class="mobile-menu-master-detail">
     <nav class="mobile-menu-rail" aria-label="Site sections">
@@ -100,6 +102,8 @@ function detailGroups(panel: MainNavPanel): { heading: string; items: MainNavSec
                             href={item.href}
                             class="mobile-menu-detail-link"
                             data-open-modal={item.modal}
+                            target={item.target}
+                            rel={item.target === '_blank' ? 'noopener noreferrer' : undefined}
                             data-contact-action={
                               item.href.startsWith('tel:')
                                 ? 'call'

@@ -101,7 +101,7 @@ const resolvedActive = activePage === 'services' ? 'home-interiors' : activePage
                       <SegmentMegaMenu
                         menu={segmentMegaMenus[panel.id]}
                         toolsBand={panel.toolsBand}
-                        footerBand={panel.footerBand!}
+                        footerBand={panel.footerBand}
                       />
                     ) : (
                       <>
@@ -124,6 +124,8 @@ const resolvedActive = activePage === 'services' ? 'home-interiors' : activePage
                                             href={item.href}
                                             class="mega-menu-link mega-menu-room-list-link"
                                             data-open-modal={item.modal}
+                                            target={item.target}
+                                            rel={item.target === '_blank' ? 'noopener noreferrer' : undefined}
                                           >
                                             <span class="mega-menu-link-icon">
                                               <MenuIcon name={item.icon} />
@@ -155,7 +157,13 @@ const resolvedActive = activePage === 'services' ? 'home-interiors' : activePage
                                             {
                                               panel.toolsBand.items.map((item) => (
                                                 <li>
-                                                  <a href={item.href} class="mega-menu-link" data-open-modal={item.modal}>
+                                                  <a
+                                                    href={item.href}
+                                                    class="mega-menu-link"
+                                                    data-open-modal={item.modal}
+                                                    target={item.target}
+                                                    rel={item.target === '_blank' ? 'noopener noreferrer' : undefined}
+                                                  >
                                                     <span class="mega-menu-link-icon">
                                                       <MenuIcon name={item.icon} />
                                                     </span>
@@ -181,7 +189,13 @@ const resolvedActive = activePage === 'services' ? 'home-interiors' : activePage
                                             {
                                               panel.footerBand.items.map((item) => (
                                                 <li>
-                                                  <a href={item.href} class="mega-menu-link" data-open-modal={item.modal}>
+                                                  <a
+                                                    href={item.href}
+                                                    class="mega-menu-link"
+                                                    data-open-modal={item.modal}
+                                                    target={item.target}
+                                                    rel={item.target === '_blank' ? 'noopener noreferrer' : undefined}
+                                                  >
                                                     <span class="mega-menu-link-icon">
                                                       <MenuIcon name={item.icon} />
                                                     </span>
@@ -217,15 +231,27 @@ const resolvedActive = activePage === 'services' ? 'home-interiors' : activePage
       </div>
     </nav>
 
-    <HeaderActions
-      primaryPhone={primaryPhone}
-      whatsappHref={whatsappHref}
-      activePage={activePage}
-    />
+    <div class="header-toolbar">
+      <HeaderActions
+        primaryPhone={primaryPhone}
+        whatsappHref={whatsappHref}
+        activePage={activePage}
+      />
 
-    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
-      <Icon name="bars" />
-    </button>
+      <button
+        class="menu-toggle menu-toggle-round"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+      >
+        <span class="menu-toggle-fab-state menu-toggle-fab-state--open" aria-hidden="true">
+          <Icon name="bars" />
+        </span>
+        <span class="menu-toggle-fab-state menu-toggle-fab-state--close" aria-hidden="true">
+          <Icon name="times" />
+        </span>
+      </button>
+    </div>
   </div>
 </header>
 

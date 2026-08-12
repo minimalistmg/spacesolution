@@ -1,6 +1,6 @@
 /* Mobile menu — Master Detail (variant 04) */
 
-@media (max-width: 1023px) {
+@media (max-width: 1366px) {
   :root {
     --mm-footer-pad-y: 16px;
     --mm-footer-pad-x: 14px;
@@ -195,10 +195,10 @@
   .mobile-menu-detail-heading {
     margin: 0 0 6px;
     padding: 0 2px;
-    color: rgba(24, 24, 24, 0.42);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
+    color: rgba(10, 37, 64, 0.65);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
     line-height: 1.2;
     text-transform: uppercase;
   }
@@ -297,7 +297,48 @@
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1366px) and (pointer: fine) {
+  .mobile-menu-backdrop {
+    display: block;
+    position: fixed;
+    top: var(--header-h);
+    right: min(440px, 86vw);
+    bottom: 0;
+    left: 0;
+    z-index: 1995;
+    background: rgba(24, 24, 24, 0.28);
+    opacity: 0;
+    pointer-events: none;
+    cursor: pointer;
+    transition: opacity 0.28s ease;
+  }
+
+  body.mobile-menu-open .mobile-menu-backdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-menu.mobile-menu--master-detail {
+    inset: auto;
+    left: auto;
+    right: 0;
+    width: min(440px, 86vw);
+    max-width: 440px;
+    top: var(--header-h);
+    bottom: 0;
+    height: auto;
+    border-left: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 18px 0 0 0;
+    box-shadow: -10px 0 36px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+  }
+
+  .mobile-menu-footer {
+    display: none;
+  }
+}
+
+@media (min-width: 1367px) {
   .mobile-menu--master-detail .mobile-menu-master-detail,
   .mobile-menu--master-detail .mobile-menu-footer {
     display: none;

@@ -1,5 +1,6 @@
 import type { MenuIconName } from './headerMenuIcons';
 import { SITE } from './site';
+import { TURNKEY_PATHS } from './navResourceSegments';
 
 export interface MainNavLink {
   label: string;
@@ -7,6 +8,7 @@ export interface MainNavLink {
   icon: MenuIconName;
   /** Opens a site modal instead of navigating when set (e.g. enquiry). */
   modal?: string;
+  target?: '_blank';
 }
 
 export interface MainNavSection {
@@ -78,7 +80,7 @@ export const mainNavPanels: MainNavPanel[] = [
         heading: 'Turnkey',
         columns: 1,
         items: [
-          { label: 'Turnkey home interiors', href: '/turnkey-fitout', icon: 'key' },
+          { label: 'Turnkey home interiors', href: TURNKEY_PATHS.home, icon: 'key' },
           { label: 'Free 3D consultation', href: '/contact', icon: 'compass-tool' },
         ],
       },
@@ -87,16 +89,16 @@ export const mainNavPanels: MainNavPanel[] = [
       heading: 'Tools',
       items: [
         { label: 'Kitchen Cost Estimator', href: '/tools/kitchen-cost-estimator', icon: 'tag' },
-        { label: 'Home Budget Calculator', href: '/tools/home-budget-calculator', icon: 'ruler' },
+        { label: 'Home Budget Calculator', href: '/tools/home-budget-calculator', icon: 'clipboard-text' },
         { label: 'Kitchen Layout Recommender', href: '/tools/kitchen-layout-recommender', icon: 'compass-tool' },
       ],
     },
     footerBand: {
       heading: 'Guides',
       items: [
-        { label: 'Modular Kitchen Guide', href: '/design-library/modular-kitchen-guide', icon: 'ruler' },
-        { label: 'Space Planning', href: '/design-library/space-planning', icon: 'compass-tool' },
-        { label: 'Budget Planning', href: '/design-library/budget-planning', icon: 'tag' },
+        { label: 'Modular Kitchen Guide', href: '/design-library/modular-kitchen-guide', icon: 'books' },
+        { label: 'Space Planning', href: '/design-library/space-planning', icon: 'ruler' },
+        { label: 'Budget Planning', href: '/design-library/budget-planning', icon: 'paint-brush' },
         { label: 'Before You Renovate', href: '/design-library/before-you-renovate', icon: 'check-circle' },
       ],
     },
@@ -135,7 +137,7 @@ export const mainNavPanels: MainNavPanel[] = [
         heading: 'Turnkey',
         columns: 1,
         items: [
-          { label: 'Turnkey office fitout', href: '/turnkey-fitout', icon: 'key' },
+          { label: 'Turnkey office fitout', href: TURNKEY_PATHS.commercial, icon: 'key' },
           { label: 'Site survey & quote', href: '/contact', icon: 'envelope' },
         ],
       },
@@ -143,9 +145,9 @@ export const mainNavPanels: MainNavPanel[] = [
     toolsBand: {
       heading: 'Tools',
       items: [
-        { label: 'Office Space Calculator', href: '/tools/office-space-calculator', icon: 'users-three' },
+        { label: 'Office Space Calculator', href: '/tools/office-space-calculator', icon: 'ruler' },
         { label: 'Commercial Fitout Estimator', href: '/tools/commercial-fitout-estimator', icon: 'tag' },
-        { label: 'Clinic Room Planner', href: '/tools/clinic-room-planner', icon: 'first-aid' },
+        { label: 'Clinic Room Planner', href: '/tools/clinic-room-planner', icon: 'clipboard-text' },
       ],
     },
     footerBand: {
@@ -175,6 +177,7 @@ export const mainNavPanels: MainNavPanel[] = [
           { label: 'Schools & Colleges', href: '/school-interiors', icon: 'student' },
           { label: 'Hostel & PG Furniture', href: '/hostel-furniture', icon: 'bed' },
           { label: 'Libraries & Labs', href: '/library-lab-interiors', icon: 'books' },
+          { label: 'Admin & staff offices', href: '/admin-office-interiors', icon: 'building-office' },
         ],
       },
       {
@@ -184,13 +187,14 @@ export const mainNavPanels: MainNavPanel[] = [
           { label: 'Infotech Workspace', href: '/projects/infotech-workspace', icon: 'images' },
           { label: 'Wellness Studio', href: '/projects/wellness-studio', icon: 'images' },
           { label: 'Clinic Fit-Out', href: '/projects/clinic-fitout', icon: 'images' },
+          { label: 'Heritage Home', href: '/projects/heritage-home', icon: 'images' },
         ],
       },
       {
         heading: 'Turnkey',
         columns: 1,
         items: [
-          { label: 'Turnkey institutional fitout', href: '/turnkey-fitout', icon: 'key' },
+          { label: 'Turnkey institutional fitout', href: TURNKEY_PATHS.institutional, icon: 'key' },
           { label: 'Bulk furniture enquiry', href: '/contact', icon: 'envelope' },
         ],
       },
@@ -198,17 +202,16 @@ export const mainNavPanels: MainNavPanel[] = [
     toolsBand: {
       heading: 'Tools',
       items: [
-        { label: 'Classroom Furniture Calculator', href: '/tools/classroom-furniture-calculator', icon: 'student' },
-        { label: 'Hostel Bed Planner', href: '/tools/hostel-bed-planner', icon: 'bed' },
+        { label: 'Classroom Furniture Calculator', href: '/tools/classroom-furniture-calculator', icon: 'clipboard-text' },
+        { label: 'Hostel Bed Planner', href: '/tools/hostel-bed-planner', icon: 'compass-tool' },
         { label: 'Bulk Furniture Estimator', href: '/tools/bulk-furniture-estimator', icon: 'tag' },
       ],
     },
     footerBand: {
       heading: 'Guides',
       items: [
-        { label: 'Space Planning', href: '/design-library/space-planning', icon: 'compass-tool' },
+        { label: 'Space Planning', href: '/design-library/space-planning', icon: 'ruler' },
         { label: 'Materials & Finishes', href: '/design-library/materials-and-finishes', icon: 'stack' },
-        { label: 'Budget Planning', href: '/design-library/budget-planning', icon: 'tag' },
       ],
     },
   },
@@ -246,7 +249,7 @@ export const mainNavPanels: MainNavPanel[] = [
         heading: 'Turnkey',
         columns: 1,
         items: [
-          { label: 'Turnkey hospitality fitout', href: '/turnkey-fitout', icon: 'key' },
+          { label: 'Turnkey hospitality fitout', href: TURNKEY_PATHS.hospitality, icon: 'key' },
           { label: 'Free 3D consultation', href: '/contact', icon: 'compass-tool' },
         ],
       },
@@ -254,16 +257,16 @@ export const mainNavPanels: MainNavPanel[] = [
     toolsBand: {
       heading: 'Tools',
       items: [
-        { label: 'Café Seating Calculator', href: '/tools/cafe-seating-calculator', icon: 'coffee' },
+        { label: 'Café Seating Calculator', href: '/tools/cafe-seating-calculator', icon: 'clipboard-text' },
         { label: 'Hospitality Fitout Estimator', href: '/tools/hospitality-fitout-estimator', icon: 'tag' },
-        { label: 'Opening Day Countdown', href: '/tools/opening-day-countdown', icon: 'check-circle' },
+        { label: 'Opening Day Countdown', href: '/tools/opening-day-countdown', icon: 'calendar' },
       ],
     },
     footerBand: {
       heading: 'Guides',
       items: [
         { label: 'Interior Styles', href: '/design-library/interior-styles', icon: 'paint-brush' },
-        { label: 'Materials & Finishes', href: '/design-library/materials-and-finishes', icon: 'stack' },
+        { label: 'Materials & Finishes', href: '/design-library/materials-and-finishes', icon: 'books' },
       ],
     },
   },
@@ -284,7 +287,8 @@ export const mainNavPanels: MainNavPanel[] = [
         columns: 1,
         items: [
           { label: 'About us', href: '/about', icon: 'medal' },
-          { label: 'Turnkey fitout hub', href: '/turnkey-fitout', icon: 'key' },
+          { label: 'Studio showcase', href: '/showcase', icon: 'paint-brush' },
+          { label: 'Turnkey fitout hub', href: TURNKEY_PATHS.home, icon: 'key' },
           { label: 'FAQ', href: '/faq', icon: 'check-circle' },
         ],
       },
@@ -303,6 +307,7 @@ export const mainNavPanels: MainNavPanel[] = [
         columns: 1,
         items: [
           { label: 'All projects', href: '/portfolio', icon: 'images' },
+          { label: 'Client stories', href: '/stories', icon: 'chat-text' },
           { label: 'Design library', href: '/design-library', icon: 'books' },
           { label: 'All tools', href: '/tools', icon: 'compass-tool' },
         ],
@@ -311,10 +316,10 @@ export const mainNavPanels: MainNavPanel[] = [
     footerBand: {
       heading: 'Contact',
       items: [
-        { label: 'Get quote', href: '#', icon: 'envelope', modal: 'enquiry' },
         { label: 'Call us', href: 'tel:+916364564563', icon: 'phone' },
-        { label: 'WhatsApp', href: 'https://wa.me/916364564563', icon: 'whatsapp-logo' },
-        { label: 'Get directions', href: SITE.mapDirectionsUrl, icon: 'map-pin' },
+        { label: 'WhatsApp', href: 'https://wa.me/916364564563', icon: 'whatsapp-logo', target: '_blank' },
+        { label: 'Get directions', href: SITE.mapDirectionsUrl, icon: 'map-pin', target: '_blank' },
+        { label: 'Get quote', href: '#', icon: 'envelope', modal: 'enquiry' },
         { label: 'Book 3D consult', href: '/contact', icon: 'compass-tool' },
       ],
     },
@@ -339,7 +344,10 @@ export function isNavPanelActive(panelId: string, activePage: string): boolean {
   }
   if (
     panelId === 'studio' &&
-    (activePage === 'studio' || activePage === 'enquire' || activePage === 'library')
+    (activePage === 'studio' ||
+      activePage === 'enquire' ||
+      activePage === 'library' ||
+      activePage === 'portfolio')
   ) {
     return true;
   }

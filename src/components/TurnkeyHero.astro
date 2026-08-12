@@ -9,9 +9,10 @@ import '../styles/turnkey-hero.css';
 
 interface Props {
   breadcrumb: string;
+  lead?: string;
 }
 
-const { breadcrumb } = Astro.props;
+const { breadcrumb, lead = 'One team for design, factory production, and installation — so your home or workplace finishes on a clear plan.' } = Astro.props;
 ---
 
 <section class="turnkey-hero" aria-label="Turnkey fitout introduction">
@@ -33,7 +34,7 @@ const { breadcrumb } = Astro.props;
     </h1>
 
     <p class="turnkey-hero-lead">
-      One team for design, factory production, and installation — so your home or workplace finishes on a clear plan.
+      {lead}
     </p>
   </div>
 

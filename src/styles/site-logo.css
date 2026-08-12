@@ -14,8 +14,24 @@
   filter: drop-shadow(0 2px 4px rgba(114, 90, 41, 0.16));
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1366px) {
   .site-logo.brand-lockup {
     --brand-icon-width: 48px;
+  }
+}
+
+@media (max-width: 767px) {
+  .site-logo.brand-lockup {
+    --brand-icon-width: 40px;
+    --brand-space-size: 2.45em;
+    --brand-solution-size: calc(var(--brand-space-size) * 0.225);
+    gap: 4px;
+  }
+}
+
+@media (max-width: 390px) {
+  .site-logo.brand-lockup {
+    --brand-icon-width: 36px;
+    --brand-space-size: 2.15em;
   }
 }

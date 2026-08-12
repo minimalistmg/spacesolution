@@ -1,5 +1,6 @@
 import type { MenuIconName } from './headerMenuIcons';
 import { getProjectPlaceIcon } from './projectPlaceIcons';
+import { TURNKEY_PATHS } from './navResourceSegments';
 
 export interface SegmentMenuLink {
   label: string;
@@ -36,9 +37,9 @@ export function getSegmentMenuLinkRowCount(menu: SegmentMegaMenuConfig): number 
   return menu.spaces.length + menu.turnkey.length;
 }
 
-/** Projects column rows = column 1 link rows, with the last projects row reserved for View all. */
+/** Projects column rows = column 1 link rows (View all is appended separately). */
 export function getSegmentMenuProjectCount(menu: SegmentMegaMenuConfig): number {
-  return Math.max(1, getSegmentMenuLinkRowCount(menu) - 1);
+  return Math.max(1, getSegmentMenuLinkRowCount(menu));
 }
 
 export function resolveSegmentMenuProjectPlaceIcon(project: SegmentMenuProject): MenuIconName {
@@ -57,7 +58,7 @@ export const segmentMegaMenus: Record<SegmentMegaMenuId, SegmentMegaMenuConfig> 
       { label: 'Full Home Interiors', href: '/full-home-interiors', icon: 'house' },
     ],
     turnkey: [
-      { label: 'Turnkey home interiors', href: '/turnkey-fitout', icon: 'key' },
+      { label: 'Turnkey home interiors', href: TURNKEY_PATHS.home, icon: 'key' },
       { label: 'Free 3D consultation', href: '/contact', icon: 'compass-tool' },
     ],
     projects: [
@@ -68,6 +69,7 @@ export const segmentMegaMenus: Record<SegmentMegaMenuId, SegmentMegaMenuConfig> 
       { label: 'Soft Café', href: '/projects/soft-cafe-mysuru', location: 'Mysuru' },
       { label: 'Clinic Fit-Out', href: '/projects/clinic-fitout', location: 'Mysuru' },
       { label: 'Infotech Workspace', href: '/projects/infotech-workspace', location: 'Bengaluru' },
+      { label: 'Retail Pop-Up', href: '/projects/retail-pop-up', location: 'Bengaluru' },
     ],
   },
   commercial: {
@@ -79,7 +81,7 @@ export const segmentMegaMenus: Record<SegmentMegaMenuId, SegmentMegaMenuConfig> 
       { label: 'Co-working', href: '/coworking-interiors', icon: 'users-three' },
     ],
     turnkey: [
-      { label: 'Turnkey office fitout', href: '/turnkey-fitout', icon: 'key' },
+      { label: 'Turnkey office fitout', href: TURNKEY_PATHS.commercial, icon: 'key' },
       { label: 'Site survey & quote', href: '/contact', icon: 'envelope' },
     ],
     projects: [
@@ -88,6 +90,7 @@ export const segmentMegaMenus: Record<SegmentMegaMenuId, SegmentMegaMenuConfig> 
       { label: 'Retail Pop-Up', href: '/projects/retail-pop-up', location: 'Bengaluru' },
       { label: 'Boutique Hotel Lobby', href: '/projects/boutique-hotel-lobby', location: 'Mysuru' },
       { label: 'Soft Café', href: '/projects/soft-cafe-mysuru', location: 'Mysuru' },
+      { label: 'Wellness Studio', href: '/projects/wellness-studio', location: 'Mandya' },
     ],
   },
   institutional: {
@@ -96,9 +99,10 @@ export const segmentMegaMenus: Record<SegmentMegaMenuId, SegmentMegaMenuConfig> 
       { label: 'Schools & Colleges', href: '/school-interiors', icon: 'student' },
       { label: 'Hostel & PG Furniture', href: '/hostel-furniture', icon: 'bed' },
       { label: 'Libraries & Labs', href: '/library-lab-interiors', icon: 'books' },
+      { label: 'Admin & staff offices', href: '/admin-office-interiors', icon: 'building-office' },
     ],
     turnkey: [
-      { label: 'Turnkey institutional fitout', href: '/turnkey-fitout', icon: 'key' },
+      { label: 'Turnkey institutional fitout', href: TURNKEY_PATHS.institutional, icon: 'key' },
       { label: 'Bulk furniture enquiry', href: '/contact', icon: 'envelope' },
     ],
     projects: [
@@ -106,6 +110,8 @@ export const segmentMegaMenus: Record<SegmentMegaMenuId, SegmentMegaMenuConfig> 
       { label: 'Wellness Studio', href: '/projects/wellness-studio', location: 'Mandya' },
       { label: 'Clinic Fit-Out', href: '/projects/clinic-fitout', location: 'Mysuru' },
       { label: 'Heritage Home', href: '/projects/heritage-home', location: 'Madikeri' },
+      { label: 'Vijayanagar Residence', href: '/projects/vijayanagar-residence', location: 'Mysuru' },
+      { label: 'Retail Pop-Up', href: '/projects/retail-pop-up', location: 'Bengaluru' },
     ],
   },
   hospitality: {
@@ -117,7 +123,7 @@ export const segmentMegaMenus: Record<SegmentMegaMenuId, SegmentMegaMenuConfig> 
       { label: 'Salons & Wellness', href: '/salon-wellness-interiors', icon: 'scissors' },
     ],
     turnkey: [
-      { label: 'Turnkey hospitality fitout', href: '/turnkey-fitout', icon: 'key' },
+      { label: 'Turnkey hospitality fitout', href: TURNKEY_PATHS.hospitality, icon: 'key' },
       { label: 'Free 3D consultation', href: '/contact', icon: 'compass-tool' },
     ],
     projects: [
@@ -126,6 +132,7 @@ export const segmentMegaMenus: Record<SegmentMegaMenuId, SegmentMegaMenuConfig> 
       { label: 'Wellness Studio', href: '/projects/wellness-studio', location: 'Mandya' },
       { label: 'Retail Pop-Up', href: '/projects/retail-pop-up', location: 'Bengaluru' },
       { label: 'Vijayanagar Residence', href: '/projects/vijayanagar-residence', location: 'Mysuru' },
+      { label: 'Heritage Home', href: '/projects/heritage-home', location: 'Madikeri' },
     ],
   },
 };

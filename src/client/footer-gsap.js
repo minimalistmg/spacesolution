@@ -1,8 +1,10 @@
 /**
- * Space Solutions — unified footer: continuous infinite horizontal loop + slow shake
+ * Space Solutions — unified footer: continuous infinite horizontal loop + hover pause/elevate
  */
 (function () {
   'use strict';
+
+  var HOVER_LIFT = 18;
 
   function prefersReducedMotion() {
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -14,9 +16,10 @@
   }
 
   function initLoop(footer, gsapLib) {
+    var stage = footer.querySelector('.fgsap-stage');
     var track = footer.querySelector('[data-fgsap-track]');
     var objects = footer.querySelectorAll('.fgsap-object');
-    if (!track || !objects.length) return;
+    if (!stage || !track || !objects.length) return;
     if (prefersReducedMotion()) return;
 
     if (typeof footer._fgsapCleanup === 'function') {
@@ -24,20 +27,19 @@
       footer._fgsapCleanup = null;
     }
 
-    // Keep motion continuous even after long background-tab pauses
     gsapLib.ticker.lagSmoothing(0);
 
-    var speed = 13; // px per second — constant velocity, never stops
+    var speed = 13;
     var x = 0;
     var loopDistance = 0;
+    var loopPaused = false;
+    var bobTweens = [];
 
     function measure() {
       var prevX = x;
-      // Measure with transform cleared so offsetLeft is accurate
       gsapLib.set(track, { x: 0, force3D: true });
       var kids = track.children;
       var half = kids.length / 2;
-      // Exact seam: distance from first item to its duplicate (includes flex gap)
       if (half >= 1 && kids[half]) {
         loopDistance = kids[half].offsetLeft - kids[0].offsetLeft;
       } else {
@@ -50,12 +52,10 @@
     if (loopDistance < 1) return;
 
     var tick = function (_time, deltaTime) {
-      if (loopDistance < 1) return;
+      if (loopPaused || loopDistance < 1) return;
       var dt = typeof deltaTime === 'number' && deltaTime > 0 ? deltaTime : 1 / 60;
-      // Cap dt so a huge hitch doesn't jump a full loop in one frame
       if (dt > 0.05) dt = 0.05;
       x -= speed * dt;
-      // Seamless wrap onto the duplicated half — no tween restart, no pause
       if (x <= -loopDistance) {
         x += loopDistance * Math.floor((-x) / loopDistance);
       }
@@ -64,7 +64,6 @@
 
     gsapLib.ticker.add(tick);
 
-    // Remeasure after layout/fonts settle so the seam stays exact
     var remasureTimer = window.setTimeout(function () {
       var progress = loopDistance > 0 ? ((-x % loopDistance) + loopDistance) % loopDistance : 0;
       measure();
@@ -86,23 +85,95 @@
     };
     window.addEventListener('resize', onResize);
 
-    objects.forEach(function (obj, i) {
-      var lift = parseFloat(obj.getAttribute('data-lift') || '0') || 0;
+    function setLoopPaused(shouldPause) {
+      loopPaused = shouldPause;
+      stage.classList.toggle('is-paused', shouldPause);
+    }
 
-      // Keep objects upright (right angle) — gentle vertical bob only
+    function getLift(obj) {
+      return parseFloat(obj.getAttribute('data-lift') || '0') || 0;
+    }
+
+    stage.addEventListener('mouseenter', function () {
+      setLoopPaused(true);
+    });
+
+    stage.addEventListener('mouseleave', function () {
+      setLoopPaused(false);
+    });
+
+    stage.addEventListener('focusin', function () {
+      setLoopPaused(true);
+    });
+
+    stage.addEventListener('focusout', function (e) {
+      if (!stage.contains(e.relatedTarget)) {
+        setLoopPaused(false);
+      }
+    });
+
+    function startBob(obj, index) {
+      var lift = getLift(obj);
       gsapLib.set(obj, {
         y: -lift,
         rotation: 0,
         transformOrigin: '50% 100%',
       });
 
-      gsapLib.to(obj, {
+      var tween = gsapLib.to(obj, {
         y: -(lift + 2),
-        duration: 3.2 + (i % 4) * 0.4,
+        duration: 3.2 + (index % 4) * 0.4,
         ease: 'sine.inOut',
         yoyo: true,
         repeat: -1,
-        delay: 0.2 + i * 0.12,
+        delay: 0.2 + index * 0.12,
+      });
+
+      bobTweens.push({ obj: obj, tween: tween });
+      return tween;
+    }
+
+    objects.forEach(function (obj, i) {
+      var bobTween = startBob(obj, i);
+
+      function elevate() {
+        bobTween.pause();
+        gsapLib.to(obj, {
+          y: -(getLift(obj) + HOVER_LIFT),
+          duration: 0.28,
+          ease: 'power2.out',
+          overwrite: 'auto',
+        });
+      }
+
+      function settle() {
+        gsapLib.to(obj, {
+          y: -getLift(obj),
+          duration: 0.28,
+          ease: 'power2.out',
+          overwrite: 'auto',
+          onComplete: function () {
+            if (!obj.matches(':hover') && !obj.matches(':focus-visible')) {
+              bobTween.resume();
+            }
+          },
+        });
+      }
+
+      obj.addEventListener('mouseenter', function () {
+        elevate();
+      });
+
+      obj.addEventListener('mouseleave', function () {
+        settle();
+      });
+
+      obj.addEventListener('focusin', function () {
+        elevate();
+      });
+
+      obj.addEventListener('focusout', function () {
+        settle();
       });
     });
 
@@ -113,6 +184,8 @@
       window.clearTimeout(remasureTimer);
       gsapLib.killTweensOf(track);
       gsapLib.killTweensOf(objects);
+      bobTweens.length = 0;
+      stage.classList.remove('is-paused');
     };
   }
 
@@ -149,7 +222,6 @@
       img.addEventListener('error', finish, { once: true });
     });
 
-    // Safety: never block forever if a lazy/broken image stalls
     window.setTimeout(function () {
       if (!settled) {
         settled = true;

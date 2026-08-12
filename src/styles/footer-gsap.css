@@ -27,8 +27,8 @@
 
 .fgsap-content {
   display: grid;
-  grid-template-columns: minmax(220px, 1fr) minmax(0, 2.6fr);
-  gap: 28px 48px;
+  grid-template-columns: 1fr;
+  gap: 28px;
   align-items: start;
   padding-bottom: 0;
   position: relative;
@@ -37,13 +37,16 @@
 
 .fgsap-brand {
   display: flex;
-  gap: 14px;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
 }
 
 .fgsap-logo-mark {
   display: block;
   width: 48px;
+  margin-inline: auto;
   color: var(--fgsap-gold);
   flex-shrink: 0;
   text-decoration: none;
@@ -58,15 +61,18 @@
 .fgsap-brand-copy {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 16px;
+  width: 100%;
   min-width: 0;
 }
 
 .fgsap-logo-text {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 5px;
-  padding-top: 2px;
+  padding-top: 0;
   text-decoration: none;
   color: var(--fgsap-ink);
 }
@@ -89,16 +95,33 @@
   font-size: 11px;
   line-height: 1.45;
   color: var(--fgsap-muted);
-  max-width: 34ch;
+  max-width: 36ch;
+  margin-inline: auto;
+  text-align: center;
 }
 
 .fgsap-nav {
+  container-type: inline-size;
+  container-name: fgsap-nav;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px 20px;
+  grid-template-columns: 1fr;
+  gap: 22px 0;
 }
 
-.fgsap-col h4 {
+.fgsap-col-grid {
+  display: block;
+}
+
+.fgsap-col-inline {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 0;
+}
+
+.fgsap-col-grid h4,
+.fgsap-col-inline-heading {
   margin: 0 0 14px;
   font-size: 10px;
   font-weight: 700;
@@ -107,10 +130,108 @@
   color: var(--fgsap-gold);
 }
 
+.fgsap-col-inline-heading {
+  margin: 0;
+  width: 100%;
+}
+
+.fgsap-col-inline-links {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.fgsap-link--inline {
+  display: inline-block;
+  max-width: none;
+  white-space: nowrap;
+  margin-inline-end: 0.15em;
+}
+
+.fgsap-inline-sep {
+  color: rgba(42, 36, 24, 0.32);
+  font-weight: 400;
+  margin-inline-end: 0.2em;
+  pointer-events: none;
+  user-select: none;
+}
+
+.fgsap-link--inline .fgsap-link-label {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: nowrap;
+}
+
+@supports not (container-type: inline-size) {
+  @media (min-width: 1280px) {
+    .fgsap-col-grid {
+      display: block;
+    }
+
+    .fgsap-col-inline {
+      display: none;
+    }
+
+    .fgsap-col-grid .fgsap-link-label {
+      overflow: visible;
+      text-overflow: clip;
+      white-space: normal;
+    }
+
+    .fgsap-nav {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px 20px;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1279px) {
+    .fgsap-col-grid {
+      display: none;
+    }
+
+    .fgsap-col-inline {
+      display: flex;
+    }
+
+    .fgsap-nav {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px 28px;
+    }
+  }
+}
+
 .fgsap-connect {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 8px;
+  width: 100%;
+}
+
+.fgsap-col {
+  text-align: center;
+}
+
+.fgsap-col-grid h4 {
+  text-align: center;
+}
+
+.fgsap-col-grid ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fgsap-col-grid .fgsap-link {
+  justify-content: center;
+}
+
+.fgsap-col-grid .fgsap-link-label {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
 }
 
 .fgsap-col ul {
@@ -181,8 +302,9 @@
 
 .fgsap-social {
   display: flex;
+  justify-content: center;
   gap: 10px;
-  margin-bottom: 4px;
+  margin-bottom: 0;
 }
 
 .fgsap-social a {
@@ -233,7 +355,7 @@
   margin: 30px 0 0;
   padding-top: 0;
   overflow: hidden;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .fgsap-track {
@@ -260,6 +382,11 @@
   transform: translateY(calc(-1 * var(--fgsap-lift, 0px)));
   transform-origin: 50% 100%;
   will-change: transform;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .fgsap-object-img {
@@ -271,13 +398,22 @@
   object-position: bottom center;
   user-select: none;
   -webkit-user-drag: none;
+  transition: opacity 0.22s ease, filter 0.22s ease;
+}
+
+.fgsap-object-caption {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  margin-top: 6px;
+  max-width: 100%;
+  pointer-events: none;
+  user-select: none;
 }
 
 .fgsap-object-label {
-  display: block;
-  margin-top: 6px;
-  max-width: 100%;
-  padding: 0 2px;
+  min-width: 0;
   font-size: 10px;
   font-weight: 500;
   line-height: 1.2;
@@ -287,17 +423,120 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  pointer-events: none;
-  user-select: none;
+  transition: color 0.22s ease, font-weight 0.22s ease;
 }
 
-@media (max-width: 1023px) {
+.fgsap-object-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  opacity: 0;
+  color: var(--fgsap-gold);
+  transition: opacity 0.15s ease;
+}
+
+.fgsap-object-arrow .icon {
+  width: 10px;
+  height: 10px;
+}
+
+.fgsap-object:hover,
+.fgsap-object:focus-visible {
+  z-index: 4;
+}
+
+.fgsap-object:hover .fgsap-object-img,
+.fgsap-object:focus-visible .fgsap-object-img {
+  filter: drop-shadow(0 10px 18px rgba(42, 36, 24, 0.14));
+}
+
+.fgsap-object:hover .fgsap-object-label,
+.fgsap-object:focus-visible .fgsap-object-label {
+  color: var(--fgsap-ink);
+  font-weight: 700;
+}
+
+.fgsap-object:hover .fgsap-object-arrow,
+.fgsap-object:focus-visible .fgsap-object-arrow {
+  opacity: 1;
+  animation: fgsap-link-arrow-pulse 1.4s ease-in-out infinite;
+}
+
+.fgsap-object:focus-visible .fgsap-object-caption {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* State 2 — brand beside nav; stacked sections with inline link rows */
+@media (min-width: 768px) and (max-width: 1279px) {
   .fgsap-content {
-    grid-template-columns: 1fr;
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: 24px 36px;
+    align-items: start;
+  }
+
+  .fgsap-logo-sub {
+    max-width: 34ch;
+    margin-inline: 0;
+    text-align: left;
+  }
+
+  .fgsap-col-grid {
+    display: none;
+  }
+
+  .fgsap-col-inline {
+    display: flex;
+  }
+
+  .fgsap-col,
+  .fgsap-col-inline-heading {
+    text-align: left;
+  }
+
+  .fgsap-brand {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+    gap: 14px;
+    width: 280px;
+    flex-shrink: 0;
+  }
+
+  .fgsap-logo-mark {
+    margin-inline: 0;
+  }
+
+  .fgsap-brand-copy {
+    align-items: flex-start;
+    width: auto;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .fgsap-logo-text {
+    align-items: flex-start;
+    padding-top: 2px;
+  }
+
+  .fgsap-connect {
+    align-items: flex-start;
+    width: auto;
+  }
+
+  .fgsap-social {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    margin-bottom: 4px;
   }
 
   .fgsap-nav {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 28px;
+    min-width: 0;
   }
 
   .fgsap-stage {
@@ -313,15 +552,180 @@
     max-height: 110px;
   }
 
-  .fgsap-link:hover .fgsap-link-arrow {
+  .fgsap-link:hover .fgsap-link-arrow,
+  .fgsap-object:hover .fgsap-object-arrow,
+  .fgsap-object:focus-visible .fgsap-object-arrow {
     animation: none;
   }
 }
 
-@media (max-width: 639px) {
-  .fgsap-content,
+@media (min-width: 1280px) {
+  .fgsap-brand {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+    gap: 14px;
+  }
+
+  .fgsap-logo-mark {
+    margin-inline: 0;
+  }
+
+  .fgsap-brand-copy {
+    align-items: flex-start;
+    width: auto;
+  }
+
+  .fgsap-logo-text {
+    align-items: flex-start;
+    padding-top: 2px;
+  }
+
+  .fgsap-logo-sub {
+    max-width: 34ch;
+    margin-inline: 0;
+    text-align: left;
+  }
+
+  .fgsap-connect {
+    align-items: flex-start;
+    width: auto;
+  }
+
+  .fgsap-social {
+    justify-content: flex-start;
+    margin-bottom: 4px;
+  }
+
+  .fgsap-col,
+  .fgsap-col-grid h4,
+  .fgsap-col-inline-heading {
+    text-align: left;
+  }
+
+  .fgsap-col-grid ul {
+    display: block;
+  }
+
+  .fgsap-col-grid .fgsap-link {
+    justify-content: flex-start;
+  }
+
+  .fgsap-col-grid .fgsap-link-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .fgsap-content {
+    grid-template-columns: minmax(220px, 1fr) minmax(0, 2.6fr);
+    gap: 28px 48px;
+  }
+
+  /* State 1 — four columns with vertical links */
+  .fgsap-nav {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px 20px;
+  }
+
+  .fgsap-col-grid {
+    display: block;
+  }
+
+  .fgsap-col-inline {
+    display: none;
+  }
+
+  .fgsap-col-grid .fgsap-link-label {
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+  }
+
+  .fgsap-stage {
+    height: clamp(148px, 16.5vw, 190px);
+  }
+
+  .fgsap-object-img {
+    max-height: 136px;
+  }
+}
+
+/* State 3 — centered mobile stack; last so it wins on phones */
+@media (max-width: 767px) {
+  .fgsap-content {
+    grid-template-columns: 1fr;
+  }
+
+  .fgsap-brand {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .fgsap-logo-mark {
+    margin-inline: auto;
+  }
+
+  .fgsap-brand-copy {
+    align-items: center;
+    width: 100%;
+  }
+
+  .fgsap-logo-text {
+    align-items: center;
+    padding-top: 0;
+  }
+
+  .fgsap-logo-sub {
+    max-width: 36ch;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .fgsap-connect {
+    align-items: center;
+    width: 100%;
+  }
+
+  .fgsap-social {
+    justify-content: center;
+    margin-bottom: 0;
+  }
+
   .fgsap-nav {
     grid-template-columns: 1fr;
+    gap: 22px 0;
+  }
+
+  .fgsap-col,
+  .fgsap-col-grid h4 {
+    text-align: center;
+  }
+
+  .fgsap-col-grid ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .fgsap-col-grid .fgsap-link {
+    justify-content: center;
+  }
+
+  .fgsap-col-grid .fgsap-link-label {
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+  }
+
+  .fgsap-col-grid {
+    display: block !important;
+  }
+
+  .fgsap-col-inline {
+    display: none !important;
   }
 
   .fgsap-stage {
@@ -338,6 +742,14 @@
   }
 }
 
+/* Tablet phone-landscape / small tablet — 2×2 link sections when width allows */
+@media (min-width: 520px) and (max-width: 767px) {
+  .fgsap-nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px 24px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .fgsap-track {
     transform: none !important;
@@ -347,7 +759,9 @@
     transform: translateY(calc(-1 * var(--fgsap-lift, 0px))) !important;
   }
 
-  .fgsap-link:hover .fgsap-link-arrow {
+  .fgsap-link:hover .fgsap-link-arrow,
+  .fgsap-object:hover .fgsap-object-arrow,
+  .fgsap-object:focus-visible .fgsap-object-arrow {
     animation: none;
   }
 }
