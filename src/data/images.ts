@@ -49,6 +49,7 @@ import cutoutSofa from '../assets/images/cutouts/cutout-sofa.png';
 import openHouse1 from '../assets/images/open-house/open-house-1.png';
 import openHouse2 from '../assets/images/open-house/open-house-2.png';
 import openHouse3 from '../assets/images/open-house/open-house-3.png';
+import openHouseWideFamily from '../assets/images/open-house/open-house-wide-family.png';
 
 export const heroImages = {
   kitchen1,
@@ -108,6 +109,9 @@ export const cutoutImages = {
 
 /** Residential hub — isometric open-house dioramas (transition set). */
 export const openHouseImages = [openHouse1, openHouse2, openHouse3] as const;
+
+/** Wide family diorama for the residential depth hero (16:9). */
+export const openHouseWideFamilyImage = openHouseWideFamily;
 
 export const logoImages = {
   header: logoHeader,

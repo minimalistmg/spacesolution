@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Space Solutions — Interior WebGL Hero Concepts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #181818;
+        --gold: #c5a23a;
+        --paper: #f8f4ed;
+        --surface: #fdfaf5;
+        --font: 'DM Sans', system-ui, sans-serif;
+        --display: 'Fraunces', Georgia, serif;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: var(--font);
+        background: var(--paper);
+        color: var(--ink);
+        padding: 48px 24px 80px;
+      }
+      .hub { max-width: 920px; margin: 0 auto; }
+      .eyebrow {
+        margin: 0 0 10px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+      h1 {
+        margin: 0 0 12px;
+        font-family: var(--display);
+        font-size: clamp(32px, 5vw, 48px);
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+      }
+      .lead {
+        margin: 0 0 28px;
+        max-width: 62ch;
+        font-size: 15px;
+        line-height: 1.65;
+        color: rgba(24, 24, 24, 0.72);
+      }
+      .note {
+        margin: 0 0 40px;
+        padding: 16px 18px;
+        max-width: 68ch;
+        border-left: 3px solid var(--gold);
+        background: var(--surface);
+        font-size: 13px;
+        line-height: 1.55;
+        color: rgba(24, 24, 24, 0.78);
+      }
+      .note code {
+        font-size: 12px;
+        background: rgba(24, 24, 24, 0.06);
+        padding: 1px 5px;
+        border-radius: 3px;
+      }
+      a.card {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid rgba(24, 24, 24, 0.1);
+        border-radius: 4px;
+        background: var(--surface);
+        color: inherit;
+        text-decoration: none;
+        overflow: hidden;
+        transition: border-color 0.2s, transform 0.2s;
+        max-width: 440px;
+      }
+      a.card:hover {
+        border-color: var(--gold);
+        transform: translateY(-2px);
+      }
+      .card__preview {
+        aspect-ratio: 16 / 9;
+        background:
+          radial-gradient(50% 45% at 62% 48%, rgba(197, 162, 58, 0.18), transparent 70%),
+          linear-gradient(150deg, #2a2118 0%, #3c2f22 55%, #1c1610 100%);
+        display: grid;
+        place-items: center;
+        color: rgba(255, 249, 231, 0.72);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+      .card__body { padding: 18px 20px 22px; }
+      .card__body h2 {
+        margin: 0 0 8px;
+        font-family: var(--display);
+        font-size: 22px;
+        font-weight: 500;
+      }
+      .card__body p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.55;
+        color: rgba(24, 24, 24, 0.68);
+      }
+      .meta {
+        margin-top: 10px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hub">
+      <p class="eyebrow">Concepts · WebGL</p>
+      <h1>Interior WebGL hero</h1>
+      <p class="lead">
+        True 3D interior scene with Three.js, GLTFLoader, and a restrained cinematic
+        camera — not a flat PNG tilt. Built for the Astro residential hub.
+      </p>
+      <p class="note">
+        Integration target: replace the right visual in
+        <code>ResidentialOpenHouse.astro</code> / <code>/residential-interiors</code>.
+        Reusable component: <code>src/components/InteractiveInterior.astro</code>.
+        Model: <code>public/models/interior/apartment.glb</code>
+        (regenerate via <code>node scripts/generate-interior-glb.mjs</code>).
+        Swap in your production GLB through the component config.
+      </p>
+      <a class="card" href="./01-cinematic-camera/index.html">
+        <div class="card__preview">WebGL · GLB</div>
+        <div class="card__body">
+          <h2>01 · Cinematic camera</h2>
+          <p>
+            Soft architectural lighting, ±4° yaw / ±3° pitch camera drift, hover zoom,
+            optional room labels via Raycaster, mobile fallback image.
+          </p>
+          <div class="meta">Three.js · GLTFLoader</div>
+        </div>
+      </a>
+    </div>
+  </body>
+</html>

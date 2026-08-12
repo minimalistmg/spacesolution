@@ -1,0 +1,139 @@
+---
+/**
+ * Residential hub hero — auto-tour of home services + hover takeover.
+ * Left: synced title / lead / room links (links only; tour stays auto)
+ * Right: open-house diorama + progress + tour hint
+ */
+import { getImage } from 'astro:assets';
+import { homeServiceOffers, homeServicesHouseImage } from '../data/homeServicesHero';
+import '../styles/interior-depth-hero.css';
+
+interface Stat {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  heading?: string;
+  stats?: Stat[];
+}
+
+const { heading = 'Residential Interiors' } = Astro.props;
+const first = homeServiceOffers[0];
+
+const runtimeServices = homeServiceOffers.map(({ cutout: _c, ...rest }) => rest);
+
+/** PNG-only — preserve alpha from chroma-keyed open-house asset */
+const houseImage = await getImage({
+  src: homeServicesHouseImage,
+  width: 1600,
+  format: 'png',
+  quality: 90,
+});
+---
+
+<section
+  class="idh-hero"
+  data-depth-hero
+  data-idh-services={JSON.stringify(runtimeServices)}
+  aria-label="Home interiors services"
+>
+  <div class="container idh-hero-grid">
+    <div class="idh-hero-copy">
+      <!-- GSAPify Parallax Text layers (ScrollTrigger scrub) -->
+      <div class="idh-px idh-px--back" data-idh-px="back">
+        <h1 class="idh-hero-heading" data-idh-eyebrow>{heading}</h1>
+      </div>
+
+      <div class="idh-px idh-px--mid" data-idh-px="mid">
+        <h2 class="idh-hero-title" data-idh-title>
+          <span data-idh-title-text>{first.titleLight} {first.titleDark}</span>
+        </h2>
+      </div>
+
+      <div class="idh-px idh-px--front" data-idh-px="front">
+        <p class="idh-hero-lead" data-idh-lead>{first.lead}</p>
+
+        <!-- Hover previews room (pauses tour); click goes to that service page -->
+        <ul class="idh-hero-nav" data-idh-nav aria-label="Home interior services">
+          {
+            homeServiceOffers.map((service) => (
+              <li>
+                <a
+                  href={service.href}
+                  class:list={['idh-hero-nav-btn', { 'is-active': service.id === first.id }]}
+                  data-idh-nav-btn
+                  data-service={service.id}
+                  aria-current={service.id === first.id ? 'page' : undefined}
+                >
+                  {service.nav}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="idh-visual">
+      <div class="idh-stage" data-idh-stage>
+        <div class="idh-stage-shadow" data-idh-shadow aria-hidden="true"></div>
+
+        <div class="idh-stage-rig" data-idh-rig>
+          <div class="idh-stage-frame">
+            <figure class="idh-house" data-idh-house>
+              <img
+                src={houseImage.src}
+                width={houseImage.attributes.width}
+                height={houseImage.attributes.height}
+                alt="Space Solutions full-home open-house interior with family across kitchen, living, bedroom, wardrobe, and pooja spaces"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
+              />
+            </figure>
+
+            <!-- Soft transparent refill over the active room inside the diorama -->
+            <div class="idh-fills" aria-hidden="true">
+              {
+                homeServiceOffers.map((service, index) => (
+                  <div
+                    class:list={['idh-fill', { 'is-active': index === 0 }]}
+                    data-idh-fill
+                    data-service={service.id}
+                  />
+                ))
+              }
+            </div>
+
+            <div class="idh-zones">
+              {
+                homeServiceOffers
+                  .filter((service) => service.id !== 'full')
+                  .map((service) => (
+                    <button
+                      type="button"
+                      class="idh-zone"
+                      data-idh-zone
+                      data-service={service.id}
+                      aria-label={service.label}
+                    />
+                  ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="idh-visual-footer" data-idh-footer>
+        <div class="idh-progress-bar" aria-hidden="true">
+          <span class="idh-progress-bar__fill" data-idh-progress-bar></span>
+        </div>
+        <p class="idh-hint" data-idh-hint>Auto touring · hover to take control</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="/vendor/CustomEase.min.js" defer></script>
+<script src="/js/interior-depth-hero.js" defer></script>

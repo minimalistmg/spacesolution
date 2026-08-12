@@ -8,7 +8,7 @@ import FaqSection from './FaqSection.astro';
 import ImageGallery from './ImageGallery.astro';
 import DummyVideoBlock from './DummyVideoBlock.astro';
 import PastelStoryCards from './PastelStoryCards.astro';
-import ResidentialOpenHouse from './ResidentialOpenHouse.astro';
+import InteriorDepthHero from './InteriorDepthHero.astro';
 import type { ServicePageData } from '../data/servicePages';
 
 interface Props {
@@ -31,12 +31,7 @@ const showStandaloneStats = !isHospitality && !isResidentialHub && Boolean(page.
 >
   {
     isResidentialHub && page.stats?.length ? (
-      <ResidentialOpenHouse
-        breadcrumb={page.breadcrumb}
-        title={page.heroTitle}
-        description={page.heroDescription}
-        stats={page.stats}
-      />
+      <InteriorDepthHero heading={page.heroTitle} stats={page.stats} />
     ) : (
       <PageHero
         breadcrumb={page.breadcrumb}

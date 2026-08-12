@@ -3,6 +3,7 @@ import type { NavPage } from '../components/Header.astro';
 import Header from '../components/Header.astro';
 import MobileMenu from '../components/MobileMenu.astro';
 import FooterGsap from '../components/FooterGsap.astro';
+import SocialChannelsSection from '../components/SocialChannelsSection.astro';
 import EnquiryModal from '../components/EnquiryModal.astro';
 import VideoModal from '../components/VideoModal.astro';
 import ColorPaletteSelector from '../components/ColorPaletteSelector.astro';
@@ -18,6 +19,7 @@ import '../styles/lib.css';
 import '../styles/main.css';
 import '../styles/header.css';
 import '../styles/gold-forge-preloader.css';
+import '../styles/social-channels.css';
 import '../styles/footer-gsap.css';
 
 interface Props {
@@ -165,6 +167,7 @@ const schema = getLocalBusinessSchema(Astro.site?.href ?? SITE.url);
         <slot />
       </main>
 
+      <SocialChannelsSection />
       <FooterGsap />
       <EnquiryModal />
       <VideoModal />

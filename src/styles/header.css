@@ -112,13 +112,25 @@
   --nav-accent: var(--gold);
 }
 
-.main-nav > li.active > a {
-  background: color-mix(in srgb, var(--nav-accent, var(--gold)) 14%, transparent);
-}
+/* Active recessed cove — generated PNG; CSS only sets width. */
+@media (min-width: 1367px) {
+  .main-nav > li.active > a {
+    position: relative;
+    z-index: 1;
+  }
 
-.main-nav > li.has-mega-menu.active:is(:hover, .is-menu-open) > a,
-.main-nav > li:not(.has-mega-menu).active:hover > a {
-  background: transparent;
+  .main-nav > li.active::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 0;
+    width: 280px;
+    height: 107px;
+    transform: translateX(-50%);
+    background: url('/images/header/nav-active-cove-light.png?v=19') top center / 100% auto no-repeat;
+    pointer-events: none;
+  }
 }
 
 .has-mega-menu[data-menu-panel='home'] {

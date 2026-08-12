@@ -1,23 +1,25 @@
 ---
-description: Keep desktop header active nav pill styling — do not remove when editing header CSS
+description: Keep desktop header active nav cove light PNG — do not remove when editing header CSS
 globs: src/styles/header.css
 alwaysApply: false
 ---
 
-# Header active nav pill (required)
+# Header active nav cove light PNG (required)
 
-The desktop main nav **must** keep a pill background on the current page link (`.main-nav > li.active > a`).
+The desktop main nav **must** keep the recessed cove light image on the current page item (`.main-nav > li.active::after`), desktop only (`min-width: 1367px`). Matches mockup variant 1 (soft warm wash from top).
 
 ## Do not remove
 
-- Pill fill: `color-mix(in srgb, var(--nav-accent, var(--gold)) 14%, transparent)`
-- Shape: `border-radius: var(--radius-pill)` with `padding: 6px 18px` (vertical pill padding at breakpoints too)
-- Segment accent colors on `.has-mega-menu[data-menu-panel=…]` (`--nav-accent`)
+- Cove wash asset: `/images/header/nav-active-cove-light.png` (warm light RGB + alpha transparency)
+- Placement: `::after` pinned to `top: 0`, centered over the active item
+- Segment accent text colors on `.has-mega-menu[data-menu-panel=…]` (`--nav-accent`)
 - Active accent text: `.main-nav > li.has-mega-menu.active > a { color: var(--nav-accent); }`
-- Hover on active item only: hide pill, keep accent text (`.has-mega-menu.active:is(:hover, .is-menu-open) > a { background: transparent; }`)
 
 ## Do not re-add
 
-- De-emphasis that clears active pill/color when another mega menu is open.
+- Green-colored light wash on the live header (chroma-green plate is a source/QA asset only)
+- Soft accent pill fill on desktop active items
+- Accent underline / bottom bar on active items
+- Pure CSS gradient/box-shadow cove light (light comes from the PNG)
 
-CTA/button work in `header-contact-menu.css` is separate — changing the Connect button must **not** strip nav pill rules from `header.css`.
+CTA/button work in `header-contact-menu.css` is separate — changing the Connect button must **not** strip nav cove rules from `header.css`.

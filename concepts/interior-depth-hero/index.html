@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Space Solutions — Interior Depth Hero Concepts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #181818;
+        --brown: #3c2516;
+        --gold: #c5a23a;
+        --cream: #fff9e7;
+        --paper: #f8f4ed;
+        --surface: #fdfaf5;
+        --font: 'DM Sans', system-ui, sans-serif;
+        --display: 'Fraunces', Georgia, serif;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: var(--font);
+        background: var(--paper);
+        color: var(--ink);
+        padding: 48px 24px 80px;
+      }
+      .hub { max-width: 920px; margin: 0 auto; }
+      .eyebrow {
+        margin: 0 0 10px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+      h1 {
+        margin: 0 0 12px;
+        font-family: var(--display);
+        font-size: clamp(32px, 5vw, 48px);
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+      }
+      .lead {
+        margin: 0 0 28px;
+        max-width: 60ch;
+        font-size: 15px;
+        line-height: 1.65;
+        color: rgba(24, 24, 24, 0.72);
+      }
+      .note {
+        margin: 0 0 40px;
+        padding: 16px 18px;
+        max-width: 64ch;
+        border-left: 3px solid var(--gold);
+        background: var(--surface);
+        font-size: 13px;
+        line-height: 1.55;
+        color: rgba(24, 24, 24, 0.78);
+      }
+      .note code {
+        font-size: 12px;
+        background: rgba(24, 24, 24, 0.06);
+        padding: 1px 5px;
+        border-radius: 3px;
+      }
+      .grid { display: grid; gap: 18px; }
+      @media (min-width: 720px) {
+        .grid { grid-template-columns: 1fr 1fr; }
+      }
+      a.card {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        border: 1px solid rgba(24, 24, 24, 0.1);
+        border-radius: 4px;
+        background: var(--surface);
+        color: inherit;
+        text-decoration: none;
+        overflow: hidden;
+        transition: border-color 0.2s, transform 0.2s;
+      }
+      a.card:hover {
+        border-color: var(--gold);
+        transform: translateY(-2px);
+      }
+      .card__preview {
+        aspect-ratio: 16 / 9;
+        background:
+          radial-gradient(50% 45% at 70% 55%, rgba(197, 162, 58, 0.16), transparent 70%),
+          linear-gradient(145deg, #f3ebe0 0%, #ebe2d4 48%, #e4d8c6 100%);
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+      }
+      .card__preview img {
+        width: 78%;
+        height: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 18px 28px rgba(40, 28, 16, 0.22));
+        transform: perspective(900px) rotateY(-8deg) rotateX(4deg) scale(1.04);
+      }
+      .card__body { padding: 18px 20px 22px; }
+      .card__body h2 {
+        margin: 0 0 8px;
+        font-family: var(--display);
+        font-size: 22px;
+        font-weight: 500;
+      }
+      .card__body p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.55;
+        color: rgba(24, 24, 24, 0.68);
+      }
+      .meta {
+        margin-top: 10px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hub">
+      <p class="eyebrow">Concepts · Interaction</p>
+      <h1>Interior depth hero</h1>
+      <p class="lead">
+        Premium 2.5D mouse-tilt for the residential open-house diorama — GSAP only,
+        no WebGL. Built as a reusable pattern for the Astro residential hub.
+      </p>
+      <p class="note">
+        Live on <code>/residential-interiors</code> via
+        <code>InteriorDepthHero.astro</code> (home services auto-tour).
+        Data: <code>src/data/homeServicesHero.ts</code>.
+      </p>
+      <div class="grid">
+        <a class="card" href="./03-home-services/index.html">
+          <div class="card__preview">
+            <img
+              src="../../src/assets/images/open-house/open-house-1.png"
+              alt=""
+              width="640"
+              height="400"
+            />
+          </div>
+          <div class="card__body">
+            <h2>03 · Home services</h2>
+            <p>
+              Auto-tour of kitchen, wardrobes, living, bedrooms, pooja, and full home —
+              transparent room refill highlight; left copy + CTA sync; hover pauses tour.
+            </p>
+            <div class="meta">Recommended · Residential hub</div>
+          </div>
+        </a>
+        <a class="card" href="./02-atelier-cinema/index.html">
+          <div class="card__preview">
+            <img
+              src="../../src/assets/images/open-house/open-house-2.png"
+              alt=""
+              width="640"
+              height="400"
+            />
+          </div>
+          <div class="card__body">
+            <h2>02 · Atelier cinema</h2>
+            <p>
+              Cinematic GSAP stack — CustomEase intro, spotlight, sheen, slide crossfade.
+            </p>
+            <div class="meta">GSAP max · foundation</div>
+          </div>
+        </a>
+        <a class="card" href="./01-studio-tilt/index.html">
+          <div class="card__preview">
+            <img
+              src="../../src/assets/images/open-house/open-house-3.png"
+              alt=""
+              width="640"
+              height="400"
+            />
+          </div>
+          <div class="card__body">
+            <h2>01 · Studio tilt</h2>
+            <p>
+              Lighter baseline: soft 3D tilt, opposite shadow drift, depth-layer hooks.
+            </p>
+            <div class="meta">GSAP quickTo · minimal</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

@@ -73,12 +73,3 @@ export const showcasePosts = [
     img: '/images/showcase/section-img-3.png',
   },
 ];
-
-export const showcaseLogos = [
-  '/images/showcase/logo-1.svg',
-  '/images/showcase/logo-2.svg',
-  '/images/showcase/logo-3.svg',
-  '/images/showcase/logo-4.svg',
-  '/images/showcase/logo-5.svg',
-  '/images/showcase/logo-6.svg',
-];

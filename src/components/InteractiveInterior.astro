@@ -1,0 +1,177 @@
+---
+/**
+ * InteractiveInterior — cinematic Three.js GLB hero for Astro.
+ * Drop-in alternative for the residential open-house visual.
+ *
+ * Adjust CONFIG below (also overridable via data attributes / props).
+ */
+import type { ImageMetadata } from 'astro';
+import { openHouseImages } from '../data/images';
+import ResponsiveImage from './ResponsiveImage.astro';
+import '../styles/interactive-interior.css';
+
+interface Stat {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  breadcrumb: string;
+  description?: string;
+  stats: Stat[];
+  /** GLB/GLTF path under public/ */
+  modelPath?: string;
+  /** Lightweight fallback when WebGL / motion is unavailable */
+  fallbackImage?: ImageMetadata;
+  cameraPosition?: [number, number, number];
+  cameraTarget?: [number, number, number];
+  modelScale?: number;
+  maxYawDeg?: number;
+  maxPitchDeg?: number;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+/* —— Easy configuration —— */
+const CONFIG = {
+  modelPath: '/models/interior/apartment.glb',
+  cameraPosition: [4.8, 3.6, 7.2] as [number, number, number],
+  cameraTarget: [0, 0.9, 0] as [number, number, number],
+  modelScale: 1,
+  hoverScale: 1.015,
+  fov: 32,
+  maxYawDeg: 4,
+  maxPitchDeg: 3,
+  hoverZoom: 0.35,
+  mouseLerp: 0.045,
+  enterDurationMs: 900,
+  leaveDurationMs: 1100,
+  ambientIntensity: 0.55,
+  keyIntensity: 1.15,
+  fillIntensity: 0.35,
+  maxPixelRatio: 1.75,
+  enableLabels: true,
+};
+
+const {
+  breadcrumb,
+  description,
+  stats,
+  modelPath = CONFIG.modelPath,
+  fallbackImage = openHouseImages[0],
+  cameraPosition = CONFIG.cameraPosition,
+  cameraTarget = CONFIG.cameraTarget,
+  modelScale = CONFIG.modelScale,
+  maxYawDeg = CONFIG.maxYawDeg,
+  maxPitchDeg = CONFIG.maxPitchDeg,
+  ctaLabel = 'Get Quote Now',
+  ctaHref = '#',
+} = Astro.props;
+
+const railStats = stats.length > 3 ? stats.slice(0, 3) : stats;
+
+const runtimeConfig = {
+  ...CONFIG,
+  modelPath,
+  cameraPosition,
+  cameraTarget,
+  modelScale,
+  maxYawDeg,
+  maxPitchDeg,
+};
+---
+
+<section
+  class="ii-hero"
+  data-interactive-interior
+  data-ii-config={JSON.stringify(runtimeConfig)}
+  aria-label="Residential interiors"
+>
+  <div class="container ii-hero-grid">
+    <div class="ii-hero-copy">
+      <nav class="breadcrumb ii-hero-breadcrumb" aria-label="Breadcrumb" set:html={breadcrumb} />
+
+      <h1 class="ii-hero-title">
+        <span class="ii-hero-title-light">Free 3D</span>
+        <span class="ii-hero-title-dark">Home Interiors</span>
+      </h1>
+
+      {description && <p class="ii-hero-lead">{description}</p>}
+
+      <a href={ctaHref} class="btn btn-gold-filled" data-open-modal="enquiry">
+        {ctaLabel}
+      </a>
+    </div>
+
+    <div class="ii-hero-visual">
+      <div class="ii-hero-stats" role="list">
+        {
+          railStats.map((stat) => (
+            <div class="ii-hero-stat" role="listitem">
+              <span class="ii-hero-stat-value">{stat.value}</span>
+              <span class="ii-hero-stat-label">{stat.label}</span>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="ii-stage" data-ii-stage>
+        <canvas class="ii-canvas" data-ii-canvas aria-hidden="true"></canvas>
+
+        <figure class="ii-fallback" data-ii-fallback hidden>
+          <ResponsiveImage
+            src={fallbackImage}
+            alt="Residential interior preview"
+            preset="hero"
+            loading="eager"
+          />
+        </figure>
+
+        <div class="ii-label" data-ii-label hidden></div>
+      </div>
+
+      <p class="ii-hint">Move across the interior</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { mountInteractiveInterior } from '../lib/interactiveInterior';
+
+  function boot() {
+    document.querySelectorAll<HTMLElement>('[data-interactive-interior]').forEach((root) => {
+      if (root.dataset.iiReady === 'true') return;
+      root.dataset.iiReady = 'true';
+
+      let config = {};
+      try {
+        config = JSON.parse(root.dataset.iiConfig || '{}');
+      } catch {
+        config = {};
+      }
+
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting || root.dataset.iiMounted === 'true') return;
+            root.dataset.iiMounted = 'true';
+            io.disconnect();
+            void mountInteractiveInterior(root, config).then((handle) => {
+              if (!handle) return;
+              root.addEventListener(
+                'astro:before-swap',
+                () => handle.destroy(),
+                { once: true }
+              );
+            });
+          });
+        },
+        { rootMargin: '120px 0px', threshold: 0.05 }
+      );
+      io.observe(root);
+    });
+  }
+
+  boot();
+  document.addEventListener('astro:page-load', boot);
+</script>

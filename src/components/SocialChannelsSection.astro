@@ -1,0 +1,96 @@
+---
+import Icon from './Icon.astro';
+import ResponsiveImage from './ResponsiveImage.astro';
+import { SITE } from '../data/site';
+import {
+  socialChannelItems,
+  socialPlatformMeta,
+} from '../data/socialChannels';
+
+const featured = socialChannelItems.find((item) => item.featured);
+const reels = socialChannelItems.filter((item) => !item.featured);
+
+const headerSocials = [
+  { platform: 'instagram' as const, href: SITE.social.instagram },
+  { platform: 'youtube' as const, href: SITE.social.youtube },
+  { platform: 'facebook' as const, href: SITE.social.facebook },
+];
+---
+
+<section class="social-channels" aria-labelledby="social-channels-title">
+  <div class="container">
+    <header class="social-channels-header fade-up">
+      <p class="social-channels-label">
+        <span>From Our Channels</span>
+        <span class="social-channels-label-rule" aria-hidden="true"></span>
+        <span class="social-channels-spark" aria-hidden="true"></span>
+      </p>
+
+      <div class="social-channels-title-row">
+        <h2 class="social-channels-title" id="social-channels-title">See the work unfold</h2>
+        <nav class="social-channels-brands" aria-label="Follow Space Solutions">
+          {headerSocials.map(({ platform, href }) => (
+            <a
+              class="social-channels-brand"
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={socialPlatformMeta[platform].label}
+            >
+              <Icon name={socialPlatformMeta[platform].icon} />
+            </a>
+          ))}
+        </nav>
+      </div>
+    </header>
+
+    <div class="social-channels-grid fade-up">
+      {featured && (
+        <a
+          class="social-channel-card social-channel-card--feature"
+          href={featured.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${featured.title} on ${socialPlatformMeta[featured.platform].label}`}
+        >
+          <div class="social-channel-media">
+            <ResponsiveImage src={featured.image} alt={featured.alt} preset="content" sizes="(max-width: 900px) 100vw, 48vw" />
+          </div>
+          <span class="social-channel-platform social-channel-platform--icon">
+            <Icon name={socialPlatformMeta[featured.platform].icon} />
+            <span class="social-channel-sr">{socialPlatformMeta[featured.platform].label}</span>
+          </span>
+          <span class="social-channel-play" aria-hidden="true">
+            <Icon name="play" />
+          </span>
+          <span class="social-channel-meta">
+            <span class="social-channel-category">{featured.category}</span>
+            <span class="social-channel-card-title">{featured.title}</span>
+          </span>
+        </a>
+      )}
+
+      {reels.map((item) => (
+        <a
+          class="social-channel-card social-channel-card--reel"
+          href={item.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${item.title} on ${socialPlatformMeta[item.platform].label}`}
+        >
+          <div class="social-channel-media">
+            <ResponsiveImage src={item.image} alt={item.alt} preset="grid" sizes="(max-width: 900px) 42vw, 18vw" />
+          </div>
+          <span class="social-channel-platform social-channel-platform--icon">
+            <Icon name={socialPlatformMeta[item.platform].icon} />
+            <span class="social-channel-sr">{socialPlatformMeta[item.platform].label}</span>
+          </span>
+          <span class="social-channel-meta">
+            <span class="social-channel-category">{item.category}</span>
+            <span class="social-channel-card-title">{item.title}</span>
+          </span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

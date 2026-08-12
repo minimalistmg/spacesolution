@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import {
-  showcaseLogos,
   showcasePosts,
   showcaseProcess,
   showcaseServices,
@@ -63,12 +62,6 @@ import '../styles/showcase.css';
               <p class="desint-stat-value">{stat.value}</p>
               <p class="desint-stat-label">{stat.label}</p>
             </div>
-          ))}
-        </div>
-
-        <div class="desint-logos desint-reveal" aria-label="Trusted partners">
-          {showcaseLogos.map((logo) => (
-            <img src={logo} alt="" width="120" height="40" loading="lazy" />
           ))}
         </div>
       </div>

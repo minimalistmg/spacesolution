@@ -311,23 +311,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   border: 1px solid rgba(197, 162, 58, 0.4);
   border-radius: 50%;
   color: var(--fgsap-gold);
   background: rgba(255, 255, 255, 0.75);
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .fgsap-social a:hover {
-  background: #fff;
-  transform: translateY(-2px);
+  background: var(--fgsap-gold);
+  border-color: var(--fgsap-gold);
+  color: #fff;
 }
 
 .fgsap-social .icon {
-  width: 15px;
-  height: 15px;
+  width: 17px;
+  height: 17px;
 }
 
 .fgsap-connect-line {
@@ -403,9 +404,10 @@
 
 .fgsap-object-caption {
   display: inline-flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 3px;
+  justify-content: flex-start;
+  gap: 0;
   margin-top: 6px;
   max-width: 100%;
   pointer-events: none;
@@ -426,21 +428,28 @@
   transition: color 0.22s ease, font-weight 0.22s ease;
 }
 
+/* Collapsed below the label by default; expands on hover, still centered. */
 .fgsap-object-arrow {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   width: 12px;
-  height: 12px;
+  height: 0;
+  margin-top: 0;
   opacity: 0;
+  overflow: hidden;
   color: var(--fgsap-gold);
-  transition: opacity 0.15s ease;
+  transition:
+    height 0.22s ease,
+    margin-top 0.22s ease,
+    opacity 0.22s ease;
 }
 
 .fgsap-object-arrow .icon {
   width: 10px;
   height: 10px;
+  flex-shrink: 0;
 }
 
 .fgsap-object:hover,
@@ -461,7 +470,10 @@
 
 .fgsap-object:hover .fgsap-object-arrow,
 .fgsap-object:focus-visible .fgsap-object-arrow {
+  height: 12px;
+  margin-top: 2px;
   opacity: 1;
+  overflow: visible;
   animation: fgsap-link-arrow-pulse 1.4s ease-in-out infinite;
 }
 

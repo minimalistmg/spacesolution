@@ -9,6 +9,7 @@ import DummyVideoBlock from '../components/DummyVideoBlock.astro';
 import StorytellingBand from '../components/StorytellingBand.astro';
 import { heroImages, projectImages, roomImages, studioImages } from '../data/images';
 import { SITE } from '../data/site';
+import { studioTeam } from '../data/studioTeam';
 
 const phoneDisplay = '+91 63645 64563';
 
@@ -87,32 +88,38 @@ const faqs = [
     title="About Space Solutions"
     description="Interior designers in Mysuru since 2011 — design studio, in-house factory, and turnkey delivery under one roof."
     image={studioImages.craft}
+    stats={[
+      { value: '2011', label: 'Founded' },
+      { value: '800+', label: 'Projects' },
+      { value: '1', label: 'Factory' },
+      { value: 'End-to-end', label: 'Delivery' },
+    ]}
   />
 
-  <section class="about-proof" aria-label="Studio proof points">
+  <section class="about-proof" aria-label="Studio team">
     <div class="container">
       <div class="about-proof-lockup fade-up">
         <p class="about-proof-watermark" aria-hidden="true">big results</p>
         <h2 class="about-proof-title">Small team,</h2>
       </div>
-      <div class="about-proof-stats">
-        <div class="about-proof-stat fade-up">
-          <span class="about-proof-stat-value">2011</span>
-          <span class="about-proof-stat-label">Studio founded in Mysuru</span>
-        </div>
-        <div class="about-proof-stat fade-up">
-          <span class="about-proof-stat-value">800+</span>
-          <span class="about-proof-stat-label">Projects across Karnataka</span>
-        </div>
-        <div class="about-proof-stat fade-up">
-          <span class="about-proof-stat-value">1</span>
-          <span class="about-proof-stat-label">In-house manufacturing unit</span>
-        </div>
-        <div class="about-proof-stat fade-up">
-          <span class="about-proof-stat-value">End-to-end</span>
-          <span class="about-proof-stat-label">Design to installation</span>
-        </div>
-      </div>
+
+      <ul class="about-team">
+        {
+          studioTeam.map((member) => (
+            <li class="about-team-member fade-up">
+              <span
+                class="about-team-avatar"
+                style={`background-color: ${member.tone}`}
+                aria-hidden="true"
+              >
+                {member.initials}
+              </span>
+              <span class="about-team-name">{member.name}</span>
+              <span class="about-team-role">{member.role}</span>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </section>
 

@@ -1,0 +1,505 @@
+/* InteriorDepthHero — home services auto-tour + hover takeover */
+
+.idh-hero {
+  --idh-spot-x: 55%;
+  --idh-spot-y: 45%;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  margin-top: var(--header-h);
+  height: calc(100dvh - var(--header-h));
+  max-height: calc(100dvh - var(--header-h));
+  min-height: 0;
+  padding: clamp(12px, 1.8vh, 24px) 0;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      42% 48% at 28% 42%,
+      rgba(255, 236, 196, 0.28) 0%,
+      rgba(245, 232, 205, 0.1) 42%,
+      transparent 70%
+    ),
+    var(--hero-bg, #f9f5ee);
+  color: var(--dark);
+}
+
+.idh-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.45fr);
+  gap: clamp(20px, 3.5vw, 48px);
+  align-items: center;
+  /* Keep .container width — do not force 100% or copy sits flush to the viewport */
+  height: 100%;
+  min-height: 0;
+}
+
+.idh-hero-copy {
+  --idh-copy-gap: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--idh-copy-gap);
+  width: 100%;
+  max-width: 499px;
+  margin: 0; /* align with header logo / container left edge */
+  padding: 0;
+  min-height: 0;
+  box-sizing: border-box;
+}
+
+.idh-hero-heading {
+  margin: 0;
+  font-family: inherit;
+  font-size: clamp(12px, 1.3vh, 13px);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  text-transform: none;
+  color: var(--gold-on-light, var(--gold));
+}
+
+/* Parallax Text layer hosts — ScrollTrigger moves these, not the inner copy */
+.idh-px {
+  width: 100%;
+  will-change: transform;
+}
+
+.idh-px--front {
+  display: flex;
+  flex-direction: column;
+  gap: var(--idh-copy-gap);
+}
+
+.idh-hero-title {
+  display: block;
+  width: 100%;
+  margin: 0;
+  font-family: 'Domaine Display', 'Canela', Georgia, serif;
+  font-size: clamp(20px, 3.2vw, 40px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--dark, #1a1a1a);
+  overflow-wrap: break-word;
+}
+
+.idh-hero-title > span {
+  display: block;
+  width: 100%;
+  white-space: normal;
+  will-change: transform, opacity;
+}
+
+.idh-hero-lead {
+  margin: 0;
+  width: 100%;
+  max-width: 42ch;
+  /* Fixed band so buttons stay put while room copy swaps */
+  height: 7.75em;
+  font-size: clamp(14px, 1.45vh, 16px);
+  font-weight: 500;
+  line-height: 1.55;
+  color: var(--gray-text);
+}
+
+/* Room links under lead — 3 equal columns; 2px gold outline idle; fill on hover/active */
+.idh-hero-nav {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 8px;
+  row-gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+  max-width: 420px;
+}
+
+.idh-hero-nav > li {
+  min-width: 0;
+}
+
+.idh-hero-nav-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 36px;
+  padding: 0 6px;
+  box-sizing: border-box;
+  border: 2px solid var(--header-action-border, #c49a14);
+  background: transparent;
+  color: var(--gold-on-light, var(--header-action-bg, #d4a017));
+  border-radius: var(--header-action-radius, var(--radius-pill));
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background 0.22s ease,
+    color 0.22s ease,
+    border-color 0.22s ease;
+}
+
+.idh-hero-nav-btn:hover,
+.idh-hero-nav-btn.is-active {
+  border-color: var(--header-action-border, #c49a14);
+  background: var(--header-action-bg, #d4a017);
+  color: var(--header-action-text, #fff);
+}
+
+.idh-hero-nav-btn:hover,
+.idh-hero-nav-btn.is-active:hover {
+  background: var(--header-action-bg-hover, #c8960c);
+  border-color: var(--header-action-border-hover, #b8870b);
+  color: var(--header-action-text, #fff);
+}
+
+.idh-visual {
+  position: relative;
+  min-width: 0;
+  width: 100%;
+  height: min(72vh, 640px);
+  max-height: calc(100dvh - var(--header-h) - 40px);
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  justify-items: center;
+  align-content: stretch;
+  gap: 28px;
+  padding-bottom: 4px;
+}
+
+.idh-stage {
+  position: relative;
+  justify-self: stretch;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  perspective: 1700px;
+  perspective-origin: 50% 42%;
+  transform-style: preserve-3d;
+  /* Extra clearance so idle / cue motion never overlaps progress + hint */
+  padding-bottom: 36px;
+  box-sizing: border-box;
+}
+
+.idh-stage-glow {
+  display: none;
+}
+
+.idh-stage-shadow {
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: 4%;
+  height: 12%;
+  border-radius: 50%;
+  background: radial-gradient(
+    60% 55% at 50% 50%,
+    rgba(42, 31, 22, 0.22) 0%,
+    rgba(42, 31, 22, 0.07) 42%,
+    transparent 74%
+  );
+  filter: blur(18px);
+  opacity: 0.85;
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform, opacity;
+}
+
+.idh-stage-rig {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  transform-style: preserve-3d;
+  will-change: transform;
+  z-index: 1;
+}
+
+.idh-stage-frame {
+  position: relative;
+  /* Height-led so max-height never crops the transparent house PNG */
+  height: min(100%, 540px);
+  width: auto;
+  max-width: min(100%, 980px);
+  aspect-ratio: 1.53 / 1;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  background: transparent;
+}
+
+.idh-house {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  will-change: transform, opacity;
+}
+
+.idh-house picture,
+.idh-house img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.idh-house img {
+  object-fit: contain;
+  object-position: center center;
+  user-select: none;
+  -webkit-user-drag: none;
+  /* No drop-shadow — PNG alpha plate cast a square box; use .idh-stage-shadow instead */
+  filter: none;
+}
+
+.idh-fills {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.idh-fill {
+  position: absolute;
+  opacity: 0;
+  transform: scale(0.96);
+  transform-origin: center center;
+  will-change: transform, opacity;
+  /* Soft-rounded plate — between square and oval */
+  border-radius: 28px;
+  background:
+    radial-gradient(
+      78% 72% at 50% 48%,
+      rgba(255, 220, 140, 0.72) 0%,
+      rgba(197, 162, 58, 0.48) 40%,
+      rgba(197, 162, 58, 0.18) 64%,
+      transparent 80%
+    );
+  mix-blend-mode: multiply;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 236, 180, 0.55),
+    0 0 18px rgba(197, 162, 58, 0.35),
+    0 0 36px rgba(197, 162, 58, 0.18);
+  filter: saturate(1.15);
+}
+
+.idh-fill.is-active {
+  z-index: 2;
+}
+
+/* Fills — % base + pixel nudges from visual QA */
+.idh-fill[data-service='kitchen'] {
+  left: 18%;
+  top: calc(14% - 20px); /* ↑ 20px total */
+  width: 22%;
+  height: 28%;
+}
+.idh-fill[data-service='living'] {
+  left: 34%;
+  top: 43%;
+  width: 28%;
+  height: 30%;
+}
+.idh-fill[data-service='bedroom'] {
+  left: calc(66% + 2px);
+  top: calc(44% - 100px); /* ↑ 100px total */
+  width: 22%;
+  height: 28%;
+}
+.idh-fill[data-service='wardrobe'] {
+  left: calc(78% - 105px); /* ← 105px total */
+  top: calc(12% - 30px); /* ↑ 30px total */
+  width: 13%;
+  height: 32%;
+}
+.idh-fill[data-service='pooja'] {
+  left: calc(3% - 12px); /* ← 12px total */
+  top: calc(50% - 60px);
+  width: 11%;
+  height: 24%;
+}
+.idh-fill[data-service='full'] {
+  left: calc(8% - 10px); /* ← 10px */
+  top: 10%;
+  width: 84%;
+  height: calc(78% - 10px); /* ↓ 10px */
+  background:
+    radial-gradient(
+      72% 68% at 50% 48%,
+      rgba(255, 220, 140, 0.55) 0%,
+      rgba(197, 162, 58, 0.34) 46%,
+      rgba(197, 162, 58, 0.14) 72%,
+      transparent 86%
+    );
+}
+
+.idh-stage-spotlight {
+  display: none;
+}
+
+.idh-stage-sheen {
+  display: none;
+}
+
+/* Progress + hint — centered under the house */
+.idh-visual-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: min(370px, 100%);
+  margin-inline: auto;
+  margin-top: 6px;
+  justify-self: center;
+}
+
+.idh-progress-bar {
+  width: 100%;
+  height: 2px;
+  background: rgba(42, 31, 22, 0.1);
+  overflow: hidden;
+  border-radius: 999px;
+}
+
+.idh-progress-bar__fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: left center;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, rgba(var(--gold-rgb), 0.35), var(--gold));
+  will-change: transform;
+}
+
+.idh-hint {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(42, 31, 22, 0.34);
+  line-height: 1.3;
+}
+
+.idh-zones {
+  position: absolute;
+  inset: 0;
+  z-index: 7;
+}
+
+.idh-zone {
+  position: absolute;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+/* Zones share fill coordinate space; slightly larger hit targets */
+.idh-zone[data-service='kitchen'] {
+  left: 16%;
+  top: calc(8% - 20px);
+  width: 28%;
+  height: 34%;
+}
+.idh-zone[data-service='living'] {
+  left: 30%;
+  top: 40%;
+  width: 34%;
+  height: 36%;
+}
+.idh-zone[data-service='bedroom'] {
+  left: calc(62% + 2px);
+  top: calc(40% - 100px);
+  width: 28%;
+  height: 34%;
+}
+.idh-zone[data-service='pooja'] {
+  left: calc(0% - 12px);
+  top: calc(46% - 60px);
+  width: 16%;
+  height: 30%;
+}
+.idh-zone[data-service='wardrobe'] {
+  left: calc(74% - 105px);
+  top: calc(8% - 30px);
+  width: 20%;
+  height: 38%;
+}
+/* Full Home is tour/nav only — not selectable via stage hover */
+.idh-zone[data-service='full'] {
+  display: none;
+  pointer-events: none;
+}
+
+@media (max-width: 980px) {
+  .idh-hero {
+    height: auto;
+    max-height: none;
+    min-height: calc(100dvh - var(--header-h));
+    padding: 24px 0 36px;
+  }
+
+  .idh-hero-grid {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .idh-hero-copy {
+    max-width: none;
+    margin-inline: auto;
+    padding-left: 0;
+    align-items: center;
+    text-align: center;
+  }
+
+  .idh-hero-title {
+    align-items: center;
+  }
+
+  .idh-hero-lead {
+    margin-inline: auto;
+  }
+
+  .idh-visual {
+    height: min(64vh, 540px);
+    gap: 22px;
+  }
+
+  .idh-hero-nav {
+    margin-inline: auto;
+  }
+
+  .idh-stage {
+    padding-bottom: 28px;
+  }
+
+  .idh-zones {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .idh-stage-rig,
+  .idh-fill,
+  .idh-house {
+    transition: none !important;
+  }
+}
