@@ -1,4 +1,5 @@
 ---
+import { getImage } from 'astro:assets';
 import Icon from './Icon.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
@@ -9,6 +10,7 @@ import ImageGallery from './ImageGallery.astro';
 import DummyVideoBlock from './DummyVideoBlock.astro';
 import PastelStoryCards from './PastelStoryCards.astro';
 import InteriorDepthHero from './InteriorDepthHero.astro';
+import { getDepthHeroHub } from '../data/depthHeroHubs';
 import type { ServicePageData } from '../data/servicePages';
 
 interface Props {
@@ -17,11 +19,30 @@ interface Props {
 
 const { page } = Astro.props;
 const seoTitle = page.seoTitle ?? `${page.heroTitle} in Mysuru | Space Solutions`;
-const isHospitality = page.activePage === 'hospitality';
 const isCommercial = page.activePage === 'commercial';
-const isResidentialHub = page.slug === 'residential-interiors';
-const heroStats = isHospitality ? page.stats : undefined;
-const showStandaloneStats = !isHospitality && !isResidentialHub && Boolean(page.stats?.length);
+const depthHeroSlugs = new Set([
+  'residential-interiors',
+  'commercial-interiors',
+  'institutional-interiors',
+  'hospitality-interiors',
+]);
+const isDepthHeroHub = depthHeroSlugs.has(page.slug);
+const showStandaloneStats = !isDepthHeroHub && Boolean(page.stats?.length);
+
+/** Preload the open-building PNG early so the hero stage does not pop in late */
+let depthHeroHousePreload: string | null = null;
+if (isDepthHeroHub && page.stats?.length) {
+  const hub = getDepthHeroHub(page.slug);
+  if (hub?.houseImage) {
+    const pre = await getImage({
+      src: hub.houseImage,
+      width: 1600,
+      format: 'png',
+      quality: 90,
+    });
+    depthHeroHousePreload = pre.src;
+  }
+}
 ---
 
 <BaseLayout
@@ -30,15 +51,27 @@ const showStandaloneStats = !isHospitality && !isResidentialHub && Boolean(page.
   headerScrolled={false}
 >
   {
-    isResidentialHub && page.stats?.length ? (
-      <InteriorDepthHero heading={page.heroTitle} stats={page.stats} />
+    depthHeroHousePreload && (
+      <link
+        slot="head"
+        rel="preload"
+        as="image"
+        href={depthHeroHousePreload}
+        type="image/png"
+        fetchpriority="high"
+      />
+    )
+  }
+
+  {
+    isDepthHeroHub && page.stats?.length ? (
+      <InteriorDepthHero hubSlug={page.slug} heading={page.heroTitle} stats={page.stats} />
     ) : (
       <PageHero
         breadcrumb={page.breadcrumb}
         title={page.heroTitle}
         description={page.heroDescription}
         image={page.heroImage}
-        stats={heroStats}
       />
     )
   }

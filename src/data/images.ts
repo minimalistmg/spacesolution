@@ -50,6 +50,9 @@ import openHouse1 from '../assets/images/open-house/open-house-1.png';
 import openHouse2 from '../assets/images/open-house/open-house-2.png';
 import openHouse3 from '../assets/images/open-house/open-house-3.png';
 import openHouseWideFamily from '../assets/images/open-house/open-house-wide-family.png';
+import openHouseCommercial from '../assets/images/open-house/open-house-commercial.png';
+import openHouseInstitutional from '../assets/images/open-house/open-house-institutional.png';
+import openHouseHospitality from '../assets/images/open-house/open-house-hospitality.png';
 
 export const heroImages = {
   kitchen1,
@@ -112,6 +115,11 @@ export const openHouseImages = [openHouse1, openHouse2, openHouse3] as const;
 
 /** Wide family diorama for the residential depth hero (16:9). */
 export const openHouseWideFamilyImage = openHouseWideFamily;
+
+/** L1 hub cutaway dioramas — commercial / institutional / hospitality. */
+export const openHouseCommercialImage = openHouseCommercial;
+export const openHouseInstitutionalImage = openHouseInstitutional;
+export const openHouseHospitalityImage = openHouseHospitality;
 
 export const logoImages = {
   header: logoHeader,

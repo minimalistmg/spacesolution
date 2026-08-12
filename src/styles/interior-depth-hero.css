@@ -48,6 +48,26 @@
   box-sizing: border-box;
 }
 
+.idh-hero-kicker {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.idh-hero-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-on-light, var(--gold));
+  line-height: 0;
+}
+
+.idh-hero-icon .menu-icon {
+  width: 40px;
+  height: 40px;
+}
+
 .idh-hero-heading {
   margin: 0;
   font-family: inherit;
@@ -278,26 +298,71 @@
   transform: scale(0.96);
   transform-origin: center center;
   will-change: transform, opacity;
+  overflow: hidden;
   /* Soft-rounded plate — between square and oval */
   border-radius: 28px;
   background:
     radial-gradient(
       78% 72% at 50% 48%,
-      rgba(255, 220, 140, 0.72) 0%,
-      rgba(197, 162, 58, 0.48) 40%,
-      rgba(197, 162, 58, 0.18) 64%,
-      transparent 80%
+      rgba(255, 220, 140, 0.42) 0%,
+      rgba(197, 162, 58, 0.28) 42%,
+      rgba(197, 162, 58, 0.12) 66%,
+      transparent 82%
     );
   mix-blend-mode: multiply;
   box-shadow:
-    inset 0 0 0 1px rgba(255, 236, 180, 0.55),
-    0 0 18px rgba(197, 162, 58, 0.35),
-    0 0 36px rgba(197, 162, 58, 0.18);
-  filter: saturate(1.15);
+    inset 0 0 0 1px rgba(255, 236, 180, 0.45),
+    0 0 18px rgba(197, 162, 58, 0.28),
+    0 0 36px rgba(197, 162, 58, 0.14);
+  filter: saturate(1.1);
+}
+
+/* Ghost skeleton sweep — L → R across the active fill */
+.idh-fill::after {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: -55%;
+  width: 48%;
+  height: 120%;
+  border-radius: inherit;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(255, 248, 220, 0.05) 28%,
+    rgba(255, 236, 180, 0.55) 48%,
+    rgba(255, 220, 140, 0.28) 58%,
+    transparent 78%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(0) skewX(-12deg);
+  will-change: transform, opacity;
 }
 
 .idh-fill.is-active {
   z-index: 2;
+}
+
+.idh-fill.is-active::after {
+  animation: idh-fill-ghost 2.6s ease-in-out infinite;
+}
+
+@keyframes idh-fill-ghost {
+  0% {
+    transform: translateX(0) skewX(-12deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.95;
+  }
+  78% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateX(320%) skewX(-12deg);
+    opacity: 0;
+  }
 }
 
 /* Fills — % base + pixel nudges from visual QA */
@@ -449,48 +514,328 @@
   pointer-events: none;
 }
 
-@media (max-width: 980px) {
+/* —— Commercial open-building fills / zones —— */
+.idh-hero--commercial .idh-fill[data-service='office'] {
+  left: calc(6% + 10px);
+  top: calc(40% - 18px);
+  width: 30%;
+  height: 44%;
+}
+.idh-hero--commercial .idh-fill[data-service='clinic'] {
+  left: calc(54% + 6px);
+  top: calc(44% - 26px);
+  width: 38%;
+  height: 44%;
+}
+.idh-hero--commercial .idh-fill[data-service='retail'] {
+  left: 30%;
+  top: 10%;
+  width: 32%;
+  height: 36%;
+}
+.idh-hero--commercial .idh-fill[data-service='coworking'] {
+  left: 58%;
+  top: 4%;
+  width: 34%;
+  height: 34%;
+}
+.idh-hero--commercial .idh-fill[data-service='full'] {
+  left: 6%;
+  top: 6%;
+  width: 88%;
+  height: 84%;
+}
+
+.idh-hero--commercial .idh-zone[data-service='office'] {
+  left: calc(4% + 10px);
+  top: calc(36% - 18px);
+  width: 34%;
+  height: 50%;
+}
+.idh-hero--commercial .idh-zone[data-service='clinic'] {
+  left: calc(50% + 6px);
+  top: calc(40% - 26px);
+  width: 44%;
+  height: 50%;
+}
+.idh-hero--commercial .idh-zone[data-service='retail'] {
+  left: 26%;
+  top: 6%;
+  width: 36%;
+  height: 40%;
+}
+.idh-hero--commercial .idh-zone[data-service='coworking'] {
+  left: 54%;
+  top: 2%;
+  width: 40%;
+  height: 38%;
+}
+
+/* —— Institutional open-building fills / zones —— */
+.idh-hero--institutional .idh-fill[data-service='school'] {
+  left: 4%;
+  top: 6%;
+  width: 44%;
+  height: 40%;
+}
+.idh-hero--institutional .idh-fill[data-service='hostel'] {
+  left: 50%;
+  top: 4%;
+  width: 44%;
+  height: 42%;
+}
+.idh-hero--institutional .idh-fill[data-service='library'] {
+  left: 4%;
+  top: 48%;
+  width: 44%;
+  height: 42%;
+}
+.idh-hero--institutional .idh-fill[data-service='admin'] {
+  left: 50%;
+  top: 50%;
+  width: 44%;
+  height: 40%;
+}
+.idh-hero--institutional .idh-fill[data-service='full'] {
+  left: 4%;
+  top: 4%;
+  width: 92%;
+  height: 88%;
+}
+
+.idh-hero--institutional .idh-zone[data-service='school'] {
+  left: 2%;
+  top: 4%;
+  width: 48%;
+  height: 44%;
+}
+.idh-hero--institutional .idh-zone[data-service='hostel'] {
+  left: 48%;
+  top: 2%;
+  width: 48%;
+  height: 46%;
+}
+.idh-hero--institutional .idh-zone[data-service='library'] {
+  left: 2%;
+  top: 46%;
+  width: 48%;
+  height: 46%;
+}
+.idh-hero--institutional .idh-zone[data-service='admin'] {
+  left: 48%;
+  top: 48%;
+  width: 48%;
+  height: 44%;
+}
+
+/* —— Hospitality open-building fills / zones —— */
+.idh-hero--hospitality .idh-fill[data-service='cafe'] {
+  left: 4%;
+  top: 4%;
+  width: 40%;
+  height: 42%;
+}
+.idh-hero--hospitality .idh-fill[data-service='hotel'] {
+  left: 46%;
+  top: 4%;
+  width: 48%;
+  height: 42%;
+}
+.idh-hero--hospitality .idh-fill[data-service='bar'] {
+  left: 14%;
+  top: 48%;
+  width: 40%;
+  height: 42%;
+}
+.idh-hero--hospitality .idh-fill[data-service='salon'] {
+  left: 54%;
+  top: 48%;
+  width: 40%;
+  height: 42%;
+}
+.idh-hero--hospitality .idh-fill[data-service='full'] {
+  left: 4%;
+  top: 4%;
+  width: 92%;
+  height: 88%;
+}
+
+.idh-hero--hospitality .idh-zone[data-service='cafe'] {
+  left: 2%;
+  top: 2%;
+  width: 44%;
+  height: 46%;
+}
+.idh-hero--hospitality .idh-zone[data-service='hotel'] {
+  left: 44%;
+  top: 2%;
+  width: 52%;
+  height: 46%;
+}
+.idh-hero--hospitality .idh-zone[data-service='bar'] {
+  left: 10%;
+  top: 46%;
+  width: 44%;
+  height: 46%;
+}
+.idh-hero--hospitality .idh-zone[data-service='salon'] {
+  left: 50%;
+  top: 46%;
+  width: 46%;
+  height: 46%;
+}
+
+/* —— Tablet: tighter split (matches responsive mockup middle column) —— */
+@media (max-width: 1100px) and (min-width: 768px) {
   .idh-hero {
     height: auto;
     max-height: none;
     min-height: calc(100dvh - var(--header-h));
-    padding: 24px 0 36px;
+    align-items: center;
+    padding: 18px 0 28px;
   }
 
   .idh-hero-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(220px, 0.92fr) minmax(0, 1.25fr);
+    gap: clamp(16px, 2.5vw, 28px);
     height: auto;
+    align-items: center;
   }
 
   .idh-hero-copy {
     max-width: none;
-    margin-inline: auto;
-    padding-left: 0;
-    align-items: center;
-    text-align: center;
   }
 
   .idh-hero-title {
-    align-items: center;
+    font-size: clamp(22px, 3vw, 34px);
   }
 
   .idh-hero-lead {
-    margin-inline: auto;
-  }
-
-  .idh-visual {
-    height: min(64vh, 540px);
-    gap: 22px;
+    height: 6.8em;
+    font-size: 14px;
   }
 
   .idh-hero-nav {
-    margin-inline: auto;
+    max-width: 100%;
+  }
+
+  .idh-hero-nav-btn {
+    height: 34px;
+    font-size: 9px;
+    padding: 0 4px;
+  }
+
+  .idh-visual {
+    height: min(58vh, 500px);
+    max-height: none;
+    gap: 20px;
   }
 
   .idh-stage {
     padding-bottom: 28px;
   }
 
+  .idh-stage-frame {
+    height: min(100%, 460px);
+    max-width: min(100%, 720px);
+  }
+}
+
+/* —— Mobile: stacked copy → pills → diorama (matches mockup phone) —— */
+@media (max-width: 767px) {
+  .idh-hero {
+    height: auto;
+    max-height: none;
+    min-height: 0;
+    align-items: flex-start;
+    padding: 14px 0 28px;
+    overflow: visible;
+  }
+
+  .idh-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    height: auto;
+    align-items: stretch;
+  }
+
+  .idh-hero-copy {
+    --idh-copy-gap: 14px;
+    max-width: none;
+    width: 100%;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .idh-hero-heading {
+    font-size: 12px;
+  }
+
+  .idh-hero-title {
+    font-size: clamp(22px, 6.5vw, 28px);
+  }
+
+  .idh-hero-lead {
+    height: auto;
+    min-height: 5.2em;
+    max-width: none;
+    font-size: 14px;
+  }
+
+  .idh-hero-nav {
+    width: 100%;
+    max-width: none;
+    column-gap: 6px;
+    row-gap: 10px;
+  }
+
+  .idh-hero-nav-btn {
+    height: 34px;
+    font-size: 9px;
+    padding: 0 4px;
+    letter-spacing: 0.04em;
+  }
+
+  .idh-visual {
+    width: 100%;
+    height: min(52vh, 400px);
+    max-height: none;
+    gap: 14px;
+    padding-bottom: 0;
+  }
+
+  .idh-stage {
+    padding-bottom: 18px;
+  }
+
+  .idh-stage-frame {
+    height: min(100%, 360px);
+    max-width: 100%;
+  }
+
+  .idh-stage-shadow {
+    left: 10%;
+    right: 10%;
+    bottom: 2%;
+  }
+
+  .idh-visual-footer {
+    width: min(300px, 100%);
+    gap: 8px;
+  }
+
+  .idh-hint {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+  }
+
+  /* Touch: room picks via pills; hide stage hit areas */
+  .idh-zones {
+    display: none;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
   .idh-zones {
     display: none;
   }
@@ -501,5 +846,10 @@
   .idh-fill,
   .idh-house {
     transition: none !important;
+  }
+
+  .idh-fill.is-active::after {
+    animation: none;
+    opacity: 0;
   }
 }

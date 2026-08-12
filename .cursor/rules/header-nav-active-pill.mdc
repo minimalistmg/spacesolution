@@ -8,18 +8,24 @@ alwaysApply: false
 
 The desktop main nav **must** keep the recessed cove light image on the current page item (`.main-nav > li.active::after`), desktop only (`min-width: 1367px`). Matches mockup variant 1 (soft warm wash from top).
 
+## Asset rules
+
+- Cove wash asset: `/images/header/nav-active-cove-light.png` — warm light RGB + alpha, **exact 190×72** (never generate large then downscale)
+- No chroma-green workflow; top is a small warm capsule lamp (brass rim + bright aperture) with a stronger amber downward wash
+- CSS must set **both** `width: 190px` and `height: 72px`, with `background-size: 190px 72px` (1:1, no stretch)
+- Active `li` uses `overflow: hidden` so the wash cannot spill into neighboring labels
+
 ## Do not remove
 
-- Cove wash asset: `/images/header/nav-active-cove-light.png` (warm light RGB + alpha transparency)
 - Placement: `::after` pinned to `top: 0`, centered over the active item
 - Segment accent text colors on `.has-mega-menu[data-menu-panel=…]` (`--nav-accent`)
-- Active accent text: `.main-nav > li.has-mega-menu.active > a { color: var(--nav-accent); }`
+- Desktop L1 labels (`min-width: 1367px`) are always `#543727` (default, hover, open, active)
+- Segment accent colors still apply to mega-menu panel chrome via `--nav-accent`
 
 ## Do not re-add
 
-- Green-colored light wash on the live header (chroma-green plate is a source/QA asset only)
 - Soft accent pill fill on desktop active items
 - Accent underline / bottom bar on active items
-- Pure CSS gradient/box-shadow cove light (light comes from the PNG)
+- Width-only CSS that stretches a mismatched PNG
 
 CTA/button work in `header-contact-menu.css` is separate — changing the Connect button must **not** strip nav cove rules from `header.css`.

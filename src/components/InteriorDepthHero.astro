@@ -1,11 +1,16 @@
 ---
 /**
- * Residential hub hero — auto-tour of home services + hover takeover.
- * Left: synced title / lead / room links (links only; tour stays auto)
- * Right: open-house diorama + progress + tour hint
+ * L1 hub hero — auto-tour + hover takeover.
+ * Right: open-building diorama with room fills (residential + commercial /
+ * institutional / hospitality cutaways).
  */
 import { getImage } from 'astro:assets';
-import { homeServiceOffers, homeServicesHouseImage } from '../data/homeServicesHero';
+import {
+  getDepthHeroHub,
+  residentialDepthHero,
+  type DepthHeroHubConfig,
+} from '../data/depthHeroHubs';
+import MenuIcon from './MenuIcon.astro';
 import '../styles/interior-depth-hero.css';
 
 interface Stat {
@@ -16,16 +21,23 @@ interface Stat {
 interface Props {
   heading?: string;
   stats?: Stat[];
+  /** Hub page slug — selects offers, imagery, and stage calibration */
+  hubSlug?: string;
+  /** Optional full config override */
+  hub?: DepthHeroHubConfig;
 }
 
-const { heading = 'Residential Interiors' } = Astro.props;
-const first = homeServiceOffers[0];
+const { heading: headingProp, hubSlug, hub: hubProp } = Astro.props;
+const hub = hubProp ?? (hubSlug ? getDepthHeroHub(hubSlug) : undefined) ?? residentialDepthHero;
+const heading = headingProp ?? hub.heading;
+const offers = hub.offers;
+const first = offers[0];
 
-const runtimeServices = homeServiceOffers.map(({ cutout: _c, ...rest }) => rest);
+const runtimeServices = offers.map(({ cutout: _c, ...rest }) => rest);
 
-/** PNG-only — preserve alpha from chroma-keyed open-house asset */
+/** PNG — preserve alpha from keyed open-building assets */
 const houseImage = await getImage({
-  src: homeServicesHouseImage,
+  src: hub.houseImage,
   width: 1600,
   format: 'png',
   quality: 90,
@@ -33,16 +45,21 @@ const houseImage = await getImage({
 ---
 
 <section
-  class="idh-hero"
+  class:list={['idh-hero', hub.stageClass]}
   data-depth-hero
   data-idh-services={JSON.stringify(runtimeServices)}
-  aria-label="Home interiors services"
+  aria-label={hub.ariaLabel}
 >
   <div class="container idh-hero-grid">
     <div class="idh-hero-copy">
       <!-- GSAPify Parallax Text layers (ScrollTrigger scrub) -->
       <div class="idh-px idh-px--back" data-idh-px="back">
-        <h1 class="idh-hero-heading" data-idh-eyebrow>{heading}</h1>
+        <div class="idh-hero-kicker" data-idh-eyebrow>
+          <span class="idh-hero-icon" aria-hidden="true">
+            <MenuIcon name={hub.menuIcon} />
+          </span>
+          <h1 class="idh-hero-heading">{heading}</h1>
+        </div>
       </div>
 
       <div class="idh-px idh-px--mid" data-idh-px="mid">
@@ -55,9 +72,9 @@ const houseImage = await getImage({
         <p class="idh-hero-lead" data-idh-lead>{first.lead}</p>
 
         <!-- Hover previews room (pauses tour); click goes to that service page -->
-        <ul class="idh-hero-nav" data-idh-nav aria-label="Home interior services">
+        <ul class="idh-hero-nav" data-idh-nav aria-label={hub.ariaLabel}>
           {
-            homeServiceOffers.map((service) => (
+            offers.map((service) => (
               <li>
                 <a
                   href={service.href}
@@ -86,7 +103,7 @@ const houseImage = await getImage({
                 src={houseImage.src}
                 width={houseImage.attributes.width}
                 height={houseImage.attributes.height}
-                alt="Space Solutions full-home open-house interior with family across kitchen, living, bedroom, wardrobe, and pooja spaces"
+                alt={hub.houseAlt}
                 loading="eager"
                 fetchpriority="high"
                 decoding="async"
@@ -96,7 +113,7 @@ const houseImage = await getImage({
             <!-- Soft transparent refill over the active room inside the diorama -->
             <div class="idh-fills" aria-hidden="true">
               {
-                homeServiceOffers.map((service, index) => (
+                offers.map((service, index) => (
                   <div
                     class:list={['idh-fill', { 'is-active': index === 0 }]}
                     data-idh-fill
@@ -108,7 +125,7 @@ const houseImage = await getImage({
 
             <div class="idh-zones">
               {
-                homeServiceOffers
+                offers
                   .filter((service) => service.id !== 'full')
                   .map((service) => (
                     <button

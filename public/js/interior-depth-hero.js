@@ -117,6 +117,8 @@
     }
 
     function focusFills(serviceId) {
+      hero.setAttribute('data-idh-active', serviceId);
+
       fills.forEach(function (el) {
         var on = el.getAttribute('data-service') === serviceId;
         el.classList.toggle('is-active', on);
