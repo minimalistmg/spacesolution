@@ -126,7 +126,7 @@
   --nav-accent: var(--gold);
 }
 
-/* Active recessed cove — exact-size transparent PNG (190×72), clipped to item. */
+/* Active Pendant Soft Cone (option 03) — exact 168×84 PNG, clipped to item. */
 @media (min-width: 1367px) {
   .main-nav > li > a,
   .main-nav > li > a:hover,
@@ -150,10 +150,10 @@
     top: 0;
     left: 50%;
     z-index: 0;
-    width: 190px;
-    height: 72px;
+    width: 200px;
+    height: 200px;
     transform: translateX(-50%);
-    background: url('/images/header/nav-active-cove-light.png?v=26') 0 0 / 190px 72px no-repeat;
+    background: url('/images/header/nav-light-opt03-true-alpha.png?v=36') center -13px / 150px 150px no-repeat;
     pointer-events: none;
   }
 }

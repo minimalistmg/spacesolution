@@ -29,11 +29,39 @@ const defaultInterest = resolveDefaultConnectInterest(activePage, Astro.url.path
       aria-expanded="false"
       aria-label="Connect — open contact options"
     >
-      <span class="hc-hub-pill-btn-icon" aria-hidden="true">
-        <Icon name="comment-dots" />
+      <span class="hc-glass-filter" aria-hidden="true"></span>
+      <span class="hc-glass-overlay" aria-hidden="true"></span>
+      <span class="hc-glass-specular" aria-hidden="true"></span>
+      <span class="hc-glass-content">
+        <span class="hc-hub-pill-btn-icon" aria-hidden="true">
+          <Icon name="comment-dots" />
+        </span>
+        <span class="hc-hub-pill-btn-label">Connect</span>
       </span>
-      <span class="hc-hub-pill-btn-label">Connect</span>
     </button>
+
+    <svg class="hc-glass-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <filter
+        id="hc-lens-filter"
+        x="0%"
+        y="0%"
+        width="100%"
+        height="100%"
+        filterUnits="objectBoundingBox"
+      >
+        <feComponentTransfer in="SourceAlpha" result="alpha">
+          <feFuncA type="identity"></feFuncA>
+        </feComponentTransfer>
+        <feGaussianBlur in="alpha" stdDeviation="50" result="blur"></feGaussianBlur>
+        <feDisplacementMap
+          in="SourceGraphic"
+          in2="blur"
+          scale="50"
+          xChannelSelector="A"
+          yChannelSelector="A"
+        ></feDisplacementMap>
+      </filter>
+    </svg>
 
     <div class="hc-hub-mobile-backdrop" data-contact-backdrop hidden aria-hidden="true"></div>
 

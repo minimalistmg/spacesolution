@@ -10,9 +10,8 @@ The desktop main nav **must** keep the recessed cove light image on the current 
 
 ## Asset rules
 
-- Cove wash asset: `/images/header/nav-active-cove-light.png` — warm light RGB + alpha, **exact 190×72** (never generate large then downscale)
-- No chroma-green workflow; top is a small warm capsule lamp (brass rim + bright aperture) with a stronger amber downward wash
-- CSS must set **both** `width: 190px` and `height: 72px`, with `background-size: 190px 72px` (1:1, no stretch)
+- Active light asset: `/images/header/nav-light-opt03-true-alpha.png`
+- CSS box: **200×200**, background `center -13px / 150px 150px` (clip via `overflow: hidden` on active `li`)
 - Active `li` uses `overflow: hidden` so the wash cannot spill into neighboring labels
 
 ## Do not remove

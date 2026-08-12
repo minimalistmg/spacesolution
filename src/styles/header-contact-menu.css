@@ -58,130 +58,91 @@
   line-height: 1;
 }
 
-/* Connect trigger — Apple liquid glass (reference style, warm over stone) */
+/* Connect trigger — CodePen Liquid Glass Apple technique (wprod/raVpwJL) */
 .hc-hub-trigger.hc-hub-pill-btn {
+  --lg-bg-color: rgba(255, 255, 255, 0.28);
+  --lg-highlight: rgba(255, 255, 255, 0.75);
   position: relative;
+  display: inline-flex;
+  align-items: center;
   isolation: isolate;
   overflow: hidden;
-  color: #fff;
-  background:
-    radial-gradient(
-      120% 140% at 50% 50%,
-      rgba(55, 42, 34, 0.28) 0%,
-      rgba(84, 55, 39, 0.18) 42%,
-      rgba(255, 255, 255, 0.14) 100%
-    ),
-    linear-gradient(
-      160deg,
-      rgba(255, 255, 255, 0.38) 0%,
-      rgba(255, 255, 255, 0.1) 38%,
-      rgba(40, 28, 22, 0.22) 100%
-    );
-  border: 1px solid rgba(255, 255, 255, 0.55);
+  color: #543727;
+  background: transparent;
+  border: 0;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.7),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.18),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
-    0 1px 2px rgba(84, 55, 39, 0.08),
-    0 10px 28px rgba(84, 55, 39, 0.14);
-  backdrop-filter: blur(22px) saturate(1.55) brightness(1.05);
-  -webkit-backdrop-filter: blur(22px) saturate(1.55) brightness(1.05);
-  text-shadow: 0 1px 2px rgba(40, 28, 22, 0.25);
+    0 6px 6px rgba(84, 55, 39, 0.14),
+    0 0 20px rgba(84, 55, 39, 0.08);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 2.2), box-shadow 0.3s ease;
 }
 
-/* Top-left specular rim */
-.hc-hub-trigger.hc-hub-pill-btn::before {
-  content: '';
+.hc-glass-filter,
+.hc-glass-overlay,
+.hc-glass-specular {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background:
-    radial-gradient(
-      90% 70% at 12% 0%,
-      rgba(255, 255, 255, 0.85) 0%,
-      rgba(255, 255, 255, 0.35) 28%,
-      transparent 58%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.45) 0%,
-      rgba(255, 255, 255, 0.08) 34%,
-      transparent 62%
-    );
   pointer-events: none;
-  z-index: 0;
 }
 
-/* Bottom-right specular rim */
-.hc-hub-trigger.hc-hub-pill-btn::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(
-    80% 65% at 92% 100%,
-    rgba(255, 255, 255, 0.55) 0%,
-    rgba(255, 255, 255, 0.18) 32%,
-    transparent 60%
-  );
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
-  pointer-events: none;
+.hc-glass-filter {
   z-index: 0;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  filter: url('#hc-lens-filter') saturate(120%) brightness(1.15);
 }
 
-.hc-hub-trigger .hc-hub-pill-btn-icon,
-.hc-hub-trigger .hc-hub-pill-btn-label {
-  position: relative;
+.hc-glass-overlay {
   z-index: 1;
+  background: var(--lg-bg-color);
+}
+
+.hc-glass-specular {
+  z-index: 2;
+  box-shadow:
+    inset 1px 1px 0 var(--lg-highlight),
+    inset 0 0 5px var(--lg-highlight);
+}
+
+.hc-glass-content {
+  position: relative;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hc-glass-svg {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
 }
 
 .hc-hub-trigger:hover {
-  color: #fff;
-  background:
-    radial-gradient(
-      120% 140% at 50% 50%,
-      rgba(55, 42, 34, 0.22) 0%,
-      rgba(84, 55, 39, 0.14) 42%,
-      rgba(255, 255, 255, 0.2) 100%
-    ),
-    linear-gradient(
-      160deg,
-      rgba(255, 255, 255, 0.48) 0%,
-      rgba(255, 255, 255, 0.14) 38%,
-      rgba(40, 28, 22, 0.18) 100%
-    );
-  border-color: rgba(255, 255, 255, 0.72);
+  color: #543727;
+  background: transparent;
+  border: 0;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.82),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.24),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
-    0 2px 4px rgba(84, 55, 39, 0.08),
-    0 12px 32px rgba(84, 55, 39, 0.16);
+    0 8px 10px rgba(84, 55, 39, 0.16),
+    0 0 24px rgba(84, 55, 39, 0.1);
+  transform: scale(1.03);
 }
 
 .hc-hub.is-open .hc-hub-trigger,
 .hc-hub.is-open .hc-hub-trigger:hover {
-  color: #fff;
-  background:
-    radial-gradient(
-      120% 140% at 50% 50%,
-      rgba(55, 42, 34, 0.32) 0%,
-      rgba(84, 55, 39, 0.2) 42%,
-      rgba(255, 255, 255, 0.16) 100%
-    ),
-    linear-gradient(
-      160deg,
-      rgba(255, 255, 255, 0.42) 0%,
-      rgba(255, 255, 255, 0.12) 38%,
-      rgba(40, 28, 22, 0.26) 100%
-    );
-  border-color: rgba(255, 255, 255, 0.68);
+  color: #543727;
+  background: transparent;
+  border: 0;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.78),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.2),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.1),
-    0 2px 6px rgba(84, 55, 39, 0.1),
-    0 14px 34px rgba(84, 55, 39, 0.18);
+    0 8px 12px rgba(84, 55, 39, 0.18),
+    0 0 26px rgba(84, 55, 39, 0.12);
+  transform: scale(1.02);
+}
+
+.hc-hub.is-open .hc-hub-trigger {
+  --lg-bg-color: rgba(255, 255, 255, 0.36);
 }
 
 /* —— Variant 2 card panel —— */
