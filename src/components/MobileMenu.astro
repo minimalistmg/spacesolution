@@ -1,9 +1,10 @@
 ---
 import Icon from './Icon.astro';
+import MenuIcon from './MenuIcon.astro';
 import type { NavPage } from './Header.astro';
-import SiteLogo from './SiteLogo.astro';
 import { isNavPanelActive, mainNavPanels } from '../data/mainNav';
-import { SITE } from '../data/site';
+import type { MainNavFooterBand, MainNavPanel, MainNavSection } from '../data/mainNav';
+import '../styles/mobile-menu-master-detail.css';
 
 interface Props {
   activePage?: NavPage;
@@ -11,89 +12,129 @@ interface Props {
 
 const { activePage = 'home' } = Astro.props;
 
-const primaryPhone = SITE.phones[0];
-const phoneDisplay = '+91 63645 64563';
-
 const resolvedActive = activePage === 'services' ? 'home-interiors' : activePage;
+
+const defaultPanelId =
+  mainNavPanels.find((panel) => isNavPanelActive(panel.id, resolvedActive))?.id ?? 'home';
+
+const segmentAccents: Record<string, string> = {
+  home: '#e67e22',
+  commercial: '#4682b4',
+  institutional: '#2e8b57',
+  hospitality: '#c05840',
+  studio: '#7e22ce',
+};
+
+function detailGroups(panel: MainNavPanel): { heading: string; items: MainNavSection['items'] }[] {
+  const groups: { heading: string; items: MainNavSection['items'] }[] = panel.sections.map((section) => ({
+    heading: section.heading,
+    items: section.items,
+  }));
+
+  const appendBand = (band: MainNavFooterBand | undefined) => {
+    if (!band || band.items.length === 0) return;
+    groups.push({ heading: band.heading, items: band.items });
+  };
+
+  appendBand(panel.toolsBand);
+  appendBand(panel.footerBand);
+  return groups;
+}
 ---
 
-<div class="mobile-menu">
-  <div class="mobile-menu-header">
-    <SiteLogo />
-    <button class="mobile-close" type="button" aria-label="Close menu"><Icon name="times" /></button>
-  </div>
+<div class="mobile-menu mobile-menu--master-detail">
+  <div class="mobile-menu-master-detail">
+    <nav class="mobile-menu-rail" aria-label="Site sections">
+      {
+        mainNavPanels.map((panel) => (
+          <button
+            type="button"
+            class:list={['mobile-menu-rail-item', { 'is-active': panel.id === defaultPanelId }]}
+            data-panel={panel.id}
+            style={`--segment-accent: ${segmentAccents[panel.id] ?? '#d4a017'}`}
+            aria-selected={panel.id === defaultPanelId ? 'true' : 'false'}
+          >
+            <span class="mobile-menu-rail-icon" aria-hidden="true">
+              <MenuIcon name={panel.featured.icon} />
+            </span>
+            <span class="mobile-menu-rail-label">{panel.label}</span>
+          </button>
+        ))
+      }
+    </nav>
 
-  <div class="mobile-menu-actions">
-    <a href={`tel:${primaryPhone}`} class="mobile-menu-phone" data-contact-action="call">
-      <Icon name="phone" />
-      <span>{phoneDisplay}</span>
-    </a>
-    <div class="mobile-menu-cta-row">
-      <a
-        href={`https://wa.me/${primaryPhone.replace('+', '')}`}
-        class="mobile-menu-whatsapp"
-        target="_blank"
-        rel="noopener"
-        aria-label="WhatsApp us"
-        data-contact-action="whatsapp"
-      >
-        <Icon name="whatsapp" />
-      </a>
-      <a href="#" class="btn header-btn header-btn-quote" data-open-modal="enquiry">Get Quote</a>
+    <div class="mobile-menu-detail">
+      {
+        mainNavPanels.map((panel) => (
+          <div
+            class:list={['mobile-menu-detail-pane', { 'is-active': panel.id === defaultPanelId }]}
+            data-panel={panel.id}
+            hidden={panel.id !== defaultPanelId ? true : undefined}
+          >
+            <a
+              href={panel.featured.href}
+              class="mobile-menu-detail-featured"
+              style={`--segment-accent: ${segmentAccents[panel.id] ?? '#d4a017'}`}
+            >
+              <span class="mobile-menu-detail-featured-icon" aria-hidden="true">
+                <MenuIcon name={panel.featured.icon} />
+              </span>
+              <span class="mobile-menu-detail-featured-copy">
+                <strong class="mobile-menu-detail-featured-title">{panel.featured.title}</strong>
+                <span class="mobile-menu-detail-featured-desc">{panel.featured.description}</span>
+              </span>
+              <span class="mobile-menu-detail-featured-chevron" aria-hidden="true">
+                <MenuIcon name="caret-right" />
+              </span>
+            </a>
+
+            {
+              detailGroups(panel).map((group) => (
+                <section class="mobile-menu-detail-group">
+                  <h3 class="mobile-menu-detail-heading">{group.heading}</h3>
+                  <ul class="mobile-menu-detail-list">
+                    {
+                      group.items.map((item) => (
+                        <li>
+                          <a
+                            href={item.href}
+                            class="mobile-menu-detail-link"
+                            data-open-modal={item.modal}
+                            data-contact-action={
+                              item.href.startsWith('tel:')
+                                ? 'call'
+                                : item.href.includes('wa.me')
+                                  ? 'whatsapp'
+                                  : undefined
+                            }
+                          >
+                            <span class="mobile-menu-detail-link-icon" aria-hidden="true">
+                              <MenuIcon name={item.icon} />
+                            </span>
+                            <span class="mobile-menu-detail-link-label">{item.label}</span>
+                            <span class="mobile-menu-detail-link-chevron" aria-hidden="true">
+                              <MenuIcon name="caret-right" />
+                            </span>
+                          </a>
+                        </li>
+                      ))
+                    }
+                  </ul>
+                </section>
+              ))
+            }
+          </div>
+        ))
+      }
     </div>
   </div>
 
-  <nav class="mobile-nav" aria-label="Mobile navigation">
-    {
-      mainNavPanels.map((panel) => (
-        <div class="has-submenu">
-          <a
-            href={panel.hubHref}
-            class:list={[{ active: isNavPanelActive(panel.id, resolvedActive) }]}
-          >
-            {panel.label}
-          </a>
-          <div class="submenu-mobile" style="display:none">
-            <a href={panel.featured.href} class="mobile-nav-featured">
-              {panel.featured.title}
-            </a>
-            {panel.sections.map((section) => (
-              <>
-                <span class="mobile-nav-group">{section.heading}</span>
-                {section.items.map((item) => (
-                  <a href={item.href} data-open-modal={item.modal}>
-                    {item.label}
-                  </a>
-                ))}
-              </>
-            ))}
-            {
-              panel.toolsBand && panel.toolsBand.items.length > 0 && (
-                <>
-                  <span class="mobile-nav-group">{panel.toolsBand.heading}</span>
-                  {panel.toolsBand.items.map((item) => (
-                    <a href={item.href} class="mobile-nav-turnkey">
-                      {item.label}
-                    </a>
-                  ))}
-                </>
-              )
-            }
-            {
-              panel.footerBand && panel.footerBand.items.length > 0 && (
-                <>
-                  <span class="mobile-nav-group">{panel.footerBand.heading}</span>
-                  {panel.footerBand.items.map((item) => (
-                    <a href={item.href} class="mobile-nav-turnkey">
-                      {item.label}
-                    </a>
-                  ))}
-                </>
-              )
-            }
-          </div>
-        </div>
-      ))
-    }
-  </nav>
+  <div class="mobile-menu-footer">
+    <button type="button" class="mobile-menu-connect-btn hc-hub-pill-btn" data-mobile-menu-connect>
+      <span class="hc-hub-pill-btn-icon" aria-hidden="true">
+        <Icon name="comment-dots" />
+      </span>
+      <span class="hc-hub-pill-btn-label">Connect</span>
+    </button>
+  </div>
 </div>

@@ -10,8 +10,90 @@
   var MESSAGE_MIN = 3;
   var MESSAGE_MAX = 500;
   var CONNECT_DRAFT_KEY = 'ss-connect-form-draft';
+  var MOBILE_CONNECT_MQ = window.matchMedia('(max-width: 767px)');
+  var connectSheetScrollLocked = false;
+  var mobileSheetCloseTimer = null;
 
   var isRestoringConnectDraft = false;
+
+  function isMobileConnect() {
+    return MOBILE_CONNECT_MQ.matches;
+  }
+
+  function getHubSheet(root) {
+    if (!root._hubSheet) {
+      root._hubSheet = {
+        backdrop: root.querySelector('[data-contact-backdrop]'),
+        panel: root.querySelector('[data-contact-panel="hub"]'),
+        portalMarker: null,
+      };
+    }
+    return root._hubSheet;
+  }
+
+  function ensureMobileSheetPortal(root) {
+    var sheet = getHubSheet(root);
+    if (!sheet.panel || !sheet.backdrop || !isMobileConnect()) return;
+    if (sheet.panel.parentNode === document.body) return;
+
+    sheet.portalMarker = document.createComment('hc-hub-portal');
+    root.insertBefore(sheet.portalMarker, sheet.backdrop);
+    document.body.appendChild(sheet.backdrop);
+    document.body.appendChild(sheet.panel);
+  }
+
+  function restoreMobileSheetPortal(root) {
+    var sheet = getHubSheet(root);
+    if (!sheet.panel || !sheet.backdrop) return;
+    if (sheet.panel.parentNode !== document.body) return;
+
+    if (sheet.portalMarker && sheet.portalMarker.parentNode) {
+      sheet.portalMarker.parentNode.insertBefore(sheet.backdrop, sheet.portalMarker);
+      sheet.portalMarker.parentNode.insertBefore(sheet.panel, sheet.portalMarker);
+    } else {
+      root.appendChild(sheet.backdrop);
+      root.appendChild(sheet.panel);
+    }
+  }
+
+  function syncMobileSheetPortal(root) {
+    if (isMobileConnect()) {
+      ensureMobileSheetPortal(root);
+      return;
+    }
+    restoreMobileSheetPortal(root);
+  }
+
+  function setMobileSheetVisible(root, visible) {
+    var sheet = getHubSheet(root);
+    root.classList.toggle('is-mobile-sheet-visible', visible);
+    if (sheet.panel) {
+      sheet.panel.classList.toggle('is-mobile-sheet-visible', visible);
+    }
+    if (sheet.backdrop) {
+      sheet.backdrop.classList.toggle('is-mobile-sheet-visible', visible);
+    }
+    document.body.classList.toggle('connect-sheet-open', visible && isMobileConnect());
+  }
+
+  function isMobileMenuOpen() {
+    return document.body.classList.contains('mobile-menu-open');
+  }
+
+  function lockConnectSheetScroll() {
+    if (connectSheetScrollLocked || isMobileMenuOpen()) return;
+    connectSheetScrollLocked = true;
+    document.body.dataset.connectSheetScroll = document.body.style.overflow || '';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function unlockConnectSheetScroll() {
+    if (!connectSheetScrollLocked) return;
+    connectSheetScrollLocked = false;
+    if (isMobileMenuOpen()) return;
+    document.body.style.overflow = document.body.dataset.connectSheetScroll || '';
+    delete document.body.dataset.connectSheetScroll;
+  }
 
   function isConnectHubOpen() {
     return Boolean(document.querySelector('.hc-hub.is-open'));
@@ -19,18 +101,106 @@
 
   function closeAllConnectHubs() {
     document.querySelectorAll('[data-contact-smart]').forEach(function (root) {
+      if (isMobileConnect() && root.classList.contains('is-open')) {
+        closeMobileSheet(root);
+        return;
+      }
       closeAll(root);
     });
   }
 
   function closeAll(root) {
-    root.querySelectorAll('[data-contact-panel]').forEach(function (panel) {
-      panel.hidden = true;
-    });
+    if (mobileSheetCloseTimer) {
+      window.clearTimeout(mobileSheetCloseTimer);
+      mobileSheetCloseTimer = null;
+    }
+
+    var sheet = getHubSheet(root);
+
+    if (sheet.panel) {
+      sheet.panel.hidden = true;
+    }
+
     root.querySelectorAll('[data-contact-trigger]').forEach(function (trigger) {
       trigger.setAttribute('aria-expanded', 'false');
     });
     root.classList.remove('is-open');
+    root.classList.remove('hc-hub--from-menu');
+    setMobileSheetVisible(root, false);
+
+    if (sheet.backdrop) {
+      sheet.backdrop.hidden = true;
+      sheet.backdrop.setAttribute('aria-hidden', 'true');
+    }
+
+    if (sheet.panel) {
+      sheet.panel.style.transform = '';
+      sheet.panel.classList.remove('is-sheet-dragging');
+      var surface = sheet.panel.querySelector('.hc-hub-panel-surface');
+      if (surface) {
+        surface.style.transform = '';
+        surface.classList.remove('is-sheet-dragging');
+      }
+    }
+
+    unlockConnectSheetScroll();
+  }
+
+  function closeMobileSheet(root) {
+    if (!root.classList.contains('is-open')) return;
+
+    if (!isMobileConnect()) {
+      closeAll(root);
+      return;
+    }
+
+    setMobileSheetVisible(root, false);
+
+    if (mobileSheetCloseTimer) {
+      window.clearTimeout(mobileSheetCloseTimer);
+    }
+
+    mobileSheetCloseTimer = window.setTimeout(function () {
+      closeAll(root);
+      mobileSheetCloseTimer = null;
+    }, 280);
+  }
+
+  function openMobileSheet(root, trigger, panel) {
+    var sheet = getHubSheet(root);
+    var backdrop = sheet.backdrop;
+
+    if (mobileSheetCloseTimer) {
+      window.clearTimeout(mobileSheetCloseTimer);
+      mobileSheetCloseTimer = null;
+    }
+
+    ensureMobileSheetPortal(root);
+    closeAllConnectHubs();
+
+    panel.hidden = false;
+    if (backdrop) {
+      backdrop.hidden = false;
+      backdrop.setAttribute('aria-hidden', 'false');
+    }
+
+    trigger.setAttribute('aria-expanded', 'true');
+    root.classList.add('is-open');
+    lockConnectSheetScroll();
+
+    initConnectFormFields(panel);
+    initConnectServiceChips(panel);
+
+    var formScroll = panel.querySelector('.hc-hub-body');
+    if (formScroll) {
+      formScroll.classList.toggle('is-scroll-at-top', formScroll.scrollTop <= 0);
+    }
+
+    window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(function () {
+        setMobileSheetVisible(root, true);
+      });
+    });
   }
 
   var AUTOSUGGEST_PADDING = ' ';
@@ -446,23 +616,148 @@
     if (panelId === 'hub') {
       initConnectFormFields(panel);
       initConnectServiceChips(panel);
-      focusFirstEmptyConnectField(panel);
+      if (!isMobileConnect()) {
+        focusFirstEmptyConnectField(panel);
+      }
     }
+  }
+
+  function initMobileSheetDrag(root, panel) {
+    var surface = panel.querySelector('.hc-hub-panel-surface');
+    var scrollEl = panel.querySelector('.hc-hub-body');
+    if (!surface || panel.dataset.sheetDragInit === 'true') return;
+    panel.dataset.sheetDragInit = 'true';
+
+    var startY = 0;
+    var deltaY = 0;
+    var dragging = false;
+    var tracking = false;
+    var activePointerId = null;
+    var DRAG_START = 6;
+    var DRAG_CLOSE = 72;
+    var captureTarget = surface;
+
+    function getScrollTop() {
+      return scrollEl ? scrollEl.scrollTop : 0;
+    }
+
+    function syncScrollDismissState() {
+      if (!scrollEl) return;
+      scrollEl.classList.toggle('is-scroll-at-top', getScrollTop() <= 0);
+    }
+
+    if (scrollEl) {
+      scrollEl.addEventListener('scroll', syncScrollDismissState, { passive: true });
+      syncScrollDismissState();
+    }
+
+    function setDraggingState(isDragging) {
+      surface.classList.toggle('is-sheet-dragging', isDragging);
+      panel.classList.toggle('is-sheet-dragging', isDragging);
+    }
+
+    function applyDragOffset(y) {
+      panel.style.transform = 'translateY(' + y + 'px)';
+    }
+
+    function resetDragOffset() {
+      panel.style.transform = '';
+      setDraggingState(false);
+    }
+
+    function releaseCapture(pointerId) {
+      if (captureTarget.hasPointerCapture(pointerId)) {
+        captureTarget.releasePointerCapture(pointerId);
+      }
+    }
+
+    function stopTracking() {
+      if (activePointerId !== null) {
+        releaseCapture(activePointerId);
+      }
+      tracking = false;
+      dragging = false;
+      activePointerId = null;
+      deltaY = 0;
+      resetDragOffset();
+    }
+
+    function finishDrag() {
+      if (!tracking) return;
+
+      var shouldClose = dragging && deltaY > DRAG_CLOSE;
+      stopTracking();
+
+      if (shouldClose) {
+        closeMobileSheet(root);
+      }
+    }
+
+    function onPointerDown(event) {
+      if (!isMobileConnect() || !root.classList.contains('is-open')) return;
+      if (event.pointerType === 'mouse' && event.button !== 0) return;
+
+      tracking = true;
+      dragging = false;
+      activePointerId = event.pointerId;
+      startY = event.clientY;
+      deltaY = 0;
+    }
+
+    function onPointerMove(event) {
+      if (!tracking || activePointerId !== event.pointerId) return;
+
+      var moveDelta = event.clientY - startY;
+
+      if (!dragging) {
+        if (moveDelta <= 0) return;
+        if (getScrollTop() > 0) {
+          tracking = false;
+          activePointerId = null;
+          return;
+        }
+        if (moveDelta < DRAG_START) return;
+
+        dragging = true;
+        setDraggingState(true);
+        captureTarget.setPointerCapture(event.pointerId);
+      }
+
+      event.preventDefault();
+      deltaY = Math.max(0, moveDelta);
+      applyDragOffset(deltaY);
+    }
+
+    function onPointerEnd(event) {
+      if (!tracking || activePointerId !== event.pointerId) return;
+      releaseCapture(event.pointerId);
+      finishDrag();
+    }
+
+    panel.addEventListener('pointerdown', onPointerDown, true);
+    panel.addEventListener('pointermove', onPointerMove, { passive: false, capture: true });
+    panel.addEventListener('pointerup', onPointerEnd, true);
+    panel.addEventListener('pointercancel', onPointerEnd, true);
   }
 
   function initHubHover(root) {
     if (!root.matches('.hc-hub')) return;
 
+    var sheet = getHubSheet(root);
     var trigger = root.querySelector('[data-contact-trigger="hub"]');
-    var panel = root.querySelector('[data-contact-panel="hub"]');
+    var panel = sheet.panel;
+    var backdrop = sheet.backdrop;
     if (!trigger || !panel) return;
 
     initConnectFormFields(panel);
     initConnectServiceChips(panel);
+    initMobileSheetDrag(root, panel);
 
     var closeTimer = null;
 
     function openHub() {
+      if (isMobileConnect()) return;
+
       if (closeTimer) {
         clearTimeout(closeTimer);
         closeTimer = null;
@@ -471,6 +766,8 @@
     }
 
     function scheduleClose() {
+      if (isMobileConnect()) return;
+
       if (closeTimer) clearTimeout(closeTimer);
       closeTimer = setTimeout(function () {
         if (shouldKeepHubOpen(root, panel)) {
@@ -486,6 +783,8 @@
     root.addEventListener('mouseleave', scheduleClose);
 
     panel.addEventListener('focusin', function () {
+      if (isMobileConnect()) return;
+
       if (closeTimer) {
         clearTimeout(closeTimer);
         closeTimer = null;
@@ -494,21 +793,59 @@
 
     trigger.addEventListener('click', function (event) {
       event.preventDefault();
+      if (!isMobileConnect()) return;
+
+      if (root.classList.contains('is-open')) {
+        closeMobileSheet(root);
+      } else {
+        openMobileSheet(root, trigger, panel);
+      }
     });
+
+    if (backdrop) {
+      backdrop.addEventListener('click', function () {
+        closeMobileSheet(root);
+      });
+    }
 
     if (root.dataset.clickOutsideInit === 'true') return;
     root.dataset.clickOutsideInit = 'true';
 
     document.addEventListener('click', function (event) {
+      if (isMobileConnect()) return;
       if (!root.classList.contains('is-open')) return;
       if (root.contains(event.target)) return;
       closeAll(root);
     });
   }
 
+  function openMobileConnect(options) {
+    options = options || {};
+    var root = document.querySelector('[data-contact-smart]');
+    if (!root || !isMobileConnect()) return false;
+
+    var trigger = root.querySelector('[data-contact-trigger="hub"]');
+    var panel = getHubSheet(root).panel;
+    if (!trigger || !panel) return false;
+
+    if (options.fromMenu && isMobileMenuOpen()) {
+      root.classList.add('hc-hub--from-menu');
+    }
+
+    openMobileSheet(root, trigger, panel);
+    return true;
+  }
+
   function initRoot(root) {
+    getHubSheet(root);
+    syncMobileSheetPortal(root);
     initHubHover(root);
   }
+
+  MOBILE_CONNECT_MQ.addEventListener('change', function () {
+    closeAllConnectHubs();
+    document.querySelectorAll('[data-contact-smart]').forEach(syncMobileSheetPortal);
+  });
 
   window.SpaceSolutionsHeaderContact = {
     init: function () {
@@ -516,7 +853,16 @@
     },
     validateForm: validateConnectForm,
     clearDraft: clearConnectFormDraft,
-    closeAll: closeAllConnectHubs,
+    closeAll: function () {
+      document.querySelectorAll('[data-contact-smart]').forEach(function (root) {
+        if (isMobileConnect() && root.classList.contains('is-open')) {
+          closeMobileSheet(root);
+          return;
+        }
+        closeAll(root);
+      });
+    },
+    openMobile: openMobileConnect,
     isOpen: isConnectHubOpen,
   };
 })();

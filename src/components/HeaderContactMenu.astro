@@ -35,8 +35,99 @@ const defaultInterest = resolveDefaultConnectInterest(activePage, Astro.url.path
       <span class="hc-hub-pill-btn-label">Connect</span>
     </button>
 
+    <div class="hc-hub-mobile-backdrop" data-contact-backdrop hidden aria-hidden="true"></div>
+
     <div class="hc-hub-panel" data-contact-panel="hub" hidden>
       <div class="hc-hub-panel-surface">
+      <div class="hc-hub-sheet-handle-wrap" aria-hidden="true">
+        <span class="hc-hub-sheet-handle"></span>
+      </div>
+      <div class="hc-hub-body">
+        <form id="header-connect-form" class="hc-hub-form enquiry-form" data-source="connect" novalidate>
+          <div class="hc-hub-main">
+            <header class="hc-hub-intro">
+              <h2 class="hc-hub-title">Let&rsquo;s design your dream space.</h2>
+              <p class="hc-hub-subtitle">Share a few details and we&rsquo;ll get back to you.</p>
+            </header>
+
+            <div class="hc-hub-form-scroll">
+              <fieldset class="hc-hub-interest">
+                <legend class="hc-hub-interest-label">I&rsquo;m interested in</legend>
+                <div class="hc-hub-chips">
+                  {
+                    headerConnectInterestOptions.map((option) => (
+                      <label class="hc-hub-chip">
+                        <input
+                          type="radio"
+                          name="services"
+                          value={option.value}
+                          checked={option.value === defaultInterest}
+                        />
+                        <span>{option.label}</span>
+                      </label>
+                    ))
+                  }
+                </div>
+              </fieldset>
+
+              <div class="hc-hub-fields-row">
+                <div class="hc-hub-field">
+                  <label for="header-connect-name">Name</label>
+                  <input
+                    id="header-connect-name"
+                    type="text"
+                    name="name"
+                    class="hc-hub-field-input hc-hub-field-input--name"
+                    autocomplete="name"
+                    maxlength="50"
+                  />
+                  <p class="hc-hub-field-error" id="header-connect-name-error" aria-live="polite"></p>
+                </div>
+                <div class="hc-hub-field">
+                  <label for="header-connect-mobile">Mobile</label>
+                  <input type="hidden" name="country" value="+91" />
+                  <input
+                    id="header-connect-mobile"
+                    type="tel"
+                    name="phone"
+                    class="hc-hub-field-input hc-hub-field-input--mobile"
+                    autocomplete="tel"
+                    inputmode="numeric"
+                    maxlength="10"
+                  />
+                  <p class="hc-hub-field-error" id="header-connect-mobile-error" aria-live="polite"></p>
+                </div>
+              </div>
+
+              <div class="hc-hub-field hc-hub-field--full">
+                <label for="header-connect-message">Briefly tell us about your project</label>
+                <textarea
+                  id="header-connect-message"
+                  name="message"
+                  class="hc-hub-field-input hc-hub-field-input--message"
+                  rows="3"
+                  maxlength="500"
+                ></textarea>
+                <p class="hc-hub-field-error" id="header-connect-message-error" aria-live="polite"></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="hc-hub-form-footer">
+            <div class="hc-hub-form-actions">
+              <button type="submit" class="hc-hub-pill-btn hc-hub-submit">
+                <span class="hc-hub-pill-btn-icon" aria-hidden="true">
+                  <Icon name="envelope" />
+                </span>
+                <span class="hc-hub-pill-btn-label" data-submit-label>Send</span>
+              </button>
+            </div>
+
+            <p class="form-feedback hc-hub-form-feedback" aria-live="polite"></p>
+          </div>
+        </form>
+      </div>
+
       <div class="hc-hub-topbar">
         <div class="hc-hub-topbar-info">
           <a href={telHref} class="hc-hub-topbar-phone" data-contact-action="call">
@@ -45,8 +136,9 @@ const defaultInterest = resolveDefaultConnectInterest(activePage, Astro.url.path
           </a>
         </div>
         <div class="hc-hub-topbar-actions">
-          <a href={telHref} class="hc-hub-topbar-action hc-hub-topbar-action--call" data-contact-action="call">
-            Call
+          <a href={telHref} class="hc-hub-topbar-action hc-hub-topbar-action--call" data-contact-action="call" aria-label="Call">
+            <Icon name="phone" />
+            <span class="hc-hub-topbar-action-label">Call</span>
           </a>
           <a
             href={whatsappHref}
@@ -54,91 +146,12 @@ const defaultInterest = resolveDefaultConnectInterest(activePage, Astro.url.path
             target="_blank"
             rel="noopener"
             data-contact-action="whatsapp"
+            aria-label="WhatsApp"
           >
             <Icon name="whatsapp" />
-            <span>WhatsApp</span>
+            <span class="hc-hub-topbar-action-label">WhatsApp</span>
           </a>
         </div>
-      </div>
-
-      <div class="hc-hub-body">
-        <header class="hc-hub-intro">
-          <h2 class="hc-hub-title">Let&rsquo;s design your dream space.</h2>
-          <p class="hc-hub-subtitle">Share a few details and we&rsquo;ll get back to you.</p>
-        </header>
-
-        <form id="header-connect-form" class="hc-hub-form enquiry-form" data-source="connect" novalidate>
-          <fieldset class="hc-hub-interest">
-            <legend class="hc-hub-interest-label">I&rsquo;m interested in</legend>
-            <div class="hc-hub-chips">
-              {
-                headerConnectInterestOptions.map((option) => (
-                  <label class="hc-hub-chip">
-                    <input
-                      type="radio"
-                      name="services"
-                      value={option.value}
-                      checked={option.value === defaultInterest}
-                    />
-                    <span>{option.label}</span>
-                  </label>
-                ))
-              }
-            </div>
-          </fieldset>
-
-          <div class="hc-hub-fields-row">
-            <div class="hc-hub-field">
-              <label for="header-connect-name">Name</label>
-              <input
-                id="header-connect-name"
-                type="text"
-                name="name"
-                class="hc-hub-field-input hc-hub-field-input--name"
-                autocomplete="name"
-                maxlength="50"
-              />
-              <p class="hc-hub-field-error" id="header-connect-name-error" aria-live="polite"></p>
-            </div>
-            <div class="hc-hub-field">
-              <label for="header-connect-mobile">Mobile</label>
-              <input type="hidden" name="country" value="+91" />
-              <input
-                id="header-connect-mobile"
-                type="tel"
-                name="phone"
-                class="hc-hub-field-input hc-hub-field-input--mobile"
-                autocomplete="tel"
-                inputmode="numeric"
-                maxlength="10"
-              />
-              <p class="hc-hub-field-error" id="header-connect-mobile-error" aria-live="polite"></p>
-            </div>
-          </div>
-
-          <div class="hc-hub-field hc-hub-field--full">
-            <label for="header-connect-message">Briefly tell us about your project</label>
-            <textarea
-              id="header-connect-message"
-              name="message"
-              class="hc-hub-field-input hc-hub-field-input--message"
-              rows="3"
-              maxlength="500"
-            ></textarea>
-            <p class="hc-hub-field-error" id="header-connect-message-error" aria-live="polite"></p>
-          </div>
-
-          <div class="hc-hub-form-actions">
-            <button type="submit" class="hc-hub-pill-btn hc-hub-submit">
-              <span class="hc-hub-pill-btn-icon" aria-hidden="true">
-                <Icon name="envelope" />
-              </span>
-              <span class="hc-hub-pill-btn-label" data-submit-label>Send</span>
-            </button>
-          </div>
-
-          <p class="form-feedback hc-hub-form-feedback" aria-live="polite"></p>
-        </form>
       </div>
       </div>
     </div>

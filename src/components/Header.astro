@@ -223,8 +223,22 @@ const resolvedActive = activePage === 'services' ? 'home-interiors' : activePage
       activePage={activePage}
     />
 
-    <button class="menu-toggle" type="button" aria-label="Open menu">
+    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
       <Icon name="bars" />
     </button>
   </div>
 </header>
+
+<button
+  class="menu-toggle menu-toggle-fab"
+  type="button"
+  aria-label="Open menu"
+  aria-expanded="false"
+>
+  <span class="menu-toggle-fab-state menu-toggle-fab-state--open" aria-hidden="true">
+    <Icon name="bars" />
+  </span>
+  <span class="menu-toggle-fab-state menu-toggle-fab-state--close" aria-hidden="true">
+    <Icon name="times" />
+  </span>
+</button>

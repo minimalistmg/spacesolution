@@ -1,12 +1,14 @@
 ---
 description: About gallery modular scene — always read the brief before generating assets or changing gallery scroll/layout
-globs: src/components/AboutGalleryCarousel.astro,src/styles/about-gallery-carousel.css,src/client/scroll-motion.js,src/pages/about.astro,src/data/images.ts,src/assets/images/gallery-backgrounds/**,src/assets/images/gallery-spectators/**
+globs: docs/about-gallery-scene-brief.md,src/assets/images/gallery-backgrounds/**,src/assets/images/gallery-spectators/**,scripts/process-gallery-cutouts.mjs,scripts/build-gallery-props.mjs
 alwaysApply: false
 ---
 
 # About gallery scene — use the canonical brief
 
-Before **generating images**, **replacing assets**, or **changing** the About gallery carousel (layout, layers, scroll, or wiring):
+The live About gallery section is currently **removed** from the site. Specs and assets are retained for a future rebuild.
+
+Before **generating images**, **replacing assets**, or **re-implementing** the About gallery carousel:
 
 1. **Read** `docs/about-gallery-scene-brief.md` in full — follow **Image generation protocol (mandatory)**.
 2. **Copy prompts verbatim** from **Exact generation prompts** — never paraphrase. Same filename, aspect ratio, and path every time.
