@@ -1,0 +1,492 @@
+/* Home interiors — free 3D consultation (two-pane, above the fold) */
+
+.h3d-page {
+  box-sizing: border-box;
+  min-height: calc(100dvh - var(--header-h));
+  height: calc(100dvh - var(--header-h));
+  max-height: calc(100dvh - var(--header-h));
+  margin-top: var(--header-h);
+  padding: 20px 0 24px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, var(--header-bg, #e6ded3) 0, #f3ebe3 28%, #fdfbf7 70%, var(--white) 100%);
+}
+
+.h3d-panes {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.34fr) minmax(0, 0.66fr);
+  gap: clamp(24px, 3vw, 40px);
+  align-items: stretch;
+  height: 100%;
+  min-height: 0;
+}
+
+.h3d-pane {
+  min-width: 0;
+  min-height: 0;
+}
+
+.h3d-pane--copy {
+  display: flex;
+  flex-direction: column;
+}
+
+.h3d-kicker {
+  margin: 0 0 8px;
+  color: var(--gold-on-light);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.h3d-title {
+  margin: 0 0 10px;
+  color: var(--dark);
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.4vw, 44px);
+  font-weight: 500;
+  line-height: 1.08;
+  text-transform: none;
+}
+
+.h3d-title em {
+  font-style: italic;
+  color: var(--gold-on-light);
+}
+
+.h3d-lead {
+  margin: 0 0 18px;
+  max-width: 36ch;
+  color: var(--gray-text);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.h3d-breadcrumb {
+  margin: 0 0 12px;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.h3d-breadcrumb a {
+  color: inherit;
+}
+
+.h3d-breadcrumb a:hover {
+  color: var(--gold-on-light);
+}
+
+.h3d-steps {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.h3d-step {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 10px;
+  align-items: start;
+}
+
+.h3d-step-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  color: var(--gold-on-light);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.h3d-step h3 {
+  margin: 0 0 2px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: none;
+}
+
+.h3d-step p {
+  margin: 0;
+  color: var(--gray-text);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.h3d-contact-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 0;
+}
+
+.h3d-contact-row .btn {
+  padding: 10px 16px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  box-shadow: none;
+}
+
+.h3d-contact-row .btn .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.h3d-btn-outline {
+  color: var(--gold-on-light);
+  background: transparent;
+  border: 1.5px solid var(--gold);
+}
+
+.h3d-btn-outline:hover {
+  color: var(--white);
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+/* Right pane — rooms + form */
+
+.h3d-form-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+  min-height: 0;
+  padding: clamp(18px, 2.2vw, 28px);
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-xl);
+  box-shadow: none;
+}
+
+.h3d-rooms {
+  display: flex;
+  flex-direction: column;
+  flex: 0.9 1 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+  min-height: 0;
+}
+
+.h3d-rooms-legend {
+  padding: 0;
+  color: var(--gold-on-light);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.h3d-rooms-hint {
+  margin: 4px 0 10px;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.h3d-rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: 1fr 1fr;
+  flex: 1;
+  gap: 8px;
+  min-height: 0;
+}
+
+.h3d-room {
+  display: block;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  cursor: pointer;
+}
+
+.h3d-room input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.h3d-room-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 1.2vh, 14px);
+  width: 100%;
+  height: 100%;
+  min-height: 64px;
+  padding: clamp(12px, 1.6vh, 20px) 12px;
+  box-sizing: border-box;
+  border: 1px solid var(--hairline, #ebe2d2);
+  border-radius: var(--radius-md);
+  background: #faf7f2;
+  color: var(--gold-on-light);
+  text-align: center;
+  box-shadow: none;
+  transform: none;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.h3d-room-card .icon {
+  width: clamp(22px, 3.4vh, 34px);
+  height: clamp(22px, 3.4vh, 34px);
+  flex-shrink: 0;
+  color: currentColor;
+}
+
+.h3d-room-card > span:last-child {
+  font-size: clamp(11px, 1.45vh, 14px);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.h3d-room:hover .h3d-room-card {
+  border-width: 1px;
+  border-color: rgba(var(--gold-rgb), 0.55);
+  background: rgba(var(--gold-rgb), 0.1);
+  color: var(--gold-on-light);
+  box-shadow: none;
+}
+
+.h3d-room:active .h3d-room-card {
+  border-width: 1px;
+  border-color: var(--gold);
+  background: rgba(var(--gold-rgb), 0.1);
+  box-shadow: inset 0 0 0 1px var(--gold);
+  transform: none;
+}
+
+.h3d-room input:checked + .h3d-room-card,
+.h3d-room:hover input:checked + .h3d-room-card,
+.h3d-room:active input:checked + .h3d-room-card {
+  border-width: 1px;
+  border-color: var(--gold);
+  background: #faf7f2;
+  color: var(--gold-on-light);
+  box-shadow: inset 0 0 0 1px var(--gold);
+  transform: none;
+}
+
+.h3d-room:hover input:checked + .h3d-room-card {
+  background: rgba(var(--gold-rgb), 0.1);
+}
+
+.h3d-room input:focus-visible + .h3d-room-card {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.h3d-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  gap: 14px 14px;
+  flex: 1.15 1 0;
+  min-height: 0;
+  align-content: stretch;
+}
+
+.h3d-fields .floating-contact-form-group {
+  gap: 6px;
+}
+
+.h3d-fields .floating-contact-form-group label,
+.h3d-rooms-legend {
+  color: var(--gold-on-light);
+}
+
+.h3d-fields .floating-contact-form-group > input,
+.h3d-fields .floating-contact-phone,
+.h3d-fields-message textarea {
+  background: #faf7f2;
+  border: 1px solid var(--hairline, #ebe2d2);
+  border-radius: var(--radius-md);
+  box-shadow: none;
+  color: var(--dark);
+}
+
+.h3d-fields .floating-contact-form-group > input {
+  height: 44px;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.h3d-fields .floating-contact-phone {
+  height: 44px;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.h3d-fields .floating-contact-phone input {
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  box-sizing: border-box;
+}
+
+.h3d-fields .floating-contact-phone-code {
+  color: #c5bdb2;
+  font-weight: 500;
+}
+
+.h3d-fields .floating-contact-form-group > input:focus,
+.h3d-fields .floating-contact-form-group textarea:focus,
+.h3d-fields .floating-contact-phone:focus-within {
+  outline: none;
+  background: #faf7f2;
+  border-color: rgba(var(--gold-rgb), 0.55);
+  box-shadow: none;
+}
+
+.h3d-fields .floating-contact-form-group > input::placeholder,
+.h3d-fields .floating-contact-form-group textarea::placeholder,
+.h3d-fields .floating-contact-phone input::placeholder {
+  color: #c5bdb2;
+  font-weight: 400;
+  opacity: 1;
+}
+
+.h3d-fields-message {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.h3d-fields-message label {
+  flex-shrink: 0;
+}
+
+.h3d-fields-message textarea {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;
+  height: auto;
+  padding: 12px 16px;
+  resize: none;
+  box-sizing: border-box;
+  background: #faf7f2;
+}
+
+.h3d-fields .floating-contact-form-note {
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.h3d-fields .floating-contact-form-submit {
+  grid-column: 1 / -1;
+  flex-shrink: 0;
+  margin-top: 0;
+  padding: 13px 20px;
+  border: 1.5px solid var(--dark);
+  background: var(--dark);
+  color: var(--white);
+  box-shadow: none;
+  transform: none;
+}
+
+.h3d-fields .floating-contact-form-submit:hover {
+  background: var(--dark-2);
+  border-color: var(--dark-2);
+  transform: none;
+}
+
+.h3d-fields .form-feedback {
+  grid-column: 1 / -1;
+}
+
+.h3d-fields .form-feedback:not(.success):not(.error) {
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  .h3d-panes {
+    grid-template-columns: minmax(220px, 0.38fr) minmax(0, 0.62fr);
+  }
+
+  .h3d-fields {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .h3d-fields .floating-contact-form-group:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 900px) {
+  .h3d-page {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+    padding: 28px 0 48px;
+  }
+
+  .h3d-panes {
+    grid-template-columns: 1fr;
+    height: auto;
+    gap: 28px;
+  }
+
+  .h3d-lead {
+    max-width: none;
+  }
+
+  .h3d-contact-row {
+    margin-top: 18px;
+  }
+
+  .h3d-form-card {
+    height: auto;
+  }
+
+  .h3d-rooms,
+  .h3d-fields {
+    flex: none;
+  }
+
+  .h3d-room-card {
+    height: auto;
+    min-height: 56px;
+  }
+
+  .h3d-fields-message textarea {
+    min-height: 120px;
+    height: auto;
+  }
+}
+
+@media (max-width: 599px) {
+  .h3d-rooms-grid,
+  .h3d-fields {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .h3d-fields-message,
+  .h3d-fields .floating-contact-form-submit,
+  .h3d-fields .form-feedback,
+  .h3d-fields .floating-contact-form-group:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+}

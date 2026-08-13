@@ -1,13 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/PageHero.astro';
+import AboutHero from '../components/AboutHero.astro';
 import CtaSection from '../components/CtaSection.astro';
 import ResponsiveImage from '../components/ResponsiveImage.astro';
 import FaqSection from '../components/FaqSection.astro';
 import ImageGallery from '../components/ImageGallery.astro';
 import DummyVideoBlock from '../components/DummyVideoBlock.astro';
 import StorytellingBand from '../components/StorytellingBand.astro';
-import { heroImages, projectImages, roomImages, studioImages } from '../data/images';
+import { projectImages, roomImages, studioImages } from '../data/images';
 import { SITE } from '../data/site';
 import { studioTeam } from '../data/studioTeam';
 
@@ -35,12 +35,12 @@ const processSteps = [
 const galleryItems = [
   {
     src: studioImages.craft,
-    alt: 'Space Solutions craft and joinery detailing',
+    alt: 'Space Solution craft and joinery detailing',
     caption: 'In-house craft',
   },
   {
     src: roomImages.modularKitchen,
-    alt: 'Modular kitchen by Space Solutions Mysuru',
+    alt: 'Modular kitchen by Space Solution Mysuru',
     caption: 'Modular kitchen',
   },
   {
@@ -57,9 +57,9 @@ const galleryItems = [
 
 const faqs = [
   {
-    question: 'How long has Space Solutions been designing interiors in Mysuru?',
+    question: 'How long has Space Solution been designing interiors in Mysuru?',
     answer:
-      'Space Solutions has been delivering residential and commercial interiors in Mysuru since 2011. Over that time we have completed 800+ projects across Karnataka with an in-house design studio and manufacturing facility.',
+      'Space Solution has been delivering residential and commercial interiors in Mysuru since 2011. Over that time we have completed 800+ projects across Karnataka with an in-house design studio and manufacturing facility.',
   },
   {
     question: 'What does “in-house factory” mean for my project?',
@@ -79,22 +79,11 @@ const faqs = [
 ---
 
 <BaseLayout
-  title="About Space Solutions Mysuru | Interior Designers Since 2011"
-  description="Space Solutions Mysuru — interior designers since 2011 with an in-house factory. Modular furniture, home interiors, and turnkey fitouts across Karnataka. 800+ projects delivered."
+  title="About Space Solution Mysuru | Interior Designers Since 2011"
+  description="Space Solution Mysuru — interior designers since 2011 with an in-house factory. Modular furniture, home interiors, and turnkey fitouts across Karnataka. 800+ projects delivered."
   headerScrolled={false}
 >
-  <PageHero
-    breadcrumb={'<a href="/">Home</a> <span class="breadcrumb-sep">/</span> About'}
-    title="About Space Solutions"
-    description="Interior designers in Mysuru since 2011 — design studio, in-house factory, and turnkey delivery under one roof."
-    image={studioImages.craft}
-    stats={[
-      { value: '2011', label: 'Founded' },
-      { value: '800+', label: 'Projects' },
-      { value: '1', label: 'Factory' },
-      { value: 'End-to-end', label: 'Delivery' },
-    ]}
-  />
+  <AboutHero />
 
   <section class="about-proof" aria-label="Studio team">
     <div class="container">
@@ -123,12 +112,12 @@ const faqs = [
     </div>
   </section>
 
-  <section class="about page-content">
+  <section class="about page-content about-story">
     <div class="container about-grid">
       <div class="about-image fade-up">
         <ResponsiveImage
-          src={heroImages.residential}
-          alt="Residential interior by Space Solutions Mysuru"
+          src={studioImages.craft}
+          alt="Design drawings, material samples, and a kitchen model on the Space Solution studio table"
           preset="content"
         />
       </div>
@@ -136,7 +125,7 @@ const faqs = [
         <p class="section-label">Our story</p>
         <h2 class="section-title">We don't just design.<br />We deliver complete interiors.</h2>
         <p>
-          At Space Solutions, every project starts with a clear understanding of how your space needs to function.
+          At Space Solution, every project starts with a clear understanding of how your space needs to function.
           Since 2011, we've worked with homeowners, businesses, and institutions across Karnataka to create interiors
           that are practical, durable, and well-finished.
         </p>
@@ -145,11 +134,6 @@ const faqs = [
           and installation, every step is managed by our team. That means better quality, controlled timelines, and no
           guesswork between vendors.
         </p>
-        <p>
-          Visit our experience centre at {SITE.address.streetAddress}, {SITE.address.addressLocality}. Call{' '}
-          <a href={`tel:${SITE.phones[0]}`}>{phoneDisplay}</a> or book a free 3D consultation.
-        </p>
-        <a href="#" class="btn btn-gold-filled" data-open-modal="enquiry">Get in touch</a>
       </div>
     </div>
   </section>
@@ -190,7 +174,7 @@ const faqs = [
         Designers, project coordinators, and factory teams work as one unit. You get a single point of contact while
         specialists handle planning, production, and site execution — so decisions stay clear and progress stays visible.
       </p>
-      <div class="why-steps">
+      <div class="why-steps why-steps-four">
         {
           processSteps.map((step, index) => (
             <div class="why-step fade-up">
@@ -211,12 +195,12 @@ const faqs = [
   />
 
   <DummyVideoBlock
-    title="See how a Space Solutions project comes together"
+    title="See how a Space Solution project comes together"
     description="From first measure to final handover — design, factory production, and site installation as one process in Mysuru."
   />
 
   <FaqSection
-    title="About Space Solutions"
+    title="About Space Solution"
     description="Quick answers about our studio, factory, and how we deliver projects across Karnataka."
     items={faqs}
   />

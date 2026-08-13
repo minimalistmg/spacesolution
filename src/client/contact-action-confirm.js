@@ -30,7 +30,7 @@
     whatsapp: {
       badge: 'WhatsApp',
       title: 'Were you able to reach us?',
-      sub: 'We opened WhatsApp for Space Solutions.',
+      sub: 'We opened WhatsApp for Space Solution.',
       yes: 'Yes, reached you',
       retry: 'Open again',
       micro: 'WhatsApp opened in new tab',
@@ -38,7 +38,7 @@
     email: {
       badge: 'Email',
       title: 'Did your email app open?',
-      sub: 'We opened a draft to Space Solutions.',
+      sub: 'We opened a draft to Space Solution.',
       yes: 'Yes, it opened',
       retry: 'Try again',
       micro: 'Email opened in new tab',

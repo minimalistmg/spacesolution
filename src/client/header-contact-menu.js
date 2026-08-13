@@ -122,6 +122,7 @@
     connectSheetScrollLocked = true;
     document.body.dataset.connectSheetScroll = document.body.style.overflow || '';
     document.body.style.overflow = 'hidden';
+    if (window.SpaceSolutionsLenis) window.SpaceSolutionsLenis.stop();
   }
 
   function unlockConnectSheetScroll() {
@@ -130,6 +131,12 @@
     if (isMobileMenuOpen()) return;
     document.body.style.overflow = document.body.dataset.connectSheetScroll || '';
     delete document.body.dataset.connectSheetScroll;
+    if (
+      window.SpaceSolutionsLenis &&
+      !document.documentElement.classList.contains('ss-preloader-pending')
+    ) {
+      window.SpaceSolutionsLenis.start();
+    }
   }
 
   function isConnectHubOpen() {

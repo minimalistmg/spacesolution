@@ -1,0 +1,36 @@
+---
+import MenuIcon from './MenuIcon.astro';
+import { homeConsultRooms } from '../data/homeConsult';
+
+interface Props {
+  formId: string;
+  variant: 'pills' | 'cards' | 'row';
+}
+
+const { formId, variant } = Astro.props;
+---
+
+<fieldset class:list={['h3d-rooms', `h3d-rooms--${variant}`]}>
+  <legend class="h3d-rooms-legend">Rooms to visualise</legend>
+  <p class="h3d-rooms-hint">Select one or several. Full home covers every room.</p>
+  <div class="h3d-rooms-grid">
+    {
+      homeConsultRooms.map((room) => (
+        <label class="h3d-room">
+          <input
+            id={`${formId}-room-${room.id}`}
+            type="checkbox"
+            name="services"
+            value={room.value}
+            data-room-id={room.id}
+            data-full-home={room.isFullHome ? 'true' : undefined}
+          />
+          <span class="h3d-room-card">
+            <MenuIcon name={room.icon} />
+            <span>{room.short}</span>
+          </span>
+        </label>
+      ))
+    }
+  </div>
+</fieldset>

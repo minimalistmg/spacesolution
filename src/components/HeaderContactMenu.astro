@@ -86,12 +86,13 @@ const defaultInterest = resolveDefaultConnectInterest(activePage, Astro.url.path
                     headerConnectInterestOptions.map((option) => (
                       <label class="hc-hub-chip">
                         <input
-                          type="radio"
+                          type="checkbox"
                           name="services"
                           value={option.value}
                           checked={option.value === defaultInterest}
                         />
-                        <span>{option.label}</span>
+                        <span class="hc-hub-check" aria-hidden="true"></span>
+                        <span class="hc-hub-chip-label">{option.label}</span>
                       </label>
                     ))
                   }

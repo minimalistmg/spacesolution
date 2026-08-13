@@ -403,7 +403,7 @@
   width: 11%;
   height: 24%;
 }
-.idh-fill[data-service='full'] {
+.idh-hero--residential .idh-fill[data-service='full'] {
   left: calc(8% - 10px); /* ← 10px */
   top: 10%;
   width: 84%;
@@ -547,10 +547,10 @@
   height: 34%;
 }
 .idh-hero--commercial .idh-fill[data-service='full'] {
-  left: 6%;
-  top: 6%;
-  width: 88%;
-  height: 84%;
+  left: calc(6% + 15px);
+  top: calc(6% + 20px);
+  width: calc(88% - 30px);
+  height: calc(84% - 40px);
 }
 
 .idh-hero--commercial .idh-zone[data-service='office'] {
@@ -578,117 +578,127 @@
   height: 38%;
 }
 
-/* —— Institutional open-building fills / zones —— */
+/* —— Institutional open-building fills / zones ——
+   Calibrated to open-house-institutional.png (1600×1034):
+   classroom (left), hostel (top-right), library (bottom-center), admin (bottom-right). */
 .idh-hero--institutional .idh-fill[data-service='school'] {
   left: 4%;
-  top: 6%;
-  width: 44%;
-  height: 40%;
+  top: calc(30% - 18px);
+  width: 38%;
+  height: 36%;
 }
 .idh-hero--institutional .idh-fill[data-service='hostel'] {
-  left: 50%;
-  top: 4%;
+  left: 46%;
+  top: 3%;
   width: 44%;
-  height: 42%;
+  height: 44%;
 }
 .idh-hero--institutional .idh-fill[data-service='library'] {
-  left: 4%;
-  top: 48%;
+  left: calc(20% + 14px);
+  top: calc(62% - 23px);
   width: 44%;
-  height: 42%;
+  height: 32%;
 }
 .idh-hero--institutional .idh-fill[data-service='admin'] {
-  left: 50%;
-  top: 50%;
-  width: 44%;
-  height: 40%;
+  left: calc(58% + 14px);
+  top: calc(48% - 53px);
+  width: 36%;
+  height: 44%;
 }
 .idh-hero--institutional .idh-fill[data-service='full'] {
-  left: 4%;
-  top: 4%;
-  width: 92%;
-  height: 88%;
+  left: 8%;
+  top: 8%;
+  width: 84%;
+  height: 80%;
+  background:
+    radial-gradient(
+      70% 68% at 50% 48%,
+      rgba(255, 220, 140, 0.55) 0%,
+      rgba(197, 162, 58, 0.34) 50%,
+      rgba(197, 162, 58, 0.14) 74%,
+      transparent 88%
+    );
 }
 
 .idh-hero--institutional .idh-zone[data-service='school'] {
   left: 2%;
-  top: 4%;
-  width: 48%;
-  height: 44%;
+  top: calc(26% - 18px);
+  width: 42%;
+  height: 42%;
 }
 .idh-hero--institutional .idh-zone[data-service='hostel'] {
-  left: 48%;
-  top: 2%;
+  left: 44%;
+  top: 1%;
   width: 48%;
-  height: 46%;
+  height: 48%;
 }
 .idh-hero--institutional .idh-zone[data-service='library'] {
-  left: 2%;
-  top: 46%;
+  left: calc(16% + 14px);
+  top: calc(58% - 23px);
   width: 48%;
-  height: 46%;
+  height: 38%;
 }
 .idh-hero--institutional .idh-zone[data-service='admin'] {
-  left: 48%;
-  top: 48%;
-  width: 48%;
-  height: 44%;
+  left: calc(54% + 14px);
+  top: calc(44% - 53px);
+  width: 42%;
+  height: 50%;
 }
 
 /* —— Hospitality open-building fills / zones —— */
 .idh-hero--hospitality .idh-fill[data-service='cafe'] {
-  left: 4%;
-  top: 4%;
+  left: calc(4% + 2px);
+  top: calc(4% + 84px);
   width: 40%;
   height: 42%;
 }
 .idh-hero--hospitality .idh-fill[data-service='hotel'] {
-  left: 46%;
-  top: 4%;
-  width: 48%;
+  left: calc(46% - 56px);
+  top: calc(4% + 6px);
+  width: calc(48% - 24px);
   height: 42%;
 }
 .idh-hero--hospitality .idh-fill[data-service='bar'] {
-  left: 14%;
-  top: 48%;
-  width: 40%;
+  left: calc(14% + 125px);
+  top: calc(48% - 10px);
+  width: calc(40% - 46px);
   height: 42%;
 }
 .idh-hero--hospitality .idh-fill[data-service='salon'] {
-  left: 54%;
-  top: 48%;
-  width: 40%;
+  left: calc(54% + 90px);
+  top: calc(48% - 40px);
+  width: calc(40% - 59px);
   height: 42%;
 }
 .idh-hero--hospitality .idh-fill[data-service='full'] {
-  left: 4%;
-  top: 4%;
-  width: 92%;
-  height: 88%;
+  left: calc(4% + 20px);
+  top: calc(4% + 30px);
+  width: calc(92% - 40px);
+  height: calc(88% - 60px);
 }
 
 .idh-hero--hospitality .idh-zone[data-service='cafe'] {
-  left: 2%;
-  top: 2%;
+  left: calc(2% + 2px);
+  top: calc(2% + 84px);
   width: 44%;
   height: 46%;
 }
 .idh-hero--hospitality .idh-zone[data-service='hotel'] {
-  left: 44%;
-  top: 2%;
-  width: 52%;
+  left: calc(44% - 56px);
+  top: calc(2% + 6px);
+  width: calc(52% - 24px);
   height: 46%;
 }
 .idh-hero--hospitality .idh-zone[data-service='bar'] {
-  left: 10%;
-  top: 46%;
-  width: 44%;
+  left: calc(10% + 125px);
+  top: calc(46% - 10px);
+  width: calc(44% - 46px);
   height: 46%;
 }
 .idh-hero--hospitality .idh-zone[data-service='salon'] {
-  left: 50%;
-  top: 46%;
-  width: 46%;
+  left: calc(50% + 90px);
+  top: calc(46% - 40px);
+  width: calc(46% - 59px);
   height: 46%;
 }
 

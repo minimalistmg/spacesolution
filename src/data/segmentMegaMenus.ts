@@ -59,7 +59,7 @@ export const segmentMegaMenus: Record<SegmentMegaMenuId, SegmentMegaMenuConfig> 
     ],
     turnkey: [
       { label: 'Turnkey home interiors', href: TURNKEY_PATHS.home, icon: 'key' },
-      { label: 'Free 3D consultation', href: '/contact', icon: 'compass-tool' },
+      { label: 'Free 3D consultation', href: '/free-3d-consultation', icon: 'compass-tool' },
     ],
     projects: [
       { label: 'Vijayanagar Residence', href: '/projects/vijayanagar-residence', location: 'Mysuru' },

@@ -2,6 +2,7 @@
 import Icon from '../components/Icon.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CtaSection from '../components/CtaSection.astro';
+import TestimonialsMarquee from '../components/TestimonialsMarquee.astro';
 import HomeHero from '../components/HomeHero.astro';
 import PortfolioFilmstrip from '../components/PortfolioFilmstrip.astro';
 import ResponsiveImage from '../components/ResponsiveImage.astro';
@@ -30,8 +31,8 @@ const serviceHoverUrls = Object.fromEntries(
 ---
 
 <BaseLayout
-  title="Interior Designers in Mysuru & Karnataka | Space Solutions"
-  description="Space Solutions provides residential and commercial interior design, modular kitchens, and turnkey fitouts in Mysuru and Karnataka with reliable execution and quality finishing."
+  title="Interior Designers in Mysuru & Karnataka | Space Solution"
+  description="Space Solution provides residential and commercial interior design, modular kitchens, and turnkey fitouts in Mysuru and Karnataka with reliable execution and quality finishing."
   headerScrolled={false}
 >
   <HomeHero />
@@ -43,14 +44,14 @@ const serviceHoverUrls = Object.fromEntries(
       <div class="about-image fade-up">
         <ResponsiveImage
           src={studioImages.craft}
-          alt="Material and finish samples laid out on the Space Solutions studio worktable"
+          alt="Material and finish samples laid out on the Space Solution studio worktable"
           preset="content"
         />
       </div>
       <div class="about-content fade-up">
         <p class="section-label">Studio</p>
         <h2 class="section-title">We Don't Just Design.<br>We Deliver Complete Interiors.</h2>
-        <p>At Space Solutions, every project starts with a clear understanding of how your space needs to function. Since 2011, we've worked with homeowners, businesses, and institutions across Karnataka to create interiors that are practical, durable, and well-finished.</p>
+        <p>At Space Solution, every project starts with a clear understanding of how your space needs to function. Since 2011, we've worked with homeowners, businesses, and institutions across Karnataka to create interiors that are practical, durable, and well-finished.</p>
         <p>What makes us different is simple — we handle everything. From design and material selection to manufacturing and installation, every step is managed by our team. That means better quality, controlled timelines, and no guesswork.</p>
         <p class="about-seo">Looking for interior designers in Mysuru for modular kitchens, full-home interiors, or commercial fit-outs? Our studio combines design clarity with in-house production so residential and commercial projects stay consistent from first measure to final handover across Karnataka.</p>
         <a href="#" class="btn btn-gold-filled" data-open-modal="enquiry">Get In Touch</a>
@@ -62,8 +63,8 @@ const serviceHoverUrls = Object.fromEntries(
   <section class="services" id="services">
     <div class="container">
       <p class="section-label fade-up">Our Services</p>
-      <h3 class="section-heading-lg fade-up">Interior Solutions for Every Requirement</h3>
-      <p class="section-desc fade-up">Whether it's a home, office, or large-scale project, we design solutions that are built for real use.</p>
+      <h3 class="section-heading-lg fade-up">Interior Solution for Every Requirement</h3>
+      <p class="section-desc fade-up">Whether it's a home, office, or large-scale project, we design a solution that is built for real use.</p>
 
       <div class="services-grid">
         {homeServices.map((service) => (
@@ -165,72 +166,7 @@ const serviceHoverUrls = Object.fromEntries(
     </div>
   </section>
 
-  <!-- Testimonials -->
-  <section class="testimonials" id="testimonials">
-    <div class="container testimonials-frame">
-      <h3 class="section-heading-lg fade-up">Testimonials</h3>
-
-      <div class="swiper testimonial-swiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="testimonial-card">
-              <p>We are absolutely thrilled with the incredible work Space Solutions did for our entire new built home. From our very first meeting, the team put us at ease and truly listened to our vision. Karthik was top-notch — he understands requirements perfectly. I personally recommend Space Solutions to anyone without a moment's hesitation.</p>
-              <div class="testimonial-author">
-                <strong>Sunilkumar SM</strong>
-                <span class="testimonial-quote"><Icon name="quote-right" /></span>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="testimonial-card">
-              <p>We visited their showroom in Kalidasa Road by chance as we lived nearby. I was impressed by the display of various kitchen options and the materials used. Harshita and team were good in giving us the best design and a reasonable quote followed by the neat execution of the job.</p>
-              <div class="testimonial-author">
-                <strong>Aparna Prasannakumar</strong>
-                <span class="testimonial-quote"><Icon name="quote-right" /></span>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="testimonial-card">
-              <p>We had a great experience with this interior designer. They use high-quality materials, offer excellent designs, and their response time is always quick. The entire process was very well-organised, and the final outcome was clean, detailed, and beautifully finished.</p>
-              <div class="testimonial-author">
-                <strong>MBH Creation</strong>
-                <span class="testimonial-quote"><Icon name="quote-right" /></span>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="testimonial-card">
-              <p>Space Solution is an absolute game-changer in the world of modular furniture and home interior design. Their modular furniture options are not only stylish and modern but also remarkably functional, maximizing every inch of space in my home.</p>
-              <div class="testimonial-author">
-                <strong>Karthik Prasad M</strong>
-                <span class="testimonial-quote"><Icon name="quote-right" /></span>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="testimonial-card">
-              <p>We had a great experience with Space Solutions. The transformation is remarkable. One of the best kitchen designers. From the designing to the execution, everything was perfect as envisioned. We are absolutely in love with our new kitchen.</p>
-              <div class="testimonial-author">
-                <strong>Vilina Ramesh</strong>
-                <span class="testimonial-quote"><Icon name="quote-right" /></span>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="testimonial-card">
-              <p>Absolutely beautiful interior solutions. Well priced also. Anyone wanting to do interiors please have a look. Great quality and timely completion of work.</p>
-              <div class="testimonial-author">
-                <strong>Sumitha Uchil</strong>
-                <span class="testimonial-quote"><Icon name="quote-right" /></span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="testimonial-pagination"></div>
-      </div>
-    </div>
-  </section>
+  <TestimonialsMarquee />
 
   <DummyVideoBlock />
 

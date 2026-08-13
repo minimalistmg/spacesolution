@@ -154,6 +154,8 @@ export function resolveNavActive(pathname: string, override?: NavPage): NavPage 
 
   if (path === '/privacy-policy') return 'home';
 
+  if (path === '/free-3d-consultation') return 'home-interiors';
+
 
 
   const turnkeyNav = resolveTurnkeyNavSegment(path);

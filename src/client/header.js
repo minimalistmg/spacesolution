@@ -1,10 +1,12 @@
 /**
- * Space Solutions — header navigation (desktop global menu + mobile menu)
+ * Space Solution — header navigation (desktop global menu + mobile menu)
  */
 (function ($) {
   'use strict';
 
   var SCROLL_THRESHOLD = 50;
+  // Ignore sub-threshold reversals (touchpad jitter, compositor rounding, overscroll).
+  var DIRECTION_DELTA = 12;
   var breakpoints = window.SpaceSolutionsHeaderBreakpoints;
 
   var $header = $('.site-header');
@@ -50,54 +52,63 @@
     return false;
   }
 
+  function getScrollY() {
+    var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+    if (y < 0) return 0;
+    var maxY = document.documentElement.scrollHeight - window.innerHeight;
+    if (maxY > 0 && y > maxY) return maxY;
+    return y;
+  }
+
   function initHeaderScroll() {
-    var lastScrollY = $(window).scrollTop();
+    var lastScrollY = getScrollY();
+    var directionDelta = 0;
     var ticking = false;
 
     function applyScrollState(scrollY) {
       var pastThreshold = scrollY > SCROLL_THRESHOLD;
-      var scrollingDown = scrollY > lastScrollY;
-      var scrollingUp = scrollY < lastScrollY;
-      var shouldHide = false;
-      var shouldSolid = false;
+      var delta = scrollY - lastScrollY;
+      lastScrollY = scrollY;
 
       if (isNavOpen()) {
         $header.removeClass('is-hidden');
-        lastScrollY = scrollY;
+        directionDelta = 0;
         return;
       }
 
       if (isMobileNavViewport()) {
         $header.removeClass('is-hidden');
         $header.toggleClass('scrolled', pastThreshold);
-        lastScrollY = scrollY;
+        directionDelta = 0;
         return;
       }
 
       if (!pastThreshold) {
-        shouldHide = false;
-        shouldSolid = false;
-      } else if (scrollingDown) {
-        shouldHide = true;
-        shouldSolid = true;
-      } else if (scrollingUp) {
-        shouldHide = false;
-        shouldSolid = true;
-      } else {
-        shouldHide = $header.hasClass('is-hidden');
-        shouldSolid = true;
+        $header.removeClass('is-hidden scrolled');
+        directionDelta = 0;
+        return;
       }
 
-      $header.toggleClass('is-hidden', shouldHide);
-      $header.toggleClass('scrolled', shouldSolid);
-      lastScrollY = scrollY;
+      $header.addClass('scrolled');
+
+      if (!delta) return;
+
+      directionDelta += delta;
+
+      if (directionDelta > DIRECTION_DELTA) {
+        $header.addClass('is-hidden');
+        directionDelta = DIRECTION_DELTA;
+      } else if (directionDelta < -DIRECTION_DELTA) {
+        $header.removeClass('is-hidden');
+        directionDelta = -DIRECTION_DELTA;
+      }
     }
 
     function onScroll() {
       if (ticking) return;
       ticking = true;
       window.requestAnimationFrame(function () {
-        applyScrollState($(window).scrollTop());
+        applyScrollState(getScrollY());
         ticking = false;
       });
     }

@@ -81,7 +81,7 @@ export const mainNavPanels: MainNavPanel[] = [
         columns: 1,
         items: [
           { label: 'Turnkey home interiors', href: TURNKEY_PATHS.home, icon: 'key' },
-          { label: 'Free 3D consultation', href: '/contact', icon: 'compass-tool' },
+          { label: 'Free 3D consultation', href: '/free-3d-consultation', icon: 'compass-tool' },
         ],
       },
     ],
@@ -277,7 +277,7 @@ export const mainNavPanels: MainNavPanel[] = [
     width: MEGA_MENU_PANEL_WIDTH,
     featured: {
       icon: 'medal',
-      title: 'Space Solutions',
+      title: 'Space Solution',
       description: 'Mysuru studio since 2011. 800+ projects delivered from our own factory floor.',
       href: '/about',
     },

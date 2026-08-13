@@ -45,6 +45,13 @@
   --font-soehne-breit: 'Söhne Breit', 'DM Sans', sans-serif;
   --font-display: 'Domaine Display', 'Canela', 'Fraunces', 'Syne', 'Archivo', serif;
   --font-inspire: 'Plus Jakarta Sans', 'DM Sans', sans-serif;
+  /* Trial families — loaded, not applied. Reassign --font / --font-display in DevTools. */
+  --font-instrument: 'Instrument Serif', serif;
+  --font-cormorant: 'Cormorant Garamond', serif;
+  --font-manrope: 'Manrope', sans-serif;
+  --font-space: 'Space Grotesk', sans-serif;
+  --font-bodoni: 'Bodoni Moda', serif;
+  --font-domaine: 'Domaine Display', serif;
   --container: 1200px;
   --header-h: 90px;
   /* Soft radius scale — prefer rounded surfaces across page content. */
@@ -69,6 +76,14 @@ html {
   scroll-behavior: smooth;
   font-family: var(--font);
   scrollbar-gutter: stable;
+  /* Kill rubber-band gaps and Chromium swipe-to-go-back overscroll. */
+  overscroll-behavior: none;
+}
+
+/* Lenis already eases the scroll — CSS smooth would double-ease and feel mushy. */
+html.lenis,
+html.lenis-smooth {
+  scroll-behavior: auto;
 }
 
 body,
@@ -88,6 +103,7 @@ body {
   background: var(--white);
   /* clip avoids creating a scroll container (hidden breaks position:sticky footer reveal) */
   overflow-x: clip;
+  overscroll-behavior: none;
 }
 
 .icon {
@@ -278,6 +294,27 @@ ul {
   color: var(--gray-text);
   font-weight: 500;
   margin-bottom: 28px;
+}
+
+.about-story .about-content {
+  padding: clamp(28px, 3vw, 40px) clamp(28px, 3.2vw, 44px);
+}
+
+.about-story .about-content p {
+  margin-bottom: 16px;
+}
+
+.about-story .about-content p:last-child {
+  margin-bottom: 0;
+}
+
+.about-story .about-image {
+  aspect-ratio: 4 / 3;
+}
+
+.about-story .about-image img {
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Services */
@@ -609,80 +646,10 @@ ul {
   margin: 0;
 }
 
-/* Testimonials */
-.testimonials {
-  padding: 100px 0;
-  background: var(--white);
-  color: var(--dark);
-}
-
-.testimonials .section-title {
-  color: var(--dark);
-  text-align: center;
-}
-
-.testimonials-frame {
-  border: 4px double var(--gold);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.21);
-  padding: 40px 20px;
-}
-
-.testimonials-frame .section-heading-lg {
-  text-align: center;
-}
+/* Testimonials live in testimonials.css (looping marquee). */
 
 .why-choose .section-heading-lg {
   text-align: center;
-}
-
-.testimonial-swiper {
-  margin-top: 24px;
-  padding-bottom: 48px;
-}
-
-.testimonial-card {
-  background: transparent;
-  padding: 20px 24px;
-  border: none;
-  height: auto;
-}
-
-.testimonial-card p {
-  color: var(--gray-text);
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 1.8;
-  margin: 0 0 24px;
-}
-
-.testimonial-author strong {
-  font-size: 16px;
-  color: var(--dark);
-}
-
-.testimonial-swiper .swiper-pagination-bullet {
-  background: rgba(0, 0, 0, 0.2);
-  opacity: 1;
-}
-
-.testimonial-swiper .swiper-pagination-bullet-active {
-  background: var(--gold);
-}
-
-.testimonial-author {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.testimonial-quote {
-  color: var(--gold);
-}
-
-.testimonial-quote .icon {
-  width: 32px;
-  height: 32px;
 }
 
 .step-num .icon {
@@ -2532,6 +2499,27 @@ ul {
   margin-top: 48px;
 }
 
+.why-steps.why-steps-four {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.why-steps-four .why-step {
+  padding: 28px 14px;
+  min-width: 0;
+}
+
+.why-steps-four .why-step .step-num {
+  font-size: clamp(28px, 3vw, 48px);
+}
+
+.why-steps-four .why-step h4 {
+  font-size: clamp(14px, 1.5vw, 18px);
+}
+
+.why-steps-four .why-step p {
+  font-size: clamp(12px, 1.2vw, 14px);
+}
+
 .why-step {
   text-align: center;
   padding: 32px 24px;
@@ -3182,6 +3170,11 @@ ul {
     grid-template-columns: 1fr;
   }
 
+  .why-steps.why-steps-four {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+
   .library-guide-cta-inner {
     flex-direction: column;
     align-items: flex-start;
@@ -3249,6 +3242,15 @@ ul {
   .why-grid,
   .why-steps {
     grid-template-columns: 1fr;
+  }
+
+  .why-steps.why-steps-four {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .why-steps-four .why-step {
+    padding: 20px 8px;
   }
 }
 

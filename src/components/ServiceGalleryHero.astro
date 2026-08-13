@@ -1,0 +1,124 @@
+---
+/**
+ * Editorial L2 service hero — oversized serif headline, short pitch,
+ * dual CTAs, and an asymmetrical three-image grid. Fills the viewport
+ * under the site header. Left/right/center may crop the same project.
+ */
+import ResponsiveImage from './ResponsiveImage.astro';
+import type { ServiceGalleryHero } from '../data/servicePages';
+import '../styles/service-gallery-hero.css';
+
+interface Props {
+  breadcrumb: string;
+  hero: ServiceGalleryHero;
+}
+
+const { breadcrumb, hero } = Astro.props;
+const [left, center, right] = hero.images;
+---
+
+<section class="sgh" aria-label={hero.headline}>
+  <div class="sgh-inner">
+    <nav class="sgh-crumb" aria-label="Breadcrumb" set:html={breadcrumb} />
+
+    <h1 class="sgh-title" data-sgh-fit>{hero.headline}</h1>
+
+    <div class="sgh-stage">
+      <figure class="sgh-fig sgh-fig--left" style={`--sgh-pos: ${left.position ?? '14% 50%'}`}>
+        <ResponsiveImage
+          src={left.src}
+          alt={left.alt}
+          preset="content"
+          sizes="(max-width: 899px) 50vw, 28vw"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </figure>
+
+      <div class="sgh-copy">
+        <p class="sgh-lead">{hero.lead}</p>
+        <div class="sgh-actions">
+          <a href="#" class="sgh-btn" data-open-modal="enquiry">{hero.primaryCta}</a>
+          <a href={hero.secondaryHref} class="sgh-link">{hero.secondaryCta}</a>
+        </div>
+      </div>
+
+      <figure class="sgh-fig sgh-fig--center" style={`--sgh-pos: ${center.position ?? '50% 50%'}`}>
+        <ResponsiveImage
+          src={center.src}
+          alt={center.alt}
+          preset="content"
+          sizes="(max-width: 899px) 100vw, 38vw"
+          loading="eager"
+        />
+      </figure>
+
+      <figure class="sgh-fig sgh-fig--right" style={`--sgh-pos: ${right.position ?? '86% 50%'}`}>
+        <ResponsiveImage
+          src={right.src}
+          alt={right.alt}
+          preset="content"
+          sizes="(max-width: 899px) 50vw, 28vw"
+          loading="eager"
+        />
+      </figure>
+    </div>
+  </div>
+</section>
+
+<script>
+  function glyphWidth(el) {
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    const width = range.getBoundingClientRect().width;
+    range.detach?.();
+    return width;
+  }
+
+  function fitSghTitles() {
+    const compact = window.matchMedia('(max-width: 899px)').matches;
+    document.querySelectorAll('[data-sgh-fit]').forEach((el) => {
+      if (!(el instanceof HTMLElement)) return;
+      if (compact) {
+        el.style.fontSize = '';
+        return;
+      }
+      const parent = el.parentElement;
+      if (!parent) return;
+      const frameWidth = parent.clientWidth;
+      if (!frameWidth) return;
+
+      el.style.whiteSpace = 'nowrap';
+      el.style.display = 'block';
+      el.style.width = '100%';
+
+      let lo = 40;
+      let hi = 280;
+      for (let i = 0; i < 22; i++) {
+        const mid = (lo + hi) / 2;
+        el.style.fontSize = `${mid}px`;
+        if (glyphWidth(el) <= frameWidth) lo = mid;
+        else hi = mid;
+      }
+      el.style.fontSize = `${lo}px`;
+    });
+  }
+
+  async function run() {
+    try {
+      await document.fonts.load('700 80px "Domaine Display"');
+    } catch {
+      /* still fit with the fallback face */
+    }
+    fitSghTitles();
+    if (document.fonts?.ready) document.fonts.ready.then(fitSghTitles);
+  }
+
+  run();
+  window.addEventListener('resize', fitSghTitles);
+
+  const inner = document.querySelector('.sgh-inner');
+  if (inner && 'ResizeObserver' in window) {
+    new ResizeObserver(fitSghTitles).observe(inner);
+  }
+</script>

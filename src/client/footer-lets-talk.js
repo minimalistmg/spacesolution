@@ -1,5 +1,5 @@
 /**
- * Space Solutions — footer "Let's talk" chair frame animation
+ * Space Solution — footer "Let's talk" chair frame animation
  * Chair size is driven by font-size in JS so it always matches the letters.
  */
 (function () {

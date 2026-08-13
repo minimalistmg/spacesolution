@@ -1,5 +1,5 @@
 /**
- * Space Solutions — interactive tools calculators
+ * Space Solution — interactive tools calculators
  * Rough INR planning estimates for Mysuru / Karnataka projects.
  */
 (function () {
@@ -288,7 +288,7 @@
         valueEl.textContent = days + ' days';
         if (noteEl) {
           noteEl.textContent =
-            'Use this buffer to freeze drawings, confirm materials, and schedule installation with Space Solutions.';
+            'Use this buffer to freeze drawings, confirm materials, and schedule installation with Space Solution.';
         }
       } else if (days === 1) {
         valueEl.textContent = '1 day';

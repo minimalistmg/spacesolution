@@ -29,7 +29,7 @@ export const homeServices: HomeService[] = [
   {
     title: 'Commercial Interiors',
     description:
-      'Efficient workspace solutions that support smooth operations and organized layouts.',
+      'Efficient workspace solution that support smooth operations and organized layouts.',
     href: '/commercial-interiors',
     icon: 'building',
     hoverImage: heroImages.commercial,

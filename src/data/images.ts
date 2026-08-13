@@ -33,6 +33,8 @@ import barLounge from '../assets/images/rooms/bar-lounge.jpg';
 import fullHome from '../assets/images/rooms/full-home.jpg';
 
 import studioCraft from '../assets/images/studio/studio-craft.jpg';
+import aboutHeroDining from '../assets/images/about/about-hero-dining.jpg';
+import aboutHeroLiving from '../assets/images/about/about-hero-living.jpg';
 import projectApartment from '../assets/images/projects/project-apartment.jpg';
 import projectVilla from '../assets/images/projects/project-villa.jpg';
 import projectCoworking from '../assets/images/projects/project-coworking.jpg';
@@ -45,6 +47,8 @@ import cutoutWardrobe from '../assets/images/cutouts/cutout-wardrobe.png';
 import cutoutBed from '../assets/images/cutouts/cutout-bed.png';
 import cutoutPooja from '../assets/images/cutouts/cutout-pooja.png';
 import cutoutSofa from '../assets/images/cutouts/cutout-sofa.png';
+import cutoutWallClock from '../assets/images/cutouts/cutout-wall-clock.png';
+import cutoutArtFrame from '../assets/images/cutouts/cutout-art-frame.png';
 
 import openHouse1 from '../assets/images/open-house/open-house-1.png';
 import openHouse2 from '../assets/images/open-house/open-house-2.png';
@@ -53,6 +57,25 @@ import openHouseWideFamily from '../assets/images/open-house/open-house-wide-fam
 import openHouseCommercial from '../assets/images/open-house/open-house-commercial.png';
 import openHouseInstitutional from '../assets/images/open-house/open-house-institutional.png';
 import openHouseHospitality from '../assets/images/open-house/open-house-hospitality.png';
+
+import l2Kitchen from '../assets/images/l2-heroes/kitchen.jpg';
+import l2Wardrobes from '../assets/images/l2-heroes/wardrobes.jpg';
+import l2Bedrooms from '../assets/images/l2-heroes/bedrooms.jpg';
+import l2Pooja from '../assets/images/l2-heroes/pooja.jpg';
+import l2Retail from '../assets/images/l2-heroes/retail.jpg';
+import l2Hostel from '../assets/images/l2-heroes/hostel.jpg';
+import l2Library from '../assets/images/l2-heroes/library.jpg';
+import l2Bar from '../assets/images/l2-heroes/bar.jpg';
+import l2Salon from '../assets/images/l2-heroes/salon.jpg';
+import l2Living from '../assets/images/l2-heroes/living.jpg';
+import l2Fullhome from '../assets/images/l2-heroes/fullhome.jpg';
+import l2Office from '../assets/images/l2-heroes/office.jpg';
+import l2Admin from '../assets/images/l2-heroes/admin.jpg';
+import l2Clinic from '../assets/images/l2-heroes/clinic.jpg';
+import l2Coworking from '../assets/images/l2-heroes/coworking.jpg';
+import l2School from '../assets/images/l2-heroes/school.jpg';
+import l2Cafe from '../assets/images/l2-heroes/cafe.jpg';
+import l2Hotel from '../assets/images/l2-heroes/hotel.jpg';
 
 export const heroImages = {
   kitchen1,
@@ -98,6 +121,11 @@ export const studioImages = {
   craft: studioCraft,
 };
 
+export const aboutHeroImages = {
+  dining: aboutHeroDining,
+  living: aboutHeroLiving,
+};
+
 /** Single-object transparent PNGs for pastel product-style cards. */
 export const cutoutImages = {
   chair: cutoutChair,
@@ -108,6 +136,8 @@ export const cutoutImages = {
   bed: cutoutBed,
   pooja: cutoutPooja,
   sofa: cutoutSofa,
+  wallClock: cutoutWallClock,
+  artFrame: cutoutArtFrame,
 };
 
 /** Residential hub — isometric open-house dioramas (transition set). */
@@ -125,6 +155,28 @@ export const logoImages = {
   header: logoHeader,
   footer: logoFooter,
   mobileMenu: logoMobileMenu,
+};
+
+/** Wide light interiors for L2 service heroes — one project per page, cropped in layout. */
+export const l2HeroImages = {
+  kitchen: l2Kitchen,
+  wardrobes: l2Wardrobes,
+  bedrooms: l2Bedrooms,
+  pooja: l2Pooja,
+  retail: l2Retail,
+  hostel: l2Hostel,
+  library: l2Library,
+  bar: l2Bar,
+  salon: l2Salon,
+  living: l2Living,
+  fullhome: l2Fullhome,
+  office: l2Office,
+  admin: l2Admin,
+  clinic: l2Clinic,
+  coworking: l2Coworking,
+  school: l2School,
+  cafe: l2Cafe,
+  hotel: l2Hotel,
 };
 
 export const youtubeThumbs = {

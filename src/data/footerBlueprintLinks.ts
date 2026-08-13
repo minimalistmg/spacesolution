@@ -9,7 +9,7 @@ export const FOOTER_BLUEPRINT_COLUMNS = [
     ],
   },
   {
-    title: 'Solutions',
+    title: 'Solution',
     links: [
       { label: 'Turnkey Fitout', href: '/turnkey-fitout' },
       { label: 'Design Library', href: '/design-library' },

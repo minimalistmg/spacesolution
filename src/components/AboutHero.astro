@@ -1,0 +1,119 @@
+---
+/**
+ * About hero — editorial split, frosted “what we deliver” glass,
+ * and a single living-room still with the frame and clock breaking the crop.
+ */
+import ResponsiveImage from './ResponsiveImage.astro';
+import Icon from './Icon.astro';
+import type { IconName } from '../data/iconPaths';
+import { aboutHeroImages } from '../data/images';
+import '../styles/about-hero.css';
+
+interface Deliverable {
+  icon: IconName;
+  label: string;
+}
+
+const deliverables: Deliverable[] = [
+  { icon: 'industry', label: 'In-house factory' },
+  { icon: 'pencil-ruler', label: 'Design and 3D' },
+  { icon: 'layer-group', label: 'Materials and finishes' },
+  { icon: 'drafting-compass', label: 'Space-first planning' },
+  { icon: 'couch', label: 'Furniture and joinery' },
+  { icon: 'tools', label: 'Site installation' },
+  { icon: 'key', label: 'Move-in handover' },
+];
+
+const stats = [
+  { value: '2011', label: 'Studio founded in Mysuru — one team from drawing to site.' },
+  { value: '800+', label: 'Homes, offices, and institutions delivered across Karnataka.' },
+  { value: 'In-house', label: 'Factory for kitchens, wardrobes, and custom joinery.' },
+  { value: 'End-to-end', label: 'Design, production, and handover under one roof.' },
+] as const;
+---
+
+<section class="about-hero" aria-label="About Space Solution">
+  <div class="container about-hero-inner">
+    <header class="about-hero-intro">
+      <nav class="about-hero-breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Space Solution</a>
+        <span class="breadcrumb-sep">/</span>
+        About
+      </nav>
+
+      <h1 class="about-hero-title">
+        <span class="about-hero-title-line">Interiors Shaped</span>
+        <span class="about-hero-title-mid">
+          <span class="about-hero-pill" aria-hidden="true">
+            <ResponsiveImage src={aboutHeroImages.dining} alt="" preset="thumbnail" />
+          </span>
+          <span class="about-hero-title-and">And</span>
+          <span class="about-hero-pill about-hero-pill--living" aria-hidden="true">
+            <ResponsiveImage src={aboutHeroImages.living} alt="" preset="thumbnail" />
+          </span>
+        </span>
+        <span class="about-hero-title-line">Delivered End To End</span>
+      </h1>
+
+      <p class="about-hero-lead">
+        A studio and factory under one roof — designed, made, and installed across Karnataka.
+      </p>
+
+      <div class="about-hero-actions">
+        <a href="#" class="btn btn-gold-filled" data-open-modal="enquiry">Start your project</a>
+        <a href="/portfolio" class="about-hero-text-link">
+          See our work <Icon name="arrow-right" />
+        </a>
+      </div>
+    </header>
+
+    <div class="about-hero-stage">
+      <figure class="about-hero-tall">
+        <ResponsiveImage
+          src={aboutHeroImages.dining}
+          alt="Dining nook with wooden chairs, olive cushions, and a round oak table"
+          preset="content"
+        />
+        <div class="about-hero-glass">
+          <p class="about-hero-glass-title">
+            What we deliver
+            <span class="about-hero-glass-arrow" aria-hidden="true">
+              <Icon name="arrow-right" />
+            </span>
+          </p>
+          <ul class="about-hero-glass-list">
+            {
+              deliverables.map((item) => (
+                <li>
+                  <span class="about-hero-glass-icon" aria-hidden="true">
+                    <Icon name={item.icon} />
+                  </span>
+                  {item.label}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </figure>
+
+      <figure class="about-hero-wide">
+        <ResponsiveImage
+          src={aboutHeroImages.living}
+          alt="Terracotta armchairs, marble table with two glasses, a picture frame and a wall clock breaking the top of the photo"
+          preset="hero"
+        />
+      </figure>
+    </div>
+
+    <div class="about-hero-stats" aria-label="Studio highlights">
+      {
+        stats.map((stat) => (
+          <div class="about-hero-stat">
+            <span class="about-hero-stat-value">{stat.value}</span>
+            <p class="about-hero-stat-label">{stat.label}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

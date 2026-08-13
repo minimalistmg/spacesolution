@@ -1,5 +1,6 @@
 /**
- * Desint-style showcase — Lenis + GSAP ScrollTrigger / SplitText
+ * Desint-style showcase — GSAP ScrollTrigger / SplitText
+ * Site-wide Lenis lives in src/client/lenis.js
  */
 (function () {
   'use strict';
@@ -14,23 +15,6 @@
   if (SplitText) gsap.registerPlugin(SplitText);
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  // Smooth scroll (Lenis) — skip when reduced motion
-  var lenis = null;
-  if (!reduceMotion && window.Lenis) {
-    lenis = new window.Lenis({
-      duration: 1.1,
-      smoothWheel: true,
-    });
-
-    lenis.on('scroll', ScrollTrigger.update);
-
-    gsap.ticker.add(function (time) {
-      lenis.raf(time * 1000);
-    });
-    gsap.ticker.lagSmoothing(0);
-  }
-
   if (reduceMotion) return;
 
   // Generic reveal

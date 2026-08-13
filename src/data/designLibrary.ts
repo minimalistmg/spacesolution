@@ -46,7 +46,7 @@ export const designLibraryHub = {
     'Practical guides for kitchens, materials, planning, and budgets — drawn from 15+ years and 800+ real projects across Karnataka.',
   intro:
     'Whether you are planning a modular kitchen, choosing finishes, or setting a renovation budget, these guides help you make confident decisions before you build.',
-  trustLine: 'Written by the Space Solutions design team · Based on real project experience',
+  trustLine: 'Written by the Space Solution design team · Based on real project experience',
 };
 
 export const libraryRoomTopics: LibraryRoomTopic[] = [
@@ -113,7 +113,7 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
         label: 'Storage',
         title: 'Design Storage for Daily Habits, Not Just Looks',
         paragraphs: [
-          'Drawers beat deep shelves for daily utensils. Tall units and corner solutions recover space that is often wasted in standard layouts.',
+          'Drawers beat deep shelves for daily utensils. Tall units and corner solution recover space that is often wasted in standard layouts.',
           'Map groceries, vessels, and small appliances before you approve shutters. A beautiful kitchen that forces deep crouching for daily items will frustrate you within a week. Soft-close hardware and full-extension runners are not luxuries — they are what make modular storage feel finished.',
         ],
         bullets: [

@@ -1,0 +1,190 @@
+/* Lifestyle L2 hero — full-bleed still, peach wash, three-column bar */
+
+.svh {
+  position: relative;
+  margin-top: var(--header-h);
+  height: calc(100svh - var(--header-h));
+  min-height: 640px;
+  overflow: hidden;
+  background: #fff;
+  color: var(--dark);
+  isolation: isolate;
+}
+
+.svh-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.svh-media picture,
+.svh-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 38% 52%;
+}
+
+.svh-wash {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.28) 22%, transparent 46%),
+    linear-gradient(270deg, #ffffff 0%, rgba(255, 255, 255, 0.94) 8%, rgba(255, 255, 255, 0.2) 32%, transparent 48%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, transparent 24%),
+    linear-gradient(
+      0deg,
+      rgba(232, 158, 112, 0.62) 0%,
+      rgba(255, 214, 176, 0.38) 18%,
+      rgba(255, 244, 230, 0.12) 38%,
+      transparent 56%
+    );
+}
+
+.svh-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: min(100% - 48px, 1280px);
+  margin-inline: auto;
+  padding: clamp(20px, 3vw, 36px) 0 clamp(28px, 3.5vw, 44px);
+}
+
+.svh-top {
+  width: 100%;
+  max-width: none;
+}
+
+.svh-crumb {
+  width: 100%;
+  margin: 0 0 18px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--gray-text);
+}
+
+.svh-crumb a {
+  color: var(--gray-text);
+}
+
+.svh-crumb a:hover {
+  color: var(--dark);
+}
+
+.svh-crumb .breadcrumb-sep {
+  color: var(--text-muted);
+  margin: 0 0.4em;
+}
+
+.svh-title {
+  margin: 0;
+  max-width: 11.5em;
+  font-family: var(--font);
+  font-size: clamp(34px, 5vw, 64px);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.038em;
+  text-transform: none;
+  color: var(--dark);
+}
+
+.svh-title span {
+  display: block;
+  white-space: nowrap;
+}
+
+.svh-bar {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) auto minmax(0, 1.15fr);
+  gap: clamp(20px, 3vw, 48px);
+  align-items: end;
+  padding-top: 22px;
+  border-top: 1px solid rgba(72, 48, 24, 0.2);
+}
+
+.svh-kicker {
+  margin: 0;
+  max-width: 18em;
+  font-size: clamp(12px, 1.05vw, 14px);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.45;
+  text-transform: uppercase;
+  color: var(--dark);
+}
+
+.svh-proof {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 8rem;
+}
+
+.svh-stat {
+  margin: 0;
+  font-family: var(--font);
+  font-size: clamp(36px, 4.2vw, 52px);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: var(--dark);
+}
+
+.svh-stat-label {
+  margin: 4px 0 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--dark-2);
+}
+
+.svh-desc {
+  margin: 0 0 0 auto;
+  max-width: 34ch;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.55;
+  text-align: right;
+  color: var(--dark-2);
+}
+
+@media (max-width: 799px) {
+  .svh {
+    height: auto;
+    min-height: calc(100svh - var(--header-h));
+  }
+
+  .svh-media {
+    position: relative;
+    min-height: 52vh;
+  }
+
+  .svh-inner {
+    height: auto;
+    padding-top: 0;
+    margin-top: -42%;
+  }
+
+  .svh-bar {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    align-items: start;
+  }
+
+  .svh-proof {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .svh-desc {
+    margin-left: 0;
+    text-align: left;
+    max-width: none;
+  }
+}

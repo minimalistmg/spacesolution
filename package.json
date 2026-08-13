@@ -1,7 +1,7 @@
 {
   "name": "spacesolution",
   "version": "1.0.0",
-  "description": "Static website for Space Solutions — interior design services in Mysuru and Karnataka.",
+  "description": "Static website for Space Solution — interior design services in Mysuru and Karnataka.",
   "main": "index.js",
   "type": "module",
   "scripts": {

@@ -43,7 +43,7 @@ export const residentialDepthHero: DepthHeroHubConfig = {
   menuIcon: 'house',
   ariaLabel: 'Home interiors services',
   houseAlt:
-    'Space Solutions full-home open-house interior with family across kitchen, living, bedroom, wardrobe, and pooja spaces',
+    'Space Solution full-home open-house interior with family across kitchen, living, bedroom, wardrobe, and pooja spaces',
   variant: 'diorama',
   stageClass: 'idh-hero--residential',
   houseImage: homeServicesHouseImage,
@@ -56,7 +56,7 @@ export const commercialDepthHero: DepthHeroHubConfig = {
   menuIcon: 'buildings',
   ariaLabel: 'Commercial interiors services',
   houseAlt:
-    'Space Solutions commercial open-building interior with office, clinic, retail, and co-working spaces',
+    'Space Solution commercial open-building interior with office, clinic, retail, and co-working spaces',
   variant: 'diorama',
   stageClass: 'idh-hero--commercial',
   houseImage: openHouseCommercialImage,
@@ -125,7 +125,7 @@ export const institutionalDepthHero: DepthHeroHubConfig = {
   menuIcon: 'student',
   ariaLabel: 'Institutional interiors services',
   houseAlt:
-    'Space Solutions institutional open-building interior with classroom, hostel, library, and admin spaces',
+    'Space Solution institutional open-building interior with classroom, hostel, library, and admin spaces',
   variant: 'diorama',
   stageClass: 'idh-hero--institutional',
   houseImage: openHouseInstitutionalImage,
@@ -139,7 +139,7 @@ export const institutionalDepthHero: DepthHeroHubConfig = {
       lead: 'Classrooms built for real learning days. Durable desks, clear sightlines, and layouts that keep focus where it belongs.',
       cta: 'Explore Schools',
       href: '/school-interiors',
-      spot: [24, 28],
+      spot: [24, 43],
     },
     {
       id: 'hostel',
@@ -150,7 +150,7 @@ export const institutionalDepthHero: DepthHeroHubConfig = {
       lead: 'Beds, lockers, and study corners that survive continuous use. Practical comfort for students, easy upkeep for campuses.',
       cta: 'Explore Hostels',
       href: '/hostel-furniture',
-      spot: [72, 24],
+      spot: [68, 25],
     },
     {
       id: 'library',
@@ -161,7 +161,7 @@ export const institutionalDepthHero: DepthHeroHubConfig = {
       lead: 'Quiet shelves, bright benches, and lab stations planned for safety and flow. Spaces where research and reading feel natural.',
       cta: 'Explore Libraries',
       href: '/library-lab-interiors',
-      spot: [26, 68],
+      spot: [42, 78],
     },
     {
       id: 'admin',
@@ -172,7 +172,7 @@ export const institutionalDepthHero: DepthHeroHubConfig = {
       lead: 'Back-of-house that supports the whole campus. Efficient desks, storage, and meeting points for the teams who keep institutions running.',
       cta: 'Explore Admin',
       href: '/admin-office-interiors',
-      spot: [72, 70],
+      spot: [76, 70],
     },
     {
       id: 'full',
@@ -194,7 +194,7 @@ export const hospitalityDepthHero: DepthHeroHubConfig = {
   menuIcon: 'flower-lotus',
   ariaLabel: 'Hospitality interiors services',
   houseAlt:
-    'Space Solutions hospitality open-building interior with café, hotel lobby, bar, and salon spaces',
+    'Space Solution hospitality open-building interior with café, hotel lobby, bar, and salon spaces',
   variant: 'diorama',
   stageClass: 'idh-hero--hospitality',
   houseImage: openHouseHospitalityImage,

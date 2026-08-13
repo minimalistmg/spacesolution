@@ -304,6 +304,7 @@
     previewModal.hidden = false;
     previewModal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    if (window.SpaceSolutionsLenis) window.SpaceSolutionsLenis.stop();
     previewApply.focus();
   }
 
@@ -312,6 +313,14 @@
     previewModal.setAttribute('aria-hidden', 'true');
     pendingPaletteId = null;
     document.body.style.overflow = '';
+    if (
+      window.SpaceSolutionsLenis &&
+      !document.documentElement.classList.contains('ss-preloader-pending') &&
+      !document.body.classList.contains('mobile-menu-open') &&
+      !document.body.classList.contains('connect-sheet-open')
+    ) {
+      window.SpaceSolutionsLenis.start();
+    }
 
     if (!panel.hidden) {
       var activeCard = panel.querySelector('.palette-card.is-active, .palette-card');

@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MenuIcon from '../components/MenuIcon.astro';
+import HomeConsultRoomsField from '../components/HomeConsultRoomsField.astro';
+import HomeConsultFields from '../components/HomeConsultFields.astro';
+import { SITE } from '../data/site';
+import { homeConsultSteps } from '../data/homeConsult';
+import '../styles/contact-floating-form.css';
+import '../styles/home-3d-consult.css';
+
+const phoneLabel = '+91 63645 64563';
+const whatsappHref = `https://wa.me/${SITE.phones[0].replace('+', '')}`;
+
+const breadcrumbHtml =
+  '<a href="/">Space Solution</a> <span class="breadcrumb-sep">/</span> <a href="/residential-interiors">Home Interiors</a> <span class="breadcrumb-sep">/</span> Free 3D consultation';
+---
+
+<BaseLayout
+  title="Free 3D Home Interior Consultation in Mysuru | Space Solution"
+  description="Book a free 3D consultation for your Mysuru home. Choose kitchen, wardrobes, living, bedrooms, pooja, or full-home interiors — see the design before we build."
+  activePage="home-interiors"
+  headerScrolled={false}
+>
+  <section class="h3d-page">
+    <form
+      id="home-consult-form"
+      class="container h3d-panes enquiry-form"
+      data-source="home-3d-consult"
+      novalidate
+    >
+      <div class="h3d-pane h3d-pane--copy">
+        <nav class="h3d-breadcrumb" aria-label="Breadcrumb" set:html={breadcrumbHtml} />
+        <p class="h3d-kicker">Home interiors</p>
+        <h1 class="h3d-title">Free 3D <em>consultation</em></h1>
+        <p class="h3d-lead">
+          See your kitchen, wardrobes, and rooms in 3D before we build — designed and made at our Mysuru studio
+          and factory.
+        </p>
+        <ol class="h3d-steps">
+          {
+            homeConsultSteps.map((step, index) => (
+              <li class="h3d-step">
+                <span class="h3d-step-num">{index + 1}</span>
+                <div>
+                  <h3>{step.title}</h3>
+                  <p>{step.description}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+        <div class="h3d-contact-row">
+          <a href={`tel:${SITE.phones[0]}`} class="btn h3d-btn-outline">
+            <MenuIcon name="phone" />
+            {phoneLabel}
+          </a>
+          <a href={whatsappHref} class="btn h3d-btn-outline" target="_blank" rel="noopener noreferrer">
+            <MenuIcon name="whatsapp-logo" />
+            WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <div class="h3d-pane h3d-pane--form">
+        <div class="h3d-form-card">
+          <HomeConsultRoomsField formId="home-consult-form" variant="cards" />
+          <HomeConsultFields formId="home-consult-form" compact />
+        </div>
+      </div>
+    </form>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    document.querySelectorAll('.h3d-rooms').forEach(function (fieldset) {
+      var full = fieldset.querySelector('[data-full-home="true"]');
+      var rooms = Array.prototype.slice.call(
+        fieldset.querySelectorAll('[data-room-id]:not([data-full-home])'),
+      );
+      if (!full) return;
+
+      full.addEventListener('change', function () {
+        rooms.forEach(function (input) {
+          input.checked = full.checked;
+        });
+      });
+
+      rooms.forEach(function (input) {
+        input.addEventListener('change', function () {
+          if (!input.checked) full.checked = false;
+          else if (rooms.every(function (room) { return room.checked; })) full.checked = true;
+        });
+      });
+    });
+  })();
+</script>

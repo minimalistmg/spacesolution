@@ -1,0 +1,53 @@
+---
+/**
+ * Lifestyle L2 hero — full-bleed still, headline top-left, peach wash,
+ * and a three-column proof bar along the bottom.
+ */
+import ResponsiveImage from './ResponsiveImage.astro';
+import type { ServiceVistaHero } from '../data/servicePages';
+import '../styles/service-vista-hero.css';
+
+interface Props {
+  breadcrumb: string;
+  hero: ServiceVistaHero;
+}
+
+const { breadcrumb, hero } = Astro.props;
+const headlineLines = hero.headline.split('\n').slice(0, 3);
+---
+
+<section class="svh" aria-label={headlineLines.join(' ')}>
+  <div class="svh-media" aria-hidden="true">
+    <ResponsiveImage
+      src={hero.image.src}
+      alt={hero.image.alt}
+      preset="hero"
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="svh-wash"></div>
+  </div>
+
+  <div class="svh-inner">
+    <div class="svh-top">
+      <nav class="svh-crumb" aria-label="Breadcrumb" set:html={breadcrumb} />
+      <h1 class="svh-title">
+        {headlineLines.map((line) => (
+          <span>{line}</span>
+        ))}
+      </h1>
+    </div>
+
+    <div class="svh-bar">
+      <p class="svh-kicker">{hero.kicker}</p>
+
+      <div class="svh-proof">
+        <p class="svh-stat">{hero.statValue}</p>
+        <p class="svh-stat-label">{hero.statLabel}</p>
+      </div>
+
+      <p class="svh-desc">{hero.description}</p>
+    </div>
+  </div>
+</section>

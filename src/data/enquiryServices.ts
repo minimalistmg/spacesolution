@@ -11,5 +11,5 @@ export const enquiryServiceOptions: EnquiryServiceOption[] = [
   { label: 'Commercial', value: 'Commercial Interiors', icon: 'building' },
   { label: 'Hospitality', value: 'Hospitality Interiors', icon: 'store' },
   { label: 'Institutional', value: 'Institutional Interiors', icon: 'school' },
-  { label: 'Turnkey Fitout', value: 'Turnkey Fitout Solutions', icon: 'tools' },
+  { label: 'Turnkey Fitout', value: 'Turnkey Fitout Solution', icon: 'tools' },
 ];

@@ -12,7 +12,7 @@ export const contactFormServiceOptions: ContactFormServiceOption[] = [
   { label: 'Hospitality', value: 'Hospitality Interiors', icon: 'bed' },
   { label: 'Renovation', value: 'Renovation', icon: 'tools' },
   { label: 'Space Planning', value: 'Space Planning', icon: 'compass' },
-  { label: 'Custom Solutions', value: 'Custom Solutions', icon: 'gear' },
+  { label: 'Custom Solution', value: 'Custom Solution', icon: 'gear' },
 ];
 
 export const headerConnectInterestOptions = [
@@ -83,7 +83,8 @@ export function resolveDefaultConnectInterest(
     path.includes('/bedroom') ||
     path.includes('/pooja') ||
     path.includes('/full-home') ||
-    path.includes('/residential')
+    path.includes('/residential') ||
+    path.includes('/free-3d-consultation')
   ) {
     return 'Home Interiors';
   }

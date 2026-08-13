@@ -13,6 +13,8 @@ import { faTags } from '@fortawesome/free-solid-svg-icons/faTags';
 import { faUsers } from '@fortawesome/free-solid-svg-icons/faUsers';
 import { faPencilRuler } from '@fortawesome/free-solid-svg-icons/faPencilRuler';
 import { faQuoteRight } from '@fortawesome/free-solid-svg-icons/faQuoteRight';
+import { faStar } from '@fortawesome/free-solid-svg-icons/faStar';
+import { faBookOpen } from '@fortawesome/free-solid-svg-icons/faBookOpen';
 import { faBars } from '@fortawesome/free-solid-svg-icons/faBars';
 import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
 import { faAnglesRight } from '@fortawesome/free-solid-svg-icons/faAnglesRight';
@@ -66,6 +68,8 @@ export type IconName =
   | 'users'
   | 'pencil-ruler'
   | 'quote-right'
+  | 'star'
+  | 'book-open'
   | 'bars'
   | 'times'
   | 'angle-double-right'
@@ -128,6 +132,8 @@ const icons = {
   users: toIconData(faUsers),
   'pencil-ruler': toIconData(faPencilRuler),
   'quote-right': toIconData(faQuoteRight),
+  star: toIconData(faStar),
+  'book-open': toIconData(faBookOpen),
   bars: toIconData(faBars),
   times: toIconData(faTimes),
   'angle-double-right': toIconData(faAnglesRight),

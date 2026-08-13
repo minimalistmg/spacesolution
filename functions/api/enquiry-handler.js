@@ -17,7 +17,14 @@ function buildLeadEmailHtml(data) {
     timeStyle: 'short',
   });
 
-  var sourceLabel = data.source === 'contact' ? 'Contact Page' : 'Website Enquiry';
+  var sourceLabel =
+    data.source === 'contact'
+      ? 'Contact Page'
+      : data.source === 'home-3d-consult'
+        ? 'Free 3D Home Consult'
+        : data.source === 'connect'
+          ? 'Header Connect'
+          : 'Website Enquiry';
   var service = (data.service && data.service.trim()) || 'Not specified';
   var location = (data.location && data.location.trim()) || 'Not specified';
   var message = (data.message && data.message.trim()) || '';
@@ -58,7 +65,7 @@ function buildLeadEmailHtml(data) {
     '<tr><td align="center">' +
     '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:560px;background:#ffffff;border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">' +
     '<tr><td style="background:#1a1a1a;padding:28px 32px;text-align:center;">' +
-    '<div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#c5a23a;margin-bottom:8px;">Space Solutions</div>' +
+    '<div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#c5a23a;margin-bottom:8px;">Space Solution</div>' +
     '<div style="font-size:24px;font-weight:700;color:#ffffff;line-height:1.3;">New Business Lead</div>' +
     '<div style="font-size:14px;color:rgba(255,255,255,0.75);margin-top:8px;">' + escapeHtml(sourceLabel) + ' · ' + escapeHtml(submittedAt) + '</div>' +
     '</td></tr>' +
@@ -128,7 +135,7 @@ export async function handleEnquiryPost(request) {
     };
     var serviceLabel = service || 'General Enquiry';
     var subjectName = name || phone || email || 'New Lead';
-    var subject = 'New Lead: ' + serviceLabel + ' — ' + subjectName + ' | Space Solutions';
+    var subject = 'New Lead: ' + serviceLabel + ' — ' + subjectName + ' | Space Solution';
 
     var emailPayload = {
       from: RESEND_FROM_EMAIL,

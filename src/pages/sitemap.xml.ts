@@ -9,6 +9,7 @@ const staticPages = [
   '/',
   '/about',
   '/contact',
+  '/free-3d-consultation',
   '/faq',
   '/portfolio',
   '/showcase',

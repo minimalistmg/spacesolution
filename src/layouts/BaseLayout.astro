@@ -78,8 +78,18 @@ const schema = getLocalBusinessSchema(Astro.site?.href ?? SITE.url);
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://db.onlinewebfonts.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin />
+    <!--
+      Live: DM Sans, Fraunces, Plus Jakarta Sans.
+      Trial (DevTools): Instrument Serif, Cormorant Garamond, Manrope, Space Grotesk, Bodoni Moda — all published weights.
+      Swap on :root — display: --font-display; UI/body: --font
+        A  --font-instrument / --font-manrope
+        B  --font-cormorant / --font-manrope
+        C  --font-space / --font-manrope
+        hospitality  --font-bodoni / --font-manrope
+    -->
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..900;1,9..40,100..900&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,opsz,wght@0,9..40,100..900;1,9..40,100..900&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Instrument+Serif:ital@0;1&family=Manrope:wght@200..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Space+Grotesk:wght@300..700&display=swap"
       rel="stylesheet"
     />
 
@@ -185,8 +195,11 @@ const schema = getLocalBusinessSchema(Astro.site?.href ?? SITE.url);
     <script src="/vendor/gsap.min.js" defer></script>
     <script src="/vendor/ScrollTrigger.min.js" defer></script>
     <script src="/vendor/SplitText.min.js" defer></script>
+    <script src="/vendor/lenis.min.js" defer></script>
+    <script src="/js/lenis.js" defer></script>
     <script src="/js/footer-gsap.js" defer></script>
     <script src="/js/main.js" defer></script>
     <script src="/js/scroll-motion.js" defer></script>
+    <slot name="scripts" />
   </body>
 </html>

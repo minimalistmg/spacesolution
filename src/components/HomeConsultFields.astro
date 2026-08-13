@@ -1,0 +1,59 @@
+---
+interface Props {
+  formId: string;
+  compact?: boolean;
+}
+
+const { formId, compact = false } = Astro.props;
+---
+
+<div class:list={['h3d-fields', { 'h3d-fields--compact': compact }]}>
+  <div class="floating-contact-form-group">
+    <label for={`${formId}-name`}>Your Name</label>
+    <input id={`${formId}-name`} type="text" name="name" placeholder="Your name" autocomplete="name" />
+  </div>
+
+  <div class="floating-contact-form-group">
+    <label for={`${formId}-email`}>Email Address</label>
+    <input
+      id={`${formId}-email`}
+      type="email"
+      name="email"
+      placeholder="you@example.com"
+      autocomplete="email"
+      inputmode="email"
+    />
+  </div>
+
+  <div class="floating-contact-form-group">
+    <label for={`${formId}-phone`}>Phone Number</label>
+    <div class="floating-contact-phone">
+      <input type="hidden" name="country" value="+91" />
+      <span class="floating-contact-phone-code" aria-hidden="true">+91</span>
+      <input
+        id={`${formId}-phone`}
+        type="tel"
+        name="phone"
+        placeholder="98765 43210"
+        autocomplete="tel"
+        inputmode="tel"
+      />
+    </div>
+  </div>
+
+  <div class="floating-contact-form-group h3d-fields-message">
+    <label for={`${formId}-message`}>Anything we should know?</label>
+    <textarea
+      id={`${formId}-message`}
+      name="message"
+      rows={compact ? 2 : 4}
+      placeholder="Kitchen, two wardrobes, moving in December…"
+    ></textarea>
+    <p class="floating-contact-form-note">
+      Floor plan, room sizes, or a budget range are enough to start. Photos on your phone are fine.
+    </p>
+  </div>
+
+  <button type="submit" class="floating-contact-form-submit">Book free 3D consult</button>
+  <p class="form-feedback" aria-live="polite"></p>
+</div>

@@ -1,5 +1,5 @@
 /**
- * Space Solutions — main site interactions
+ * Space Solution — main site interactions
  */
 (function ($) {
   'use strict';
@@ -49,6 +49,10 @@
     }
 
     $body.css('overflow', 'hidden');
+
+    if (window.SpaceSolutionsLenis) {
+      window.SpaceSolutionsLenis.stop();
+    }
   }
 
   function unlockPageScroll() {
@@ -62,6 +66,13 @@
     $body.css('overflow', '');
     $body.css('padding-right', $body.data('scroll-padding') || '');
     $header.css('padding-right', $header.data('scroll-padding') || '');
+
+    if (
+      window.SpaceSolutionsLenis &&
+      !document.documentElement.classList.contains('ss-preloader-pending')
+    ) {
+      window.SpaceSolutionsLenis.start();
+    }
   }
 
   function resetPageScroll() {
@@ -72,6 +83,13 @@
     $body.css('overflow', '');
     $body.css('padding-right', $body.data('scroll-padding') || '');
     $header.css('padding-right', $header.data('scroll-padding') || '');
+
+    if (
+      window.SpaceSolutionsLenis &&
+      !document.documentElement.classList.contains('ss-preloader-pending')
+    ) {
+      window.SpaceSolutionsLenis.start();
+    }
   }
 
   function validateEnquiryForm($form) {
@@ -926,11 +944,15 @@
 
   function initContactForm() {
     var $contactForm = $('#contact-form');
-    if (!$contactForm.length) return;
+    if ($contactForm.length) {
+      $contactForm.attr('data-source', 'contact');
+      $contactForm.on('submit', function (e) {
+        e.preventDefault();
+        submitLeadForm(this, {});
+      });
+    }
 
-    $contactForm.attr('data-source', 'contact');
-
-    $contactForm.on('submit', function (e) {
+    $('[id^="home-consult-form"]').on('submit', function (e) {
       e.preventDefault();
       submitLeadForm(this, {});
     });
@@ -967,6 +989,13 @@
 
     window.setTimeout(function () {
       var headerHeight = $('.site-header').outerHeight() || 0;
+      var el = $target.get(0);
+
+      if (window.SpaceSolutionsLenis && window.SpaceSolutionsLenis.instance) {
+        window.SpaceSolutionsLenis.scrollTo(el, { offset: -headerHeight, duration: 1 });
+        return;
+      }
+
       var top = $target.offset().top - headerHeight;
       $('html, body').animate({ scrollTop: top }, 400);
     }, 100);

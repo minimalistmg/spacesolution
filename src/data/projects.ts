@@ -59,7 +59,7 @@ export const projects: ProjectItem[] = [
     ],
     headline: 'A calm family home shaped around storage, light, and everyday flow.',
     summary: [
-      'Space Solutions designed and delivered a full residential interior for a family home in Vijayanagar, Mysuru — balancing open living areas with high-utility storage and durable finishes suited to Karnataka’s climate. The brief asked for a home that feels calm at first glance and stays practical through school mornings, guests, and long evenings.',
+      'Space Solution designed and delivered a full residential interior for a family home in Vijayanagar, Mysuru — balancing open living areas with high-utility storage and durable finishes suited to Karnataka’s climate. The brief asked for a home that feels calm at first glance and stays practical through school mornings, guests, and long evenings.',
       'The layout prioritizes natural light and clear circulation between living, dining, and kitchen zones. Instead of treating rooms as isolated boxes, we planned sightlines and thresholds so the apartment reads as one composed volume while still giving each function its own quiet corner.',
       'Custom modular wardrobes and kitchen systems were manufactured in-house so shutter profiles, handle language, and edge detailing stay consistent from the entry console to the master suite. Tall storage absorbs seasonal clutter without crowding the rooms, and soft-close hardware keeps daily use quiet.',
       'Warm wood tones, soft neutrals, and carefully placed lighting create a lived-in atmosphere without sacrificing function. Under-cabinet and cove layers support cooking and reading after dark, while ceiling light remains restrained so the home never feels over-lit.',
@@ -120,7 +120,7 @@ export const projects: ProjectItem[] = [
       'Lighting and material contrast guide guests from entry to order to seating, keeping the room readable and calm even when busy. Warm hospitality tones soften the commercial brief without compromising wipe-down surfaces at the bar and service edge.',
       'Banquette and loose seating were mixed to give couples, small groups, and solo guests different options. Acoustic softness in seating zones reduces clatter so conversation stays comfortable during lunch rushes.',
       'Behind the scenes, storage and prep adjacency were planned so restocking does not cut through guest paths. Durable laminates and sealed edges handle high footfall without looking cold or institutional.',
-      'Design, fabrication, and installation were handled by one Space Solutions team so detailing stayed consistent from drawings to site — a critical advantage when hospitality openings cannot absorb rework delays.',
+      'Design, fabrication, and installation were handled by one Space Solution team so detailing stayed consistent from drawings to site — a critical advantage when hospitality openings cannot absorb rework delays.',
     ],
     scope: [
       'Hospitality space planning and guest flow',
@@ -133,7 +133,7 @@ export const projects: ProjectItem[] = [
       {
         question: 'Can café furniture and counters be fabricated in-house?',
         answer:
-          'Yes. Soft Café’s custom counters, display millwork, and key joinery were fabricated by Space Solutions so profiles and finishes matched the approved design.',
+          'Yes. Soft Café’s custom counters, display millwork, and key joinery were fabricated by Space Solution so profiles and finishes matched the approved design.',
       },
       {
         question: 'How do you plan for peak-hour service?',
@@ -170,7 +170,7 @@ export const projects: ProjectItem[] = [
       'Acoustic finishes, practical lighting, and durable surfaces support concentration while keeping the interior visually quiet. Meeting rooms receive stronger sound control; open zones use softer treatments so collaboration does not overwhelm neighboring desks.',
       'Breakout and pantry adjacency was deliberate — informal conversation has a place to land so it does not spill across every workstation. Furniture systems were specified for cable management and daily cleaning routines.',
       'Brand presence appears through measured material accents and reception composure rather than loud graphics. The workplace should photograph well for hiring and still feel calm at 7 p.m. on a deadline week.',
-      'From layout through manufacturing and installation, Space Solutions managed the full delivery so operations could move in on schedule with punch-list items closed before go-live.',
+      'From layout through manufacturing and installation, Space Solution managed the full delivery so operations could move in on schedule with punch-list items closed before go-live.',
     ],
     scope: [
       'Workspace zoning and furniture systems planning',
@@ -215,7 +215,7 @@ export const projects: ProjectItem[] = [
       'Circulation is simple and intuitive: reception anchors the entry, treatment rooms sit behind a soft threshold, and support storage stays out of guest sightlines. Lighting levels shift gently from lobby brightness to quieter treatment ambience.',
       'Custom cabinetry supports linen, product, and equipment storage so rooms reset quickly. Surfaces were chosen for hygiene and wipe-down care without defaulting to a cold clinic look.',
       'Acoustic softness and door hardware detailing help sessions feel private even in a compact footprint. The brand identity appears through finish discipline rather than decorative clutter.',
-      'Space Solutions delivered design and fabrication as a coordinated package, keeping the three-month timeline realistic from first layout to install.',
+      'Space Solution delivered design and fabrication as a coordinated package, keeping the three-month timeline realistic from first layout to install.',
     ],
     scope: [
       'Reception, consultation, and treatment zoning',
@@ -263,7 +263,7 @@ export const projects: ProjectItem[] = [
       'Layered lighting and natural textures create a restful mood while remaining practical for daily use. Living-dining adjacency supports hosting; quieter bedroom suites hold wardrobe and dressing storage away from the social core.',
       'Finish choices lean warm — wood tones, soft neutrals, and durable kitchen surfaces that handle hill-station humidity and guest traffic. Full-home planning meant electrical and ceiling decisions happened before furniture production, not after.',
       'Outdoor connection and window light guided furniture placement so views stay open and seating never blocks the best daylight. Storage for seasonal items was absorbed into tall units rather than freestanding clutter.',
-      'Space Solutions delivered design through installation as a single coordinated scope, giving the owners a turnkey interior ready for both everyday living and holiday hosting.',
+      'Space Solution delivered design through installation as a single coordinated scope, giving the owners a turnkey interior ready for both everyday living and holiday hosting.',
     ],
     scope: [
       'Villa-wide space planning and material palette',
@@ -407,7 +407,7 @@ export const projects: ProjectItem[] = [
       'Clear sightlines and lighting reduce stress at arrival and keep rooms functional through long days. Waiting areas offer composed seating density; consultation rooms prioritize privacy, acoustics, and practical exam clearances.',
       'Staff workflows — entry, triage adjacency, consult, and exit — guided the plan more than decorative trends. Support rooms and a compact pantry sit out of the patient path but close enough for efficient resets.',
       'Electrical, plumbing adjacency, and storage depths were resolved in design so site installation did not invent workarounds. Signage and thresholds stay minimal; the architecture of the plan does most of the wayfinding.',
-      'Space Solutions delivered the fit-out end to end — planning, fabrication, and installation — so the clinic could open with a coherent interior and a closed punch list.',
+      'Space Solution delivered the fit-out end to end — planning, fabrication, and installation — so the clinic could open with a coherent interior and a closed punch list.',
     ],
     scope: [
       'Patient flow and clinic room planning',

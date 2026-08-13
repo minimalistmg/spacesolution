@@ -24,7 +24,7 @@ export const megaMenuServices: MegaMenuService[] = [
   },
   {
     title: 'Turnkey',
-    description: 'End-to-end solutions delivered seamlessly.',
+    description: 'End-to-end solution delivered seamlessly.',
     href: '/turnkey-fitout',
   },
 ];
