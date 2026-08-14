@@ -22,11 +22,21 @@ function buildLeadEmailHtml(data) {
       ? 'Contact Page'
       : data.source === 'home-3d-consult'
         ? 'Free 3D Home Consult'
-        : data.source === 'connect'
-          ? 'Header Connect'
-          : 'Website Enquiry';
+        : data.source === 'commercial-site-survey'
+          ? 'Commercial Site Survey'
+          : data.source === 'institutional-bulk'
+            ? 'Institutional Bulk Enquiry'
+            : data.source === 'hospitality-3d-consult'
+              ? 'Hospitality 3D Consult'
+              : data.source === 'connect'
+                ? 'Header Connect'
+                : 'Website Enquiry';
   var service = (data.service && data.service.trim()) || 'Not specified';
+  var category = (data.category && data.category.trim()) || 'Not specified';
   var location = (data.location && data.location.trim()) || 'Not specified';
+  var carpetArea = (data.carpet_area && data.carpet_area.trim()) || '';
+  var unitCount = (data.unit_count && data.unit_count.trim()) || '';
+  var openingTarget = (data.opening_target && data.opening_target.trim()) || '';
   var message = (data.message && data.message.trim()) || '';
   var name = (data.name && data.name.trim()) || 'Not provided';
   var phone = data.phone && data.phone.trim();
@@ -74,7 +84,11 @@ function buildLeadEmailHtml(data) {
     row('Phone', phoneRowValue, '📞') +
     row('Email', emailRowValue, '✉️') +
     row('Location', escapeHtml(location), '📍') +
-    row('Service Interest', escapeHtml(service), '✨') +
+    (carpetArea ? row('Carpet Area', escapeHtml(carpetArea), '📐') : '') +
+    (unitCount ? row('Units / Rooms', escapeHtml(unitCount), '🔢') : '') +
+    (openingTarget ? row('Target Opening', escapeHtml(openingTarget), '📅') : '') +
+    row('Category', escapeHtml(category), '🏷️') +
+    row('Specific Interest', escapeHtml(service), '✨') +
     (message ? row('Project Details', escapeHtml(message).replace(/\n/g, '<br>'), '📝') : '') +
     '</table></td></tr>' +
     '<tr><td style="padding:28px 32px 32px;text-align:center;">' +
@@ -105,8 +119,12 @@ export async function handleEnquiryPost(request) {
     var email = body.email && body.email.trim();
     var country = (body.country && body.country.trim()) || '+91';
     var location = (body.location && body.location.trim()) || '';
+    var carpetArea = (body.carpet_area && body.carpet_area.trim()) || '';
+    var unitCount = (body.unit_count && body.unit_count.trim()) || '';
+    var openingTarget = (body.opening_target && body.opening_target.trim()) || '';
     var message = (body.message && body.message.trim()) || '';
     var service = (body.service && body.service.trim()) || '';
+    var category = (body.category && body.category.trim()) || '';
     var source = (body.source && body.source.trim()) || 'enquiry';
 
     if (!phone && !email) {
@@ -129,11 +147,17 @@ export async function handleEnquiryPost(request) {
       email: email,
       country: country,
       location: location,
+      carpet_area: carpetArea,
+      unit_count: unitCount,
+      opening_target: openingTarget,
       message: message,
+      category: category,
       service: service,
       source: source,
     };
-    var serviceLabel = service || 'General Enquiry';
+    var serviceLabel = category
+      ? (service ? category + ' — ' + service : category)
+      : (service || 'General Enquiry');
     var subjectName = name || phone || email || 'New Lead';
     var subject = 'New Lead: ' + serviceLabel + ' — ' + subjectName + ' | Space Solution';
 

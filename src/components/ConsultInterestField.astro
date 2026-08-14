@@ -1,0 +1,39 @@
+---
+import MenuIcon from './MenuIcon.astro';
+import type { ConsultFormConfig } from '../data/consultFormConfigs';
+
+interface Props {
+  formId: string;
+  interest: ConsultFormConfig['interest'];
+  preselected?: string[];
+}
+
+const { formId, interest, preselected = [] } = Astro.props;
+const preselectedSet = new Set(preselected);
+---
+
+<fieldset class:list={['h3d-rooms', `h3d-rooms--${interest.variant}`, `h3d-rooms--cols-${interest.columns}`]}>
+  <legend class="h3d-rooms-legend">{interest.legend}</legend>
+  <p class="h3d-rooms-hint">{interest.hint}</p>
+  <div class="h3d-rooms-grid">
+    {
+      interest.options.map((option) => (
+        <label class="h3d-room">
+          <input
+            id={`${formId}-interest-${option.id}`}
+            type="checkbox"
+            name="services"
+            value={option.value}
+            data-room-id={option.id}
+            data-full-home={option.isFullHome ? 'true' : undefined}
+            checked={preselectedSet.has(option.value)}
+          />
+          <span class="h3d-room-card">
+            <MenuIcon name={option.icon} />
+            <span>{option.short}</span>
+          </span>
+        </label>
+      ))
+    }
+  </div>
+</fieldset>

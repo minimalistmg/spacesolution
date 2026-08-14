@@ -92,9 +92,56 @@
     }
   }
 
+  function isConsultForm(form) {
+    var id = form && form.id;
+    return id && (id.indexOf('consult-form-') === 0 || id.indexOf('home-consult-form') === 0);
+  }
+
+  function validateConsultForm($form) {
+    var NAME_MIN = 3;
+    var NAME_MAX = 50;
+    var MOBILE_LEN = 10;
+    var MESSAGE_MIN = 3;
+    var MESSAGE_MAX = 500;
+
+    var name = ($form.find('[name="name"]').val() || '').trim();
+    var phone = ($form.find('[name="phone"]').val() || '').replace(/\D/g, '');
+    var message = ($form.find('[name="message"]').val() || '').trim();
+
+    if (name.length < NAME_MIN) {
+      return 'Name must be at least 3 characters';
+    }
+
+    if (name.length > NAME_MAX) {
+      return 'Name must be 50 characters or less';
+    }
+
+    if (!phone) {
+      return 'Enter a 10-digit mobile number';
+    }
+
+    if (phone.length !== MOBILE_LEN) {
+      return 'Mobile must be exactly 10 digits';
+    }
+
+    if (message && message.length < MESSAGE_MIN) {
+      return 'Message must be at least 3 characters';
+    }
+
+    if (message.length > MESSAGE_MAX) {
+      return 'Message must be 500 characters or less';
+    }
+
+    return '';
+  }
+
   function validateEnquiryForm($form) {
     if ($form.is('#header-connect-form') && window.SpaceSolutionsHeaderContact) {
       return window.SpaceSolutionsHeaderContact.validateForm($form.get(0));
+    }
+
+    if (isConsultForm($form.get(0))) {
+      return validateConsultForm($form);
     }
 
     var phone = ($form.find('[name="phone"]').val() || '').trim();
@@ -113,6 +160,16 @@
 
   function getFormData(form) {
     var $form = $(form);
+    var categoryInput = $form.find('[name="category"]:checked');
+    var category = (
+      (categoryInput.length ? categoryInput.val() : $form.find('[name="category"]').val()) || ''
+    ).trim();
+    var subServices = $form
+      .find('[name="sub_services"]:checked')
+      .map(function () {
+        return $(this).val();
+      })
+      .get();
     var services = $form
       .find('[name="services"]:checked')
       .map(function () {
@@ -126,8 +183,12 @@
       phone: $form.find('[name="phone"]').val(),
       email: $form.find('[name="email"]').val(),
       location: $form.find('[name="location"]').val(),
+      carpet_area: ($form.find('[name="carpet_area"]').val() || '').trim(),
+      unit_count: ($form.find('[name="unit_count"]').val() || '').trim(),
+      opening_target: ($form.find('[name="opening_target"]').val() || '').trim(),
       message: $form.find('[name="message"]').val(),
-      service: services.join(', '),
+      category: category,
+      service: subServices.length ? subServices.join(', ') : services.join(', '),
       source: $form.data('source') || 'enquiry'
     };
   }
@@ -942,6 +1003,26 @@
     });
   }
 
+  function initConsultMobileFields() {
+    $('[id^="consult-form-"], [id^="home-consult-form"]').each(function () {
+      var $form = $(this);
+      var $mobile = $form.find('[name="phone"]');
+      if (!$mobile.length || $mobile.data('mobileGuard') === true) return;
+      $mobile.data('mobileGuard', true);
+
+      $mobile.on('input', function () {
+        var digits = this.value.replace(/\D/g, '');
+        if (this.value !== digits) {
+          this.value = digits;
+        }
+      });
+
+      $mobile.on('blur', function () {
+        this.value = this.value.replace(/\D/g, '');
+      });
+    });
+  }
+
   function initContactForm() {
     var $contactForm = $('#contact-form');
     if ($contactForm.length) {
@@ -952,7 +1033,9 @@
       });
     }
 
-    $('[id^="home-consult-form"]').on('submit', function (e) {
+    initConsultMobileFields();
+
+    $('[id^="consult-form-"], [id^="home-consult-form"]').on('submit', function (e) {
       e.preventDefault();
       submitLeadForm(this, {});
     });

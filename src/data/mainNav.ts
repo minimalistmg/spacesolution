@@ -138,7 +138,7 @@ export const mainNavPanels: MainNavPanel[] = [
         columns: 1,
         items: [
           { label: 'Turnkey office fitout', href: TURNKEY_PATHS.commercial, icon: 'key' },
-          { label: 'Site survey & quote', href: '/contact', icon: 'envelope' },
+          { label: 'Site survey & quote', href: '/commercial-site-survey', icon: 'envelope' },
         ],
       },
     ],
@@ -195,7 +195,7 @@ export const mainNavPanels: MainNavPanel[] = [
         columns: 1,
         items: [
           { label: 'Turnkey institutional fitout', href: TURNKEY_PATHS.institutional, icon: 'key' },
-          { label: 'Bulk furniture enquiry', href: '/contact', icon: 'envelope' },
+          { label: 'Bulk furniture enquiry', href: '/bulk-furniture-enquiry', icon: 'envelope' },
         ],
       },
     ],
@@ -250,7 +250,7 @@ export const mainNavPanels: MainNavPanel[] = [
         columns: 1,
         items: [
           { label: 'Turnkey hospitality fitout', href: TURNKEY_PATHS.hospitality, icon: 'key' },
-          { label: 'Free 3D consultation', href: '/contact', icon: 'compass-tool' },
+          { label: 'Free 3D consultation', href: '/hospitality-3d-consultation', icon: 'compass-tool' },
         ],
       },
     ],

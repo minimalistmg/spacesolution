@@ -155,6 +155,9 @@ export function resolveNavActive(pathname: string, override?: NavPage): NavPage 
   if (path === '/privacy-policy') return 'home';
 
   if (path === '/free-3d-consultation') return 'home-interiors';
+  if (path === '/commercial-site-survey') return 'commercial';
+  if (path === '/bulk-furniture-enquiry') return 'institutional';
+  if (path === '/hospitality-3d-consultation') return 'hospitality';
 
 
 

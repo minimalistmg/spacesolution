@@ -242,7 +242,7 @@
     lockConnectSheetScroll();
 
     initConnectFormFields(panel);
-    initConnectServiceChips(panel);
+    initConnectInterestFields(panel);
 
     var formScroll = panel.querySelector('.hc-hub-body');
     if (formScroll) {
@@ -323,14 +323,16 @@
 
     var nameField = form.querySelector('[name="name"]');
     var mobileField = form.querySelector('[name="phone"]');
+    var locationField = form.querySelector('[name="location"]');
     var messageField = form.querySelector('[name="message"]');
     var draft = {
       name: getConnectNameValue(nameField),
       mobile: getConnectMobileValue(mobileField),
+      location: (locationField && locationField.value || '').trim(),
       message: (messageField && messageField.value || '').trim(),
     };
 
-    if (!draft.name && !draft.mobile && !draft.message) {
+    if (!draft.name && !draft.mobile && !draft.location && !draft.message) {
       localStorage.removeItem(CONNECT_DRAFT_KEY);
       return;
     }
@@ -354,6 +356,7 @@
 
     var nameField = form.querySelector('[name="name"]');
     var mobileField = form.querySelector('[name="phone"]');
+    var locationField = form.querySelector('[name="location"]');
     var messageField = form.querySelector('[name="message"]');
 
     if (nameField && draft.name) {
@@ -362,6 +365,10 @@
 
     if (mobileField && draft.mobile) {
       mobileField.value = String(draft.mobile).replace(/\D/g, '');
+    }
+
+    if (locationField && draft.location) {
+      locationField.value = draft.location;
     }
 
     if (messageField && draft.message) {
@@ -377,6 +384,31 @@
     } catch (error) {
       /* ignore */
     }
+  }
+
+  function setCategoryError(form, message) {
+    if (!form) return;
+
+    var errorEl = document.getElementById('header-connect-category-error');
+    if (errorEl) {
+      errorEl.textContent = message || '';
+    }
+
+    form.classList.toggle(
+      'has-field-errors',
+      Boolean(form.querySelector('.hc-hub-field-error:not(:empty)'))
+    );
+  }
+
+  function validateConnectCategoryField(form) {
+    if (!form) return 'Please select a project category';
+
+    var selected = form.querySelector('[name="category"]:checked');
+    if (!selected) {
+      return 'Please select a project category';
+    }
+
+    return '';
   }
 
   function validateConnectNameField(field) {
@@ -410,9 +442,11 @@
   }
 
   function validateConnectMessageField(field) {
-    if (!field) return 'Message must be at least 3 characters';
+    if (!field) return '';
 
     var value = (field.value || '').trim();
+
+    if (!value) return '';
 
     if (value.length < MESSAGE_MIN) {
       return 'Message must be at least 3 characters';
@@ -453,8 +487,10 @@
     var nameField = form.querySelector('[name="name"]');
     var mobileField = form.querySelector('[name="phone"]');
     var messageField = form.querySelector('[name="message"]');
+    var categoryError = validateConnectCategoryField(form);
+    setCategoryError(form, categoryError);
     var fields = [nameField, mobileField, messageField];
-    var firstError = '';
+    var firstError = categoryError;
 
     fields.forEach(function (field) {
       var error = validateConnectField(field);
@@ -559,6 +595,20 @@
     });
   }
 
+  function initConnectLocationField(locationField, form) {
+    if (!locationField || locationField.dataset.locationGuard === 'true') return;
+    locationField.dataset.locationGuard = 'true';
+
+    locationField.addEventListener('input', function () {
+      setFieldError(locationField, '');
+      saveConnectFormDraft(form);
+    });
+
+    locationField.addEventListener('blur', function () {
+      saveConnectFormDraft(form);
+    });
+  }
+
   function initConnectFormFields(panel) {
     var form = panel.querySelector('#header-connect-form');
     if (!form || form.dataset.fieldValidationInit === 'true') return;
@@ -566,12 +616,14 @@
 
     var nameField = form.querySelector('[name="name"]');
     var mobileField = form.querySelector('[name="phone"]');
+    var locationField = form.querySelector('[name="location"]');
     var messageField = form.querySelector('[name="message"]');
 
     loadConnectFormDraft(form);
 
     initConnectNameField(nameField, form);
     initConnectMobileField(mobileField, form);
+    initConnectLocationField(locationField, form);
     initConnectMessageField(messageField, form);
 
     form.addEventListener(
@@ -598,7 +650,6 @@
     var fields = [
       form.querySelector('[name="name"]'),
       form.querySelector('[name="phone"]'),
-      form.querySelector('[name="message"]'),
     ];
 
     for (var i = 0; i < fields.length; i++) {
@@ -643,16 +694,64 @@
     }
   }
 
-  function initConnectServiceChips(panel) {
-    var form = panel.querySelector('#header-connect-form');
-    if (!form || form.dataset.serviceFocusInit === 'true') return;
-    form.dataset.serviceFocusInit = 'true';
+  function showConnectSubPanel(form, categoryId) {
+    if (!form || !categoryId) return;
 
-    form.querySelectorAll('.hc-hub-chip').forEach(function (chip) {
+    form.querySelectorAll('[data-connect-sub-panel]').forEach(function (panel) {
+      var isActive = panel.getAttribute('data-connect-sub-panel') === categoryId;
+      panel.hidden = !isActive;
+    });
+  }
+
+  function clearInactiveSubServices(form, activeCategoryId) {
+    if (!form) return;
+
+    form.querySelectorAll('[name="sub_services"]').forEach(function (input) {
+      if (input.getAttribute('data-category-id') !== activeCategoryId) {
+        input.checked = false;
+      }
+    });
+  }
+
+  function initConnectInterestFields(panel) {
+    var form = panel.querySelector('#header-connect-form');
+    if (!form || form.dataset.interestInit === 'true') return;
+    form.dataset.interestInit = 'true';
+
+    var selectedCategory = form.querySelector('[name="category"]:checked');
+    if (selectedCategory) {
+      showConnectSubPanel(form, selectedCategory.getAttribute('data-category-id'));
+    }
+
+    form.querySelectorAll('[name="category"]').forEach(function (radio) {
+      radio.addEventListener('change', function () {
+        var categoryId = radio.getAttribute('data-category-id');
+        setCategoryError(form, '');
+        clearInactiveSubServices(form, categoryId);
+        showConnectSubPanel(form, categoryId);
+        window.requestAnimationFrame(function () {
+          focusFirstEmptyConnectField(panel);
+        });
+      });
+    });
+
+    form.querySelectorAll('.hc-hub-sub-panel .hc-hub-chip').forEach(function (chip) {
       chip.addEventListener('click', function () {
         window.requestAnimationFrame(function () {
           focusFirstEmptyConnectField(panel);
         });
+      });
+    });
+
+    form.addEventListener('reset', function () {
+      window.requestAnimationFrame(function () {
+        var checkedCategory = form.querySelector('[name="category"]:checked');
+        if (checkedCategory) {
+          var activeCategoryId = checkedCategory.getAttribute('data-category-id');
+          clearInactiveSubServices(form, activeCategoryId);
+          showConnectSubPanel(form, activeCategoryId);
+        }
+        setCategoryError(form, '');
       });
     });
   }
@@ -675,7 +774,7 @@
 
     if (panelId === 'hub') {
       initConnectFormFields(panel);
-      initConnectServiceChips(panel);
+      initConnectInterestFields(panel);
       if (!isMobileConnect()) {
         focusFirstEmptyConnectField(panel);
       }
@@ -814,7 +913,7 @@
     if (!trigger || !panel) return;
 
     initConnectFormFields(panel);
-    initConnectServiceChips(panel);
+    initConnectInterestFields(panel);
     initMobileSheetDrag(root, panel);
 
     var closeTimer = null;

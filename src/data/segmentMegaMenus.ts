@@ -82,7 +82,7 @@ export const segmentMegaMenus: Record<SegmentMegaMenuId, SegmentMegaMenuConfig> 
     ],
     turnkey: [
       { label: 'Turnkey office fitout', href: TURNKEY_PATHS.commercial, icon: 'key' },
-      { label: 'Site survey & quote', href: '/contact', icon: 'envelope' },
+      { label: 'Site survey & quote', href: '/commercial-site-survey', icon: 'envelope' },
     ],
     projects: [
       { label: 'Infotech Workspace', href: '/projects/infotech-workspace', location: 'Bengaluru' },
@@ -103,7 +103,7 @@ export const segmentMegaMenus: Record<SegmentMegaMenuId, SegmentMegaMenuConfig> 
     ],
     turnkey: [
       { label: 'Turnkey institutional fitout', href: TURNKEY_PATHS.institutional, icon: 'key' },
-      { label: 'Bulk furniture enquiry', href: '/contact', icon: 'envelope' },
+      { label: 'Bulk furniture enquiry', href: '/bulk-furniture-enquiry', icon: 'envelope' },
     ],
     projects: [
       { label: 'Infotech Workspace', href: '/projects/infotech-workspace', location: 'Bengaluru' },
@@ -124,7 +124,7 @@ export const segmentMegaMenus: Record<SegmentMegaMenuId, SegmentMegaMenuConfig> 
     ],
     turnkey: [
       { label: 'Turnkey hospitality fitout', href: TURNKEY_PATHS.hospitality, icon: 'key' },
-      { label: 'Free 3D consultation', href: '/contact', icon: 'compass-tool' },
+      { label: 'Free 3D consultation', href: '/hospitality-3d-consultation', icon: 'compass-tool' },
     ],
     projects: [
       { label: 'Soft Café', href: '/projects/soft-cafe-mysuru', location: 'Mysuru' },

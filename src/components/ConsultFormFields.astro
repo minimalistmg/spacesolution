@@ -1,0 +1,105 @@
+---
+import { FORM_LABELS, FORM_LIMITS } from '../data/formFieldLabels';
+import type { ConsultExtraField } from '../data/consultFormConfigs';
+
+interface Props {
+  formId: string;
+  compact?: boolean;
+  messagePlaceholder: string;
+  messageNote: string;
+  submitLabel: string;
+  extraFields?: ConsultExtraField[];
+}
+
+const { formId, compact = false, messagePlaceholder, messageNote, submitLabel, extraFields = [] } =
+  Astro.props;
+---
+
+<div
+  class:list={['h3d-fields', { 'h3d-fields--compact': compact, 'h3d-fields--with-extras': extraFields.length > 0 }]}
+>
+  <div class="floating-contact-form-group">
+    <label for={`${formId}-name`}>{FORM_LABELS.name}</label>
+    <input
+      id={`${formId}-name`}
+      type="text"
+      name="name"
+      autocomplete="name"
+      maxlength={FORM_LIMITS.nameMax}
+      data-lead-field="name"
+    />
+  </div>
+
+  <div class="floating-contact-form-group">
+    <label for={`${formId}-mobile`}>{FORM_LABELS.mobile}</label>
+    <input type="hidden" name="country" value="+91" />
+    <input
+      id={`${formId}-mobile`}
+      type="tel"
+      name="phone"
+      autocomplete="tel"
+      inputmode="numeric"
+      maxlength={FORM_LIMITS.mobileLen}
+      data-lead-field="mobile"
+    />
+  </div>
+
+  <div class="floating-contact-form-group">
+    <label for={`${formId}-location`}>
+      {FORM_LABELS.location}
+      <span class="h3d-optional">{FORM_LABELS.optional}</span>
+    </label>
+    <input
+      id={`${formId}-location`}
+      type="text"
+      name="location"
+      autocomplete="address-level2"
+      maxlength={FORM_LIMITS.locationMax}
+      data-lead-field="location"
+    />
+  </div>
+
+  {
+    extraFields.length > 0 && (
+      <div class="h3d-fields-extras">
+        {
+          extraFields.map((field) => (
+            <div class="floating-contact-form-group">
+              <label for={`${formId}-${field.id}`}>
+                {field.label}
+                {field.optional ? <span class="h3d-optional">{FORM_LABELS.optional}</span> : null}
+              </label>
+              <input
+                id={`${formId}-${field.id}`}
+                type={field.type}
+                name={field.name}
+                placeholder={field.placeholder}
+                data-consult-extra="true"
+                data-consult-extra-label={field.label}
+              />
+            </div>
+          ))
+        }
+      </div>
+    )
+  }
+
+  <div class="floating-contact-form-group h3d-fields-message">
+    <label for={`${formId}-message`}>
+      {FORM_LABELS.message}
+      <span class="h3d-optional">{FORM_LABELS.optional}</span>
+    </label>
+    <textarea
+      id={`${formId}-message`}
+      name="message"
+      rows={compact ? 3 : 4}
+      placeholder={messagePlaceholder}
+      maxlength={FORM_LIMITS.messageMax}
+      data-lead-field="message"
+    ></textarea>
+    <p class="floating-contact-form-note">{messageNote}</p>
+  </div>
+
+  <button type="submit" class="floating-contact-form-submit">{submitLabel}</button>
+  <p class="form-feedback" aria-live="polite"></p>
+</div>

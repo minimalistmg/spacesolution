@@ -1,4 +1,10 @@
 import type { IconName } from './iconPaths';
+import type { NavPage } from '../components/Header.astro';
+import {
+  resolveConnectFormDefaults,
+  type ConnectCategoryId,
+  type ConnectFormDefaults,
+} from './connectFormInterests';
 
 export interface ContactFormServiceOption {
   label: string;
@@ -15,6 +21,7 @@ export const contactFormServiceOptions: ContactFormServiceOption[] = [
   { label: 'Custom Solution', value: 'Custom Solution', icon: 'gear' },
 ];
 
+/** @deprecated Use connectCategories from connectFormInterests.ts */
 export const headerConnectInterestOptions = [
   { label: 'Home', value: 'Home Interiors' },
   { label: 'Commercial', value: 'Commercial Interiors' },
@@ -22,72 +29,22 @@ export const headerConnectInterestOptions = [
   { label: 'Hospitality', value: 'Hospitality Interiors' },
 ] as const;
 
-export type ConnectNavPage =
-  | 'home-interiors'
-  | 'commercial'
-  | 'institutional'
-  | 'hospitality'
-  | 'studio'
-  | 'portfolio'
-  | 'library'
-  | 'enquire'
-  | 'services-residential'
-  | 'services-commercial'
-  | 'services-institutional'
-  | 'services-hospitality'
-  | 'home'
-  | 'services';
+export type ConnectNavPage = NavPage;
 
+export { resolveConnectFormDefaults, type ConnectCategoryId, type ConnectFormDefaults };
+
+/** @deprecated Use resolveConnectFormDefaults instead */
 export function resolveDefaultConnectInterest(
   activePage: ConnectNavPage = 'home',
   pathname = '',
 ): (typeof headerConnectInterestOptions)[number]['value'] {
-  const path = pathname.toLowerCase();
-
-  if (
-    activePage === 'institutional' ||
-    activePage === 'services-institutional' ||
-    path.includes('/institutional-interiors')
-  ) {
-    return 'Institutional Interiors';
-  }
-
-  if (
-    activePage === 'hospitality' ||
-    activePage === 'services-hospitality' ||
-    path.includes('/hospitality-interiors')
-  ) {
-    return 'Hospitality Interiors';
-  }
-
-  if (
-    activePage === 'commercial' ||
-    activePage === 'services-commercial' ||
-    path.includes('/commercial-interiors') ||
-    path.includes('/office-interiors') ||
-    path.includes('/clinic') ||
-    path.includes('/retail') ||
-    path.includes('/co-working')
-  ) {
-    return 'Commercial Interiors';
-  }
-
-  if (
-    activePage === 'home-interiors' ||
-    activePage === 'services-residential' ||
-    activePage === 'home' ||
-    activePage === 'services' ||
-    path.includes('/modular-kitchen') ||
-    path.includes('/wardrobe') ||
-    path.includes('/living-dining') ||
-    path.includes('/bedroom') ||
-    path.includes('/pooja') ||
-    path.includes('/full-home') ||
-    path.includes('/residential') ||
-    path.includes('/free-3d-consultation')
-  ) {
-    return 'Home Interiors';
-  }
-
-  return 'Home Interiors';
+  const { category } = resolveConnectFormDefaults(activePage, pathname);
+  const legacyMap: Record<ConnectCategoryId, (typeof headerConnectInterestOptions)[number]['value']> = {
+    home: 'Home Interiors',
+    commercial: 'Commercial Interiors',
+    institutional: 'Institutional Interiors',
+    hospitality: 'Hospitality Interiors',
+    others: 'Home Interiors',
+  };
+  return legacyMap[category];
 }
