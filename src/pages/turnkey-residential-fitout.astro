@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TurnkeyFitoutPage from '../components/TurnkeyFitoutPage.astro';
+import { getTurnkeyFitoutPage } from '../data/turnkeyFitoutPages';
+
+const page = getTurnkeyFitoutPage('home-interiors');
+---
+
+<BaseLayout title={page.seoTitle} description={page.metaDescription} headerScrolled={false}>
+  <TurnkeyFitoutPage page={page} />
+</BaseLayout>

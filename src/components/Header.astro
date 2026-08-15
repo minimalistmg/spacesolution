@@ -4,10 +4,13 @@ import MenuIcon from './MenuIcon.astro';
 import HeaderActions from './HeaderActions.astro';
 import SegmentMegaMenu from './SegmentMegaMenu.astro';
 import SiteLogo from './SiteLogo.astro';
+import ConnectHubForm from './ConnectHubForm.astro';
 import { isNavPanelActive, mainNavPanels } from '../data/mainNav';
 import { isSegmentMegaMenuId, segmentMegaMenus } from '../data/segmentMegaMenus';
 import { MEGA_MENU_HOVER_ARROW } from '../data/headerMenuIcons';
+import { resolveConnectFormDefaults } from '../data/connectFormInterests';
 import { SITE } from '../data/site';
+import '../styles/header-contact-menu.css';
 
 export type NavPage =
   | 'home-interiors'
@@ -225,6 +228,27 @@ const resolvedActive = activePage === 'services' ? 'home-interiors' : activePage
             </div>
               ))
             }
+            <div
+              class="global-nav-panel global-nav-panel--contact"
+              data-menu-panel="contact"
+              data-panel-width="710"
+              role="region"
+              aria-label="Contact"
+            >
+              <div class="hc-hub-body hc-hub-body--popover">
+                <ConnectHubForm
+                  formId="header-connect-form"
+                  whatsappHref={whatsappHref}
+                  telHref={`tel:${primaryPhone}`}
+                  phoneDisplay={primaryPhone.replace(/^(\+91)(\d{5})(\d{5})$/, '$1 $2 $3')}
+                  formDefaults={resolveConnectFormDefaults(
+                    resolvedActive,
+                    Astro.url.pathname,
+                    Astro.url.searchParams.get('interest'),
+                  )}
+                />
+              </div>
+            </div>
           </div>
         </div>
         </div>

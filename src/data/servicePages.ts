@@ -1006,7 +1006,7 @@ export const serviceLandingPages: ServicePageData[] = [
     ],
     relatedLinks: [
       { label: 'Modular Kitchen', href: '/modular-kitchen' },
-      { label: 'Turnkey home interiors', href: '/turnkey-fitout' },
+      { label: 'Turnkey residential fitout', href: '/turnkey-residential-fitout' },
     ],
   },
   {

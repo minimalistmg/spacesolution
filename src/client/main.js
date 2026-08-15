@@ -129,7 +129,7 @@
   }
 
   function validateEnquiryForm($form) {
-    if ($form.is('#header-connect-form') && window.SpaceSolutionsHeaderContact) {
+    if (($form.is('#header-connect-form') || $form.is('#header-connect-form-mobile')) && window.SpaceSolutionsHeaderContact) {
       return window.SpaceSolutionsHeaderContact.validateForm($form.get(0));
     }
 
@@ -331,7 +331,7 @@
         form.reset();
         syncLeadFormAfterReset(form);
 
-        if (form.id === 'header-connect-form' && window.SpaceSolutionsHeaderContact) {
+        if ((form.id === 'header-connect-form' || form.id === 'header-connect-form-mobile') && window.SpaceSolutionsHeaderContact) {
           window.SpaceSolutionsHeaderContact.clearDraft();
         }
 

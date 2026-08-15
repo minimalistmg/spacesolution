@@ -90,7 +90,9 @@ const hubSlugToCategory: Record<string, ConnectCategoryId> = {
   'hospitality-interiors': 'hospitality',
 };
 
-const turnkeyPaths = new Set<string>(Object.values(TURNKEY_PATHS));
+const turnkeyPaths = new Set<string>(
+  Object.values(TURNKEY_PATHS).filter((path) => path !== TURNKEY_PATHS.hub),
+);
 
 export interface ConnectFormDefaults {
   category: ConnectCategoryId;
@@ -216,7 +218,7 @@ function resolveFromPath(path: string): ConnectFormDefaults | null {
     return { category: 'hospitality', subServices: [] };
   }
 
-  if (turnkeyPaths.has(path)) {
+  if (path === TURNKEY_PATHS.hub || turnkeyPaths.has(path)) {
     return { category: 'others', subServices: ['Turnkey Fitout'] };
   }
 

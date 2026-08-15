@@ -58,7 +58,7 @@ export const segmentMegaMenus: Record<SegmentMegaMenuId, SegmentMegaMenuConfig> 
       { label: 'Full Home Interiors', href: '/full-home-interiors', icon: 'house' },
     ],
     turnkey: [
-      { label: 'Turnkey home interiors', href: TURNKEY_PATHS.home, icon: 'key' },
+      { label: 'Turnkey residential fitout', href: TURNKEY_PATHS.residential, icon: 'key' },
       { label: 'Free 3D consultation', href: '/free-3d-consultation', icon: 'compass-tool' },
     ],
     projects: [

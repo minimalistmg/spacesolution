@@ -32,14 +32,15 @@ export const guideNavSegment: Record<string, NavResourceSegment> = {
 };
 
 export const TURNKEY_PATHS = {
-  home: '/turnkey-fitout',
+  hub: '/turnkey-fitout',
+  residential: '/turnkey-residential-fitout',
   commercial: '/turnkey-commercial-fitout',
   institutional: '/turnkey-institutional-fitout',
   hospitality: '/turnkey-hospitality-fitout',
 } as const;
 
 export const turnkeyNavSegment: Record<string, NavResourceSegment> = {
-  [TURNKEY_PATHS.home]: 'home-interiors',
+  [TURNKEY_PATHS.residential]: 'home-interiors',
   [TURNKEY_PATHS.commercial]: 'commercial',
   [TURNKEY_PATHS.institutional]: 'institutional',
   [TURNKEY_PATHS.hospitality]: 'hospitality',

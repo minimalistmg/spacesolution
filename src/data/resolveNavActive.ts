@@ -38,6 +38,8 @@ const STUDIO_PATH_PREFIXES = [
 
   '/project-detail',
 
+  '/turnkey-fitout',
+
 ];
 
 

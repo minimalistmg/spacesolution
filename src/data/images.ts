@@ -37,19 +37,12 @@ import projectVilla from '../assets/images/projects/project-villa.jpg';
 import projectCoworking from '../assets/images/projects/project-coworking.jpg';
 
 import cutoutChair from '../assets/images/cutouts/cutout-chair.png';
-import cutoutLamp from '../assets/images/cutouts/cutout-lamp.png';
-import cutoutPendants from '../assets/images/cutouts/cutout-pendants.png';
 import cutoutKitchen from '../assets/images/cutouts/cutout-kitchen.png';
 import cutoutWardrobe from '../assets/images/cutouts/cutout-wardrobe.png';
 import cutoutBed from '../assets/images/cutouts/cutout-bed.png';
 import cutoutPooja from '../assets/images/cutouts/cutout-pooja.png';
 import cutoutSofa from '../assets/images/cutouts/cutout-sofa.png';
-import cutoutWallClock from '../assets/images/cutouts/cutout-wall-clock.png';
-import cutoutArtFrame from '../assets/images/cutouts/cutout-art-frame.png';
 
-import openHouse1 from '../assets/images/open-house/open-house-1.png';
-import openHouse2 from '../assets/images/open-house/open-house-2.png';
-import openHouse3 from '../assets/images/open-house/open-house-3.png';
 import openHouseWideFamily from '../assets/images/open-house/open-house-wide-family.png';
 import openHouseCommercial from '../assets/images/open-house/open-house-commercial.png';
 import openHouseInstitutional from '../assets/images/open-house/open-house-institutional.png';
@@ -126,19 +119,15 @@ export const aboutHeroImages = {
 /** Single-object transparent PNGs for pastel product-style cards. */
 export const cutoutImages = {
   chair: cutoutChair,
-  lamp: cutoutLamp,
-  pendants: cutoutPendants,
   kitchen: cutoutKitchen,
   wardrobe: cutoutWardrobe,
   bed: cutoutBed,
   pooja: cutoutPooja,
   sofa: cutoutSofa,
-  wallClock: cutoutWallClock,
-  artFrame: cutoutArtFrame,
 };
 
-/** Residential hub — isometric open-house dioramas (transition set). */
-export const openHouseImages = [openHouse1, openHouse2, openHouse3] as const;
+/** Fallback diorama set for unused residential open-house experiments. */
+export const openHouseImages = [openHouseWideFamily] as const;
 
 /** Wide family diorama for the residential depth hero (16:9). */
 export const openHouseWideFamilyImage = openHouseWideFamily;

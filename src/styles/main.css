@@ -729,6 +729,11 @@ ul {
   max-width: 520px;
 }
 
+.cta .btn-gold-filled,
+.cta .btn-gold-filled:hover {
+  color: #ffffff;
+}
+
 /* Footer */
 /* Footer styles live in footer.css */
 
@@ -2925,9 +2930,10 @@ ul {
 }
 
 .faq-question .icon {
+  flex-shrink: 0;
   color: var(--gold);
-  width: 14px;
-  height: 14px;
+  width: clamp(20px, 1.9vw, 26px);
+  height: clamp(20px, 1.9vw, 26px);
   transition: transform 0.3s ease;
 }
 
@@ -3424,6 +3430,109 @@ ul {
 
 .tools-hub-card:hover .tools-hub-card-arrow {
   transform: translateX(4px);
+}
+
+/* Turnkey hub — compact category chooser */
+.turnkey-hub {
+  padding-top: calc(clamp(56px, 6vw, 88px) - 12px);
+  padding-bottom: calc(clamp(56px, 6vw, 88px) - 12px);
+}
+
+.turnkey-hub-intro {
+  max-width: 640px;
+  margin-bottom: 28px;
+}
+
+.turnkey-hub-intro .section-title {
+  margin-bottom: 12px;
+}
+
+.turnkey-hub-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.turnkey-hub-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 22px 44px 22px 22px;
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.turnkey-hub-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(var(--gold-rgb), 0.45);
+  box-shadow: 0 12px 24px rgba(60, 37, 22, 0.07);
+}
+
+.turnkey-hub-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-bottom: 4px;
+  border-radius: 10px;
+  background: rgba(var(--gold-rgb), 0.1);
+  color: var(--gold-on-light);
+}
+
+.turnkey-hub-card-icon .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.turnkey-hub-card-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold-on-light);
+}
+
+.turnkey-hub-card strong {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--dark);
+  line-height: 1.3;
+}
+
+.turnkey-hub-card > span:last-of-type {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--gray-text);
+}
+
+.turnkey-hub-card-arrow {
+  position: absolute;
+  right: 18px;
+  bottom: 22px;
+  width: 14px;
+  height: 14px;
+  color: var(--gold);
+  transition: transform 0.25s ease;
+}
+
+.turnkey-hub-card:hover .turnkey-hub-card-arrow {
+  transform: translateX(4px);
+}
+
+@media (max-width: 767px) {
+  .turnkey-hub-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .turnkey-hub-card {
+    padding-right: 40px;
+  }
 }
 
 .tool-calc-section {
@@ -4072,15 +4181,16 @@ ul {
 
 .faq-toggle {
   flex-shrink: 0;
-  width: 28px;
-  height: 28px;
+  width: clamp(36px, 3.5vw, 44px);
+  height: clamp(36px, 3.5vw, 44px);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  font-size: clamp(30px, 2.8vw, 38px);
   font-weight: 400;
   line-height: 1;
   color: var(--gold);
+  transition: transform 0.3s ease;
 }
 
 .faq-item.open .faq-toggle {

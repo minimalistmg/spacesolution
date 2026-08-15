@@ -140,10 +140,16 @@
   }
 
   function isConnectHubOpen() {
+    if (window.SpaceSolutionsGlobalNav && window.SpaceSolutionsGlobalNav.isContactOpen()) {
+      return true;
+    }
     return Boolean(document.querySelector('.hc-hub.is-open'));
   }
 
   function closeAllConnectHubs() {
+    if (window.SpaceSolutionsGlobalNav && window.SpaceSolutionsGlobalNav.isContactOpen()) {
+      window.SpaceSolutionsGlobalNav.close();
+    }
     document.querySelectorAll('[data-contact-smart]').forEach(function (root) {
       if (isMobileConnect() && root.classList.contains('is-open')) {
         closeMobileSheet(root);
@@ -165,6 +171,7 @@
 
     if (sheet.panel) {
       sheet.panel.hidden = true;
+      sheet.panel.classList.remove('is-popover-visible');
     }
 
     root.querySelectorAll('[data-contact-trigger]').forEach(function (trigger) {
@@ -276,7 +283,7 @@
 
     field.classList.toggle('is-invalid', Boolean(message));
 
-    var form = field.closest('#header-connect-form');
+    var form = field.closest('.hc-hub-form');
     if (form) {
       form.classList.toggle(
         'has-field-errors',
@@ -389,7 +396,9 @@
   function setCategoryError(form, message) {
     if (!form) return;
 
-    var errorEl = document.getElementById('header-connect-category-error');
+    var errorEl =
+      form.querySelector('[id$="header-connect-category-error"]') ||
+      form.querySelector('.hc-hub-interest .hc-hub-field-error');
     if (errorEl) {
       errorEl.textContent = message || '';
     }
@@ -507,7 +516,7 @@
     if (root.contains(document.activeElement)) return true;
     if (panel.querySelector('.hc-hub-field-error:not(:empty)')) return true;
     if (panel.closest('.hc-hub') && panel.closest('.hc-hub').classList.contains('is-open')) {
-      var form = panel.querySelector('#header-connect-form');
+      var form = panel.querySelector('.hc-hub-form');
       if (form && form.classList.contains('has-field-errors')) return true;
     }
     return false;
@@ -610,7 +619,7 @@
   }
 
   function initConnectFormFields(panel) {
-    var form = panel.querySelector('#header-connect-form');
+    var form = panel.querySelector('.hc-hub-form');
     if (!form || form.dataset.fieldValidationInit === 'true') return;
     form.dataset.fieldValidationInit = 'true';
 
@@ -665,7 +674,7 @@
     if (!field || typeof field.focus !== 'function') return;
 
     if (field.name === 'name') {
-      var form = field.closest('#header-connect-form');
+      var form = field.closest('.hc-hub-form');
       if (form) {
         initConnectNameField(field, form);
       }
@@ -685,7 +694,7 @@
   }
 
   function focusFirstEmptyConnectField(panel) {
-    var form = panel.querySelector('#header-connect-form');
+    var form = panel.querySelector('.hc-hub-form');
     if (!form) return;
 
     var field = getFirstEmptyConnectField(form);
@@ -714,7 +723,7 @@
   }
 
   function initConnectInterestFields(panel) {
-    var form = panel.querySelector('#header-connect-form');
+    var form = panel.querySelector('.hc-hub-form');
     if (!form || form.dataset.interestInit === 'true') return;
     form.dataset.interestInit = 'true';
 
@@ -756,15 +765,55 @@
     });
   }
 
+  function positionContactCaret(root, trigger, panel) {
+    /* Desktop caret is owned by global-nav-popover */
+  }
+
+  function getDesktopContactPanel() {
+    return document.querySelector('.global-nav-panel[data-menu-panel="contact"]');
+  }
+
+  function initDesktopContactForm() {
+    var panel = getDesktopContactPanel();
+    if (!panel) return;
+    initConnectFormFields(panel);
+    initConnectInterestFields(panel);
+  }
+
+  function openDesktopContact(trigger) {
+    if (!window.SpaceSolutionsGlobalNav || !window.SpaceSolutionsGlobalNav.openContact) {
+      return false;
+    }
+    initDesktopContactForm();
+    if (window.SpaceSolutionsGlobalNav.remasure) {
+      window.SpaceSolutionsGlobalNav.remasure();
+    }
+    var opened = window.SpaceSolutionsGlobalNav.openContact(trigger);
+    if (opened) {
+      var panel = getDesktopContactPanel();
+      if (panel) {
+        focusFirstEmptyConnectField(panel);
+      }
+    }
+    return opened;
+  }
+
+  function closeDesktopContact() {
+    if (window.SpaceSolutionsGlobalNav && window.SpaceSolutionsGlobalNav.isContactOpen()) {
+      window.SpaceSolutionsGlobalNav.close();
+    }
+  }
+
   function openPanel(root, trigger, panelId) {
+    if (!isMobileConnect()) {
+      openDesktopContact(trigger);
+      return;
+    }
+
     var panel = root.querySelector('[data-contact-panel="' + panelId + '"]');
     if (!panel) return;
 
     if (!panel.hidden && trigger.getAttribute('aria-expanded') === 'true') return;
-
-    if (isTabletViewport()) {
-      closeMobileMenuIfOpen();
-    }
 
     closeAll(root);
 
@@ -775,9 +824,6 @@
     if (panelId === 'hub') {
       initConnectFormFields(panel);
       initConnectInterestFields(panel);
-      if (!isMobileConnect()) {
-        focusFirstEmptyConnectField(panel);
-      }
     }
 
     if (shouldTrapConnectFocus()) {
@@ -915,44 +961,48 @@
     initConnectFormFields(panel);
     initConnectInterestFields(panel);
     initMobileSheetDrag(root, panel);
+    initDesktopContactForm();
 
     var closeTimer = null;
 
     function openHub() {
-      if (isMobileConnect() || isTabletViewport()) return;
+      if (isMobileConnect()) return;
 
       if (closeTimer) {
         clearTimeout(closeTimer);
         closeTimer = null;
       }
-      openPanel(root, trigger, 'hub');
+
+      if (window.SpaceSolutionsGlobalNav && window.SpaceSolutionsGlobalNav.cancelClose) {
+        window.SpaceSolutionsGlobalNav.cancelClose();
+      }
+
+      if (isTabletViewport()) {
+        closeMobileMenuIfOpen();
+        openDesktopContact(trigger);
+        return;
+      }
+
+      openDesktopContact(trigger);
     }
 
     function scheduleClose() {
-      if (isMobileConnect() || isTabletViewport()) return;
+      if (isMobileConnect()) return;
+
+      if (window.SpaceSolutionsGlobalNav && window.SpaceSolutionsGlobalNav.scheduleClose) {
+        window.SpaceSolutionsGlobalNav.scheduleClose();
+        return;
+      }
 
       if (closeTimer) clearTimeout(closeTimer);
       closeTimer = setTimeout(function () {
-        if (shouldKeepHubOpen(root, panel)) {
-          closeTimer = null;
-          return;
-        }
-        closeAll(root);
+        closeDesktopContact();
         closeTimer = null;
       }, 140);
     }
 
     root.addEventListener('mouseenter', openHub);
     root.addEventListener('mouseleave', scheduleClose);
-
-    panel.addEventListener('focusin', function () {
-      if (isMobileConnect() || isTabletViewport()) return;
-
-      if (closeTimer) {
-        clearTimeout(closeTimer);
-        closeTimer = null;
-      }
-    });
 
     trigger.addEventListener('click', function (event) {
       event.preventDefault();
@@ -972,8 +1022,8 @@
         return;
       }
 
-      if (root.classList.contains('is-open')) {
-        closeAll(root);
+      if (window.SpaceSolutionsGlobalNav && window.SpaceSolutionsGlobalNav.isContactOpen()) {
+        closeDesktopContact();
         return;
       }
 
@@ -981,7 +1031,7 @@
         closeMobileMenuIfOpen();
       }
 
-      openPanel(root, trigger, 'hub');
+      openDesktopContact(trigger);
     });
 
     if (backdrop) {
@@ -989,20 +1039,9 @@
         closeMobileSheet(root);
       });
     }
-
-    if (root.dataset.clickOutsideInit === 'true') return;
-    root.dataset.clickOutsideInit = 'true';
-
-    document.addEventListener('click', function (event) {
-      if (isMobileConnect()) return;
-      if (!root.classList.contains('is-open')) return;
-      if (root.contains(event.target)) return;
-      closeAll(root);
-    });
   }
 
-  function applyConnectDefaults(defaults) {
-    var form = document.getElementById('header-connect-form');
+  function applyConnectDefaultsToForm(form, defaults) {
     if (!form || !defaults || !defaults.category) return;
 
     var matched = false;
@@ -1026,6 +1065,12 @@
     if (matched || active) {
       showConnectSubPanel(form, active);
     }
+  }
+
+  function applyConnectDefaults(defaults) {
+    document.querySelectorAll('.hc-hub-form').forEach(function (form) {
+      applyConnectDefaultsToForm(form, defaults);
+    });
   }
 
   function openConnectHub(options) {
@@ -1056,8 +1101,7 @@
       closeMobileMenuIfOpen();
     }
 
-    openPanel(root, trigger, 'hub');
-    return true;
+    return openDesktopContact(trigger);
   }
 
   function openMobileConnect(options) {
@@ -1077,13 +1121,23 @@
     document.querySelectorAll('[data-contact-smart]').forEach(syncMobileSheetPortal);
   });
 
+  function closeMobileOnly() {
+    document.querySelectorAll('[data-contact-smart]').forEach(function (root) {
+      if (isMobileConnect() && root.classList.contains('is-open')) {
+        closeMobileSheet(root);
+      }
+    });
+  }
+
   window.SpaceSolutionsHeaderContact = {
     init: function () {
       document.querySelectorAll('[data-contact-smart]').forEach(initRoot);
+      initDesktopContactForm();
     },
     validateForm: validateConnectForm,
     clearDraft: clearConnectFormDraft,
     closeAll: function () {
+      closeDesktopContact();
       document.querySelectorAll('[data-contact-smart]').forEach(function (root) {
         if (isMobileConnect() && root.classList.contains('is-open')) {
           closeMobileSheet(root);
@@ -1092,6 +1146,8 @@
         closeAll(root);
       });
     },
+    closeMobileOnly: closeMobileOnly,
+    onDesktopOpened: initDesktopContactForm,
     open: openConnectHub,
     openMobile: openMobileConnect,
     isOpen: isConnectHubOpen,

@@ -1,10 +1,7 @@
 ---
 import Icon from './Icon.astro';
-import {
-  connectCategories,
-  connectSubServicesByCategory,
-  resolveConnectFormDefaults,
-} from '../data/connectFormInterests';
+import ConnectHubForm from './ConnectHubForm.astro';
+import { resolveConnectFormDefaults } from '../data/connectFormInterests';
 import type { NavPage } from './Header.astro';
 import '../styles/header-contact-menu.css';
 
@@ -32,6 +29,7 @@ const formDefaults = resolveConnectFormDefaults(
       class="hc-hub-pill-btn hc-hub-trigger"
       data-contact-trigger="hub"
       aria-expanded="false"
+      aria-controls="global-nav-popover"
       aria-label="Contact — open contact options"
     >
       <span class="hc-glass-filter" aria-hidden="true"></span>
@@ -78,173 +76,21 @@ const formDefaults = resolveConnectFormDefaults(
 
     <div class="hc-hub-mobile-backdrop" data-contact-backdrop hidden aria-hidden="true"></div>
 
-    <div class="hc-hub-panel" data-contact-panel="hub" hidden>
+    <div class="hc-hub-panel hc-hub-panel--mobile-only" data-contact-panel="hub" hidden>
       <div class="hc-hub-panel-surface">
-      <div class="hc-hub-sheet-handle-wrap" aria-hidden="true">
-        <span class="hc-hub-sheet-handle"></span>
-      </div>
-      <div class="hc-hub-body">
-        <form id="header-connect-form" class="hc-hub-form enquiry-form" data-source="connect" data-whatsapp={whatsappHref} novalidate>
-          <div class="hc-hub-main">
-            <header class="hc-hub-intro">
-              <div class="hc-hub-intro-copy">
-                <h2 class="hc-hub-title">Let&rsquo;s design your dream space.</h2>
-                <p class="hc-hub-subtitle">Share a few details and we&rsquo;ll get back to you.</p>
-              </div>
-              <div class="hc-hub-intro-contact">
-                <a
-                  href={telHref}
-                  class="hc-hub-outline-btn hc-hub-outline-btn--call"
-                  data-contact-action="call"
-                >
-                  <Icon name="phone" />
-                  <span>{phoneDisplay}</span>
-                </a>
-                <a
-                  href={whatsappHref}
-                  class="hc-hub-outline-btn hc-hub-outline-btn--whatsapp"
-                  target="_blank"
-                  rel="noopener"
-                  data-contact-action="whatsapp"
-                >
-                  <Icon name="whatsapp" />
-                  <span>WhatsApp</span>
-                </a>
-              </div>
-            </header>
-
-            <div class="hc-hub-form-scroll">
-              <div class="hc-hub-interest" role="group" aria-labelledby="header-connect-category-heading">
-                <div class="hc-hub-interest-label" id="header-connect-category-heading">I&rsquo;m interested in</div>
-                <div class="hc-hub-categories" role="radiogroup" aria-labelledby="header-connect-category-heading">
-                  {
-                    connectCategories.map((category) => (
-                      <label class="hc-hub-chip hc-hub-chip--radio">
-                        <input
-                          type="radio"
-                          name="category"
-                          value={category.label}
-                          data-category-id={category.id}
-                          checked={category.id === formDefaults.category}
-                          required
-                        />
-                        <span class="hc-hub-radio" aria-hidden="true"></span>
-                        <span class="hc-hub-chip-label">{category.label}</span>
-                      </label>
-                    ))
-                  }
-                </div>
-                <p class="hc-hub-field-error" id="header-connect-category-error" aria-live="polite"></p>
-              </div>
-
-              {
-                connectCategories.map((category) => {
-                  const subOptions = connectSubServicesByCategory[category.id];
-                  const isActive = category.id === formDefaults.category;
-                  const subHeadingId = `header-connect-sub-heading-${category.id}`;
-                  return (
-                    <div
-                      class="hc-hub-sub-panel"
-                      role="group"
-                      aria-labelledby={subHeadingId}
-                      data-connect-sub-panel={category.id}
-                      hidden={!isActive}
-                    >
-                      <div class="hc-hub-interest-label hc-hub-sub-panel-label" id={subHeadingId}>
-                        Specific interest <span class="hc-hub-optional">(optional)</span>
-                      </div>
-                      <div class="hc-hub-chips hc-hub-chips--wrap">
-                        {
-                          subOptions.map((option) => (
-                            <label class="hc-hub-chip">
-                              <input
-                                type="checkbox"
-                                name="sub_services"
-                                value={option.value}
-                                data-category-id={category.id}
-                                checked={formDefaults.subServices.includes(option.value)}
-                              />
-                              <span class="hc-hub-check" aria-hidden="true"></span>
-                              <span class="hc-hub-chip-label">{option.label}</span>
-                            </label>
-                          ))
-                        }
-                      </div>
-                    </div>
-                  );
-                })
-              }
-
-              <div class="hc-hub-fields">
-                <div class="hc-hub-fields-row">
-                  <div class="hc-hub-field">
-                    <label for="header-connect-name">Name</label>
-                    <input
-                      id="header-connect-name"
-                      type="text"
-                      name="name"
-                      class="hc-hub-field-input hc-hub-field-input--name"
-                      autocomplete="name"
-                      maxlength="50"
-                    />
-                    <p class="hc-hub-field-error" id="header-connect-name-error" aria-live="polite"></p>
-                  </div>
-                  <div class="hc-hub-field">
-                    <label for="header-connect-mobile">Mobile</label>
-                    <input
-                      id="header-connect-mobile"
-                      type="tel"
-                      name="phone"
-                      class="hc-hub-field-input hc-hub-field-input--mobile"
-                      autocomplete="tel"
-                      inputmode="numeric"
-                      maxlength="10"
-                    />
-                    <p class="hc-hub-field-error" id="header-connect-mobile-error" aria-live="polite"></p>
-                  </div>
-                  <div class="hc-hub-field">
-                    <label for="header-connect-location">Location <span class="hc-hub-optional">(optional)</span></label>
-                    <input
-                      id="header-connect-location"
-                      type="text"
-                      name="location"
-                      class="hc-hub-field-input hc-hub-field-input--location"
-                      autocomplete="address-level2"
-                      maxlength="80"
-                    />
-                    <p class="hc-hub-field-error" id="header-connect-location-error" aria-live="polite"></p>
-                  </div>
-                </div>
-
-                <div class="hc-hub-field hc-hub-field--full">
-                  <label for="header-connect-message">Briefly tell us about your project <span class="hc-hub-optional">(optional)</span></label>
-                  <textarea
-                    id="header-connect-message"
-                    name="message"
-                    class="hc-hub-field-input hc-hub-field-input--message"
-                    rows="3"
-                    maxlength="500"
-                  ></textarea>
-                  <p class="hc-hub-field-error" id="header-connect-message-error" aria-live="polite"></p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="hc-hub-form-footer">
-            <div class="hc-hub-form-actions hc-hub-form-actions--submit-only">
-              <button type="submit" class="hc-hub-pill-btn hc-hub-submit">
-                <span class="hc-hub-pill-btn-icon" aria-hidden="true">
-                  <Icon name="envelope" />
-                </span>
-                <span class="hc-hub-pill-btn-label" data-submit-label>Send Enquiry</span>
-              </button>
-            </div>
-
-            <p class="form-feedback hc-hub-form-feedback" aria-live="polite"></p>
-          </div>
-        </form>
-      </div>
+        <div class="hc-hub-sheet-handle-wrap" aria-hidden="true">
+          <span class="hc-hub-sheet-handle"></span>
+        </div>
+        <div class="hc-hub-body">
+          <ConnectHubForm
+            formId="header-connect-form-mobile"
+            idPrefix="mobile-"
+            whatsappHref={whatsappHref}
+            telHref={telHref}
+            phoneDisplay={phoneDisplay}
+            formDefaults={formDefaults}
+          />
+        </div>
       </div>
     </div>
   </div>

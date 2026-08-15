@@ -1,5 +1,4 @@
 ---
-import { getImage } from 'astro:assets';
 import Icon from './Icon.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
@@ -38,14 +37,8 @@ const showStandaloneStats = !isDepthHeroHub && !vistaHero && Boolean(page.stats?
 let depthHeroHousePreload: string | null = null;
 if (isDepthHeroHub && page.stats?.length) {
   const hub = getDepthHeroHub(page.slug);
-  if (hub?.houseImage) {
-    const pre = await getImage({
-      src: hub.houseImage,
-      width: 1600,
-      format: 'png',
-      quality: 90,
-    });
-    depthHeroHousePreload = pre.src;
+  if (hub?.houseImage?.src) {
+    depthHeroHousePreload = hub.houseImage.src;
   }
 }
 ---

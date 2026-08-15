@@ -133,7 +133,10 @@
     var triggers = nav.querySelectorAll('.has-mega-menu');
     var panels = nav.querySelectorAll('.global-nav-panel');
     var closeTimer = null;
+    var contactCaretClearTimer = null;
     var activeIndex = null;
+    var activePanelId = null;
+    var contactTriggerEl = null;
     var panelMetrics = {};
     var panelOrder = [];
 
@@ -160,8 +163,11 @@
       }
     }
 
-    function getPanelWidth() {
-      return Math.min(MEGA_MENU_WIDTH, window.innerWidth * 0.92);
+    function getPanelWidth(panelId) {
+      var panel = nav.querySelector('.global-nav-panel[data-menu-panel="' + panelId + '"]');
+      var configured = panel ? parseInt(panel.getAttribute('data-panel-width'), 10) : 0;
+      var base = configured && !Number.isNaN(configured) ? configured : MEGA_MENU_WIDTH;
+      return Math.min(base, window.innerWidth * 0.92);
     }
 
     var CARET_HEIGHT = 14;
@@ -171,7 +177,7 @@
 
       panels.forEach(function (panel) {
         var panelId = panel.getAttribute('data-menu-panel');
-        var width = getPanelWidth();
+        var width = getPanelWidth(panelId);
         var clone = panel.cloneNode(true);
 
         clone.style.cssText =
@@ -202,55 +208,90 @@
       });
     }
 
-    function updatePanelStates(index) {
+    function setContactTriggerExpanded(expanded) {
+      document.querySelectorAll('[data-contact-trigger="hub"]').forEach(function (btn) {
+        btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      });
+      document.querySelectorAll('.hc-hub').forEach(function (root) {
+        root.classList.toggle('is-open', expanded);
+      });
+    }
+
+    function updatePanelStates(panelId) {
       panels.forEach(function (panel) {
-        var panelId = panel.getAttribute('data-menu-panel');
-        var panelIndex = panelOrder.indexOf(panelId);
+        var id = panel.getAttribute('data-menu-panel');
+        var panelIndex = panelOrder.indexOf(id);
+        var activeIndexForPanel = panelOrder.indexOf(panelId);
 
         panel.classList.remove('is-active', 'is-before', 'is-after');
 
-        if (panelIndex === index) {
+        if (id === panelId) {
           panel.classList.add('is-active');
-        } else if (panelIndex < index) {
+        } else if (panelId === 'contact' || activeIndexForPanel === -1) {
+          panel.classList.add('is-after');
+        } else if (panelIndex !== -1 && panelIndex < activeIndexForPanel) {
           panel.classList.add('is-before');
         } else {
           panel.classList.add('is-after');
         }
       });
 
-      triggers.forEach(function (trigger, triggerIndex) {
-        trigger.classList.toggle('is-menu-open', triggerIndex === index);
+      triggers.forEach(function (trigger) {
+        trigger.classList.toggle(
+          'is-menu-open',
+          trigger.getAttribute('data-menu-panel') === panelId,
+        );
       });
     }
 
-    function positionPopover(index) {
-      var trigger = triggers[index];
-      var panelId = trigger.getAttribute('data-menu-panel');
+    function positionPopoverForTrigger(trigger, panelId) {
       var metrics = panelMetrics[panelId];
-      if (!metrics) return;
+      if (!metrics || !trigger) return;
 
       var navRect = nav.getBoundingClientRect();
       var triggerRect = trigger.getBoundingClientRect();
       var triggerCenter = triggerRect.left + triggerRect.width / 2 - navRect.left;
       var left = triggerCenter - metrics.width / 2;
-      var minLeft = 0;
-      var maxLeft = Math.max(0, navRect.width - metrics.width);
-      left = Math.max(minLeft, Math.min(left, maxLeft));
+      var minLeft;
+      var maxLeft;
+
+      if (panelId === 'contact') {
+        var headerInner = document.querySelector('.header-inner');
+        var boundsRect = headerInner ? headerInner.getBoundingClientRect() : navRect;
+        minLeft = boundsRect.left - navRect.left;
+        maxLeft = boundsRect.right - navRect.left - metrics.width;
+        if (maxLeft < minLeft) {
+          left = minLeft;
+        } else {
+          left = Math.max(minLeft, Math.min(left, maxLeft));
+        }
+      } else {
+        minLeft = 0;
+        maxLeft = Math.max(0, navRect.width - metrics.width);
+        left = Math.max(minLeft, Math.min(left, maxLeft));
+      }
 
       var arrowLeft = triggerCenter - left;
+      arrowLeft = Math.max(18, Math.min(arrowLeft, metrics.width - 18));
 
       popover.style.setProperty('--popover-left', left + 'px');
       popover.style.setProperty('--popover-width', metrics.width + 'px');
       popover.style.setProperty('--popover-height', metrics.height + 'px');
-      popover.style.setProperty('--arrow-left', arrowLeft + 'px');
+      popover.style.setProperty('--arrow-left', Math.round(arrowLeft) + 'px');
       popover.setAttribute('data-active-panel', panelId);
+    }
+
+    function positionPopover(index) {
+      var trigger = triggers[index];
+      var panelId = trigger.getAttribute('data-menu-panel');
+      positionPopoverForTrigger(trigger, panelId);
     }
 
     function openMenu(index) {
       if (!isDesktop()) return;
 
       if (window.SpaceSolutionsHeaderContact) {
-        window.SpaceSolutionsHeaderContact.closeAll();
+        window.SpaceSolutionsHeaderContact.closeMobileOnly();
       }
 
       window.clearTimeout(closeTimer);
@@ -261,7 +302,13 @@
       }
 
       activeIndex = index;
-      updatePanelStates(index);
+      activePanelId = triggers[index].getAttribute('data-menu-panel');
+      contactTriggerEl = null;
+      window.clearTimeout(contactCaretClearTimer);
+      contactCaretClearTimer = null;
+      popover.classList.remove('is-contact-no-caret');
+      setContactTriggerExpanded(false);
+      updatePanelStates(activePanelId);
       positionPopover(index);
       popover.classList.add('is-open');
       popover.setAttribute('aria-hidden', 'false');
@@ -277,13 +324,59 @@
       }
     }
 
+    function openContact(trigger) {
+      if (!isDesktop() || !trigger) return false;
+
+      window.clearTimeout(closeTimer);
+      var wasOpen = popover.classList.contains('is-open');
+      var wasContact = activePanelId === 'contact';
+
+      if (!wasOpen) {
+        popover.classList.add('is-instant-reposition');
+      }
+
+      activeIndex = null;
+      activePanelId = 'contact';
+      contactTriggerEl = trigger;
+      window.clearTimeout(contactCaretClearTimer);
+      contactCaretClearTimer = null;
+      popover.classList.add('is-contact-no-caret');
+      setExpanded(null);
+      triggers.forEach(function (item) {
+        item.classList.remove('is-menu-open');
+      });
+      updatePanelStates('contact');
+      positionPopoverForTrigger(trigger, 'contact');
+      popover.classList.add('is-open');
+      popover.setAttribute('aria-hidden', 'false');
+      setContactTriggerExpanded(true);
+      $header.removeClass('is-hidden');
+
+      if (!wasOpen || !wasContact) {
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            popover.classList.remove('is-instant-reposition');
+            if (window.SpaceSolutionsHeaderContact && window.SpaceSolutionsHeaderContact.onDesktopOpened) {
+              window.SpaceSolutionsHeaderContact.onDesktopOpened();
+            }
+          });
+        });
+      }
+
+      return true;
+    }
+
     function closeMenu() {
       window.clearTimeout(closeTimer);
+      var wasContact = activePanelId === 'contact';
       activeIndex = null;
+      activePanelId = null;
+      contactTriggerEl = null;
       popover.classList.remove('is-open');
       popover.setAttribute('aria-hidden', 'true');
       popover.removeAttribute('data-active-panel');
       setExpanded(null);
+      setContactTriggerExpanded(false);
 
       panels.forEach(function (panel) {
         panel.classList.remove('is-active', 'is-before', 'is-after');
@@ -292,6 +385,20 @@
       triggers.forEach(function (trigger) {
         trigger.classList.remove('is-menu-open');
       });
+
+      if (wasContact) {
+        window.clearTimeout(contactCaretClearTimer);
+        contactCaretClearTimer = window.setTimeout(function () {
+          if (!popover.classList.contains('is-open')) {
+            popover.classList.remove('is-contact-no-caret');
+          }
+          contactCaretClearTimer = null;
+        }, 280);
+      } else {
+        window.clearTimeout(contactCaretClearTimer);
+        contactCaretClearTimer = null;
+        popover.classList.remove('is-contact-no-caret');
+      }
 
       blurNavFocus();
     }
@@ -346,7 +453,9 @@
 
     window.addEventListener('resize', function () {
       measurePanels();
-      if (activeIndex !== null) {
+      if (activePanelId === 'contact' && contactTriggerEl) {
+        positionPopoverForTrigger(contactTriggerEl, 'contact');
+      } else if (activeIndex !== null) {
         positionPopover(activeIndex);
       }
     });
@@ -362,9 +471,16 @@
 
     window.SpaceSolutionsGlobalNav = {
       close: closeMenu,
+      cancelClose: cancelClose,
+      scheduleClose: scheduleClose,
+      openContact: openContact,
       isOpen: function () {
         return popover.classList.contains('is-open');
       },
+      isContactOpen: function () {
+        return popover.classList.contains('is-open') && activePanelId === 'contact';
+      },
+      remasure: measurePanels,
     };
   }
 

@@ -80,7 +80,7 @@ export const mainNavPanels: MainNavPanel[] = [
         heading: 'Turnkey',
         columns: 1,
         items: [
-          { label: 'Turnkey home interiors', href: TURNKEY_PATHS.home, icon: 'key' },
+          { label: 'Turnkey residential fitout', href: TURNKEY_PATHS.residential, icon: 'key' },
           { label: 'Free 3D consultation', href: '/free-3d-consultation', icon: 'compass-tool' },
         ],
       },
@@ -288,7 +288,7 @@ export const mainNavPanels: MainNavPanel[] = [
         items: [
           { label: 'About us', href: '/about', icon: 'medal' },
           { label: 'Studio showcase', href: '/showcase', icon: 'paint-brush' },
-          { label: 'Turnkey fitout hub', href: TURNKEY_PATHS.home, icon: 'key' },
+          { label: 'Turnkey fitout', href: TURNKEY_PATHS.hub, icon: 'key' },
           { label: 'FAQ', href: '/faq', icon: 'check-circle' },
         ],
       },

@@ -81,5 +81,6 @@ spacesolution/
 | Residential Interiors | `/residential-interiors` |
 | Commercial Interiors | `/commercial-interiors` |
 | Institutional Interiors | `/institutional-interiors` |
-| Turnkey Fitout | `/turnkey-fitout` |
+| Turnkey Fitout (hub) | `/turnkey-fitout` |
+| Turnkey Residential Fitout | `/turnkey-residential-fitout` |
 | Project Showcase | `/showcase` | Desint-style GSAP experience (Hero → About → Services → Process → Library → CTA) |

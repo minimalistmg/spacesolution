@@ -47,74 +47,12 @@
   white-space: pre;
 }
 
-.footer-lets-talk-letter {
-  position: relative;
-  /* Em-based so gaps stay proportional on mobile */
-  margin: 0 -0.025em;
-}
-
-.footer-lets-talk-letter-fallback {
-  display: inline-block;
-  width: 100%;
-  text-align: center;
-  opacity: 1;
-  pointer-events: none;
-  user-select: none;
-}
-
-.footer-lets-talk-frames {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  opacity: 0;
-  /* width/height set in JS from font-size */
-}
-
-.footer-lets-talk-chair-canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.footer-lets-talk.is-ready .footer-lets-talk-letter-fallback {
-  opacity: 0;
-}
-
-.footer-lets-talk.is-ready .footer-lets-talk-frames {
-  opacity: 1;
-}
-
-.footer-lets-talk.no-canvas .footer-lets-talk-letter-fallback {
-  opacity: 1;
-}
-
-.footer-lets-talk.no-canvas .footer-lets-talk-frames {
-  display: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .footer-lets-talk-letter-fallback {
-    opacity: 1;
-  }
-
-  .footer-lets-talk-frames {
-    display: none;
-  }
-}
-
 @media (max-width: 767px) {
   .footer-lets-talk {
     padding: 56px 12px;
   }
 
   .footer-lets-talk-title {
-    /* Fill most of the row width */
     font-size: clamp(3.75rem, 22vw, 6.25rem);
-  }
-
-  .footer-lets-talk-letter {
-    margin: 0 -0.08em;
   }
 }

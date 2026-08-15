@@ -4,7 +4,6 @@
  * Right: open-building diorama with room fills (residential + commercial /
  * institutional / hospitality cutaways).
  */
-import { getImage } from 'astro:assets';
 import {
   getDepthHeroHub,
   residentialDepthHero,
@@ -35,13 +34,8 @@ const first = offers[0];
 
 const runtimeServices = offers.map(({ cutout: _c, ...rest }) => rest);
 
-/** PNG — preserve alpha from keyed open-building assets */
-const houseImage = await getImage({
-  src: hub.houseImage,
-  width: 1600,
-  format: 'png',
-  quality: 90,
-});
+/** Serve the imported PNG URL directly — preserves alpha and avoids /_image Sharp failures. */
+const houseImage = hub.houseImage;
 ---
 
 <section
@@ -101,8 +95,8 @@ const houseImage = await getImage({
             <figure class="idh-house" data-idh-house>
               <img
                 src={houseImage.src}
-                width={houseImage.attributes.width}
-                height={houseImage.attributes.height}
+                width={houseImage.width}
+                height={houseImage.height}
                 alt={hub.houseAlt}
                 loading="eager"
                 fetchpriority="high"

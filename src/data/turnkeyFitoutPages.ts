@@ -1,5 +1,6 @@
 import type { NavResourceSegment } from './navResourceSegments';
 import { TURNKEY_PATHS } from './navResourceSegments';
+import type { IconName } from './iconPaths';
 
 export interface TurnkeyFitoutPageConfig {
   segment: NavResourceSegment;
@@ -10,14 +11,22 @@ export interface TurnkeyFitoutPageConfig {
   heroLead: string;
 }
 
+export interface TurnkeyHubLink {
+  label: string;
+  href: string;
+  eyebrow: string;
+  description: string;
+  icon: IconName;
+}
+
 export const turnkeyFitoutPages: Record<NavResourceSegment, TurnkeyFitoutPageConfig> = {
   'home-interiors': {
     segment: 'home-interiors',
-    path: TURNKEY_PATHS.home,
-    seoTitle: 'Turnkey Home Interior Fitout Mysuru | Space Solution',
+    path: TURNKEY_PATHS.residential,
+    seoTitle: 'Turnkey Residential Fitout Mysuru | Space Solution',
     metaDescription:
-      'Turnkey home interior fitout in Mysuru — design, in-house manufacturing, and installation for kitchens, wardrobes, and full homes by Space Solution.',
-    breadcrumbCurrent: 'Turnkey home interiors',
+      'Turnkey residential interior fitout in Mysuru — design, in-house manufacturing, and installation for kitchens, wardrobes, and full homes by Space Solution.',
+    breadcrumbCurrent: 'Turnkey residential fitout',
     heroLead:
       'One team for design, factory production, and installation — so your home finishes on a clear plan before move-in.',
   },
@@ -52,6 +61,37 @@ export const turnkeyFitoutPages: Record<NavResourceSegment, TurnkeyFitoutPageCon
       'One team for guest-facing hospitality interiors — counters, seating, and back-of-house coordination before you open.',
   },
 };
+
+export const turnkeyHubLinks: TurnkeyHubLink[] = [
+  {
+    label: 'Residential turnkey',
+    href: TURNKEY_PATHS.residential,
+    eyebrow: 'Homes',
+    description: 'Kitchens, wardrobes, and full-home interiors — design to handover under one team.',
+    icon: 'house',
+  },
+  {
+    label: 'Commercial turnkey',
+    href: TURNKEY_PATHS.commercial,
+    eyebrow: 'Workplaces',
+    description: 'Offices, clinics, and retail fitouts planned for opening day and daily use.',
+    icon: 'building',
+  },
+  {
+    label: 'Institutional turnkey',
+    href: TURNKEY_PATHS.institutional,
+    eyebrow: 'Campuses',
+    description: 'Classrooms, hostels, labs, and admin spaces built for durable student and staff use.',
+    icon: 'school',
+  },
+  {
+    label: 'Hospitality turnkey',
+    href: TURNKEY_PATHS.hospitality,
+    eyebrow: 'Guest spaces',
+    description: 'Cafés, hotels, bars, and salons coordinated from concept to opening.',
+    icon: 'store',
+  },
+];
 
 export function getTurnkeyFitoutPage(segment: NavResourceSegment): TurnkeyFitoutPageConfig {
   return turnkeyFitoutPages[segment];

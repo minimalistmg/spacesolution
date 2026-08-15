@@ -1,11 +1,52 @@
 ---
+import Icon from '../components/Icon.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import TurnkeyFitoutPage from '../components/TurnkeyFitoutPage.astro';
-import { getTurnkeyFitoutPage } from '../data/turnkeyFitoutPages';
-
-const page = getTurnkeyFitoutPage('home-interiors');
+import PageHero from '../components/PageHero.astro';
+import CtaSection from '../components/CtaSection.astro';
+import { heroImages } from '../data/images';
+import { turnkeyHubLinks } from '../data/turnkeyFitoutPages';
 ---
 
-<BaseLayout title={page.seoTitle} description={page.metaDescription} headerScrolled={false}>
-  <TurnkeyFitoutPage page={page} />
+<BaseLayout
+  title="Turnkey Interior Fitout Mysuru | Space Solution"
+  description="End-to-end turnkey interior fitout in Mysuru — choose residential, commercial, institutional, or hospitality delivery from Space Solution."
+  headerScrolled={false}
+>
+  <PageHero
+    breadcrumb={'<a href="/">Space Solution</a> <span class="breadcrumb-sep">/</span> Turnkey fitout'}
+    title="Turnkey fitout"
+    description="One studio for design, factory production, and installation. Pick the programme that matches your space."
+    image={heroImages.commercial}
+  />
+
+  <section class="page-content turnkey-hub">
+    <div class="container">
+      <div class="content-prose fade-up turnkey-hub-intro">
+        <p class="section-label">How it works</p>
+        <h2 class="section-title">Choose your turnkey path</h2>
+        <p class="content-body">
+          Turnkey means one accountable team from brief to snag list. Use the links below for the
+          category that fits your project — each page covers scope, process, and next steps.
+        </p>
+      </div>
+
+      <div class="turnkey-hub-grid">
+        {
+          turnkeyHubLinks.map((item) => (
+            <a href={item.href} class="turnkey-hub-card fade-up">
+              <span class="turnkey-hub-card-icon" aria-hidden="true">
+                <Icon name={item.icon} />
+              </span>
+              <span class="turnkey-hub-card-eyebrow">{item.eyebrow}</span>
+              <strong>{item.label}</strong>
+              <span>{item.description}</span>
+              <Icon name="arrow-right" class="turnkey-hub-card-arrow" />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaSection />
 </BaseLayout>

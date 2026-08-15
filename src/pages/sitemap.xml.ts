@@ -23,6 +23,7 @@ const staticPages = [
   '/institutional-interiors',
   '/hospitality-interiors',
   '/turnkey-fitout',
+  '/turnkey-residential-fitout',
   '/turnkey-commercial-fitout',
   '/turnkey-institutional-fitout',
   '/turnkey-hospitality-fitout',
