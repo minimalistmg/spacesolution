@@ -1,7 +1,7 @@
 /**
  * Above-the-fold layout for contextual consult forms.
  * Packs space-type cards into one row when possible, then sizes the
- * textarea from leftover card space so Send Enquiry stays inside the white card.
+ * textarea so the hugging white card stays above the fold when it can.
  */
 (function (window) {
   'use strict';
@@ -11,7 +11,7 @@
   var DESIRED_TEXTAREA = 148;
   var DESIRED_TEXTAREA_EXTRAS = 96;
   var MIN_CARD_WIDTH = 88;
-  var BOTTOM_RESERVE = 8;
+  var FOLD_RESERVE = 16;
   var resizeTimer = null;
 
   function getCards() {
@@ -26,17 +26,14 @@
     return hasExtras(card) ? DESIRED_TEXTAREA_EXTRAS : DESIRED_TEXTAREA;
   }
 
-  function paddingBottom(card) {
-    return parseFloat(window.getComputedStyle(card).paddingBottom) || 0;
+  function foldBottom(card) {
+    var page = card.closest('.h3d-page');
+    if (page) return page.getBoundingClientRect().bottom - FOLD_RESERVE;
+    return window.innerHeight - FOLD_RESERVE;
   }
 
-  function submitOverflows(card) {
-    var submit = card.querySelector('.floating-contact-form-submit');
-    if (!submit) return false;
-
-    var cardRect = card.getBoundingClientRect();
-    var submitRect = submit.getBoundingClientRect();
-    return submitRect.bottom > cardRect.bottom - paddingBottom(card) + 0.5;
+  function formExceedsFold(card) {
+    return card.getBoundingClientRect().bottom > foldBottom(card) + 0.5;
   }
 
   function resetCard(card) {
@@ -106,12 +103,12 @@
 
     while (height >= MIN_TEXTAREA) {
       setTextareaHeight(card, height);
-      if (!submitOverflows(card)) return true;
+      if (!formExceedsFold(card)) return true;
       height -= 8;
     }
 
     setTextareaHeight(card, MIN_TEXTAREA);
-    return !submitOverflows(card);
+    return !formExceedsFold(card);
   }
 
   function fitCard(card) {
@@ -125,7 +122,7 @@
     applySingleRow(card);
     setTextareaHeight(card, desiredTextarea(card));
 
-    if (!submitOverflows(card)) {
+    if (!formExceedsFold(card)) {
       card.dataset.h3dFit = card.querySelector('.h3d-rooms-grid.is-fit-single-row')
         ? 'single-row'
         : 'default';

@@ -89,6 +89,11 @@ export const projects: ProjectItem[] = [
         answer:
           'Yes. The planning principles — light, storage, and clear circulation — adapt well to other 2–3 BHK footprints; we resize modules from fresh site measures rather than copying drawings blindly.',
       },
+      {
+        question: 'How would a similar home project start?',
+        answer:
+          'Share plans or photos, your must-have rooms, and a target move-in. We measure, design in 3D, then manufacture and install as one residential programme.',
+      },
     ],
     images: [
       { src: projectImages.apartment, alt: 'Vijayanagar residence living interior' },
@@ -140,6 +145,16 @@ export const projects: ProjectItem[] = [
         answer:
           'We map order, pickup, seating, and clearing paths early, then size counters and storage so staff can move without crossing guest routes during rush periods.',
       },
+      {
+        question: 'Can you take on a similar café brief?',
+        answer:
+          'Yes. Bring your shopfront size, cover target, and kitchen vendor plan. We will design front-of-house joinery and seating around how the café actually serves.',
+      },
+      {
+        question: 'Was this a turnkey hospitality fitout?',
+        answer:
+          'Soft Café was delivered as a coordinated interior package — counters, display millwork, and seating — so finishes and service flow stayed under one team.',
+      },
     ],
     images: [
       { src: roomImages.cafe, alt: 'Café dining and counter interior' },
@@ -190,6 +205,16 @@ export const projects: ProjectItem[] = [
         answer:
           'For Infotech Workspace we managed design, procurement coordination, and site installation as one timeline so IT move-in and interiors stayed aligned.',
       },
+      {
+        question: 'Can you deliver a similar office floor?',
+        answer:
+          'Yes. Share headcount, cabin needs, and your move-in date. We will plan workstations, meeting rooms, and a fitout sequence that matches IT and operations.',
+      },
+      {
+        question: 'Was furniture factory-made for this project?',
+        answer:
+          'Key workstations and joinery were factory-produced for consistent quality, then installed and aligned on site so the floor could open as one workplace.',
+      },
     ],
     images: [
       { src: roomImages.office, alt: 'Open office workspace' },
@@ -233,6 +258,16 @@ export const projects: ProjectItem[] = [
         question: 'Can treatment rooms share a compact footprint?',
         answer:
           'Yes. Clear thresholds, acoustic care, and storage planning allow multiple rooms to work efficiently without visual clutter in the guest path.',
+      },
+      {
+        question: 'Do you take on similar salon or wellness studios?',
+        answer:
+          'Yes. Bring your treatment-room count, hygiene needs, and brand palette. We will plan reception, rooms, and storage for daily reset.',
+      },
+      {
+        question: 'How long did this studio take?',
+        answer:
+          'Wellness Studio ran about three months from brief and measure through fabrication and installation — a compact hospitality-grade fitout.',
       },
     ],
     images: [
@@ -283,6 +318,16 @@ export const projects: ProjectItem[] = [
         answer:
           'We map guest bedding, seasonal clothes, and hosting ware into tall units and bedroom wardrobes so living rooms stay clear when the house is full.',
       },
+      {
+        question: 'Do you work on homes outside Mysuru?',
+        answer:
+          'Yes. Heritage Home was delivered in Madikeri. We regularly take residential projects across Karnataka once site access and logistics are clear.',
+      },
+      {
+        question: 'How would a similar villa project start?',
+        answer:
+          'Share plans, rooms in scope, and when you want to move in. We measure, lock 3D and materials, then manufacture and install as one home programme.',
+      },
     ],
     images: [
       { src: projectImages.villa, alt: 'Heritage home villa interior' },
@@ -327,6 +372,16 @@ export const projects: ProjectItem[] = [
         question: 'Are the modules reusable for future events?',
         answer:
           'Yes. The display system was designed as a modular kit that can be reconfigured for later pop-ups with limited site work.',
+      },
+      {
+        question: 'Can you build a similar retail pop-up?',
+        answer:
+          'Yes. Lock the layout and brand finishes early. We fabricate a kit that installs quickly and can travel to the next venue.',
+      },
+      {
+        question: 'Was this a furniture-only package?',
+        answer:
+          'The brief was design and fabrication of display modules — a focused commercial kit rather than a full shop fitout — so the brand could open on a short timeline.',
       },
     ],
     images: [
@@ -377,6 +432,16 @@ export const projects: ProjectItem[] = [
         answer:
           'Yes. Sequencing and access were planned with the site team so public-area work stayed aligned with the overall hotel programme.',
       },
+      {
+        question: 'Do you take on similar hotel public areas?',
+        answer:
+          'Yes. Share lobby size, seating capacity, and opening programme. We will plan reception, lounge, and durable finishes for daily hotel traffic.',
+      },
+      {
+        question: 'How long did the lobby programme take?',
+        answer:
+          'Boutique Hotel Lobby ran about eight months, coordinated with the wider hotel construction so arrival spaces were ready with the rest of the building.',
+      },
     ],
     images: [
       { src: roomImages.hotel, alt: 'Boutique hotel lobby seating' },
@@ -426,6 +491,16 @@ export const projects: ProjectItem[] = [
         question: 'Do you plan staff workflow as well as patient areas?',
         answer:
           'Always. Support rooms, storage, and circulation are designed around how staff actually move, not only how the waiting area looks.',
+      },
+      {
+        question: 'Can you deliver a similar clinic fitout?',
+        answer:
+          'Yes. Bring your room list, specialty, and patient flow. We will plan waiting, consultation, and support rooms as one healthcare interior.',
+      },
+      {
+        question: 'How long did this clinic take?',
+        answer:
+          'Clinic Fit-Out ran about four and a half months from measure and design through factory production and site handover.',
       },
     ],
     images: [

@@ -49,6 +49,7 @@
   function isNavOpen() {
     if ($mobileMenu.hasClass('open')) return true;
     if (window.SpaceSolutionsGlobalNav && window.SpaceSolutionsGlobalNav.isOpen()) return true;
+    if (window.SpaceSolutionsHeaderContact && window.SpaceSolutionsHeaderContact.isOpen()) return true;
     return false;
   }
 

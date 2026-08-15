@@ -4,7 +4,7 @@
 (function () {
   'use strict';
 
-  var HOVER_LIFT = 18;
+  var HOVER_LIFT = 10;
 
   function prefersReducedMotion() {
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -195,6 +195,52 @@
     initLoop(root, gsapLib);
   }
 
+  function initAccordion(footer) {
+    if (footer.dataset.fgsapAccordionReady === 'true') return;
+    footer.dataset.fgsapAccordionReady = 'true';
+
+    var mq = window.matchMedia('(max-width: 767px)');
+    var cols = footer.querySelectorAll('[data-fgsap-accordion]');
+    if (!cols.length) return;
+
+    function setExpanded(col, expanded) {
+      var btn = col.querySelector('.fgsap-col-toggle');
+      col.classList.toggle('is-open', expanded);
+      if (!btn) return;
+      btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      if (mq.matches) {
+        btn.removeAttribute('tabindex');
+      } else {
+        btn.setAttribute('tabindex', '-1');
+      }
+    }
+
+    function syncMode() {
+      var mobile = mq.matches;
+      footer.classList.toggle('is-accordion-ready', mobile);
+      cols.forEach(function (col) {
+        setExpanded(col, !mobile);
+      });
+    }
+
+    cols.forEach(function (col) {
+      var btn = col.querySelector('.fgsap-col-toggle');
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        if (!mq.matches) return;
+        setExpanded(col, !col.classList.contains('is-open'));
+      });
+    });
+
+    if (typeof mq.addEventListener === 'function') {
+      mq.addEventListener('change', syncMode);
+    } else if (typeof mq.addListener === 'function') {
+      mq.addListener(syncMode);
+    }
+
+    syncMode();
+  }
+
   function whenImagesReady(footer, callback) {
     var imgs = Array.prototype.slice.call(footer.querySelectorAll('.fgsap-object-img'));
     if (!imgs.length) {
@@ -232,6 +278,7 @@
 
   function initFooters() {
     document.querySelectorAll('.fgsap-footer').forEach(function (footer) {
+      initAccordion(footer);
       if (footer.dataset.fgsapReady === 'true') return;
       footer.dataset.fgsapReady = 'true';
 

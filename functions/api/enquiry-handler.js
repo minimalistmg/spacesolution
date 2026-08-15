@@ -127,8 +127,23 @@ export async function handleEnquiryPost(request) {
     var category = (body.category && body.category.trim()) || '';
     var source = (body.source && body.source.trim()) || 'enquiry';
 
-    if (!phone && !email) {
-      return new Response(JSON.stringify({ error: 'Please add a phone number or email so we can reach you.' }), {
+    var phoneDigits = (phone || '').replace(/\D/g, '');
+    if (!name || name.length < 3) {
+      return new Response(JSON.stringify({ error: 'Name must be at least 3 characters' }), {
+        status: 400,
+        headers: headers,
+      });
+    }
+
+    if (name.length > 50) {
+      return new Response(JSON.stringify({ error: 'Name must be 50 characters or less' }), {
+        status: 400,
+        headers: headers,
+      });
+    }
+
+    if (!phoneDigits || phoneDigits.length !== 10) {
+      return new Response(JSON.stringify({ error: 'Enter a 10-digit mobile number' }), {
         status: 400,
         headers: headers,
       });
@@ -143,7 +158,7 @@ export async function handleEnquiryPost(request) {
 
     var leadData = {
       name: name || 'Not provided',
-      phone: phone,
+      phone: phoneDigits,
       email: email,
       country: country,
       location: location,
@@ -190,7 +205,7 @@ export async function handleEnquiryPost(request) {
       });
     }
 
-    return new Response(JSON.stringify({ success: true, message: 'Thank you! We will contact you shortly.' }), {
+    return new Response(JSON.stringify({ success: true, message: 'We’ll call this number within one business day.' }), {
       status: 200,
       headers: headers,
     });

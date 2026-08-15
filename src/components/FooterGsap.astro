@@ -24,9 +24,9 @@ const trackObjects = [...FOOTER_LOOP_OBJECTS, ...FOOTER_LOOP_OBJECTS];
         <div class="fgsap-brand-copy">
           <a href="/" class="fgsap-logo-text" aria-label="Space Solution home">
             <span class="fgsap-logo-name">SPACE SOLUTION</span>
-            <span class="fgsap-logo-tag">Space, elevated.</span>
+            <span class="fgsap-logo-tag">Interiors, elevated end to end.</span>
             <span class="fgsap-logo-sub">
-              End-to-end interiors — we design, furnish, and hand over homes and workplaces across Mysuru.
+              End-to-end interiors — we design, furnish, and hand over homes and workplaces across Mysuru, built to last.
             </span>
           </a>
           <div class="fgsap-connect">
@@ -50,11 +50,24 @@ const trackObjects = [...FOOTER_LOOP_OBJECTS, ...FOOTER_LOOP_OBJECTS];
 
       <div class="fgsap-nav">
         {
-          FOOTER_BLUEPRINT_COLUMNS.map((col) => (
-            <div class="fgsap-col">
+          FOOTER_BLUEPRINT_COLUMNS.map((col) => {
+            const slug = col.title.toLowerCase().replace(/\s+/g, '-');
+            return (
+            <div class="fgsap-col" data-fgsap-accordion>
               <div class="fgsap-col-grid">
-                <h4>{col.title}</h4>
-                <ul>
+                <h4>
+                  <button
+                    type="button"
+                    class="fgsap-col-toggle"
+                    id={`fgsap-toggle-${slug}`}
+                    aria-expanded="true"
+                    aria-controls={`fgsap-links-${slug}`}
+                  >
+                    <span class="fgsap-col-toggle-label">{col.title}</span>
+                    <span class="fgsap-col-toggle-icon" aria-hidden="true"></span>
+                  </button>
+                </h4>
+                <ul id={`fgsap-links-${slug}`}>
                   {col.links.map((link) => (
                     <li>
                       <a href={link.href} class="fgsap-link">
@@ -83,7 +96,8 @@ const trackObjects = [...FOOTER_LOOP_OBJECTS, ...FOOTER_LOOP_OBJECTS];
                 </div>
               </div>
             </div>
-          ))
+            );
+          })
         }
       </div>
     </div>

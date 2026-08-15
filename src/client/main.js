@@ -5,7 +5,6 @@
   'use strict';
 
   var $header = $('.site-header');
-  var $modal = $('#enquiry-modal');
   var $videoModal = $('#video-modal');
   var HERO_VIDEO_SRC = '/images/videos/hero-showreel.mp4';
   var heroVideoPreloadStarted = false;
@@ -92,11 +91,6 @@
     }
   }
 
-  function isConsultForm(form) {
-    var id = form && form.id;
-    return id && (id.indexOf('consult-form-') === 0 || id.indexOf('home-consult-form') === 0);
-  }
-
   function validateConsultForm($form) {
     var NAME_MIN = 3;
     var NAME_MAX = 50;
@@ -140,22 +134,18 @@
       return window.SpaceSolutionsHeaderContact.validateForm($form.get(0));
     }
 
-    if (isConsultForm($form.get(0))) {
-      return validateConsultForm($form);
+    var $categoryFields = $form.find('[name="category"]');
+    if ($categoryFields.length) {
+      var isCategoryRadio = $categoryFields.first().attr('type') === 'radio';
+      var selectedCategory = isCategoryRadio
+        ? ($form.find('[name="category"]:checked').val() || '').trim()
+        : ($categoryFields.val() || '').trim();
+      if (!selectedCategory) {
+        return 'Please select what you are interested in';
+      }
     }
 
-    var phone = ($form.find('[name="phone"]').val() || '').trim();
-    var email = ($form.find('[name="email"]').val() || '').trim();
-
-    if (!phone && !email) {
-      return 'Please add a phone number or email so we can reach you.';
-    }
-
-    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return 'Please enter a valid email address.';
-    }
-
-    return '';
+    return validateConsultForm($form);
   }
 
   function getFormData(form) {
@@ -202,6 +192,107 @@
       .addClass(isError ? 'error' : 'success');
   }
 
+  function showFormSuccessNext($form) {
+    var $feedback = $form.find('.form-feedback');
+    if (!$feedback.length) return;
+
+    var wa = $form.attr('data-whatsapp') || 'https://wa.me/916364564563';
+    $feedback
+      .html(
+        '<span class="form-success-next">We’ll call this number within one business day. Prefer WhatsApp? <a class="form-success-whatsapp" href="' +
+          wa +
+          '" target="_blank" rel="noopener">Message us</a>.</span>'
+      )
+      .removeClass('error')
+      .addClass('success');
+  }
+
+  function showLeadSubPanel(form, categoryId) {
+    if (!form || !categoryId) return;
+
+    form.querySelectorAll('[data-connect-sub-panel]').forEach(function (panel) {
+      panel.hidden = panel.getAttribute('data-connect-sub-panel') !== categoryId;
+    });
+  }
+
+  function clearInactiveLeadSubServices(form, activeCategoryId) {
+    if (!form) return;
+
+    form.querySelectorAll('[name="sub_services"]').forEach(function (input) {
+      if (input.getAttribute('data-category-id') !== activeCategoryId) {
+        input.checked = false;
+      }
+    });
+  }
+
+  function applyLeadFormDefaults(form, defaults) {
+    if (!form || !defaults || !defaults.category) return;
+
+    var $form = $(form);
+    var matched = false;
+
+    $form.find('[name="category"]').each(function () {
+      var isMatch =
+        this.getAttribute('data-category-id') === defaults.category || this.value === defaults.category;
+      this.checked = isMatch;
+      if (isMatch) matched = true;
+    });
+
+    var active =
+      ($form.find('[name="category"]:checked').attr('data-category-id') || defaults.category || '').trim();
+    var selected = defaults.subServices || [];
+
+    $form.find('[name="sub_services"]').each(function () {
+      var matchesCategory = this.getAttribute('data-category-id') === active;
+      this.checked = matchesCategory && selected.indexOf(this.value) !== -1;
+    });
+
+    if (matched || active) {
+      showLeadSubPanel(form, active);
+    }
+  }
+
+  function getLeadFormDefaults($form, $trigger) {
+    var category = '';
+    var sub = '';
+
+    if ($trigger && $trigger.length) {
+      category = ($trigger.attr('data-enquiry-category') || '').trim();
+      sub = ($trigger.attr('data-enquiry-interest') || '').trim();
+    }
+
+    if (!category) {
+      category = ($form.attr('data-default-category') || '').trim();
+    }
+
+    if (!sub) {
+      sub = ($form.attr('data-default-sub') || '').trim();
+    }
+
+    return {
+      category: category,
+      subServices: sub
+        ? sub
+            .split(',')
+            .map(function (value) {
+              return value.trim();
+            })
+            .filter(Boolean)
+        : []
+    };
+  }
+
+  function syncLeadFormAfterReset(form) {
+    if (!form || form.getAttribute('data-lead-connect') !== 'true') return;
+
+    var checked = form.querySelector('[name="category"]:checked');
+    if (!checked) return;
+
+    var activeCategoryId = checked.getAttribute('data-category-id');
+    clearInactiveLeadSubServices(form, activeCategoryId);
+    showLeadSubPanel(form, activeCategoryId);
+  }
+
   function submitLeadForm(form, options) {
     var $form = $(form);
     var $submit = $form.find('[type="submit"]');
@@ -238,16 +329,17 @@
           throw new Error(result.data.error || 'Failed to submit. Please try again.');
         }
 
-        showFormFeedback($form, result.data.message, false);
-
-        if (options.onSuccess) {
-          options.onSuccess();
-        }
-
         form.reset();
+        syncLeadFormAfterReset(form);
 
         if (form.id === 'header-connect-form' && window.SpaceSolutionsHeaderContact) {
           window.SpaceSolutionsHeaderContact.clearDraft();
+        }
+
+        showFormSuccessNext($form);
+
+        if (options.onSuccess) {
+          options.onSuccess();
         }
       })
       .catch(function (err) {
@@ -263,37 +355,34 @@
       });
   }
 
-  function initEnquiryModal() {
-    $('#enquiry-form').attr('data-source', 'enquiry');
-
+  function initEnquiryTriggers() {
     $('[data-open-modal="enquiry"]').on('click', function (e) {
       e.preventDefault();
-      $modal.addClass('open');
-      lockPageScroll();
-    });
-
-    $modal.find('.modal-close').on('click', function () {
-      $modal.removeClass('open');
-      unlockPageScroll();
-    });
-
-    $modal.on('click', function (e) {
-      if ($(e.target).is($modal)) {
-        $modal.removeClass('open');
-        unlockPageScroll();
+      e.stopPropagation();
+      var defaults = getLeadFormDefaults($('#header-connect-form'), $(this));
+      if (window.SpaceSolutionsHeaderContact && window.SpaceSolutionsHeaderContact.open) {
+        window.SpaceSolutionsHeaderContact.open({ defaults: defaults });
       }
     });
+  }
 
-    $('#enquiry-form').on('submit', function (e) {
-      e.preventDefault();
+  function initConnectLeadInterest() {
+    $('form[data-lead-connect="true"]').each(function () {
       var form = this;
-      submitLeadForm(form, {
-        onSuccess: function () {
-          setTimeout(function () {
-            $modal.removeClass('open');
-            unlockPageScroll();
-          }, 1500);
-        }
+      if (form.dataset.leadInterestInit === 'true') return;
+      form.dataset.leadInterestInit = 'true';
+
+      var selectedCategory = form.querySelector('[name="category"]:checked');
+      if (selectedCategory) {
+        showLeadSubPanel(form, selectedCategory.getAttribute('data-category-id'));
+      }
+
+      form.querySelectorAll('[name="category"]').forEach(function (radio) {
+        radio.addEventListener('change', function () {
+          var categoryId = radio.getAttribute('data-category-id');
+          clearInactiveLeadSubServices(form, categoryId);
+          showLeadSubPanel(form, categoryId);
+        });
       });
     });
   }
@@ -1004,21 +1093,21 @@
   }
 
   function initConsultMobileFields() {
-    $('[id^="consult-form-"], [id^="home-consult-form"]').each(function () {
+    $('#enquiry-form, #contact-form, [id^="consult-form-"], [id^="home-consult-form"]').each(function () {
       var $form = $(this);
       var $mobile = $form.find('[name="phone"]');
       if (!$mobile.length || $mobile.data('mobileGuard') === true) return;
       $mobile.data('mobileGuard', true);
 
       $mobile.on('input', function () {
-        var digits = this.value.replace(/\D/g, '');
+        var digits = this.value.replace(/\D/g, '').slice(0, 10);
         if (this.value !== digits) {
           this.value = digits;
         }
       });
 
       $mobile.on('blur', function () {
-        this.value = this.value.replace(/\D/g, '');
+        this.value = this.value.replace(/\D/g, '').slice(0, 10);
       });
     });
   }
@@ -1102,7 +1191,8 @@
       window.SpaceSolutionsContactConfirm.init();
     }
 
-    initEnquiryModal();
+    initEnquiryTriggers();
+    initConnectLeadInterest();
     initVideoModal();
     scheduleMenuImagePreload();
     initScrollAnimations();
@@ -1119,7 +1209,6 @@
 
   $(document).on('keydown', function (e) {
     if (e.key === 'Escape') {
-      $modal.removeClass('open');
       closeVideoModal();
       if (window.SpaceSolutionsHeader) {
         window.SpaceSolutionsHeader.closeOnEscape();

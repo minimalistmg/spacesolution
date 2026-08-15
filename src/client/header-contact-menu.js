@@ -1001,21 +1001,69 @@
     });
   }
 
-  function openMobileConnect(options) {
+  function applyConnectDefaults(defaults) {
+    var form = document.getElementById('header-connect-form');
+    if (!form || !defaults || !defaults.category) return;
+
+    var matched = false;
+    form.querySelectorAll('[name="category"]').forEach(function (input) {
+      var isMatch =
+        input.getAttribute('data-category-id') === defaults.category ||
+        input.value === defaults.category;
+      input.checked = isMatch;
+      if (isMatch) matched = true;
+    });
+
+    var checked = form.querySelector('[name="category"]:checked');
+    var active = ((checked && checked.getAttribute('data-category-id')) || defaults.category || '').trim();
+    var selected = defaults.subServices || [];
+
+    form.querySelectorAll('[name="sub_services"]').forEach(function (input) {
+      var matchesCategory = input.getAttribute('data-category-id') === active;
+      input.checked = matchesCategory && selected.indexOf(input.value) !== -1;
+    });
+
+    if (matched || active) {
+      showConnectSubPanel(form, active);
+    }
+  }
+
+  function openConnectHub(options) {
     options = options || {};
     var root = document.querySelector('[data-contact-smart]');
-    if (!root || !isMobileConnect()) return false;
+    if (!root) return false;
 
     var trigger = root.querySelector('[data-contact-trigger="hub"]');
     var panel = getHubSheet(root).panel;
     if (!trigger || !panel) return false;
 
-    if (options.fromMenu && isMobileMenuOpen()) {
-      root.classList.add('hc-hub--from-menu');
+    var header = document.querySelector('.site-header');
+    if (header) header.classList.remove('is-hidden');
+
+    if (options.defaults) {
+      applyConnectDefaults(options.defaults);
     }
 
-    openMobileSheet(root, trigger, panel);
+    if (isMobileConnect()) {
+      if (options.fromMenu && isMobileMenuOpen()) {
+        root.classList.add('hc-hub--from-menu');
+      }
+      openMobileSheet(root, trigger, panel);
+      return true;
+    }
+
+    if (isTabletViewport()) {
+      closeMobileMenuIfOpen();
+    }
+
+    openPanel(root, trigger, 'hub');
     return true;
+  }
+
+  function openMobileConnect(options) {
+    options = options || {};
+    if (!isMobileConnect()) return false;
+    return openConnectHub(options);
   }
 
   function initRoot(root) {
@@ -1044,6 +1092,7 @@
         closeAll(root);
       });
     },
+    open: openConnectHub,
     openMobile: openMobileConnect,
     isOpen: isConnectHubOpen,
   };

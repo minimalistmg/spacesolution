@@ -3,7 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from './PageHero.astro';
 import CtaSection from './CtaSection.astro';
 import FaqSection from './FaqSection.astro';
-import DummyVideoBlock from './DummyVideoBlock.astro';
 import type { ToolPage } from '../data/tools';
 import { getToolHero } from '../data/toolHeroes';
 
@@ -220,11 +219,6 @@ const finishLabels: Record<number, string> = {
       </section>
     )
   }
-
-  <DummyVideoBlock
-    title="See how Space Solution delivers a project"
-    description="From first measure to factory production and site handover — a clear process for homes, offices, and hospitality spaces in Mysuru."
-  />
 
   <CtaSection />
 

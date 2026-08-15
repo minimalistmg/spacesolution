@@ -18,7 +18,11 @@ const { primaryPhone, whatsappHref, activePage = 'home' } = Astro.props;
 
 const telHref = `tel:${primaryPhone}`;
 const phoneDisplay = primaryPhone.replace(/^(\+91)(\d{5})(\d{5})$/, '$1 $2 $3');
-const formDefaults = resolveConnectFormDefaults(activePage, Astro.url.pathname);
+const formDefaults = resolveConnectFormDefaults(
+  activePage,
+  Astro.url.pathname,
+  Astro.url.searchParams.get('interest'),
+);
 ---
 
 <div class="header-actions" id="header-contact-actions">
@@ -28,16 +32,24 @@ const formDefaults = resolveConnectFormDefaults(activePage, Astro.url.pathname);
       class="hc-hub-pill-btn hc-hub-trigger"
       data-contact-trigger="hub"
       aria-expanded="false"
-      aria-label="Connect — open contact options"
+      aria-label="Contact — open contact options"
     >
       <span class="hc-glass-filter" aria-hidden="true"></span>
       <span class="hc-glass-overlay" aria-hidden="true"></span>
       <span class="hc-glass-specular" aria-hidden="true"></span>
       <span class="hc-glass-content">
-        <span class="hc-hub-pill-btn-icon" aria-hidden="true">
-          <Icon name="comment-dots" />
+        <span class="hc-hub-pill-btn-icon hc-cta-icons" aria-hidden="true">
+          <span class="hc-cta-icon">
+            <Icon name="envelope" />
+          </span>
+          <span class="hc-cta-icon hc-cta-icon--phone">
+            <Icon name="phone" />
+          </span>
+          <span class="hc-cta-icon">
+            <Icon name="whatsapp" />
+          </span>
         </span>
-        <span class="hc-hub-pill-btn-label">Connect</span>
+        <span class="hc-hub-pill-btn-label">Contact</span>
       </span>
     </button>
 
@@ -72,7 +84,7 @@ const formDefaults = resolveConnectFormDefaults(activePage, Astro.url.pathname);
         <span class="hc-hub-sheet-handle"></span>
       </div>
       <div class="hc-hub-body">
-        <form id="header-connect-form" class="hc-hub-form enquiry-form" data-source="connect" novalidate>
+        <form id="header-connect-form" class="hc-hub-form enquiry-form" data-source="connect" data-whatsapp={whatsappHref} novalidate>
           <div class="hc-hub-main">
             <header class="hc-hub-intro">
               <div class="hc-hub-intro-copy">
@@ -179,7 +191,6 @@ const formDefaults = resolveConnectFormDefaults(activePage, Astro.url.pathname);
                   </div>
                   <div class="hc-hub-field">
                     <label for="header-connect-mobile">Mobile</label>
-                    <input type="hidden" name="country" value="+91" />
                     <input
                       id="header-connect-mobile"
                       type="tel"

@@ -161,6 +161,11 @@ export const toolPages: ToolPage[] = [
         answer:
           'It is a planning guide based on common residential scopes. Site access, ceiling height, and custom joinery always refine the number.',
       },
+      {
+        question: 'What should I do after I get a range?',
+        answer:
+          'Book a consultation with your carpet area and must-have rooms. We will turn this band into a measured scope, materials list, and timeline.',
+      },
     ],
     related: [
       { label: 'Kitchen Cost Estimator', href: '/tools/kitchen-cost-estimator' },
@@ -221,6 +226,11 @@ export const toolPages: ToolPage[] = [
         question: 'Can you redesign an existing civil kitchen?',
         answer:
           'Yes. We often reorganise wet and dry zones, add tall units, and improve lighting without major demolition when services allow.',
+      },
+      {
+        question: 'What happens after I pick a layout?',
+        answer:
+          'Share the recommendation in a consultation. We confirm clearances on a site measure, then lock drawings before factory production.',
       },
     ],
     related: [
@@ -309,6 +319,11 @@ export const toolPages: ToolPage[] = [
         answer:
           'Yes. We can deliver modular workstations and storage as a furniture package, or handle full turnkey fitout including partitions and finishes.',
       },
+      {
+        question: 'What should I do after I get a headcount range?',
+        answer:
+          'Bring your floor plate, team size, and cabin needs to a consultation. We will convert the estimate into a workstation plan and fitout quote.',
+      },
     ],
     related: [
       { label: 'Commercial Fitout Estimator', href: '/tools/commercial-fitout-estimator' },
@@ -370,6 +385,11 @@ export const toolPages: ToolPage[] = [
         answer:
           'Compact offices can move quickly once drawings are frozen; larger retail floors need phased procurement. We confirm schedule after measuring the site.',
       },
+      {
+        question: 'How do I turn this estimate into a quote?',
+        answer:
+          'Share your carpet area, finish preference, and opening date. After a site survey we issue a scoped commercial proposal, not a per-square-foot guess.',
+      },
     ],
     related: [
       { label: 'Office Space Calculator', href: '/tools/office-space-calculator' },
@@ -429,6 +449,11 @@ export const toolPages: ToolPage[] = [
         question: 'Do you handle branding and signage?',
         answer:
           'Reception feature walls and basic wayfinding can be part of the interior scope. External building signage often needs society or landlord approval.',
+      },
+      {
+        question: 'What should I bring to a clinic consultation?',
+        answer:
+          'A floor plan or photos, the number of consultation rooms, and how patients move from waiting to procedure. We will refine this planner into a measured layout.',
       },
     ],
     related: [
@@ -491,6 +516,11 @@ export const toolPages: ToolPage[] = [
         answer:
           'We regularly supply institutional projects across Karnataka. Logistics are confirmed with the quotation.',
       },
+      {
+        question: 'How do I get a classroom furniture quote?',
+        answer:
+          'Share room sizes, student count, and whether you need dual desks or individual seats. We will convert this calculator into a packaged campus quote.',
+      },
     ],
     related: [
       { label: 'Hostel Bed Planner', href: '/tools/hostel-bed-planner' },
@@ -551,6 +581,11 @@ export const toolPages: ToolPage[] = [
         question: 'What about warden and common rooms?',
         answer:
           'Add those areas in a consultation. This tool focuses on sleeping rooms; lounges and dining need a separate furniture list.',
+      },
+      {
+        question: 'How do I move from this planner to an order?',
+        answer:
+          'Bring bed count, room sizes, and bunk versus single preference. We will confirm a furniture list, finishes, and delivery schedule for the campus.',
       },
     ],
     related: [
@@ -613,6 +648,11 @@ export const toolPages: ToolPage[] = [
         answer:
           'Yes. Supply-only and supply-plus-install packages are both available depending on your site readiness.',
       },
+      {
+        question: 'What happens after I get a bulk estimate?',
+        answer:
+          'Share item types, quantities, and delivery phases. We will lock specifications and a factory schedule so the campus receives a consistent batch.',
+      },
     ],
     related: [
       { label: 'Classroom Furniture Calculator', href: '/tools/classroom-furniture-calculator' },
@@ -672,6 +712,11 @@ export const toolPages: ToolPage[] = [
         question: 'Is the commercial kitchen included?',
         answer:
           'No. Kitchen equipment and exhaust are specialised. We can coordinate front-of-house furniture with your kitchen vendor.',
+      },
+      {
+        question: 'How do I turn seating numbers into a fitout plan?',
+        answer:
+          'Bring your shopfront size, cover target, and service style to a consultation. We will plan banquettes, loose seats, and circulation for opening day.',
       },
     ],
     related: [
@@ -734,6 +779,11 @@ export const toolPages: ToolPage[] = [
         answer:
           'We deliver hospitality interiors across Karnataka. Travel and logistics are itemised when the site is farther from our studio.',
       },
+      {
+        question: 'What should I do after I get a hospitality range?',
+        answer:
+          'Share key count or covers, finish tier, and opening date. After a site review we issue a scoped fitout proposal you can build to.',
+      },
     ],
     related: [
       { label: 'Café Seating Calculator', href: '/tools/cafe-seating-calculator' },
@@ -794,6 +844,11 @@ export const toolPages: ToolPage[] = [
         question: 'Can you work to a fixed inauguration?',
         answer:
           'We will be frank about what is possible. Sometimes a soft opening with essential zones finished is wiser than rushing every detail.',
+      },
+      {
+        question: 'How do I lock a realistic opening plan?',
+        answer:
+          'Bring your target date, remaining civil work, and must-have zones. We will map design freeze, factory lead time, and installation against that date.',
       },
     ],
     related: [

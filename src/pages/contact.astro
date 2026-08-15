@@ -1,12 +1,22 @@
 ---
-import Icon from '../components/Icon.astro';
+import MenuIcon from '../components/MenuIcon.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/PageHero.astro';
 import FloatingContactForm from '../components/FloatingContactForm.astro';
 import FaqSection from '../components/FaqSection.astro';
 import DummyVideoBlock from '../components/DummyVideoBlock.astro';
-import CtaSection from '../components/CtaSection.astro';
 import { SITE } from '../data/site';
+import { resolveConnectFormDefaults } from '../data/connectFormInterests';
+import '../styles/home-3d-consult.css';
+import '../styles/contact-page.css';
+
+const pathname = Astro.url.pathname.replace(/\.html$/, '') || '/';
+const contactFormDefaults = resolveConnectFormDefaults(
+  'home',
+  pathname,
+  Astro.url.searchParams.get('interest'),
+);
+const whatsappHref = `https://wa.me/${SITE.phones[0].replace('+', '')}`;
+const phoneLabel = SITE.phones[0].replace(/^(\+91)(\d{5})(\d{5})$/, '$1 $2 $3');
 
 const phoneDisplays = [
   { tel: SITE.phones[0], label: '+91 63645 64563' },
@@ -14,6 +24,22 @@ const phoneDisplays = [
 ];
 
 const fullAddress = `${SITE.address.streetAddress}, ${SITE.address.addressLocality}, ${SITE.address.addressRegion} ${SITE.address.postalCode}`;
+const mapDestination = `Space Solution, 90, Kalidasa Rd, ${SITE.address.addressLocality}, ${SITE.address.addressRegion} ${SITE.address.postalCode}`;
+
+const contactSteps = [
+  {
+    title: 'Share your project',
+    description: 'Home, commercial, or hospitality — plus a number we can reach you on.',
+  },
+  {
+    title: 'We call you back',
+    description: 'Within one business day we clarify scope, timeline, and the best next step.',
+  },
+  {
+    title: 'Visit or start design',
+    description: 'Come to the Kalidasa Road studio, or we begin from plans and a 3D consult.',
+  },
+];
 
 const bringList = [
   'Floor plans or approximate room sizes (photos on your phone are fine)',
@@ -55,7 +81,7 @@ const faqs = [
   },
   {
     question: 'Where is Space Solution located in Mysuru?',
-    answer: `Our experience centre is at ${fullAddress}. Use the map below or open directions in Google Maps before you visit.`,
+    answer: `Our experience centre is at ${fullAddress}. Use the map on this page or open directions in Google Maps before you visit.`,
   },
 ];
 ---
@@ -65,59 +91,89 @@ const faqs = [
   description={`Contact Space Solution in Mysuru for home and commercial interiors. Call ${phoneDisplays[0].label}, email ${SITE.email}, or visit our Kalidasa Road experience centre for a free consultation.`}
   headerScrolled={false}
 >
-  <PageHero
-    breadcrumb={'<a href="/">Space Solution</a> <span class="breadcrumb-sep">/</span> Contact Us'}
-    title="Contact Us"
-    description="Book a free consultation for residential or commercial interiors in Mysuru — clear next steps on design, cost, and timeline."
-  />
-
-  <section class="page-content">
-    <div class="container contact-grid">
-      <div class="contact-info fade-up">
-        <h2 class="section-title">Get in touch</h2>
-        <p>
-          Reach out to plan a space that works day to day — kitchens, full homes, offices, clinics, or hospitality.
-          Tell us your location, approximate size, and timeline, and we will guide the next step.
+  <section class="h3d-page h3d-page--contact">
+    <div class="container h3d-panes">
+      <div class="h3d-pane h3d-pane--copy">
+        <nav class="h3d-breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Space Solution</a> / Contact
+        </nav>
+        <p class="h3d-kicker">Contact</p>
+        <h1 class="h3d-title">
+          Let’s talk <em>in person</em>
+        </h1>
+        <p class="h3d-lead">
+          Book a free consultation for home or commercial interiors in Mysuru — clear next steps on design, cost, and
+          timeline.
         </p>
-        <ul class="contact-details">
-          <li>
-            <Icon name="phone" />
-            <div>
-              {
-                phoneDisplays.map((phone, index) => (
-                  <>
-                    {index > 0 && <br />}
-                    <a href={`tel:${phone.tel}`}>{phone.label}</a>
-                  </>
-                ))
-              }
-            </div>
-          </li>
-          <li>
-            <Icon name="envelope" />
-            <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
-          </li>
-          <li>
-            <Icon name="location-dot" />
-            <span>{fullAddress}</span>
-          </li>
-        </ul>
-        <div class="contact-actions">
-          <a href={SITE.mapDirectionsUrl} class="btn btn-gold-filled" target="_blank" rel="noopener noreferrer">
-            Get directions
+        <ol class="h3d-steps">
+          {
+            contactSteps.map((step, index) => (
+              <li class="h3d-step">
+                <span class="h3d-step-num">{index + 1}</span>
+                <div>
+                  <h3>{step.title}</h3>
+                  <p>{step.description}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+        <div class="h3d-contact-row">
+          <a href={`tel:${SITE.phones[0]}`} class="btn h3d-btn-outline">
+            <MenuIcon name="phone" />
+            {phoneLabel}
           </a>
-          <a href="#" class="btn btn-outline-dark" data-open-modal="enquiry">Request a callback</a>
+          <a href={whatsappHref} class="btn h3d-btn-outline" target="_blank" rel="noopener noreferrer">
+            <MenuIcon name="whatsapp-logo" />
+            WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <div class="h3d-pane h3d-pane--form">
+        <div class="h3d-form-card">
+          <FloatingContactForm
+            formId="contact-form"
+            defaults={contactFormDefaults}
+            whatsappHref={whatsappHref}
+          />
         </div>
       </div>
     </div>
+  </section>
 
-    <div class="contact-floating-form-section">
-      <div class="contact-floating-form-wrap fade-up">
-        <FloatingContactForm formId="contact-form" />
-      </div>
+  <section class="contact-visit" aria-labelledby="contact-map-heading">
+    <div class="contact-visit-copy">
+      <h2 class="contact-visit-title" id="contact-map-heading">Visit our studio</h2>
+      <form
+        class="contact-directions-form"
+        data-contact-directions
+        data-destination={mapDestination}
+        data-fallback={SITE.mapDirectionsUrl}
+      >
+        <label class="sr-only" for="contact-origin">Starting from</label>
+        <input
+          id="contact-origin"
+          type="text"
+          name="origin"
+          autocomplete="street-address"
+          placeholder="Starting from — area or address"
+        />
+        <button type="submit" class="btn btn-gold-filled">Get directions</button>
+      </form>
+
+      <ul class="contact-visit-tips">
+        {
+          visitTips.map((tip) => (
+            <li class="contact-visit-tip">
+              <span class="contact-visit-tip-title">{tip.title}</span>
+              <span class="contact-visit-tip-text">{tip.description}</span>
+            </li>
+          ))
+        }
+      </ul>
     </div>
-
-    <div class="container contact-map fade-up">
+    <div class="contact-visit-map">
       <iframe
         src={SITE.mapEmbedUrl}
         title="Space Solution location on Google Maps"
@@ -125,27 +181,6 @@ const faqs = [
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
       ></iframe>
-    </div>
-  </section>
-
-  <section class="page-content section-compact-top">
-    <div class="container content-prose">
-      <p class="section-label fade-up">Visit us</p>
-      <h2 class="section-title fade-up">Plan your consultation</h2>
-      <p class="section-desc fade-up">
-        Our Kalidasa Road experience centre is the easiest place to talk materials, storage ideas, and project scope
-        face to face. Appointments help us give you focused time with the right designer.
-      </p>
-      <div class="why-grid">
-        {
-          visitTips.map((tip) => (
-            <div class="why-card fade-up">
-              <h3>{tip.title}</h3>
-              <p class="why-desc">{tip.description}</p>
-            </div>
-          ))
-        }
-      </div>
     </div>
   </section>
 
@@ -176,10 +211,31 @@ const faqs = [
   />
 
   <FaqSection
-    title="Contact &amp; visit FAQs"
+    title="Contact & visit FAQs"
     description="Helpful details before you call, write, or stop by our Mysuru experience centre."
     items={faqs}
   />
 
-  <CtaSection />
+  <script is:inline>
+    (function () {
+      var form = document.querySelector('[data-contact-directions]');
+      if (!form) return;
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        var originInput = form.querySelector('[name="origin"]');
+        var origin = originInput && originInput.value ? originInput.value.trim() : '';
+        var destination = form.getAttribute('data-destination') || '';
+        var fallback = form.getAttribute('data-fallback') || '';
+        var url = fallback;
+        if (origin && destination) {
+          url =
+            'https://www.google.com/maps/dir/?api=1&origin=' +
+            encodeURIComponent(origin) +
+            '&destination=' +
+            encodeURIComponent(destination);
+        }
+        if (url) window.open(url, '_blank', 'noopener,noreferrer');
+      });
+    })();
+  </script>
 </BaseLayout>

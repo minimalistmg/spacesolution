@@ -3,7 +3,6 @@ import Icon from '../../components/Icon.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import CtaSection from '../../components/CtaSection.astro';
-import DummyVideoBlock from '../../components/DummyVideoBlock.astro';
 import FaqSection from '../../components/FaqSection.astro';
 import { getImage } from 'astro:assets';
 import {
@@ -129,14 +128,14 @@ const featuredImage = await getImage({
         answer:
           'Yes. Each guide is written to travel well — use it as a shared checklist so the whole team stays aligned on scope and finishes.',
       },
+      {
+        question: 'What should I do after reading a guide?',
+        answer:
+          'Bring your notes, photos, and must-haves to a free consultation. We will turn the guide into a measured plan, materials list, and timeline for your site.',
+      },
     ]}
     title="About the design library"
     description="Short answers before you dig into a guide."
-  />
-
-  <DummyVideoBlock
-    title="Guides that lead to real builds"
-    description="Read a guide, then see how Space Solution turns planning into factory-made furniture and finished rooms."
   />
 
   <CtaSection />

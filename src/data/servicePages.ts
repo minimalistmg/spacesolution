@@ -1105,6 +1105,21 @@ export const serviceLandingPages: ServicePageData[] = [
         answer:
           'Yes. We plan admin and staff zones alongside classrooms, labs, and hostel furniture so one team owns the full institutional scope.',
       },
+      {
+        question: 'Can admin furniture match the rest of the campus?',
+        answer:
+          'We keep laminates, edge profiles, and hardware consistent with classrooms and hostels so registrar, faculty, and reception areas feel like one institution.',
+      },
+      {
+        question: 'Do you include meeting rooms and reception counters?',
+        answer:
+          'Yes. Typical admin packages cover workstations, filing, a compact meeting room, and a reception or enquiry counter sized to daily visitor flow.',
+      },
+      {
+        question: 'Can this be a furniture-only package?',
+        answer:
+          'Yes. We can supply factory-made desks and storage only, or deliver a turnkey admin fitout with partitions and finishes under one timeline.',
+      },
     ],
   },
   {

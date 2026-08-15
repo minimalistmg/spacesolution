@@ -126,9 +126,94 @@ function categoryFromActivePage(activePage: NavPage): ConnectCategoryId {
   return 'home';
 }
 
+/** Consult landing + common ?interest= aliases → CONNECT sub-service values. */
+const interestAliases: Record<string, string> = {
+  kitchen: 'Modular Kitchen',
+  wardrobe: 'Wardrobes & Storage',
+  wardrobes: 'Wardrobes & Storage',
+  living: 'Living & Dining',
+  bedroom: 'Bedrooms',
+  bedrooms: 'Bedrooms',
+  pooja: 'Pooja Room',
+  full: 'Full Home Interiors',
+  'full-home': 'Full Home Interiors',
+  office: 'Office Interiors',
+  clinic: 'Clinics & Healthcare',
+  clinics: 'Clinics & Healthcare',
+  retail: 'Retail & Showrooms',
+  coworking: 'Co-working',
+  school: 'Schools & Colleges',
+  hostel: 'Hostel & PG Furniture',
+  library: 'Libraries & Labs',
+  admin: 'Admin & Staff Offices',
+  cafe: 'Cafés & Restaurants',
+  café: 'Cafés & Restaurants',
+  hotel: 'Hotels & Resorts',
+  bar: 'Bars & Lounges',
+  salon: 'Salons & Wellness',
+  turnkey: 'Turnkey Fitout',
+};
+
+function findCategoryForSubService(value: string): ConnectCategoryId | null {
+  for (const category of connectCategories) {
+    if (connectSubServicesByCategory[category.id].some((option) => option.value === value)) {
+      return category.id;
+    }
+  }
+  return null;
+}
+
+export function resolveConnectInterestParam(interest?: string | null): ConnectFormDefaults | null {
+  if (!interest) return null;
+
+  const raw = interest.trim();
+  if (!raw) return null;
+
+  const key = raw.toLowerCase();
+  if (key === 'others' || key === 'other') return null;
+
+  for (const category of connectCategories) {
+    if (category.id === key || category.label.toLowerCase() === key) {
+      return { category: category.id, subServices: [] };
+    }
+  }
+
+  const fromSlug = serviceSlugToSubService[raw] || serviceSlugToSubService[key];
+  const fromAlias = interestAliases[key];
+  const sub = fromSlug || fromAlias;
+
+  if (sub) {
+    const category = findCategoryForSubService(sub);
+    if (category) return { category, subServices: [sub] };
+  }
+
+  for (const category of connectCategories) {
+    const option = connectSubServicesByCategory[category.id].find(
+      (item) => item.value.toLowerCase() === key || item.label.toLowerCase() === key,
+    );
+    if (option) {
+      return { category: category.id, subServices: [option.value] };
+    }
+  }
+
+  return null;
+}
+
 function resolveFromPath(path: string): ConnectFormDefaults | null {
   if (path === '/free-3d-consultation') {
     return { category: 'home', subServices: [] };
+  }
+
+  if (path === '/commercial-site-survey') {
+    return { category: 'commercial', subServices: [] };
+  }
+
+  if (path === '/bulk-furniture-enquiry') {
+    return { category: 'institutional', subServices: [] };
+  }
+
+  if (path === '/hospitality-3d-consultation') {
+    return { category: 'hospitality', subServices: [] };
   }
 
   if (turnkeyPaths.has(path)) {
@@ -162,13 +247,27 @@ function resolveFromPath(path: string): ConnectFormDefaults | null {
 export function resolveConnectFormDefaults(
   activePage: NavPage = 'home',
   pathname = '',
+  interest?: string | null,
 ): ConnectFormDefaults {
   const path = normalizePathname(pathname);
+  const fromInterest = resolveConnectInterestParam(interest);
   const fromPath = resolveFromPath(path);
+  const fallback: ConnectFormDefaults = {
+    category: categoryFromActivePage(activePage),
+    subServices: [],
+  };
+  const base = fromPath ?? fallback;
 
-  if (fromPath) {
-    return fromPath;
+  if (!fromInterest) {
+    return base;
   }
 
-  return { category: categoryFromActivePage(activePage), subServices: [] };
+  if (fromInterest.subServices.length) {
+    return fromInterest;
+  }
+
+  return {
+    category: fromInterest.category,
+    subServices: fromInterest.category === base.category ? base.subServices : [],
+  };
 }

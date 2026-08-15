@@ -6,6 +6,7 @@
  */
 import ResponsiveImage from './ResponsiveImage.astro';
 import type { ServiceGalleryHero } from '../data/servicePages';
+import { resolveConnectFormDefaults } from '../data/connectFormInterests';
 import '../styles/service-gallery-hero.css';
 
 interface Props {
@@ -15,6 +16,11 @@ interface Props {
 
 const { breadcrumb, hero } = Astro.props;
 const [left, center, right] = hero.images;
+const enquiryDefaults = resolveConnectFormDefaults(
+  'home',
+  Astro.url.pathname,
+  Astro.url.searchParams.get('interest'),
+);
 ---
 
 <section class="sgh" aria-label={hero.headline}>
@@ -38,7 +44,13 @@ const [left, center, right] = hero.images;
       <div class="sgh-copy">
         <p class="sgh-lead">{hero.lead}</p>
         <div class="sgh-actions">
-          <a href="#" class="sgh-btn" data-open-modal="enquiry">{hero.primaryCta}</a>
+          <a
+            href="#"
+            class="sgh-btn"
+            data-open-modal="enquiry"
+            data-enquiry-category={enquiryDefaults.category}
+            data-enquiry-interest={enquiryDefaults.subServices.join(',')}
+          >{hero.primaryCta}</a>
           <a href={hero.secondaryHref} class="sgh-link">{hero.secondaryCta}</a>
         </div>
       </div>

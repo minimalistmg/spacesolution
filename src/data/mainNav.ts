@@ -318,9 +318,8 @@ export const mainNavPanels: MainNavPanel[] = [
       items: [
         { label: 'Call us', href: 'tel:+916364564563', icon: 'phone' },
         { label: 'WhatsApp', href: 'https://wa.me/916364564563', icon: 'whatsapp-logo', target: '_blank' },
-        { label: 'Get directions', href: SITE.mapDirectionsUrl, icon: 'map-pin', target: '_blank' },
-        { label: 'Get quote', href: '#', icon: 'envelope', modal: 'enquiry' },
-        { label: 'Book 3D consult', href: '/contact', icon: 'compass-tool' },
+        { label: 'Visit our studio', href: SITE.mapDirectionsUrl, icon: 'map-pin', target: '_blank' },
+        { label: 'Contact us', href: '/contact', icon: 'envelope' },
       ],
     },
   },

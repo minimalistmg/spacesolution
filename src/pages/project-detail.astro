@@ -7,7 +7,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaSection from '../components/CtaSection.astro';
 import ImageGallery from '../components/ImageGallery.astro';
-import DummyVideoBlock from '../components/DummyVideoBlock.astro';
 import { projects } from '../data/projects';
 import { heroImages, roomImages, projectImages } from '../data/images';
 
@@ -68,6 +67,5 @@ const featured = projects.slice(0, 6);
     ]}
   />
 
-  <DummyVideoBlock />
   <CtaSection />
 </BaseLayout>

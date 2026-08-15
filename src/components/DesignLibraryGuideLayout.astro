@@ -5,7 +5,6 @@ import CtaSection from './CtaSection.astro';
 import ResponsiveImage from './ResponsiveImage.astro';
 import FaqSection from './FaqSection.astro';
 import ImageGallery from './ImageGallery.astro';
-import DummyVideoBlock from './DummyVideoBlock.astro';
 import type { DesignLibraryGuide } from '../data/designLibrary';
 import { designLibraryGuides, getGuideHref } from '../data/designLibrary';
 
@@ -114,12 +113,6 @@ const faqs = guide.faqs ?? [];
   )
 }
 
-<DummyVideoBlock
-  eyebrow="From the studio"
-  title="Watch how design becomes a finished interior"
-  description="A short look at how Space Solution moves from planning and materials to factory production and site installation."
-/>
-
 <section class="page-content library-related">
   <div class="container">
     <h2 class="section-heading-lg section-heading-center fade-up">More Guides</h2>
@@ -137,16 +130,6 @@ const faqs = guide.faqs ?? [];
     <div class="library-related-back fade-up">
       <a href="/design-library" class="btn btn-gold-filled">View All Guides</a>
     </div>
-  </div>
-</section>
-
-<section class="library-guide-cta">
-  <div class="container library-guide-cta-inner fade-up">
-    <div>
-      <p class="section-label">Next Step</p>
-      <h2>{guide.ctaLabel ?? 'Ready to Start Your Project?'}</h2>
-    </div>
-    <a href="#" class="btn btn-gold-filled" data-open-modal="enquiry">Get Quote</a>
   </div>
 </section>
 

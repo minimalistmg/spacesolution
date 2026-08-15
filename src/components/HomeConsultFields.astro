@@ -14,31 +14,15 @@ const { formId, compact = false } = Astro.props;
   </div>
 
   <div class="floating-contact-form-group">
-    <label for={`${formId}-email`}>Email Address</label>
-    <input
-      id={`${formId}-email`}
-      type="email"
-      name="email"
-      placeholder="you@example.com"
-      autocomplete="email"
-      inputmode="email"
-    />
-  </div>
-
-  <div class="floating-contact-form-group">
     <label for={`${formId}-phone`}>Phone Number</label>
-    <div class="floating-contact-phone">
-      <input type="hidden" name="country" value="+91" />
-      <span class="floating-contact-phone-code" aria-hidden="true">+91</span>
-      <input
-        id={`${formId}-phone`}
-        type="tel"
-        name="phone"
-        placeholder="98765 43210"
-        autocomplete="tel"
-        inputmode="tel"
-      />
-    </div>
+    <input
+      id={`${formId}-phone`}
+      type="tel"
+      name="phone"
+      placeholder="98765 43210"
+      autocomplete="tel"
+      inputmode="numeric"
+    />
   </div>
 
   <div class="floating-contact-form-group h3d-fields-message">

@@ -7,7 +7,6 @@ import CtaSection from './CtaSection.astro';
 import ResponsiveImage from './ResponsiveImage.astro';
 import FaqSection from './FaqSection.astro';
 import ImageGallery from './ImageGallery.astro';
-import DummyVideoBlock from './DummyVideoBlock.astro';
 import PastelStoryCards from './PastelStoryCards.astro';
 import InteriorDepthHero from './InteriorDepthHero.astro';
 import ServiceGalleryHero from './ServiceGalleryHero.astro';
@@ -156,15 +155,6 @@ if (isDepthHeroHub && page.stats?.length) {
         title={page.galleryTitle}
         description={page.galleryDescription}
         items={page.gallery}
-      />
-    )
-  }
-
-  {
-    page.showVideo !== false && (
-      <DummyVideoBlock
-        title={page.videoTitle}
-        description={page.videoDescription}
       />
     )
   }

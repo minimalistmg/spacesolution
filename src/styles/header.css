@@ -126,7 +126,7 @@
   --nav-accent: var(--gold);
 }
 
-/* Active Pendant Soft Cone (option 03) — exact 168×84 PNG, clipped to item. */
+/* Active inset capsule (option 07) — desktop only. */
 @media (min-width: 1367px) {
   .main-nav > li > a,
   .main-nav > li > a:hover,
@@ -135,26 +135,11 @@
     color: #543727;
   }
 
-  .main-nav > li.active {
-    overflow: hidden;
-  }
-
   .main-nav > li.active > a {
-    position: relative;
-    z-index: 1;
-  }
-
-  .main-nav > li.active::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    z-index: 0;
-    width: 200px;
-    height: 200px;
-    transform: translateX(-50%);
-    background: url('/images/header/nav-light-opt03-true-alpha.png?v=36') center -13px / 150px 150px no-repeat;
-    pointer-events: none;
+    background: rgba(84, 55, 39, 0.06);
+    box-shadow:
+      inset 0 1px 2px rgba(84, 55, 39, 0.14),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.35);
   }
 }
 

@@ -46,7 +46,7 @@ const categories: FaqCategory[] = [
   },
   {
     id: 'commercial',
-    title: 'Commercial &amp; workplace',
+    title: 'Commercial & workplace',
     intro: 'Offices, clinics, retail, hospitality, and institutional spaces.',
     items: [
       {
@@ -73,7 +73,7 @@ const categories: FaqCategory[] = [
   },
   {
     id: 'process',
-    title: 'Process &amp; timeline',
+    title: 'Process & timeline',
     intro: 'How projects move from first call to final handover.',
     items: [
       {
@@ -100,7 +100,7 @@ const categories: FaqCategory[] = [
   },
   {
     id: 'pricing',
-    title: 'Pricing &amp; materials',
+    title: 'Pricing & materials',
     intro: 'Budgets, quotations, and what drives cost.',
     items: [
       {
@@ -154,7 +154,7 @@ const categories: FaqCategory[] = [
       <nav class="faq-category-nav fade-up" aria-label="FAQ categories">
         {
           categories.map((category) => (
-            <a href={`#${category.id}`}>{category.title.replace(/&amp;/g, '&')}</a>
+            <a href={`#${category.id}`}>{category.title}</a>
           ))
         }
       </nav>
@@ -166,7 +166,7 @@ const categories: FaqCategory[] = [
       <section class="page-content content-faq" id={category.id}>
         <div class="container">
           <p class="section-label fade-up">{String(categoryIndex + 1).padStart(2, '0')}</p>
-          <h2 class="section-title fade-up" set:html={category.title} />
+          <h2 class="section-title fade-up">{category.title}</h2>
           <p class="section-desc fade-up">{category.intro}</p>
           <div class="faq-list">
             {category.items.map((item, itemIndex) => (

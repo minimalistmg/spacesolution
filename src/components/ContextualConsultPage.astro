@@ -7,6 +7,7 @@ import {
   resolveConsultPreselect,
   type ConsultFormConfig,
 } from '../data/consultFormConfigs';
+import { applyConsultInterestContext } from '../data/consultInterestContext';
 import { SITE } from '../data/site';
 import '../styles/contact-floating-form.css';
 import '../styles/home-3d-consult.css';
@@ -19,33 +20,35 @@ interface Props {
 
 const { config, pathname = Astro.url.pathname, searchParams = Astro.url.searchParams } = Astro.props;
 
-const formId = `consult-form-${config.kind}`;
+const preselected = resolveConsultPreselect(config, pathname, searchParams);
+const view = applyConsultInterestContext(config, preselected);
+const formId = `consult-form-${view.kind}`;
 const phoneLabel = SITE.phones[0].replace(/^(\+91)(\d{5})(\d{5})$/, '$1 $2 $3');
 const whatsappHref = `https://wa.me/${SITE.phones[0].replace('+', '')}`;
-const breadcrumbHtml = buildConsultBreadcrumbHtml(config.breadcrumb);
-const preselected = resolveConsultPreselect(config, pathname, searchParams);
+const breadcrumbHtml = buildConsultBreadcrumbHtml(view.breadcrumb);
 ---
 
 <section class="h3d-page">
   <form
     id={formId}
     class="container h3d-panes enquiry-form"
-    data-source={config.source}
+    data-source={view.source}
+    data-whatsapp={whatsappHref}
     novalidate
   >
-    <input type="hidden" name="category" value={config.category} />
+    <input type="hidden" name="category" value={view.category} />
     <div class="h3d-pane h3d-pane--copy">
       <nav class="h3d-breadcrumb" aria-label="Breadcrumb" set:html={breadcrumbHtml} />
-      <p class="h3d-kicker">{config.kicker}</p>
+      <p class="h3d-kicker">{view.kicker}</p>
       <h1 class="h3d-title">
-        {config.titleBefore}
-        {config.titleEm ? <em>{config.titleEm}</em> : null}
-        {config.titleAfter}
+        {view.titleBefore}
+        {view.titleEm ? <em>{view.titleEm}</em> : null}
+        {view.titleAfter}
       </h1>
-      <p class="h3d-lead">{config.lead}</p>
+      <p class="h3d-lead">{view.lead}</p>
       <ol class="h3d-steps">
         {
-          config.steps.map((step, index) => (
+          view.steps.map((step, index) => (
             <li class="h3d-step">
               <span class="h3d-step-num">{index + 1}</span>
               <div>
@@ -69,15 +72,15 @@ const preselected = resolveConsultPreselect(config, pathname, searchParams);
     </div>
 
     <div class="h3d-pane h3d-pane--form">
-      <div class:list={['h3d-form-card', { 'h3d-form-card--with-extras': config.extraFields?.length }]}>
-        <ConsultInterestField formId={formId} interest={config.interest} preselected={preselected} />
+      <div class:list={['h3d-form-card', { 'h3d-form-card--with-extras': view.extraFields?.length }]}>
+        <ConsultInterestField formId={formId} interest={view.interest} preselected={preselected} />
         <ConsultFormFields
           formId={formId}
           compact
-          messagePlaceholder={config.messagePlaceholder}
-          messageNote={config.messageNote}
-          submitLabel={config.submitLabel}
-          extraFields={config.extraFields}
+          messagePlaceholder={view.messagePlaceholder}
+          messageNote={view.messageNote}
+          submitLabel={view.submitLabel}
+          extraFields={view.extraFields}
         />
       </div>
     </div>
@@ -87,7 +90,7 @@ const preselected = resolveConsultPreselect(config, pathname, searchParams);
 <script is:inline src="/js/h3d-form-fit.js" defer></script>
 
 {
-  config.interest.fullHomeSync && (
+  view.interest.fullHomeSync && (
     <script is:inline>
       (function () {
         document.querySelectorAll('.h3d-rooms').forEach(function (fieldset) {

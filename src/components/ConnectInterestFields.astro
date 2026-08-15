@@ -1,0 +1,72 @@
+---
+import {
+  connectCategories,
+  connectSubServicesByCategory,
+  type ConnectFormDefaults,
+} from '../data/connectFormInterests';
+
+interface Props {
+  formId: string;
+  defaults: ConnectFormDefaults;
+}
+
+const { formId, defaults } = Astro.props;
+---
+
+<div class="lead-interest" role="group" aria-labelledby={`${formId}-category-label`}>
+  <div class="lead-interest-label" id={`${formId}-category-label`}>I’m interested in</div>
+  <div class="lead-interest-chips" role="radiogroup" aria-labelledby={`${formId}-category-label`}>
+    {
+      connectCategories.map((category) => (
+        <label class="lead-chip">
+          <input
+            type="radio"
+            name="category"
+            value={category.label}
+            data-category-id={category.id}
+            checked={category.id === defaults.category}
+            required
+          />
+          <span class="lead-chip-face">{category.label}</span>
+        </label>
+      ))
+    }
+  </div>
+</div>
+
+{
+  connectCategories.map((category) => {
+    const subOptions = connectSubServicesByCategory[category.id];
+    const isActive = category.id === defaults.category;
+    const subHeadingId = `${formId}-sub-heading-${category.id}`;
+    return (
+      <div
+        class="lead-sub-panel"
+        role="group"
+        aria-labelledby={subHeadingId}
+        data-connect-sub-panel={category.id}
+        hidden={!isActive}
+      >
+        <div class="lead-interest-label" id={subHeadingId}>
+          Specific interest <span class="form-optional">(optional)</span>
+        </div>
+        <div class="lead-interest-chips">
+          {
+            subOptions.map((option) => (
+              <label class="lead-chip">
+                <input
+                  type="checkbox"
+                  name="sub_services"
+                  value={option.value}
+                  data-category-id={category.id}
+                  checked={defaults.subServices.includes(option.value)}
+                />
+                <span class="lead-chip-face">{option.label}</span>
+              </label>
+            ))
+          }
+        </div>
+      </div>
+    );
+  })
+}

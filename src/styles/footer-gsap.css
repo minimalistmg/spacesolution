@@ -8,11 +8,6 @@
 
   width: 100%;
   background-color: #ffffff;
-  background-image: linear-gradient(
-    180deg,
-    var(--header-bg, floralwhite) 0%,
-    #ffffff 40%
-  );
   padding: 48px 0 0;
   border-top: none;
   overflow: hidden;
@@ -45,7 +40,7 @@
 
 .fgsap-logo-mark {
   display: block;
-  width: 48px;
+  width: 56px;
   margin-inline: auto;
   color: var(--fgsap-gold);
   flex-shrink: 0;
@@ -53,7 +48,7 @@
 }
 
 .fgsap-logo-mark .brand-icon-svg {
-  width: 48px;
+  width: 56px;
   height: auto;
   display: block;
 }
@@ -128,6 +123,37 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--fgsap-gold);
+}
+
+.fgsap-col-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  text-transform: inherit;
+  text-align: inherit;
+  cursor: default;
+  pointer-events: none;
+  appearance: none;
+}
+
+.fgsap-col-toggle:focus-visible {
+  outline: 2px solid var(--fgsap-gold);
+  outline-offset: 3px;
+}
+
+.fgsap-col-toggle-icon {
+  display: none;
 }
 
 .fgsap-col-inline-heading {
@@ -708,22 +734,79 @@
 
   .fgsap-nav {
     grid-template-columns: 1fr;
-    gap: 22px 0;
+    gap: 0;
   }
 
-  .fgsap-col,
+  .fgsap-col {
+    text-align: left;
+    border-bottom: 1px solid rgba(42, 36, 24, 0.12);
+  }
+
   .fgsap-col-grid h4 {
-    text-align: center;
+    margin: 0;
+    text-align: left;
+  }
+
+  .fgsap-col-toggle {
+    justify-content: space-between;
+    width: 100%;
+    padding: 14px 0;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+
+  .fgsap-footer.is-accordion-ready .fgsap-col-toggle-icon {
+    display: block;
+    position: relative;
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    color: var(--fgsap-gold);
+  }
+
+  .fgsap-col-toggle-icon::before,
+  .fgsap-col-toggle-icon::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: currentColor;
+    border-radius: 1px;
+    transform: translate(-50%, -50%);
+  }
+
+  .fgsap-col-toggle-icon::before {
+    width: 12px;
+    height: 1.5px;
+  }
+
+  .fgsap-col-toggle-icon::after {
+    width: 1.5px;
+    height: 12px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .fgsap-col.is-open .fgsap-col-toggle-icon::after {
+    transform: translate(-50%, -50%) scaleY(0);
   }
 
   .fgsap-col-grid ul {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    padding: 0 0 14px;
+  }
+
+  .fgsap-footer.is-accordion-ready .fgsap-col-grid ul {
+    display: none;
+  }
+
+  .fgsap-footer.is-accordion-ready .fgsap-col.is-open .fgsap-col-grid ul {
+    display: flex;
   }
 
   .fgsap-col-grid .fgsap-link {
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .fgsap-col-grid .fgsap-link-label {
@@ -751,14 +834,6 @@
 
   .fgsap-object-label {
     font-size: 9px;
-  }
-}
-
-/* Tablet phone-landscape / small tablet — 2×2 link sections when width allows */
-@media (min-width: 520px) and (max-width: 767px) {
-  .fgsap-nav {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 22px 24px;
   }
 }
 

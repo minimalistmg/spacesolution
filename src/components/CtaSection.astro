@@ -1,11 +1,22 @@
 ---
 import ResponsiveImage from './ResponsiveImage.astro';
-import { heroImages } from '../data/images';
+import { resolveConnectFormDefaults } from '../data/connectFormInterests';
+import { resolveCtaBackground } from '../data/ctaBackgrounds';
+import { resolveNavActive } from '../data/resolveNavActive';
+
+const pathname = Astro.url.pathname;
+const activePage = resolveNavActive(pathname);
+const enquiryDefaults = resolveConnectFormDefaults(
+  activePage,
+  pathname,
+  Astro.url.searchParams.get('interest'),
+);
+const background = resolveCtaBackground(activePage, enquiryDefaults.category);
 ---
 
 <section class="cta">
   <ResponsiveImage
-    src={heroImages.cta}
+    src={background}
     alt=""
     preset="cover"
     class="cta-bg"
@@ -16,6 +27,12 @@ import { heroImages } from '../data/images';
       <h1>Have a Space to Design?<br />Let's Get It Done Right.</h1>
       <p>Speak with our team and get a clear plan for your interiors — design, cost, and timeline.</p>
     </div>
-    <a href="#" class="btn btn-gold-filled fade-up" data-open-modal="enquiry">Request a Quote</a>
+    <a
+      href="#"
+      class="btn btn-gold-filled fade-up"
+      data-open-modal="enquiry"
+      data-enquiry-category={enquiryDefaults.category}
+      data-enquiry-interest={enquiryDefaults.subServices.join(',')}
+    >Request a Quote</a>
   </div>
 </section>

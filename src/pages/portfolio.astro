@@ -3,7 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import ProjectsSection from '../components/ProjectsSection.astro';
 import GalleryCard from '../components/GalleryCard.astro';
-import DummyVideoBlock from '../components/DummyVideoBlock.astro';
 import CtaSection from '../components/CtaSection.astro';
 import { projects } from '../data/projects';
 
@@ -69,11 +68,6 @@ const inspireProjects = projects.slice(0, 6).map((project) => ({
   </section>
 
   <ProjectsSection />
-
-  <DummyVideoBlock
-    title="From drawing to finished space"
-    description="See the rhythm of a Space Solution project — design reviews, factory production, and interiors ready for everyday use."
-  />
 
   <CtaSection />
 </BaseLayout>

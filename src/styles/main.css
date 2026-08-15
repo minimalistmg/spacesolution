@@ -671,6 +671,11 @@ ul {
   position: absolute;
   inset: 0;
   z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Keep the room on the open right; left copy sits on a veil. */
+  object-position: 84% 50%;
 }
 
 .cta-bg picture,
@@ -679,13 +684,20 @@ ul {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: 84% 50%;
 }
 
 .cta::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: var(--veil-hero);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 253, 247, 0.94) 0%,
+    rgba(255, 252, 245, 0.8) 34%,
+    rgba(255, 250, 240, 0.22) 62%,
+    rgba(255, 250, 240, 0.04) 100%
+  );
   z-index: 1;
 }
 
@@ -948,7 +960,13 @@ ul {
 
 .enquiry-form .form-row + .form-row,
 .enquiry-form .form-row + .form-hint,
-.enquiry-form .form-hint + .form-group {
+.enquiry-form .form-row + .form-group,
+.enquiry-form .form-hint + .form-group,
+.enquiry-form .form-group + .form-group,
+.enquiry-form .lead-interest + .form-row,
+.enquiry-form .lead-sub-panel + .form-row,
+.enquiry-form .lead-sub-panel + .floating-contact-form-group,
+.enquiry-form .lead-interest + .floating-contact-form-group {
   margin-top: 12px;
 }
 
@@ -971,7 +989,8 @@ ul {
 }
 
 .enquiry-form .form-group input,
-.enquiry-form .form-group select {
+.enquiry-form .form-group select,
+.enquiry-form .form-group textarea {
   width: 100%;
   padding: 10px 12px;
   background: var(--surface);
@@ -983,11 +1002,105 @@ ul {
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+.enquiry-form .form-group textarea {
+  min-height: 84px;
+  resize: vertical;
+}
+
 .enquiry-form .form-group input:focus,
-.enquiry-form .form-group select:focus {
+.enquiry-form .form-group select:focus,
+.enquiry-form .form-group textarea:focus {
   outline: none;
   border-color: var(--gold);
   box-shadow: 0 0 0 3px rgba(var(--gold-rgb), 0.12);
+}
+
+.form-optional {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.lead-interest,
+.lead-sub-panel {
+  margin-top: 12px;
+}
+
+.enquiry-form > .lead-interest:first-child {
+  margin-top: 0;
+}
+
+.lead-interest-label {
+  display: block;
+  color: var(--dark);
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.lead-interest-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.lead-chip {
+  display: block;
+  cursor: pointer;
+}
+
+.lead-chip input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.lead-chip-face {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 6px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--dark);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.3;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.lead-chip:hover .lead-chip-face {
+  border-color: rgba(var(--gold-rgb), 0.45);
+}
+
+.lead-chip input:checked + .lead-chip-face {
+  border-color: var(--gold);
+  background: rgba(var(--gold-rgb), 0.08);
+  box-shadow: 0 4px 14px rgba(var(--gold-rgb), 0.12);
+}
+
+.lead-chip input:focus-visible + .lead-chip-face {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.form-success-next {
+  display: block;
+  line-height: 1.5;
+}
+
+.form-success-whatsapp {
+  color: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.form-success-whatsapp:hover {
+  color: var(--gold-on-light);
 }
 
 .enquiry-form .form-group input::placeholder {
@@ -2785,10 +2898,10 @@ ul {
   list-style: disc;
 }
 
-/* FAQ */
+/* FAQ — one left-aligned column, same edge as other content-page headers */
 .faq-list {
   max-width: 800px;
-  margin: 0 auto;
+  margin: 0;
 }
 
 .faq-item {
@@ -3101,30 +3214,6 @@ ul {
   text-align: center;
 }
 
-.library-guide-cta {
-  padding: 0 0 72px;
-}
-
-.library-guide-cta-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  padding: 36px 40px;
-  background: var(--dark);
-  color: var(--white);
-}
-
-.library-guide-cta-inner h2 {
-  margin: 0;
-  font-size: clamp(24px, 3vw, 32px);
-  font-weight: 600;
-}
-
-.library-guide-cta-inner .section-label {
-  margin-bottom: 8px;
-}
-
 /* Animations */
 .fade-up {
   opacity: 0;
@@ -3165,19 +3254,13 @@ ul {
   .library-featured-grid,
   .library-room-grid,
   .library-guide-panels,
-  .library-related-grid,
-  .library-guide-cta-inner {
+  .library-related-grid {
     grid-template-columns: 1fr;
   }
 
   .why-steps.why-steps-four {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 16px;
-  }
-
-  .library-guide-cta-inner {
-    flex-direction: column;
-    align-items: flex-start;
   }
 
   .projects-header {
@@ -4028,6 +4111,16 @@ ul {
   text-decoration: none;
   border-color: rgba(var(--gold-rgb), 0.45);
   background: rgba(var(--gold-rgb), 0.08);
+}
+
+.content-faq {
+  padding-top: calc(clamp(72px, 8vw, 112px) - 20px);
+  padding-bottom: calc(clamp(72px, 8vw, 112px) - 20px);
+}
+
+.content-faq .section-title,
+.content-faq .section-desc {
+  max-width: 800px;
 }
 
 .content-faq .faq-list {

@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectDetailSection from '../../components/ProjectDetailSection.astro';
+import FaqSection from '../../components/FaqSection.astro';
+import CtaSection from '../../components/CtaSection.astro';
 import {
   getProjectBySlug,
   getProjectNeighbors,
@@ -29,4 +31,16 @@ const { next } = getProjectNeighbors(project.slug);
   headerScrolled={false}
 >
   <ProjectDetailSection project={project} nextProject={next} />
+
+  {
+    project.faqs && project.faqs.length > 0 && (
+      <FaqSection
+        title="Project questions"
+        description="How this fit-out was scoped, built, and how a similar brief would start."
+        items={project.faqs}
+      />
+    )
+  }
+
+  <CtaSection />
 </BaseLayout>

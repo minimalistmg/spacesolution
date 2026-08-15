@@ -2,6 +2,7 @@
 import Icon from '../components/Icon.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CtaSection from '../components/CtaSection.astro';
+import FaqSection from '../components/FaqSection.astro';
 import TestimonialsMarquee from '../components/TestimonialsMarquee.astro';
 import HomeHero from '../components/HomeHero.astro';
 import PortfolioFilmstrip from '../components/PortfolioFilmstrip.astro';
@@ -170,6 +171,32 @@ const serviceHoverUrls = Object.fromEntries(
 
   <DummyVideoBlock />
 
-  <!-- CTA -->
+  <FaqSection
+    title="Questions before you start"
+    description="Short answers about how Space Solution designs and delivers interiors in Mysuru."
+    items={[
+      {
+        question: 'What does Space Solution handle in a typical project?',
+        answer:
+          'Design, factory production, and site installation — kitchens, wardrobes, full homes, and commercial fitouts — so you work with one team from first measure to handover.',
+      },
+      {
+        question: 'Do you only work in Mysuru?',
+        answer:
+          'Our studio and factory are in Mysuru, and we regularly deliver interiors across Karnataka. Share your location and we will confirm site logistics.',
+      },
+      {
+        question: 'How do I get a quote?',
+        answer:
+          'Request a consultation with your approximate area, photos, and must-haves. We follow with a site measure and a clear scope, cost, and timeline — not a one-line price without context.',
+      },
+      {
+        question: 'Can I start with one room and expand later?',
+        answer:
+          'Yes. Many clients begin with a kitchen or wardrobe and add rooms later. We keep finishes documented so later phases match.',
+      },
+    ]}
+  />
+
   <CtaSection />
 </BaseLayout>

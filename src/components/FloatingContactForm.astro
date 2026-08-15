@@ -1,85 +1,87 @@
 ---
-import Icon from './Icon.astro';
-import { contactFormServiceOptions } from '../data/contactFormServices';
+import ConnectInterestFields from './ConnectInterestFields.astro';
+import { FORM_LABELS, FORM_LIMITS } from '../data/formFieldLabels';
+import type { ConnectFormDefaults } from '../data/connectFormInterests';
 import '../styles/contact-floating-form.css';
 
 interface Props {
   formId: string;
-  defaultService?: string;
+  defaults: ConnectFormDefaults;
+  whatsappHref: string;
 }
 
-const { formId, defaultService = 'Space Planning' } = Astro.props;
+const { formId, defaults, whatsappHref } = Astro.props;
 ---
 
-<form id={formId} class="floating-contact-form enquiry-form" data-source="contact" novalidate>
-  <div class="floating-contact-form-group">
-    <label for={`${formId}-name`}>Your Name</label>
-    <input id={`${formId}-name`} type="text" name="name" placeholder="Your Name" autocomplete="name" />
-  </div>
+<form
+  id={formId}
+  class="floating-contact-form enquiry-form"
+  data-source="contact"
+  data-lead-connect="true"
+  data-whatsapp={whatsappHref}
+  data-default-category={defaults.category}
+  data-default-sub={defaults.subServices.join(',')}
+  novalidate
+>
+  <ConnectInterestFields formId={formId} defaults={defaults} />
 
-  <div class="floating-contact-form-group">
-    <label for={`${formId}-email`}>Email Address</label>
-    <input
-      id={`${formId}-email`}
-      type="email"
-      name="email"
-      placeholder="you@example.com"
-      autocomplete="email"
-      inputmode="email"
-    />
-  </div>
-
-  <div class="floating-contact-form-group">
-    <label for={`${formId}-phone`}>Phone Number</label>
-    <div class="floating-contact-phone">
-      <input type="hidden" name="country" value="+91" />
-      <span class="floating-contact-phone-code" aria-hidden="true">+91</span>
+  <div class="h3d-fields">
+    <div class="floating-contact-form-group">
+      <label for={`${formId}-name`}>{FORM_LABELS.name}</label>
       <input
-        id={`${formId}-phone`}
-        type="tel"
-        name="phone"
-        placeholder="98765 43210"
-        autocomplete="tel"
-        inputmode="tel"
+        id={`${formId}-name`}
+        type="text"
+        name="name"
+        autocomplete="name"
+        maxlength={FORM_LIMITS.nameMax}
+        data-lead-field="name"
       />
     </div>
-  </div>
 
-  <fieldset class="floating-contact-form-group floating-contact-services">
-    <legend>Select Service</legend>
-    <div class="floating-contact-service-grid">
-      {
-        contactFormServiceOptions.map((option) => (
-          <label class="floating-contact-service">
-            <input
-              type="radio"
-              name="services"
-              value={option.value}
-              checked={option.value === defaultService}
-            />
-            <span class="floating-contact-service-card">
-              <Icon name={option.icon} />
-              <span>{option.label}</span>
-            </span>
-          </label>
-        ))
-      }
+    <div class="floating-contact-form-group">
+      <label for={`${formId}-mobile`}>{FORM_LABELS.mobile}</label>
+      <input
+        id={`${formId}-mobile`}
+        type="tel"
+        name="phone"
+        autocomplete="tel"
+        inputmode="numeric"
+        maxlength={FORM_LIMITS.mobileLen}
+        data-lead-field="mobile"
+      />
     </div>
-  </fieldset>
 
-  <div class="floating-contact-form-group">
-    <label for={`${formId}-message`}>Tell Us About Your Project</label>
-    <textarea
-      id={`${formId}-message`}
-      name="message"
-      rows="4"
-      placeholder="We're looking to redesign our 3BHK apartment with a modern minimal aesthetic."
-    ></textarea>
-    <p class="floating-contact-form-note">
-      Share a few details about your project and our team will get back to you shortly.
-    </p>
+    <div class="floating-contact-form-group">
+      <label for={`${formId}-location`}>
+        {FORM_LABELS.location} <span class="form-optional">{FORM_LABELS.optional}</span>
+      </label>
+      <input
+        id={`${formId}-location`}
+        type="text"
+        name="location"
+        autocomplete="address-level2"
+        maxlength={FORM_LIMITS.locationMax}
+        data-lead-field="location"
+      />
+    </div>
+
+    <div class="floating-contact-form-group h3d-fields-message">
+      <label for={`${formId}-message`}>
+        {FORM_LABELS.message} <span class="form-optional">{FORM_LABELS.optional}</span>
+      </label>
+      <textarea
+        id={`${formId}-message`}
+        name="message"
+        rows="3"
+        maxlength={FORM_LIMITS.messageMax}
+        data-lead-field="message"
+      ></textarea>
+      <p class="floating-contact-form-note">
+        We’ll call this number within one business day. WhatsApp is fine if you prefer that.
+      </p>
+    </div>
+
+    <button type="submit" class="floating-contact-form-submit">{FORM_LABELS.submit}</button>
+    <p class="form-feedback" aria-live="polite"></p>
   </div>
-
-  <button type="submit" class="floating-contact-form-submit">Send Enquiry</button>
-  <p class="form-feedback" aria-live="polite"></p>
 </form>

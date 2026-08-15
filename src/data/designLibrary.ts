@@ -165,6 +165,11 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
         answer:
           'Acrylic offers a high-gloss look; quality laminates are more forgiving on fingerprints and cost. Choose based on cleaning habits and the visual tone you want, not trend alone.',
       },
+      {
+        question: 'Can Space Solution design from this guide?',
+        answer:
+          'Yes. Bring your kitchen photos, appliance list, and layout preference to a consultation. We will turn the guide into measured drawings and a factory-made kitchen.',
+      },
     ],
     ctaLabel: 'Get a Kitchen Designed for Your Home',
   },
@@ -251,6 +256,16 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
         answer:
           'Yes when placed thoughtfully — great for living feature panels and wardrobes with moderate touch. High-splash kitchen zones usually prefer laminates or other easy-clean surfaces.',
       },
+      {
+        question: 'Can I see materials before I decide?',
+        answer:
+          'Yes. Visit the Mysuru experience centre or ask us to bring samples to a consultation so you can compare cores, laminates, and hardware in person.',
+      },
+      {
+        question: 'Do you specify materials for the whole home?',
+        answer:
+          'In turnkey projects we lock a finish palette across kitchen, wardrobes, and living joinery so rooms feel consistent and maintenance stays simple.',
+      },
     ],
     ctaLabel: 'Discuss Materials for Your Project',
   },
@@ -336,6 +351,16 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
         question: 'How much walkway width is enough?',
         answer:
           'Aim for about 90 cm on main paths where the plan allows. Tight secondary paths can be narrower, but daily routes should never feel like a squeeze.',
+      },
+      {
+        question: 'Do you plan from existing furniture?',
+        answer:
+          'We can keep pieces you already own and plan joinery around them. Share photos and sizes so the new layout does not fight what stays.',
+      },
+      {
+        question: 'When should I book a space-planning consultation?',
+        answer:
+          'Before civil or electrical work if you can. A measured plan early prevents sockets, AC, and openings landing in the wrong place.',
       },
     ],
     ctaLabel: 'Plan Your Space With Our Team',
@@ -424,6 +449,16 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
         answer:
           'Matte laminates, closed storage, and fewer open shelves are usually easiest for family homes — often aligning with modern or contemporary directions.',
       },
+      {
+        question: 'Should every room use the same style?',
+        answer:
+          'Keep one dominant direction through the home. A bedroom can be quieter and a living room richer, as long as colours and materials still talk to each other.',
+      },
+      {
+        question: 'Can you help us choose a style from references?',
+        answer:
+          'Yes. Bring images you like and we will separate what is structure, what is finish, and what will actually work in your rooms and light.',
+      },
     ],
     ctaLabel: 'Find Your Interior Style With Us',
   },
@@ -509,6 +544,16 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
         question: 'Is phasing more expensive overall?',
         answer:
           'Phasing can add minor mobilization cost, but it often protects cash flow. It works best when design and materials are locked before phase one starts.',
+      },
+      {
+        question: 'What should I budget first?',
+        answer:
+          'Kitchen and primary storage usually come first — they work the hardest every day. Living feature pieces can follow once the functional rooms are locked.',
+      },
+      {
+        question: 'How do I get a number I can plan with?',
+        answer:
+          'Use the home budget calculator for a range, then book a consultation. A measured quote with a room list is the only figure you should build to.',
       },
     ],
     ctaLabel: 'Get a Clear Project Estimate',
@@ -604,6 +649,16 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
         question: 'What should a handover include?',
         answer:
           'Aligned shutters, closed snags, care guidance, and documented warranty for the modular scope — not only a visual walkthrough.',
+      },
+      {
+        question: 'How far ahead should I start planning?',
+        answer:
+          'Begin design and measurements a few months before you need the space. Factory production and site work need a frozen drawing set, not last-week decisions.',
+      },
+      {
+        question: 'Can Space Solution manage the full renovation sequence?',
+        answer:
+          'For turnkey interiors we coordinate design, factory production, and installation. Civil and MEP trades are aligned to that programme so handover stays in one conversation.',
       },
     ],
     ctaLabel: 'Start Your Renovation the Right Way',

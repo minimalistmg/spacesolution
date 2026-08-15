@@ -16,3 +16,9 @@ export const FORM_LIMITS = {
   messageMin: 3,
   messageMax: 500,
 } as const;
+
+export const FORM_SUCCESS = {
+  next: 'We’ll call this number within one business day.',
+  whatsappLead: 'Prefer WhatsApp?',
+  whatsappAction: 'Message us',
+} as const;

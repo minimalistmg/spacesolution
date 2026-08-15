@@ -1,30 +1,23 @@
 ---
-description: Keep desktop header active nav cove light PNG — do not remove when editing header CSS
+description: Keep desktop header active nav as a recessed inset capsule — do not restore tick, top slot, gold type, underline, or cove light
 globs: src/styles/header.css
 alwaysApply: false
 ---
 
-# Header active nav cove light PNG (required)
+# Header active nav inset capsule (required)
 
-The desktop main nav **must** keep the recessed cove light image on the current page item (`.main-nav > li.active::after`), desktop only (`min-width: 1367px`). Matches mockup variant 1 (soft warm wash from top).
+The desktop main nav **must** mark the current page with a shallow recessed capsule on `.main-nav > li.active > a`, desktop only (`min-width: 1367px`). Matches mockup option 07.
 
-## Asset rules
+## Treatment
 
-- Active light asset: `/images/header/nav-light-opt03-true-alpha.png`
-- CSS box: **200×200**, background `center -13px / 150px 150px` (clip via `overflow: hidden` on active `li`)
-- Active `li` uses `overflow: hidden` so the wash cannot spill into neighboring labels
-
-## Do not remove
-
-- Placement: `::after` pinned to `top: 0`, centered over the active item
-- Segment accent text colors on `.has-mega-menu[data-menu-panel=…]` (`--nav-accent`)
-- Desktop L1 labels (`min-width: 1367px`) are always `#543727` (default, hover, open, active)
+- Soft stone wash `rgba(84, 55, 39, 0.06)` plus inset shadow (carved plaster, not a gold fill)
+- Existing `border-radius: var(--radius-pill)` on the L1 link
+- Desktop L1 labels stay `#543727` (default, hover, open, active)
 - Segment accent colors still apply to mega-menu panel chrome via `--nav-accent`
 
 ## Do not re-add
 
-- Soft accent pill fill on desktop active items
-- Accent underline / bottom bar on active items
-- Width-only CSS that stretches a mismatched PNG
-
-CTA/button work in `header-contact-menu.css` is separate — changing the Connect button must **not** strip nav cove rules from `header.css`.
+- Recessed cove / pendant light PNG (`nav-light-opt03-true-alpha.png`)
+- Baseline tick, top-edge reveal, or full underline
+- Quiet gold type on the active label
+- Soft accent / gold pill fill on desktop active items
