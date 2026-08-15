@@ -1,0 +1,10 @@
+/* Gilda Display — footer accent */
+@font-face {
+  font-family: 'Gilda Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    url('./400.woff2') format('woff2'),
+    url('./400.ttf') format('truetype');
+}

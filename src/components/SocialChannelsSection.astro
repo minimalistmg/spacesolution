@@ -2,6 +2,7 @@
 import Icon from './Icon.astro';
 import { SITE } from '../data/site';
 import { socialChannelItems, socialPlatformMeta } from '../data/socialChannels';
+import { altFromPublicImage } from '../lib/publicImage';
 
 const loopItems = [...socialChannelItems, ...socialChannelItems];
 const platforms = [
@@ -54,7 +55,7 @@ const platforms = [
             tabindex={isDuplicate ? -1 : undefined}
             aria-hidden={isDuplicate ? 'true' : undefined}
           >
-            <img src={item.image} alt={isDuplicate ? '' : item.alt} width="200" height="356" loading="lazy" />
+            <img src={item.image} alt={isDuplicate ? '' : altFromPublicImage(item.image)} width="200" height="356" loading="lazy" />
             <span class="social-cinema-platform">
               <Icon name={meta.icon} />
               <span class="social-cinema-sr">{meta.label}</span>

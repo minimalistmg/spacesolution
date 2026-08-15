@@ -6,9 +6,8 @@
 
   var $header = $('.site-header');
   var $videoModal = $('#video-modal');
-  var HERO_VIDEO_SRC = '/images/videos/hero-showreel.mp4';
+  var HERO_VIDEO_SRC = '/videos/home-interior-showreel-mysuru.mp4';
   var heroVideoPreloadStarted = false;
-  var menuImagePreloadStarted = false;
   var scrollLockCount = 0;
   var youtubeApiPromise = null;
   var youtubePlayer = null;
@@ -422,41 +421,6 @@
     player.load();
   }
 
-  function getMenuImageUrls() {
-    var raw = document.body && document.body.getAttribute('data-menu-preload');
-    if (!raw) return [];
-
-    try {
-      var urls = JSON.parse(raw);
-      return Array.isArray(urls) ? urls : [];
-    } catch (err) {
-      return [];
-    }
-  }
-
-  function preloadMenuImages() {
-    if (menuImagePreloadStarted) {
-      return Promise.resolve();
-    }
-
-    menuImagePreloadStarted = true;
-
-    var urls = getMenuImageUrls();
-    if (!urls.length) {
-      return Promise.resolve();
-    }
-
-    return Promise.all(
-      urls.map(function (url) {
-        return new Promise(function (resolve) {
-          var img = new Image();
-          img.onload = img.onerror = resolve;
-          img.src = url;
-        });
-      })
-    );
-  }
-
   function scheduleHeroVideoPreload() {
     if (!$('.hero-video-btn').length) return;
 
@@ -472,20 +436,12 @@
       }
     }
 
-    deferUntilIdle();
-  }
-
-  function scheduleMenuImagePreload() {
-    function runAfterLoad() {
-      preloadMenuImages().then(scheduleHeroVideoPreload);
-    }
-
     if (document.readyState === 'complete') {
-      runAfterLoad();
+      deferUntilIdle();
       return;
     }
 
-    window.addEventListener('load', runAfterLoad, { once: true });
+    window.addEventListener('load', deferUntilIdle, { once: true });
   }
 
   function tryPlayVideo(player, $native) {
@@ -1194,7 +1150,7 @@
     initEnquiryTriggers();
     initConnectLeadInterest();
     initVideoModal();
-    scheduleMenuImagePreload();
+    scheduleHeroVideoPreload();
     initScrollAnimations();
     initPortfolioFilter();
     initContactForm();

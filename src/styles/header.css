@@ -22,7 +22,7 @@
   background-color: var(--header-bg, #e6ded3);
   background-image: var(
     --header-bg-image,
-    url('/images/header/header-warm-stone-tile.png')
+    url('/images/header/warm-stone-header-tile.png')
   );
   background-repeat: repeat;
   background-size: 320px auto;
@@ -43,7 +43,7 @@
   background-color: var(--header-bg-scrolled, #e6ded3);
   background-image: var(
     --header-bg-image,
-    url('/images/header/header-warm-stone-tile.png')
+    url('/images/header/warm-stone-header-tile.png')
   );
   background-repeat: repeat;
   background-size: 320px auto;

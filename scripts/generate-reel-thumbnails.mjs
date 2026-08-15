@@ -11,14 +11,14 @@ const quality = 84;
 
 /** @type {{ out: string; src: string }[]} */
 const reelThumbnails = [
-  { out: 'modular-kitchen.webp', src: 'src/assets/images/projects/modular-kitchen.jpeg' },
-  { out: 'home-interior.webp', src: 'src/assets/images/projects/home-interior-3.jpg' },
-  { out: 'bedroom.webp', src: 'src/assets/images/hero/bedroom.jpg' },
-  { out: 'kitchen-1.webp', src: 'src/assets/images/hero/kitchen-1.jpeg' },
-  { out: 'kitchen-2.webp', src: 'src/assets/images/hero/kitchen-2.jpeg' },
-  { out: 'project-video-1.webp', src: 'src/assets/images/youtube/bt9uVqRqT_c.jpg' },
-  { out: 'project-video-2.webp', src: 'src/assets/images/youtube/PPfFXoK4Dso.jpg' },
-  { out: 'project-video-3.webp', src: 'src/assets/images/youtube/86CQ7rvVkmQ.jpg' },
+  { out: 'modular-kitchen-interior-mysuru.webp', src: 'src/assets/images/projects/modular-kitchen.jpeg' },
+  { out: 'home-interior-walkthrough-mysuru.webp', src: 'src/assets/images/projects/home-interior-3.jpg' },
+  { out: 'bedroom-interior-mysuru.webp', src: 'src/assets/images/hero/bedroom.jpg' },
+  { out: 'kitchen-interior-design-mysuru.webp', src: 'src/assets/images/hero/kitchen-1.jpeg' },
+  { out: 'contemporary-kitchen-styling-mysuru.webp', src: 'src/assets/images/hero/kitchen-2.jpeg' },
+  { out: 'interior-project-showcase-mysuru.webp', src: 'src/assets/images/youtube/bt9uVqRqT_c.jpg' },
+  { out: 'interior-space-planning-mysuru.webp', src: 'src/assets/images/youtube/PPfFXoK4Dso.jpg' },
+  { out: 'completed-interior-tour-mysuru.webp', src: 'src/assets/images/youtube/86CQ7rvVkmQ.jpg' },
 ];
 
 mkdirSync(outDir, { recursive: true });

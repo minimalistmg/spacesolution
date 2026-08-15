@@ -2,6 +2,7 @@
 import Icon from './Icon.astro';
 import type { InstagramReel } from '../data/instagramReels';
 import { getInstagramReelUrl } from '../data/instagramReels';
+import { altFromPublicImage } from '../lib/publicImage';
 
 interface Props {
   reel: InstagramReel;
@@ -21,7 +22,7 @@ const reelUrl = getInstagramReelUrl(reel);
   <div class="reel-card-media">
     <img
       src={reel.thumbnail}
-      alt={reel.caption}
+      alt={altFromPublicImage(reel.thumbnail)}
       loading="lazy"
       decoding="async"
       width="360"

@@ -12,7 +12,6 @@ import { getImage } from 'astro:assets';
 import ogFallback from '../assets/images/hero/hero-residential.jpg';
 import { SITE, getLocalBusinessSchema } from '../data/site';
 import { resolveNavActive } from '../data/resolveNavActive';
-import { allMenuImageUrls } from '../data/menuImages';
 import { colorPalettes, DEFAULT_PALETTE_ID } from '../data/colorPalettes';
 import '../styles/lib.css';
 import '../styles/main.css';
@@ -91,31 +90,37 @@ const schema = getLocalBusinessSchema(Astro.site?.href ?? SITE.url);
       href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,opsz,wght@0,9..40,100..900;1,9..40,100..900&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Instrument+Serif:ital@0;1&family=Manrope:wght@200..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Space+Grotesk:wght@300..700&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="/fonts/gotham/gotham.css" />
+    <link rel="stylesheet" href="/fonts/archivo/archivo.css" />
+    <link rel="stylesheet" href="/fonts/syne/syne.css" />
+    <link rel="stylesheet" href="/fonts/canela/canela.css" />
+    <link rel="stylesheet" href="/fonts/domaine-display/domaine-display.css" />
+    <link rel="stylesheet" href="/fonts/gilda/gilda.css" />
 
     <link
       rel="preload"
-      href="/fonts/archivo-400.woff2"
+      href="/fonts/archivo/400.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href="/fonts/archivo-600.woff2"
+      href="/fonts/archivo/600.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href="/fonts/archivo-800.woff2"
+      href="/fonts/archivo/800.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href="/fonts/syne-800.woff2"
+      href="/fonts/syne/800.woff2"
       as="font"
       type="font/woff2"
       crossorigin
@@ -166,7 +171,7 @@ const schema = getLocalBusinessSchema(Astro.site?.href ?? SITE.url);
     </script>
     <slot name="head" />
   </head>
-  <body data-menu-preload={JSON.stringify(allMenuImageUrls)}>
+  <body>
     <GoldForgePreloader />
     <div data-ss-page-shell>
       <Header activePage={activePage} scrolled={headerScrolled} />

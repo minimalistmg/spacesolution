@@ -6,6 +6,7 @@ import {
   showcaseServices,
   showcaseStats,
 } from '../data/showcase';
+import { altFromPublicImage } from '../lib/publicImage';
 import '../styles/showcase.css';
 ---
 
@@ -34,7 +35,7 @@ import '../styles/showcase.css';
           </div>
         </div>
         <div class="desint-hero-media desint-reveal">
-          <img src="/images/showcase/hero-img.jpg" alt="Contemporary interior by Space Solution" width="900" height="1100" />
+          <img src="/images/showcase/contemporary-interior-mysuru.jpg" alt={altFromPublicImage('/images/showcase/contemporary-interior-mysuru.jpg')} width="900" height="1100" />
         </div>
       </div>
     </section>
@@ -44,7 +45,7 @@ import '../styles/showcase.css';
       <div class="desint-container">
         <div class="desint-about-grid">
           <div class="desint-about-media desint-reveal">
-            <img src="/images/showcase/section-img-3.png" alt="Detailed interior finish" width="720" height="900" loading="lazy" />
+            <img src="/images/showcase/interior-finish-detail.png" alt={altFromPublicImage('/images/showcase/interior-finish-detail.png')} width="720" height="900" loading="lazy" />
           </div>
           <div class="desint-about-copy">
             <p class="desint-eyebrow desint-reveal">Studio</p>
@@ -82,7 +83,7 @@ import '../styles/showcase.css';
             <a class="desint-service-card" href={service.href} data-service-card>
               <span class="desint-service-index">{String(index + 1).padStart(2, '0')}</span>
               <div class="desint-service-media">
-                <img src={service.img} alt={service.title} width="640" height="800" loading="lazy" />
+                <img src={service.img} alt={altFromPublicImage(service.img)} width="640" height="800" loading="lazy" />
               </div>
               <h3 class="desint-service-title">{service.title}</h3>
             </a>
@@ -126,7 +127,7 @@ import '../styles/showcase.css';
           {showcasePosts.map((post) => (
             <a class="desint-blog-card desint-reveal" href={post.href}>
               <div class="desint-blog-media">
-                <img src={post.img} alt="" width="640" height="420" loading="lazy" />
+                <img src={post.img} alt={altFromPublicImage(post.img)} width="640" height="420" loading="lazy" />
               </div>
               <p class="desint-blog-date">{post.date}</p>
               <h3 class="desint-blog-title">{post.title}</h3>
@@ -140,7 +141,7 @@ import '../styles/showcase.css';
     <!-- CTA -->
     <section class="desint-cta" data-section="cta">
       <div class="desint-cta-media" aria-hidden="true">
-        <img src="/images/showcase/cta-img.png" alt="" width="1600" height="900" loading="lazy" />
+        <img src="/images/showcase/interior-design-consultation-cta.png" alt={altFromPublicImage('/images/showcase/interior-design-consultation-cta.png')} width="1600" height="900" loading="lazy" />
       </div>
       <div class="desint-cta-overlay" aria-hidden="true"></div>
       <div class="desint-container desint-cta-content">

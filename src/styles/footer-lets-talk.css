@@ -1,13 +1,3 @@
-@font-face {
-  font-family: 'Gilda Display';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src:
-    url('/fonts/gilda-display-400.woff2') format('woff2'),
-    url('/fonts/gilda-display-400.ttf') format('truetype');
-}
-
 .footer-lets-talk {
   background: var(--footer-cta-bg);
   padding: clamp(28px, 4vw, 48px) 24px clamp(48px, 8vw, 88px);

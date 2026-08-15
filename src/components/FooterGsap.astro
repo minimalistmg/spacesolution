@@ -4,6 +4,7 @@ import LogoMark from './LogoMark.astro';
 import { SITE } from '../data/site';
 import { FOOTER_BLUEPRINT_COLUMNS } from '../data/footerBlueprintLinks';
 import { FOOTER_LOOP_OBJECTS } from '../data/footerGsapLayouts';
+import { altFromPublicImage } from '../lib/publicImage';
 import '../styles/footer-gsap.css';
 
 /* Duplicate track for seamless infinite loop */
@@ -118,7 +119,7 @@ const trackObjects = [...FOOTER_LOOP_OBJECTS, ...FOOTER_LOOP_OBJECTS];
             <img
               class="fgsap-object-img"
               src={obj.src}
-              alt={obj.label}
+              alt={altFromPublicImage(obj.src)}
               width={obj.width}
               height={Math.round(obj.width * 0.75)}
               loading="eager"

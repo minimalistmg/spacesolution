@@ -9,27 +9,27 @@ export const showcaseStats = [
 export const showcaseServices = [
   {
     title: 'Residential design',
-    img: '/images/showcase/project-1.png',
+    img: '/images/showcase/residential-interior-design-mysuru.png',
     href: '/residential-interiors',
   },
   {
     title: 'Commercial design',
-    img: '/images/showcase/project-2.png',
+    img: '/images/showcase/commercial-interior-design-mysuru.png',
     href: '/commercial-interiors',
   },
   {
     title: 'Turnkey execution',
-    img: '/images/showcase/project-3.png',
+    img: '/images/showcase/turnkey-interior-execution-mysuru.png',
     href: '/turnkey-fitout',
   },
   {
     title: 'Space planning',
-    img: '/images/showcase/project-4.png',
+    img: '/images/showcase/interior-space-planning-mysuru.png',
     href: '/design-library/space-planning',
   },
   {
     title: 'Institutional interiors',
-    img: '/images/showcase/project-5.png',
+    img: '/images/showcase/institutional-interior-mysuru.png',
     href: '/institutional-interiors',
   },
 ];
@@ -63,13 +63,13 @@ export const showcasePosts = [
     text: 'Layouts, storage, and workflow for kitchens that work every day — drawn from real projects across Karnataka.',
     date: 'Design Library',
     href: '/design-library/modular-kitchen-guide',
-    img: '/images/showcase/blog-img-1.png',
+    img: '/images/showcase/modular-kitchen-guide-cover.png',
   },
   {
     title: 'Materials & Finishes',
     text: 'Laminates, hardware, and countertops that last in daily use — what we specify and why it matters.',
     date: 'Design Library',
     href: '/design-library/materials-and-finishes',
-    img: '/images/showcase/section-img-3.png',
+    img: '/images/showcase/interior-finish-detail.png',
   },
 ];

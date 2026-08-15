@@ -7,7 +7,7 @@
 
   var FRAME_COUNT = 23;
   var AUTOPLAY_SPEED = 0.01;
-  var FRAME_BASE = '/images/footer-chair/';
+  var FRAME_BASE = '/images/footer/chair/';
   /* Union bounds of stool across all 23 rotation frames (+8px pad) */
   var SRC = { x: 104, y: 40, w: 272, h: 392 };
   /* Keep the tuned display width (based on earlier narrower crop aspect) */
@@ -21,8 +21,8 @@
 
   function frameUrl(index) {
     var n = String(index + 1);
-    while (n.length < 4) n = '0' + n;
-    return FRAME_BASE + n + '.webp';
+    if (n.length < 2) n = '0' + n;
+    return FRAME_BASE + 'lounge-chair-' + n + '.webp';
   }
 
   function loadFrames() {
