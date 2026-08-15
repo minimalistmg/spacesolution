@@ -25,9 +25,9 @@ const jsDir = join(root, 'public', 'js');
 mkdirSync(jsDir, { recursive: true });
 
 const preloaderCopies = [
-  ['concepts/preloader/_shared/preloader-utils.js', 'preloader-utils.js'],
-  ['concepts/preloader/_shared/brand-shape.js', 'brand-shape.js'],
-  ['concepts/preloader/19-gold-forge/gold-forge.js', 'gold-forge.js'],
+  ['src/client/preloader-utils.js', 'preloader-utils.js'],
+  ['src/client/brand-shape.js', 'brand-shape.js'],
+  ['src/client/gold-forge.js', 'gold-forge.js'],
 ];
 
 for (const [source, target] of preloaderCopies) {

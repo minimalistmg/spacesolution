@@ -1,6 +1,6 @@
 ---
 description: About gallery modular scene — follow these rules before generating assets or changing gallery scroll/layout
-globs: src/assets/images/gallery-backgrounds/**,src/assets/images/gallery-spectators/**,scripts/process-gallery-cutouts.mjs,scripts/build-gallery-props.mjs
+globs: src/assets/images/gallery-backgrounds/**,src/assets/images/gallery-spectators/**,scripts/process-gallery-cutouts.mjs
 alwaysApply: false
 ---
 
