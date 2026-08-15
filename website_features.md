@@ -6,10 +6,8 @@ Quick links to try theme and header behaviors. Choices persist in `localStorage`
 
 Variant A (overlay left) uses a full-bleed background video:
 
-- Source (repo): `assets/home-hero.mp4`
 - Served at: `/videos/home-hero.mp4` (`public/videos/home-hero.mp4`)
 - Component: `src/components/HomeHero.astro`
-- Archived swiper hero: `src/archive/home-hero/`
 
 **Bases**
 

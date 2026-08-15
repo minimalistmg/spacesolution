@@ -55,7 +55,7 @@ spacesolution/
 │   └── api/
 │       └── enquiry.js      # Resend email handler (Cloudflare Pages Function)
 ├── public/
-│   ├── fonts/              # Montserrat WOFF2 (400+700 active; 500+600 reserved)
+│   ├── fonts/              # Self-hosted WOFF2 (Gotham, Archivo, Syne, Canela, Domaine, Gilda)
 │   └── js/                 # Client-side scripts (incl. color-palette-selector.js, showcase.js)
 ├── src/
 │   ├── components/         # Reusable Astro components (incl. ColorPaletteSelector)

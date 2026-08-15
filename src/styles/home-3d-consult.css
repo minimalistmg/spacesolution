@@ -142,13 +142,13 @@
   height: 16px;
 }
 
-.h3d-btn-outline {
+.h3d-contact-row .btn.h3d-btn-outline {
   color: var(--gold-on-light);
   background: transparent;
   border: 1.5px solid var(--gold);
 }
 
-.h3d-btn-outline:hover {
+.h3d-contact-row .btn.h3d-btn-outline:hover {
   color: var(--white);
   background: var(--gold);
   border-color: var(--gold);
