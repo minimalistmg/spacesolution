@@ -27,6 +27,7 @@ interface Props {
   headerScrolled?: boolean;
   ogImage?: string;
   hideCta?: boolean;
+  hideSocial?: boolean;
   ctaSecondaryHref?: string;
   ctaSecondaryLabel?: string;
 }
@@ -38,6 +39,7 @@ const {
   headerScrolled = false,
   ogImage,
   hideCta = false,
+  hideSocial = false,
   ctaSecondaryHref,
   ctaSecondaryLabel,
 } = Astro.props;
@@ -204,7 +206,7 @@ const schema = getLocalBusinessSchema(Astro.site?.href ?? SITE.url);
           <slot />
         </main>
 
-        <SocialChannelsSection />
+        {!hideSocial && <SocialChannelsSection />}
         {
           !hideCta && (
             <CtaSection secondaryHref={ctaSecondaryHref} secondaryLabel={ctaSecondaryLabel} />

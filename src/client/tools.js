@@ -24,7 +24,7 @@
   }
 
   function formatRange(low, high) {
-    return formatInr(low) + ' – ' + formatInr(high);
+    return formatInr(low) + ' - ' + formatInr(high);
   }
 
   function readFields() {
@@ -318,4 +318,35 @@
   if (type === 'range-estimate') initRangeEstimate();
   if (type === 'layout-picker') initLayoutPicker();
   if (type === 'countdown') initCountdown();
+
+  var resetButton = root.querySelector('[data-tool-reset]');
+  if (resetButton) {
+    resetButton.addEventListener('click', function () {
+      if (type === 'range-estimate') {
+        var fields = root.querySelectorAll('input[data-field-id]');
+        for (var i = 0; i < fields.length; i += 1) {
+          fields[i].value = fields[i].getAttribute('data-default-value') || fields[i].defaultValue;
+        }
+        if (fields[0]) fields[0].dispatchEvent(new Event('input', { bubbles: true }));
+      }
+
+      if (type === 'layout-picker') {
+        var firstOption = root.querySelector('.tool-option');
+        if (firstOption) firstOption.click();
+      }
+
+      if (type === 'countdown') {
+        var dateInput = document.getElementById('tool-countdown-date');
+        var days = Number(root.getAttribute('data-default-days') || 45);
+        var date = new Date();
+        date.setDate(date.getDate() + days);
+        if (dateInput) {
+          dateInput.value = toDateInputValue(date);
+          dateInput.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+      }
+
+      resetButton.blur();
+    });
+  }
 })();

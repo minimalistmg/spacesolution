@@ -1,9 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from './PageHero.astro';
-import FaqSection from './FaqSection.astro';
+import MenuIcon from './MenuIcon.astro';
 import type { ToolPage } from '../data/tools';
-import { getToolHero } from '../data/toolHeroes';
+import { getToolExperience } from '../data/toolPageExperience';
 
 interface Props {
   page: ToolPage;
@@ -11,7 +10,11 @@ interface Props {
 
 const { page } = Astro.props;
 const calc = page.calculator;
-const heroImage = getToolHero(page.slug);
+const experience = getToolExperience(page.slug);
+const relatedTools = page.related.filter(
+  (link) => link.href.startsWith('/tools/') && link.href !== `/tools/${page.slug}`,
+);
+const companionTool = relatedTools[0] ?? { label: 'All Planning Tools', href: '/tools' };
 const finishLabels: Record<number, string> = {
   1: 'Practical',
   2: 'Balanced',
@@ -23,23 +26,9 @@ const finishLabels: Record<number, string> = {
   title={page.seoTitle}
   description={page.metaDescription}
   headerScrolled={false}
+  hideSocial={true}
 >
-  <PageHero
-    breadcrumb={`<a href="/">Space Solution</a> <span class="breadcrumb-sep">/</span> <a href="/tools">Tools</a> <span class="breadcrumb-sep">/</span> ${page.title}`}
-    title={page.title}
-    description={page.lead}
-    image={heroImage}
-  />
-
-  <section class="page-content tool-page-intro">
-    <div class="container content-prose">
-      <p class="section-label fade-up">{page.eyebrow}</p>
-      <h2 class="section-title fade-up">How this tool helps</h2>
-      {page.body.map((paragraph) => <p class="content-body fade-up">{paragraph}</p>)}
-    </div>
-  </section>
-
-  <section class="tool-calc-section" aria-labelledby="tool-calc-heading">
+  <section class="tool-calc-section tool-screen-section" aria-labelledby="tool-calc-heading">
     <div class="container">
       <div
         class="tool-calc fade-up"
@@ -49,12 +38,13 @@ const finishLabels: Record<number, string> = {
         data-default-days={calc.type === 'countdown' ? String(calc.defaultDays) : undefined}
       >
         <div class="tool-calc-header">
-          <p class="section-label">Interactive calculator</p>
-          <h2 class="section-title" id="tool-calc-heading">Try it now</h2>
-          <p class="section-desc">
-            Adjust the inputs for a rough planning figure. Final quotes always follow a site measure
-            and your chosen finishes.
-          </p>
+          <p class="section-label">{page.eyebrow}</p>
+          <h1 id="tool-calc-heading">{page.title}</h1>
+          <p class="tool-calc-intro">{page.lead}</p>
+          <div class="tool-calc-header-actions">
+            <p>Adjust the inputs for a rough planning result.</p>
+            <button type="button" class="tool-reset" data-tool-reset>Reset inputs</button>
+          </div>
         </div>
 
         {
@@ -85,6 +75,7 @@ const finishLabels: Record<number, string> = {
                       max={field.max}
                       step={field.step}
                       value={field.value}
+                      data-default-value={field.value}
                       data-prefix={field.prefix ?? ''}
                       data-suffix={field.suffix ?? ''}
                       data-banded={
@@ -170,54 +161,84 @@ const finishLabels: Record<number, string> = {
           )
         }
 
-        <p class="tool-calc-cta">
-          Ready for numbers you can build with?
-          <a href="#" data-open-modal="enquiry">Request a consultation</a>
-        </p>
       </div>
     </div>
   </section>
 
-  <section class="page-content section-compact-top">
+  <section class="tool-insights" aria-labelledby="tool-insights-title">
     <div class="container">
-      <p class="section-label fade-up">How it works</p>
-      <h2 class="section-heading-lg fade-up">Three simple steps</h2>
-      <div class="why-steps">
-        {
-          page.howItWorks.map((step, index) => (
-            <div class="why-step fade-up">
-              <span class="step-num">{String(index + 1).padStart(2, '0')}</span>
-              <h4>{step.title}</h4>
-              <p>{step.description}</p>
-            </div>
-          ))
-        }
+      <div class="tool-section-head">
+        <p class="section-label fade-up">Understand your result</p>
+        <h2 class="tool-section-title fade-up" id="tool-insights-title">{experience.resultTitle}</h2>
+        <p class="tool-section-lead fade-up">{experience.resultLead}</p>
+      </div>
+      <div class="tool-insight-grid">
+        {experience.insightCards.map((card, index) => (
+          <article class="tool-insight-card fade-up">
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <h3>{card.title}</h3>
+            <p>{card.description}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
 
-  <FaqSection
-    items={page.faqs}
-    title="Questions about this tool"
-    description="Quick answers before you enquire with Space Solution."
-  />
+  <section class="tool-guidance-section" aria-labelledby="tool-guidance-title">
+    <div class="container">
+      <aside class="tool-guidance fade-up">
+        <p class="section-label">Planning check</p>
+        <h2 id="tool-guidance-title">{experience.guidanceTitle}</h2>
+        <ul class="feature-list">
+          {experience.guidance.map((item) => <li>{item}</li>)}
+        </ul>
+      </aside>
+    </div>
+  </section>
 
-  {
-    page.related.length > 0 && (
-      <section class="page-content section-compact-top">
-        <div class="container">
-          <h2 class="section-heading-lg fade-up">Related</h2>
-          <ul class="service-related-links fade-up">
-            {page.related.map((link) => (
-              <li>
-                <a href={link.href}>{link.label}</a>
-              </li>
-            ))}
-          </ul>
+  <section class="tool-resources" aria-labelledby="tool-resources-title">
+    <div class="container">
+      <div class="tool-section-head tool-resources-head">
+        <p class="section-label fade-up">Continue planning</p>
+        <div class="tool-resources-title-row">
+          <h2 class="tool-section-title fade-up" id="tool-resources-title">From rough result to a measured plan</h2>
+          <a href="/tools" class="tool-all-badge">All tools</a>
         </div>
-      </section>
-    )
-  }
+      </div>
+      <div class="tool-resource-grid">
+        <a class="tool-resource-card fade-up" href={experience.service.href}>
+          <div class="tool-resource-copy">
+            <span class="tool-resource-icon"><MenuIcon name="buildings" /></span>
+            <div class="tool-resource-text">
+              <span>Relevant service</span>
+              <strong>{experience.service.label}</strong>
+              <em>See layouts, finishes, process, and FAQs</em>
+            </div>
+          </div>
+        </a>
+        <a class="tool-resource-card fade-up" href={experience.guide.href}>
+          <div class="tool-resource-copy">
+            <span class="tool-resource-icon"><MenuIcon name="books" /></span>
+            <div class="tool-resource-text">
+              <span>Planning guide</span>
+              <strong>{experience.guide.label}</strong>
+              <em>Read the decisions behind the estimate</em>
+            </div>
+          </div>
+        </a>
+        <a class="tool-resource-card fade-up" href={companionTool.href}>
+          <div class="tool-resource-copy">
+            <span class="tool-resource-icon"><MenuIcon name="compass-tool" /></span>
+            <div class="tool-resource-text">
+              <span>Next tool</span>
+              <strong>{companionTool.label}</strong>
+              <em>Check the next part of your project</em>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <script src="/js/tools.js" defer></script>
 </BaseLayout>
