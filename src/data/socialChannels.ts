@@ -25,7 +25,7 @@ export const socialChannelsFollow = {
   href: SITE.social.instagram,
 } as const;
 
-/** Cinema-strip reels — Facebook, Instagram, and YouTube kept as separate items. */
+/** Cinema-strip reels - Facebook, Instagram, and YouTube kept as separate items. */
 export const socialChannelItems: SocialChannelItem[] = [
   {
     platform: 'instagram',

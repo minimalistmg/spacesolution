@@ -44,7 +44,7 @@ export interface ToolPage {
 export const toolsHubIntro = {
   title: 'Planning Tools',
   heroDescription:
-    'Quick estimators and planners for kitchens, homes, offices, and hospitality fitouts — built for Mysuru and Karnataka projects.',
+    'Quick estimators and planners for kitchens, homes, offices, and hospitality fitouts - built for Mysuru and Karnataka projects.',
   intro:
     'Use these free tools to get a rough sense of budget, layout, or capacity before you book a consultation. Figures are indicative; every Space Solution quote is based on a site measure and your finish choices.',
   trustLine: 'Practical planning aids from the Space Solution design team · Mysuru',
@@ -58,12 +58,12 @@ export const toolPages: ToolPage[] = [
     metaDescription:
       'Estimate modular kitchen cost in Mysuru by size and finish level. Get a rough INR planning range before your Space Solution consultation today.',
     eyebrow: 'Home interiors tool',
-    lead: 'Get a ballpark modular kitchen budget for your Mysuru home — adjust size and finish to see a rough INR range.',
+    lead: 'Get a ballpark modular kitchen budget for your Mysuru home - adjust size and finish to see a rough INR range.',
     body: [
-      'Planning a modular kitchen in Mysuru or elsewhere in Karnataka usually starts with two questions: how much space you have, and how premium the finishes need to feel. This estimator uses simple area and finish inputs to give you a planning range — not a final quote.',
+      'Planning a modular kitchen in Mysuru or elsewhere in Karnataka usually starts with two questions: how much space you have, and how premium the finishes need to feel. This estimator uses simple area and finish inputs to give you a planning range - not a final quote.',
       'In most Indian apartments and villas, kitchen cost is driven by carcass material, shutter finish, hardware, and countertop choice. Laminate and acrylic sit in different bands from PU or veneer, and stone or quartz tops change the total quickly.',
       'Use the result to decide whether a turnkey kitchen fits your overall home budget, then share your layout photos or drawings with our team for a measured proposal. Space Solution manufactures and installs modular kitchens from our Mysuru studio.',
-      'If you are renovating an older kitchen, allow a little buffer for plumbing shifts, electrical points, and appliance cut-outs — those site realities are easiest to settle on a visit.',
+      'If you are renovating an older kitchen, allow a little buffer for plumbing shifts, electrical points, and appliance cut-outs - those site realities are easiest to settle on a visit.',
     ],
     howItWorks: [
       {
@@ -124,11 +124,11 @@ export const toolPages: ToolPage[] = [
     metaDescription:
       'Calculate a rough full-home interior budget for Mysuru apartments and villas. Plan carpentry, finishes, and room scope before you enquire with us.',
     eyebrow: 'Home interiors tool',
-    lead: 'Sketch a full-home interior budget by carpet area, room count, and finish preference — useful before you renovate in Mysuru.',
+    lead: 'Sketch a full-home interior budget by carpet area, room count, and finish preference - useful before you renovate in Mysuru.',
     body: [
       'Full-home interiors in Karnataka cover living, bedrooms, kitchen, wardrobes, and often a pooja niche or study. Budgeting early helps you prioritise what must be built now and what can wait for a second phase.',
       'Cost per square foot shifts with material choices: laminate wardrobes differ from veneer, and imported tiles or custom lighting change the stretch of a villa package. This calculator stays intentionally simple so you can explore ranges quickly.',
-      'Space Solution works on apartments and independent homes across Mysuru. Share your floor plan after you try the tool, and we will align scope — modular kitchen, bedrooms, living storage — to a clear proposal.',
+      'Space Solution works on apartments and independent homes across Mysuru. Share your floor plan after you try the tool, and we will align scope - modular kitchen, bedrooms, living storage - to a clear proposal.',
       'If you already have civil work underway, tell us what is fixed (flooring, false ceiling, painting) so carpentry and furniture can be quoted without overlap.',
     ],
     howItWorks: [
@@ -188,14 +188,14 @@ export const toolPages: ToolPage[] = [
     title: 'Kitchen Layout Recommender',
     seoTitle: 'Kitchen Layout Recommender | Modular Kitchen Plans Mysuru',
     metaDescription:
-      'Pick a kitchen layout that fits your home — L-shaped, U-shaped, parallel, or island — with practical guidance for Mysuru apartments and villas.',
+      'Pick a kitchen layout that fits your home - L-shaped, U-shaped, parallel, or island - with practical guidance for Mysuru apartments and villas.',
     eyebrow: 'Home interiors tool',
     lead: 'Choose the kitchen shape that matches your room proportions, then read a short recommendation for workflow and storage.',
     body: [
       'Layout is the first modular kitchen decision. The wrong shape wastes circulation; the right one makes cooking, washing, and serving feel natural even in a compact Mysuru 2BHK.',
       'L-shaped kitchens suit many open living plans. Parallel (galley) layouts excel in narrow utility corridors. U-shaped kitchens maximise counter when you have width. Island plans need clear walking space on all sides.',
       'This recommender is not a substitute for a measured drawing, but it helps you arrive at a consultation with a clear preference. Our designers then map the work triangle, chimney position, and appliance zones to your walls.',
-      'Bring photos of your existing kitchen and any preferred appliance brands — those details often decide whether a peninsula or breakfast ledge is worth adding.',
+      'Bring photos of your existing kitchen and any preferred appliance brands - those details often decide whether a peninsula or breakfast ledge is worth adding.',
     ],
     howItWorks: [
       {
@@ -286,7 +286,7 @@ export const toolPages: ToolPage[] = [
     body: [
       'Office interiors in Mysuru range from compact professional suites to multi-bay coworking floors. Seats, meeting rooms, and storage drive both carpet area and carpentry cost.',
       'This calculator gives a planning figure for modular workstations, basic partitions, and common support furniture. IT flooring, server rooms, and specialised labs need a separate scope.',
-      'Space Solution delivers commercial interiors with factory-made furniture where possible — faster install, cleaner sites, and consistent finishes across phases.',
+      'Space Solution delivers commercial interiors with factory-made furniture where possible - faster install, cleaner sites, and consistent finishes across phases.',
       'If you are taking a shell-and-core floor, note column grids and toilet cores before locking a seating count; those constraints often decide aisle widths and cabin sizes.',
     ],
     howItWorks: [
@@ -353,7 +353,7 @@ export const toolPages: ToolPage[] = [
       'Retail, clinics, and office floors each stress the budget differently. Display joinery, reception feature walls, and brand lighting push costs above a simple paint-and-furniture refresh.',
       'This tool uses area plus an intensity slider so you can compare a light refresh with a full branded fitout. It is meant for early landlord or investor conversations in Mysuru.',
       'Space Solution manages design-to-install commercial projects with clear milestones. After you have a range, we can walk the site, check services, and issue a scoped quotation.',
-      'Factor in GST, approvals, and any landlord shell conditions separately — those rarely belong inside a first carpentry estimate.',
+      'Factor in GST, approvals, and any landlord shell conditions separately - those rarely belong inside a first carpentry estimate.',
     ],
     howItWorks: [
       {
@@ -415,10 +415,10 @@ export const toolPages: ToolPage[] = [
     eyebrow: 'Commercial tool',
     lead: 'Map consultation rooms, treatment spaces, and reception needs into a simple clinic fitout estimate.',
     body: [
-      'Clinic interiors need clear patient flow, easy-to-clean surfaces, and furniture that supports long working days. Mysuru practices — dental, general, specialty — often grow room by room.',
+      'Clinic interiors need clear patient flow, easy-to-clean surfaces, and furniture that supports long working days. Mysuru practices - dental, general, specialty - often grow room by room.',
       'This planner multiplies room counts by typical fitout allowances for cabinetry, seating, and partitions. Medical equipment itself is never included in the carpentry figure.',
       'Space Solution designs clinic reception, waiting, and consultation rooms with durable materials suited to high footfall. Share your specialty and we will refine storage and hygiene details.',
-      'If you are fitting out inside a commercial complex, confirm landlord guidelines for plumbing and waste early — they affect wet areas and lab benches.',
+      'If you are fitting out inside a commercial complex, confirm landlord guidelines for plumbing and waste early - they affect wet areas and lab benches.',
     ],
     howItWorks: [
       {
@@ -479,11 +479,11 @@ export const toolPages: ToolPage[] = [
     metaDescription:
       'Estimate classroom furniture needs by students and rooms for schools and coaching centres across Mysuru and institutional campuses in Karnataka.',
     eyebrow: 'Institutional tool',
-    lead: 'Project desks, benches, and teacher furniture for classrooms — a quick institutional planning aid.',
+    lead: 'Project desks, benches, and teacher furniture for classrooms - a quick institutional planning aid.',
     body: [
       'Schools, coaching centres, and training institutes in Karnataka need durable classroom sets that survive daily use. Seat counts and room totals are the simplest way to start a furniture budget.',
       'This calculator assumes sturdy dual desks or bench sets plus a teacher unit per classroom. Smart boards, AV, and lab furniture should be added as separate lines.',
-      'Space Solution supplies institutional furniture with consistent manufacturing quality — helpful when you are outfitting many identical rooms across a campus.',
+      'Space Solution supplies institutional furniture with consistent manufacturing quality - helpful when you are outfitting many identical rooms across a campus.',
       'Share age group and storage needs (bags, books, science kits) during consultation so we can recommend the right desk depth and edge profiles.',
     ],
     howItWorks: [
@@ -549,7 +549,7 @@ export const toolPages: ToolPage[] = [
     body: [
       'Hostel interiors prioritise durable beds, study tables, and lockable storage in tight footprints. Getting bed density right affects both comfort and fire egress.',
       'Use this planner to sketch a furniture budget before you approach a campus build or renovation in Mysuru. Bunk versus single beds change both cost and clear heights.',
-      'Space Solution manufactures hostel sets that install quickly floor by floor — useful when academic calendars leave a short vacation window.',
+      'Space Solution manufactures hostel sets that install quickly floor by floor - useful when academic calendars leave a short vacation window.',
       'Mention gender segregation, accessible rooms, and laundry adjacencies in your brief; they influence wardrobe and aisle planning.',
     ],
     howItWorks: [
@@ -613,7 +613,7 @@ export const toolPages: ToolPage[] = [
     eyebrow: 'Institutional tool',
     lead: 'Price a bulk furniture run by unit count and how custom each piece needs to be.',
     body: [
-      'Bulk orders — campus desks, office storage, multi-villa wardrobe sets — benefit from factory repetition. Unit cost falls when drawings freeze early and finishes stay consistent.',
+      'Bulk orders - campus desks, office storage, multi-villa wardrobe sets - benefit from factory repetition. Unit cost falls when drawings freeze early and finishes stay consistent.',
       'This estimator multiplies quantity by a complexity band so procurement teams can hold a working number before tendering. It is not a substitute for a bill of quantities.',
       'Space Solution is set up for repeatable manufacturing from Mysuru, with installation crews who understand large-site logistics across Karnataka.',
       'If you already have CAD or PDF drawings, attach them to your enquiry so we can validate sizes and hardware schedules quickly.',
@@ -679,7 +679,7 @@ export const toolPages: ToolPage[] = [
     lead: 'Balance covers, floor area, and service style to sketch a café seating and furniture budget.',
     body: [
       'Cafés in Mysuru compete on atmosphere as much as menu. Seat density, aisle width, and counter visibility decide whether a room feels generous or cramped at peak hour.',
-      'This calculator pairs cover count with area to suggest whether your layout is tight, balanced, or generous — and attaches a rough furniture/fitout band for planning.',
+      'This calculator pairs cover count with area to suggest whether your layout is tight, balanced, or generous - and attaches a rough furniture/fitout band for planning.',
       'Space Solution designs café and casual dining interiors with durable table bases, banquette options, and service counters that survive busy weekends.',
       'Mention takeaway queues and outdoor seating in your consultation; they often need separate furniture and weather-ready materials.',
     ],
@@ -745,7 +745,7 @@ export const toolPages: ToolPage[] = [
     lead: 'Combine guest-room keys and public-area size for a rough hospitality interior fitout range.',
     body: [
       'Hotels, boutique stays, and large F&B rooms need coordinated FF&E and joinery across many repeat units. Early budget bands help owners sequence soft opening phases.',
-      'This estimator weighs room count against lobby or dining carpet area. It assumes mid-market hospitality finishes typical of Karnataka properties — not ultra-luxury imported packages.',
+      'This estimator weighs room count against lobby or dining carpet area. It assumes mid-market hospitality finishes typical of Karnataka properties - not ultra-luxury imported packages.',
       'Space Solution supports hospitality projects with drawings, factory production, and staged installation so floors can open without blocking operations elsewhere.',
       'Bring brand guidelines and any operator standards to your consultation; they affect wardrobe internals, lighting levels, and durability ratings.',
     ],
@@ -767,7 +767,7 @@ export const toolPages: ToolPage[] = [
       {
         question: 'Does this include loose FF&E like carpets and curtains?',
         answer:
-          'The band assumes a blended joinery and furniture package. Soft FF&E can be included or bought separately — we clarify line by line in the quote.',
+          'The band assumes a blended joinery and furniture package. Soft FF&E can be included or bought separately - we clarify line by line in the quote.',
       },
       {
         question: 'Can you refurbish existing rooms?',
@@ -812,7 +812,7 @@ export const toolPages: ToolPage[] = [
     body: [
       'Opening a café, clinic, or boutique in Mysuru means coordinating approvals, civil snags, furniture lead times, and staffing. A visible countdown keeps the fitout conversation honest.',
       'Use this tool to test whether your launch date still leaves room for drawings, manufacturing, and site install. If the gap is tight, we can discuss phased soft openings.',
-      'Space Solution helps owners reverse-plan from opening day — what must freeze this week, what can follow after the first week of trade.',
+      'Space Solution helps owners reverse-plan from opening day - what must freeze this week, what can follow after the first week of trade.',
       'Pair this countdown with our hospitality or commercial estimators so budget and calendar move together before you sign a lease fitout clause.',
     ],
     howItWorks: [

@@ -43,7 +43,7 @@ export interface LibraryRoomTopic {
 export const designLibraryHub = {
   title: 'Design Library',
   heroDescription:
-    'Practical guides for kitchens, materials, planning, and budgets — drawn from 15+ years and 800+ real projects across Karnataka.',
+    'Practical guides for kitchens, materials, planning, and budgets - drawn from 15+ years and 800+ real projects across Karnataka.',
   intro:
     'Whether you are planning a modular kitchen, choosing finishes, or setting a renovation budget, these guides help you make confident decisions before you build.',
   trustLine: 'Written by the Space Solution design team · Based on real project experience',
@@ -73,32 +73,32 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
     menuTitle: 'Modular Kitchen Guide',
     description: 'Layouts, storage, and workflow for kitchens that work every day.',
     heroDescription:
-      'Plan a modular kitchen with the right layout, storage, and finishes — before you commit to build.',
+      'Plan a modular kitchen with the right layout, storage, and finishes - before you commit to build.',
     image: roomImages.modularKitchen,
     intro:
-      'A well-planned kitchen saves time every day. This guide covers layout types, the work triangle, storage priorities, and finish choices we use on real projects in Mysuru and across Karnataka. Use it before you finalize drawings so production starts from a kitchen that already works for how you cook — not only how it looks in a render.',
+      'A well-planned kitchen saves time every day. This guide covers layout types, the work triangle, storage priorities, and finish choices we use on real projects in Mysuru and across Karnataka. Use it before you finalize drawings so production starts from a kitchen that already works for how you cook - not only how it looks in a render.',
     sections: [
       {
         label: 'Layout Types',
         title: 'Choose a Layout That Fits Your Space',
         paragraphs: [
-          'Kitchen layout is the first decision — it defines circulation, storage, and how comfortably you cook. Most Indian homes work best with L-shaped, U-shaped, parallel, or compact straight runs.',
-          'Open-plan apartments often prefer an L-shape that keeps the dining view clear. Narrow utility-linked kitchens may need a parallel run with a disciplined work triangle. Island layouts only succeed when there is true walking clearance on all sides — otherwise the island becomes an obstacle.',
+          'Kitchen layout is the first decision - it defines circulation, storage, and how comfortably you cook. Most Indian homes work best with L-shaped, U-shaped, parallel, or compact straight runs.',
+          'Open-plan apartments often prefer an L-shape that keeps the dining view clear. Narrow utility-linked kitchens may need a parallel run with a disciplined work triangle. Island layouts only succeed when there is true walking clearance on all sides - otherwise the island becomes an obstacle.',
         ],
         bullets: [
-          'L-shaped — efficient for open plans and corner utility',
-          'U-shaped — maximum counter and storage in larger kitchens',
-          'Parallel — ideal for long, narrow galley-style spaces',
-          'Island kitchens — best when room width allows free movement on all sides',
+          'L-shaped - efficient for open plans and corner utility',
+          'U-shaped - maximum counter and storage in larger kitchens',
+          'Parallel - ideal for long, narrow galley-style spaces',
+          'Island kitchens - best when room width allows free movement on all sides',
         ],
         image: roomImages.modularKitchen,
       },
       {
         label: 'Work Triangle',
-        title: 'Sink, Stove, and Fridge — Keep Movement Logical',
+        title: 'Sink, Stove, and Fridge - Keep Movement Logical',
         paragraphs: [
           'The work triangle connects your three most-used zones. When distances are balanced, cooking feels effortless instead of cramped.',
-          'In Indian kitchens, also plan for the mixer, RO, and bin — these “fourth points” matter as much as the classic triangle. Landing space beside the hob and fridge prevents hot pans and grocery bags from fighting for the same counter.',
+          'In Indian kitchens, also plan for the mixer, RO, and bin - these “fourth points” matter as much as the classic triangle. Landing space beside the hob and fridge prevents hot pans and grocery bags from fighting for the same counter.',
         ],
         bullets: [
           'Keep the sink near the entry side for easy unloading',
@@ -114,7 +114,7 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
         title: 'Design Storage for Daily Habits, Not Just Looks',
         paragraphs: [
           'Drawers beat deep shelves for daily utensils. Tall units and corner solution recover space that is often wasted in standard layouts.',
-          'Map groceries, vessels, and small appliances before you approve shutters. A beautiful kitchen that forces deep crouching for daily items will frustrate you within a week. Soft-close hardware and full-extension runners are not luxuries — they are what make modular storage feel finished.',
+          'Map groceries, vessels, and small appliances before you approve shutters. A beautiful kitchen that forces deep crouching for daily items will frustrate you within a week. Soft-close hardware and full-extension runners are not luxuries - they are what make modular storage feel finished.',
         ],
         bullets: [
           'Base drawers for pots, pans, and daily essentials',
@@ -140,7 +140,7 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
       items: [
         'Too many wall cabinets with no landing counter beside the hob',
         'Corner units left as dead storage without internal fittings',
-        'Lighting planned only for the ceiling — under-cabinet light ignored',
+        'Lighting planned only for the ceiling - under-cabinet light ignored',
         'Appliance sizes assumed instead of measured before cabinetry',
       ],
     },
@@ -153,7 +153,7 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
       {
         question: 'Which kitchen layout is best for Indian cooking?',
         answer:
-          'There is no single best layout — L and U shapes usually offer the strongest balance of counter, storage, and ventilation for Indian cooking when chimney and wet zones are planned early.',
+          'There is no single best layout - L and U shapes usually offer the strongest balance of counter, storage, and ventilation for Indian cooking when chimney and wet zones are planned early.',
       },
       {
         question: 'When should I finalize appliances?',
@@ -182,14 +182,14 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
       'Understand finishes, cores, and hardware so your interiors look good and hold up for years.',
     image: studioImages.craft,
     intro:
-      'Material choices affect durability, maintenance, and how premium a space feels. This guide explains what we specify for kitchens, wardrobes, and living areas — and where it pays to invest. Think of finishes as a system: core board, surface, edge, and hardware must work together, or the most beautiful shutter will still fail early.',
+      'Material choices affect durability, maintenance, and how premium a space feels. This guide explains what we specify for kitchens, wardrobes, and living areas - and where it pays to invest. Think of finishes as a system: core board, surface, edge, and hardware must work together, or the most beautiful shutter will still fail early.',
     sections: [
       {
         label: 'Carcass & Boards',
         title: 'Start With the Right Core',
         paragraphs: [
           'The board inside your shutters matters more than the outer finish. Moisture-resistant cores are essential for kitchens and utility areas.',
-          'Calibrated boards keep shutter gaps consistent over time. Edge banding on every exposed edge is a small detail that prevents swelling when humidity rises — especially important in Karnataka’s monsoon months.',
+          'Calibrated boards keep shutter gaps consistent over time. Edge banding on every exposed edge is a small detail that prevents swelling when humidity rises - especially important in Karnataka’s monsoon months.',
         ],
         bullets: [
           'BWP / MR-grade plywood or quality HDHMR for wet zones',
@@ -201,16 +201,16 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
       },
       {
         label: 'Surface Finishes',
-        title: 'Laminates, Acrylic, and Veneer — When to Use What',
+        title: 'Laminates, Acrylic, and Veneer - When to Use What',
         paragraphs: [
           'Each finish has a role. We match the material to traffic, cleaning frequency, and the visual tone you want.',
-          'Kitchens usually need easy-clean shutters; living rooms can carry richer veneer or textured panels; bedrooms often balance calm laminates with a warmer feature surface. Mixing five finishes in one room rarely looks premium — one hero material with supporting neutrals does.',
+          'Kitchens usually need easy-clean shutters; living rooms can carry richer veneer or textured panels; bedrooms often balance calm laminates with a warmer feature surface. Mixing five finishes in one room rarely looks premium - one hero material with supporting neutrals does.',
         ],
         bullets: [
-          'Laminates — versatile, cost-effective, wide colour range',
-          'Acrylic — high-gloss, smooth, popular for modern kitchens',
-          'Veneer — warm, natural grain for living and bedroom panels',
-          'Quartz / stone — durable, premium countertops for kitchens',
+          'Laminates - versatile, cost-effective, wide colour range',
+          'Acrylic - high-gloss, smooth, popular for modern kitchens',
+          'Veneer - warm, natural grain for living and bedroom panels',
+          'Quartz / stone - durable, premium countertops for kitchens',
         ],
         image: roomImages.livingDining,
         reverse: true,
@@ -234,10 +234,10 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
     highlights: {
       title: 'Finish Selection Quick Guide',
       items: [
-        'Kitchen shutters — moisture-resistant core + easy-clean finish',
-        'Wardrobes — laminate or veneer based on budget and tone',
-        'TV units — veneer or PU for a refined living room look',
-        'Hardware — prioritize runners and hinges over decorative add-ons',
+        'Kitchen shutters - moisture-resistant core + easy-clean finish',
+        'Wardrobes - laminate or veneer based on budget and tone',
+        'TV units - veneer or PU for a refined living room look',
+        'Hardware - prioritize runners and hinges over decorative add-ons',
       ],
     },
     gallery: [
@@ -247,14 +247,14 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
     ],
     faqs: [
       {
-        question: 'Where should I spend more — shutters or hardware?',
+        question: 'Where should I spend more - shutters or hardware?',
         answer:
           'Invest in core board and hardware first. A premium outer finish on a weak carcass or soft runners will not feel premium for long.',
       },
       {
         question: 'Are veneers practical for family homes?',
         answer:
-          'Yes when placed thoughtfully — great for living feature panels and wardrobes with moderate touch. High-splash kitchen zones usually prefer laminates or other easy-clean surfaces.',
+          'Yes when placed thoughtfully - great for living feature panels and wardrobes with moderate touch. High-splash kitchen zones usually prefer laminates or other easy-clean surfaces.',
       },
       {
         question: 'Can I see materials before I decide?',
@@ -275,7 +275,7 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
     menuTitle: 'Space Planning',
     description: 'Measurements, circulation, and zoning for usable rooms.',
     heroDescription:
-      'Plan rooms that breathe — with clear movement paths, balanced furniture, and storage that stays out of the way.',
+      'Plan rooms that breathe - with clear movement paths, balanced furniture, and storage that stays out of the way.',
     image: roomImages.livingDining,
     intro:
       'Good interiors start with how a room works. Space planning balances furniture scale, walkways, storage, and light before any finishing detail is chosen. When planning is weak, even expensive materials feel cramped. When planning is strong, a modest apartment can feel generous.',
@@ -315,14 +315,14 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
         label: 'Zoning',
         title: 'Group Functions, Not Just Furniture',
         paragraphs: [
-          'Zoning helps families use a home comfortably — work, rest, storage, and display each get a defined place.',
+          'Zoning helps families use a home comfortably - work, rest, storage, and display each get a defined place.',
           'A study nook needs daylight and quiet more than a decorative backdrop. An entry zone with shoe and bag storage prevents clutter from migrating into the living room. Kids’ zones benefit from durable finishes and clear toy or study storage.',
         ],
         bullets: [
-          'Living — seating, media, and display in one visual cluster',
-          'Bedroom — sleep zone separate from dressing and storage',
-          'Entry — shoe, bag, and mirror points near the door',
-          'Kids / study — daylight and quiet corners prioritized',
+          'Living - seating, media, and display in one visual cluster',
+          'Bedroom - sleep zone separate from dressing and storage',
+          'Entry - shoe, bag, and mirror points near the door',
+          'Kids / study - daylight and quiet corners prioritized',
         ],
         image: roomImages.bedroom,
       },
@@ -369,18 +369,18 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
     slug: 'interior-styles',
     title: 'Interior Styles Explained',
     menuTitle: 'Interior Styles',
-    description: 'Modern, contemporary, traditional, and minimal — what fits your home.',
+    description: 'Modern, contemporary, traditional, and minimal - what fits your home.',
     heroDescription:
       'Find a style direction that matches your taste, lifestyle, and the architecture of your home.',
     image: projectImages.villa,
     intro:
-      'Style is more than a Pinterest board — it is how colours, materials, and furniture work together over time. These are the directions we help clients choose between most often in Mysuru and across Karnataka. The right style should still feel like your home after the trend cycle moves on.',
+      'Style is more than a Pinterest board - it is how colours, materials, and furniture work together over time. These are the directions we help clients choose between most often in Mysuru and across Karnataka. The right style should still feel like your home after the trend cycle moves on.',
     sections: [
       {
         label: 'Modern',
         title: 'Clean Lines and Controlled Palettes',
         paragraphs: [
-          'Modern interiors favour clarity — flat panels, integrated storage, and a restrained colour story with one or two accent materials.',
+          'Modern interiors favour clarity - flat panels, integrated storage, and a restrained colour story with one or two accent materials.',
           'This direction suits apartments that need calm and order. Hidden storage is essential; open clutter fights the style. Lighting is usually recessed or linear, and furniture silhouettes stay simple.',
         ],
         bullets: [
@@ -395,7 +395,7 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
         label: 'Contemporary',
         title: 'Warm, Current, and Livable',
         paragraphs: [
-          'Contemporary design mixes modern function with softer textures — wood tones, fabric seating, and layered lighting.',
+          'Contemporary design mixes modern function with softer textures - wood tones, fabric seating, and layered lighting.',
           'Families often land here because it photographs current without demanding museum-level maintenance. Feature walls, mixed materials, and comfort-first furniture sizing make everyday living feel intentional.',
         ],
         bullets: [
@@ -412,11 +412,11 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
         title: 'Two Ends of the Spectrum',
         paragraphs: [
           'Traditional interiors lean on mouldings, richer tones, and classic proportions. Minimal spaces reduce visual noise and maximize calm.',
-          'Neither is “better” — both need disciplined lighting and storage. Traditional can feel heavy without light control; minimal can feel cold without texture. Choose based on architecture, maintenance comfort, and how formal you want guests to feel when they enter.',
+          'Neither is “better” - both need disciplined lighting and storage. Traditional can feel heavy without light control; minimal can feel cold without texture. Choose based on architecture, maintenance comfort, and how formal you want guests to feel when they enter.',
         ],
         bullets: [
-          'Traditional — paneling, classic hardware, warmer palettes',
-          'Minimal — hidden storage, fewer colours, flush surfaces',
+          'Traditional - paneling, classic hardware, warmer palettes',
+          'Minimal - hidden storage, fewer colours, flush surfaces',
           'Both need careful lighting to avoid feeling flat or heavy',
           'Choose based on architecture, not trend alone',
         ],
@@ -442,12 +442,12 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
       {
         question: 'Can I mix modern and traditional in one home?',
         answer:
-          'Yes, if you keep a shared palette and repeat a few details. Mixing everything equally usually reads as unfinished — pick a dominant direction and use the other as accent.',
+          'Yes, if you keep a shared palette and repeat a few details. Mixing everything equally usually reads as unfinished - pick a dominant direction and use the other as accent.',
       },
       {
         question: 'Which style is easiest to maintain?',
         answer:
-          'Matte laminates, closed storage, and fewer open shelves are usually easiest for family homes — often aligning with modern or contemporary directions.',
+          'Matte laminates, closed storage, and fewer open shelves are usually easiest for family homes - often aligning with modern or contemporary directions.',
       },
       {
         question: 'Should every room use the same style?',
@@ -468,7 +468,7 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
     menuTitle: 'Budget Planning',
     description: 'Realistic ranges and where to invest first in your home.',
     heroDescription:
-      'Plan interior costs with clarity — what drives price, where to prioritize, and how to phase work sensibly.',
+      'Plan interior costs with clarity - what drives price, where to prioritize, and how to phase work sensibly.',
     image: roomImages.fullHome,
     intro:
       'Budget conversations work best when scope is clear. This guide explains the main cost drivers on interior projects and how to allocate spend for the best long-term result. A clear room list and finish tier prevent quotes that look cheap on paper and inflate later on site.',
@@ -477,14 +477,14 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
         label: 'Cost Drivers',
         title: 'What Actually Moves the Number',
         paragraphs: [
-          'Price follows scope — room count, material tier, hardware, and complexity of services all affect the final estimate more than small decorative choices.',
+          'Price follows scope - room count, material tier, hardware, and complexity of services all affect the final estimate more than small decorative choices.',
           'Civil tweaks, false ceilings, and electrical changes often surprise homeowners because they sit outside “modular furniture” line items. Ask for a scope that separates carpentry, services, and loose furniture so comparisons between vendors stay honest.',
         ],
         bullets: [
-          'Modular scope — kitchen, wardrobes, TV unit, study, etc.',
+          'Modular scope - kitchen, wardrobes, TV unit, study, etc.',
           'Material and finish tier across shutters and panels',
-          'Hardware quality — hinges, runners, lift systems',
-          'Services — electrical, false ceiling, painting, civil tweaks',
+          'Hardware quality - hinges, runners, lift systems',
+          'Services - electrical, false ceiling, painting, civil tweaks',
         ],
         image: projectImages.apartment,
       },
@@ -498,7 +498,7 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
         bullets: [
           'Kitchen carcass and hardware before purely decorative extras',
           'Wardrobe internals before external feature cladding',
-          'Lighting plan early — cheaper to wire before closing surfaces',
+          'Lighting plan early - cheaper to wire before closing surfaces',
           'Appliances and sizes confirmed before final cabinetry drawings',
         ],
         image: roomImages.modularKitchen,
@@ -512,9 +512,9 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
           'Without a locked palette, phase two often looks like a different project. Keep one material family and hardware language across rooms even if installation happens months apart.',
         ],
         bullets: [
-          'Phase 1 — kitchen + master wardrobe + electrical basics',
-          'Phase 2 — living, guest bedroom, and remaining storage',
-          'Phase 3 — decorative walls, loose furniture, and styling',
+          'Phase 1 - kitchen + master wardrobe + electrical basics',
+          'Phase 2 - living, guest bedroom, and remaining storage',
+          'Phase 3 - decorative walls, loose furniture, and styling',
           'Keep one material palette across phases for visual continuity',
         ],
         image: roomImages.livingDining,
@@ -526,7 +526,7 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
         'List rooms to be covered and must-have items',
         'Share floor plan or rough dimensions if available',
         'Note move-in timeline and any hard deadlines',
-        'Mention finish preference — laminate, acrylic, veneer, etc.',
+        'Mention finish preference - laminate, acrylic, veneer, etc.',
       ],
     },
     gallery: [
@@ -538,7 +538,7 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
       {
         question: 'Why do interior quotes vary so widely?',
         answer:
-          'Vendors include different scopes — some exclude electrical, ceilings, or hardware tiers. Compare line items, not only the bottom number.',
+          'Vendors include different scopes - some exclude electrical, ceilings, or hardware tiers. Compare line items, not only the bottom number.',
       },
       {
         question: 'Is phasing more expensive overall?',
@@ -548,7 +548,7 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
       {
         question: 'What should I budget first?',
         answer:
-          'Kitchen and primary storage usually come first — they work the hardest every day. Living feature pieces can follow once the functional rooms are locked.',
+          'Kitchen and primary storage usually come first - they work the hardest every day. Living feature pieces can follow once the functional rooms are locked.',
       },
       {
         question: 'How do I get a number I can plan with?',
@@ -564,23 +564,23 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
     menuTitle: 'Before You Renovate',
     description: 'Timeline, approvals, and a practical handover checklist.',
     heroDescription:
-      'Prepare for a smoother renovation — from timeline expectations to final handover.',
+      'Prepare for a smoother renovation - from timeline expectations to final handover.',
     image: projectImages.villa,
     intro:
-      'Renovation runs better when expectations are set early. Use this guide to plan timelines, coordinate trades, and know what a proper handover should include. Most delays we see are decision delays — not factory delays — so clarity before production is the real accelerator.',
+      'Renovation runs better when expectations are set early. Use this guide to plan timelines, coordinate trades, and know what a proper handover should include. Most delays we see are decision delays - not factory delays - so clarity before production is the real accelerator.',
     sections: [
       {
         label: 'Timeline',
         title: 'What Happens, and in What Order',
         paragraphs: [
           'Interior projects move through design, production, and site installation. Skipping steps in design usually costs time later on site.',
-          'A realistic residential timeline includes measurement, layout approval, 3D and material sign-off, factory production, site readiness, installation, and snag closure. Compressing the approval stage rarely shortens the calendar — it usually lengthens it.',
+          'A realistic residential timeline includes measurement, layout approval, 3D and material sign-off, factory production, site readiness, installation, and snag closure. Compressing the approval stage rarely shortens the calendar - it usually lengthens it.',
         ],
         bullets: [
-          'Design & approval — layouts, 3D views, material selections',
-          'Production — factory manufacturing after sign-off',
-          'Site readiness — civil, electrical, and painting prerequisites',
-          'Installation & handover — fitting, punch-list, and final checks',
+          'Design & approval - layouts, 3D views, material selections',
+          'Production - factory manufacturing after sign-off',
+          'Site readiness - civil, electrical, and painting prerequisites',
+          'Installation & handover - fitting, punch-list, and final checks',
         ],
         image: studioImages.craft,
       },
@@ -604,7 +604,7 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
         label: 'Handover',
         title: 'What a Proper Close-Out Looks Like',
         paragraphs: [
-          'Handover is more than installation — it includes alignment checks, hardware tuning, and clarity on care and warranty.',
+          'Handover is more than installation - it includes alignment checks, hardware tuning, and clarity on care and warranty.',
           'Walk the snag list room by room before final payment. Soft-close adjustments, edge touch-ups, and care instructions should be documented so the home stays as good as day one.',
         ],
         bullets: [
@@ -643,12 +643,12 @@ export const designLibraryGuides: DesignLibraryGuide[] = [
       {
         question: 'When should painting happen relative to modular install?',
         answer:
-          'Coordinate carefully — many projects paint walls before install and touch up after. Agree the sequence in writing so carpentry and painting do not block each other.',
+          'Coordinate carefully - many projects paint walls before install and touch up after. Agree the sequence in writing so carpentry and painting do not block each other.',
       },
       {
         question: 'What should a handover include?',
         answer:
-          'Aligned shutters, closed snags, care guidance, and documented warranty for the modular scope — not only a visual walkthrough.',
+          'Aligned shutters, closed snags, care guidance, and documented warranty for the modular scope - not only a visual walkthrough.',
       },
       {
         question: 'How far ahead should I start planning?',

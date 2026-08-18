@@ -1,293 +1,294 @@
-/* Post-CTA confirmation — toast (desktop/tablet), sheet (mobile confirm), banner (mobile feedback) */
-
-.cac[hidden] {
-  display: none !important;
-}
-
-.cac-badge {
-  display: inline-block;
-  margin: 0 0 8px;
-  padding: 3px 8px;
-  border-radius: 999px;
-  background: rgba(197, 162, 58, 0.12);
-  color: var(--gold-deep, var(--gold, #c5a23a));
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.cac-badge--sheet {
-  margin-bottom: 10px;
-}
-
-.cac-toast {
-  position: fixed;
-  top: calc(var(--header-h, 72px) + 12px);
-  right: 16px;
-  z-index: 10050;
-  width: min(360px, calc(100vw - 32px));
-  pointer-events: none;
-}
-
-.cac-toast:not([hidden]) {
-  pointer-events: auto;
-}
-
-.cac-toast-inner {
-  overflow: hidden;
-  border: 1px solid var(--border-strong, rgba(51, 32, 21, 0.12));
-  border-radius: 14px;
-  background: var(--surface, #fff);
-  box-shadow: 0 18px 44px rgba(51, 32, 21, 0.16);
-}
-
-.cac-toast-confirm {
-  padding: 14px;
-}
-
-.cac-toast-feedback {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 48px;
-  padding: 12px 14px;
-}
-
-.cac-toast-feedback[hidden] {
-  display: none !important;
-}
-
-.cac-toast-confirm[hidden],
-.cac-sheet[hidden] .cac-sheet-panel > :not(.cac-sheet-handle):not(.cac-sheet-backdrop) {
-  /* panels toggled via JS */
-}
-
-.cac-feedback-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  font-size: 12px;
-  font-weight: 800;
-  line-height: 1;
-}
-
-.cac-feedback-icon--success {
-  background: rgba(34, 140, 90, 0.14);
-  color: #1a7a4a;
-}
-
-.cac-feedback-icon--micro {
-  background: rgba(197, 162, 58, 0.14);
-  color: var(--gold-deep, var(--gold, #c5a23a));
-  border-radius: 8px;
-  font-size: 14px;
-}
-
-.cac-feedback-msg {
-  margin: 0;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--dark, #181818);
-  line-height: 1.35;
-}
-
-.cac-title {
-  margin: 0 0 6px;
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--dark, #181818);
-}
-
-.cac-sub {
-  margin: 0 0 12px;
-  font-size: 12px;
-  line-height: 1.45;
-  color: var(--text-muted, #666);
-}
-
-.cac-actions {
-  display: flex;
-  gap: 8px;
-}
-
-.cac-actions-stack {
-  flex-direction: column;
-}
-
-.cac-btn {
-  flex: 1;
-  min-height: 40px;
-  padding: 0 14px;
-  border-radius: 10px;
-  border: 1px solid var(--border-strong, rgba(51, 32, 21, 0.14));
-  font-family: inherit;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
-}
-
-.cac-btn-yes {
-  background: var(--gold, #c5a23a);
-  border-color: var(--gold, #c5a23a);
-  color: var(--on-gold, #fff);
-}
-
-.cac-btn-yes:hover {
-  background: var(--gold-hover, #b8932f);
-  border-color: var(--gold-hover, #b8932f);
-}
-
-.cac-btn-retry {
-  background: transparent;
-  color: var(--dark, #181818);
-}
-
-.cac-btn-retry:hover {
-  border-color: var(--gold, #c5a23a);
-  color: var(--gold-deep, var(--gold, #c5a23a));
-}
-
-.cac-dismiss,
-.cac-dismiss-inline {
-  display: block;
-  margin-top: 8px;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--text-muted, #888);
-  font-family: inherit;
-  font-size: 11px;
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.cac-dismiss-inline {
-  margin-top: 4px;
-  min-height: 36px;
-  text-align: center;
-}
-
-/* Mobile feedback banner */
-.cac-banner {
-  position: fixed;
-  top: calc(var(--header-h, 72px) + 8px);
-  left: 16px;
-  right: 16px;
-  z-index: 10055;
-  pointer-events: none;
-}
-
-.cac-banner:not([hidden]) {
-  pointer-events: auto;
-}
-
-.cac-banner[hidden] {
-  display: none !important;
-}
-
-.cac-banner-inner {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 14px;
-  border: 1px solid var(--border-strong, rgba(51, 32, 21, 0.12));
-  border-radius: 12px;
-  background: var(--surface, #fff);
-  box-shadow: 0 12px 32px rgba(51, 32, 21, 0.14);
-}
-
-.cac-banner-inner.is-success .cac-feedback-icon {
-  background: rgba(34, 140, 90, 0.14);
-  color: #1a7a4a;
-  border-radius: 50%;
-}
-
-.cac-banner-inner.is-micro .cac-feedback-icon {
-  background: rgba(197, 162, 58, 0.14);
-  color: var(--gold-deep, var(--gold, #c5a23a));
-  border-radius: 8px;
-}
-
-/* Bottom sheet — mobile confirm */
-.cac-sheet {
-  position: fixed;
-  inset: 0;
-  z-index: 10060;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-}
-
-.cac-sheet[hidden] {
-  display: none !important;
-}
-
-.cac-sheet-backdrop {
-  position: absolute;
-  inset: 0;
-  border: 0;
-  background: rgba(24, 24, 24, 0.42);
-  cursor: pointer;
-}
-
-.cac-sheet-panel {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  max-width: 520px;
-  padding: 8px 18px calc(18px + env(safe-area-inset-bottom, 0px));
-  border-radius: 18px 18px 0 0;
-  background: var(--surface, #fff);
-  box-shadow: 0 -10px 40px rgba(51, 32, 21, 0.14);
-  transform: translateY(100%);
-  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.cac-sheet.is-visible .cac-sheet-panel {
-  transform: translateY(0);
-}
-
-.cac-sheet-handle {
-  width: 42px;
-  height: 4px;
-  margin: 4px auto 14px;
-  border-radius: 999px;
-  background: rgba(51, 32, 21, 0.16);
-}
-
-.cac-sheet .cac-title {
-  font-size: 18px;
-}
-
-.cac-sheet .cac-btn {
-  min-height: 46px;
-  font-size: 13px;
-}
-
-@media (max-width: 767px) {
-  .cac-toast {
-    display: none !important;
-  }
-}
-
-@media (min-width: 768px) {
-  .cac-sheet,
-  .cac-banner {
-    display: none !important;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cac-sheet-panel {
-    transition: none;
-  }
-}
-
+/* Post-CTA confirmation — toast (desktop/tablet), sheet (mobile confirm), banner (mobile feedback) */
+
+.cac[hidden] {
+  display: none !important;
+}
+
+.cac-badge {
+  display: inline-block;
+  margin: 0 0 8px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(197, 162, 58, 0.12);
+  color: var(--gold-deep, var(--gold, #c5a23a));
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cac-badge--sheet {
+  margin-bottom: 10px;
+}
+
+.cac-toast {
+  position: fixed;
+  top: calc(var(--header-h, 72px) + 12px);
+  right: 16px;
+  z-index: 10050;
+  width: min(360px, calc(100vw - 32px));
+  pointer-events: none;
+}
+
+.cac-toast:not([hidden]) {
+  pointer-events: auto;
+}
+
+.cac-toast-inner {
+  overflow: hidden;
+  border: 1px solid var(--border-strong, rgba(51, 32, 21, 0.12));
+  border-radius: 14px;
+  background: var(--surface, #fff);
+  box-shadow: 0 18px 44px rgba(51, 32, 21, 0.16);
+}
+
+.cac-toast-confirm {
+  padding: 14px;
+}
+
+.cac-toast-feedback {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 12px 14px;
+}
+
+.cac-toast-feedback[hidden] {
+  display: none !important;
+}
+
+.cac-toast-confirm[hidden],
+.cac-sheet[hidden] .cac-sheet-panel > :not(.cac-sheet-handle):not(.cac-sheet-backdrop) {
+  /* panels toggled via JS */
+}
+
+.cac-feedback-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.cac-feedback-icon--success {
+  background: rgba(34, 140, 90, 0.14);
+  color: #1a7a4a;
+}
+
+.cac-feedback-icon--micro {
+  background: rgba(197, 162, 58, 0.14);
+  color: var(--gold-deep, var(--gold, #c5a23a));
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.cac-feedback-msg {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dark, #181818);
+  line-height: 1.35;
+}
+
+.cac-title {
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--dark, #181818);
+}
+
+.cac-sub {
+  margin: 0 0 12px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--text-muted, #666);
+}
+
+.cac-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.cac-actions-stack {
+  flex-direction: column;
+}
+
+.cac-btn {
+  flex: 1;
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border-strong, rgba(51, 32, 21, 0.14));
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+
+.cac-btn-yes {
+  background: var(--gold, #c5a23a);
+  border-color: var(--gold, #c5a23a);
+  color: var(--white, #fff);
+}
+
+.cac-btn-yes:hover {
+  background: var(--gold-hover, #b8932f);
+  border-color: var(--gold-hover, #b8932f);
+  color: var(--white, #fff);
+}
+
+.cac-btn-retry {
+  background: transparent;
+  color: var(--dark, #181818);
+}
+
+.cac-btn-retry:hover {
+  border-color: var(--gold, #c5a23a);
+  color: var(--gold-deep, var(--gold, #c5a23a));
+}
+
+.cac-dismiss,
+.cac-dismiss-inline {
+  display: block;
+  margin-top: 8px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-muted, #888);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.cac-dismiss-inline {
+  margin-top: 4px;
+  min-height: 36px;
+  text-align: center;
+}
+
+/* Mobile feedback banner */
+.cac-banner {
+  position: fixed;
+  top: calc(var(--header-h, 72px) + 8px);
+  left: 16px;
+  right: 16px;
+  z-index: 10055;
+  pointer-events: none;
+}
+
+.cac-banner:not([hidden]) {
+  pointer-events: auto;
+}
+
+.cac-banner[hidden] {
+  display: none !important;
+}
+
+.cac-banner-inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--border-strong, rgba(51, 32, 21, 0.12));
+  border-radius: 12px;
+  background: var(--surface, #fff);
+  box-shadow: 0 12px 32px rgba(51, 32, 21, 0.14);
+}
+
+.cac-banner-inner.is-success .cac-feedback-icon {
+  background: rgba(34, 140, 90, 0.14);
+  color: #1a7a4a;
+  border-radius: 50%;
+}
+
+.cac-banner-inner.is-micro .cac-feedback-icon {
+  background: rgba(197, 162, 58, 0.14);
+  color: var(--gold-deep, var(--gold, #c5a23a));
+  border-radius: 8px;
+}
+
+/* Bottom sheet — mobile confirm */
+.cac-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 10060;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.cac-sheet[hidden] {
+  display: none !important;
+}
+
+.cac-sheet-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(24, 24, 24, 0.42);
+  cursor: pointer;
+}
+
+.cac-sheet-panel {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 520px;
+  padding: 8px 18px calc(18px + env(safe-area-inset-bottom, 0px));
+  border-radius: 18px 18px 0 0;
+  background: var(--surface, #fff);
+  box-shadow: 0 -10px 40px rgba(51, 32, 21, 0.14);
+  transform: translateY(100%);
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cac-sheet.is-visible .cac-sheet-panel {
+  transform: translateY(0);
+}
+
+.cac-sheet-handle {
+  width: 42px;
+  height: 4px;
+  margin: 4px auto 14px;
+  border-radius: 999px;
+  background: rgba(51, 32, 21, 0.16);
+}
+
+.cac-sheet .cac-title {
+  font-size: 18px;
+}
+
+.cac-sheet .cac-btn {
+  min-height: 46px;
+  font-size: 13px;
+}
+
+@media (max-width: 767px) {
+  .cac-toast {
+    display: none !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .cac-sheet,
+  .cac-banner {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cac-sheet-panel {
+    transition: none;
+  }
+}
+

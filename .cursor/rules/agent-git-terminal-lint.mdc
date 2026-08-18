@@ -1,0 +1,21 @@
+---
+description: Skip git, shell, and lint noise unless committing or debugging
+alwaysApply: true
+---
+
+# Git, terminal, and lint
+
+## Git commands — only when
+
+- The user explicitly asks to commit, create a PR, or inspect git history
+- Do not run `git status`, `git diff`, or `git log` on every turn
+
+## Shell commands
+
+- Do not run a terminal command when `grep` or `read` answers the question
+- Avoid long-running commands whose output fills context (full builds, install logs)
+
+## Linting
+
+- Run linter diagnostics only on files you edited, not the whole workspace
+- This project has no automated test suite — do not run test commands unless tests are added and the user asks

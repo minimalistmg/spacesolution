@@ -19,7 +19,7 @@
 
   function heroIntro() {
     var reveals = gsap.utils.toArray('[data-hero-reveal]');
-    var still = document.querySelector('[data-hero-parallax]');
+    var still = document.querySelector('.home-hero-still');
     var reel = document.querySelector('.home-hero-reel');
     var badge = document.querySelector('.home-hero-badge');
 
@@ -32,11 +32,7 @@
         clipPath: 'inset(0% 0% 100% 0%)',
         duration: 1.1,
         ease: 'expo.out',
-      }).from(
-        still.querySelector('img'),
-        { scale: 1.16, duration: 1.4, ease: 'expo.out' },
-        '<'
-      );
+      });
     }
 
     if (reveals.length) {
@@ -55,8 +51,10 @@
   /** Slow vertical drift on large photography, clipped by the parent's overflow. */
   function mediaParallax() {
     // Only elements whose frame is taller than the image can drift without
-    // exposing a gap — see the `height: 114%` rules on these two wrappers.
-    var targets = gsap.utils.toArray('[data-hero-parallax] img, .service-block-image img');
+    // exposing a gap - see the `height: 114%` rules on these two wrappers.
+    var targets = gsap.utils.toArray(
+      '[data-hero-parallax] img, .service-block-image img'
+    );
 
     targets.forEach(function (image) {
       gsap.fromTo(
@@ -129,10 +127,12 @@
     });
   }
 
+  var gridRevealsDone = false;
+
   /** Cards rise and settle as their grid scrolls into frame. */
   function gridReveals() {
     var groups = gsap.utils.toArray(
-      '.services-grid, .portfolio-grid, .why-grid, .story-band-grid, .pastel-story-grid, .process-steps, .why-steps'
+      '.services-grid, .portfolio-grid, .why-grid, .story-band-grid, .pastel-story-grid, .process-steps, .why-steps, .home-sticky-why-reasons, .home-cat-band-cards'
     );
 
     groups.forEach(function (group) {
@@ -157,12 +157,21 @@
     });
   }
 
+  function runGridRevealsOnce() {
+    if (gridRevealsDone) return;
+    gridRevealsDone = true;
+    gridReveals();
+  }
+
   function init() {
     heroIntro();
     mediaParallax();
     headlineReveals();
     statCounters();
-    gridReveals();
+    if (!document.documentElement.classList.contains('ss-preloader-pending')) {
+      runGridRevealsOnce();
+    }
+
     ScrollTrigger.refresh();
   }
 
@@ -184,6 +193,9 @@
 
   // Preloader scales [data-ss-page-shell]; remeasure after that transform clears.
   window.addEventListener('ss:preloader-done', function () {
-    requestAnimationFrame(refreshTriggers);
+    requestAnimationFrame(function () {
+      runGridRevealsOnce();
+      refreshTriggers();
+    });
   });
 })();

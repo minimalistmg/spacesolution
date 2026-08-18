@@ -9,7 +9,7 @@ export interface SegmentMenuProjectLink {
   placeIcon?: MenuIconName;
 }
 
-/** Desktop segment mega menu projects — mirrors segmentMegaMenus project lists. */
+/** Desktop segment mega menu projects - mirrors segmentMegaMenus project lists. */
 export const segmentMenuProjects: Record<
   'home' | 'commercial' | 'institutional' | 'hospitality',
   SegmentMenuProjectLink[]

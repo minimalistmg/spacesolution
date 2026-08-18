@@ -23,7 +23,7 @@ export function getInstagramReelUrl(reel: InstagramReel): string {
   return instagramProfileReelsUrl;
 }
 
-/** Curated highlights — add `shortcode` from Instagram when available. */
+/** Curated highlights - add `shortcode` from Instagram when available. */
 export const instagramReels: InstagramReel[] = [
   {
     caption: 'Modular kitchen finish & storage',

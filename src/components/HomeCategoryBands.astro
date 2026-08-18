@@ -1,0 +1,101 @@
+---
+import MenuIcon from './MenuIcon.astro';
+import ResponsiveImage from './ResponsiveImage.astro';
+import HomeCategoryHubBlocks from './HomeCategoryHubBlocks.astro';
+import CatSlideshowScript from './CatSlideshowScript.astro';
+import { getHomeCategoryHubs } from '../data/homeCategoryHubs';
+import '../styles/home-hero.css';
+import '../styles/home-category-bands.css';
+
+interface Props {
+  hubId?: string;
+  heading?: string;
+  quoteCta?: boolean;
+  enquiryCategory?: string;
+  enquiryInterest?: string;
+}
+
+const {
+  hubId,
+  heading,
+  quoteCta = false,
+  enquiryCategory,
+  enquiryInterest,
+} = Astro.props;
+
+const hubs = getHomeCategoryHubs().filter((hub) => !hubId || hub.id === hubId);
+const bandTones = ['warm', 'cool', 'sage', 'sand'] as const;
+const curtainStrips = [0, 1, 2, 3, 4, 5, 6, 7] as const;
+---
+
+<section class="home-cat-bands" id={hubId ? 'explore' : 'services'} aria-label={heading ?? 'Explore by category'}>
+  {
+    hubs.map((hub, index) => (
+      <article
+        class={`home-cat-band home-cat-band--${bandTones[index % bandTones.length]} ${index % 2 === 0 ? 'home-cat-band--media-left' : 'home-cat-band--media-right'}`}
+      >
+        <div class="container home-cat-band-inner">
+        <div class="home-cat-band-grid">
+          <div class="home-cat-band-copy fade-up">
+            <h2 class="home-cat-band-title">{heading ?? hub.title}</h2>
+
+            <nav class="home-cat-spaces" aria-label={hub.spacesHeading}>
+              {
+                hub.spaces.map((space) => (
+                  <a href={space.href} class="home-cat-space">
+                    <span class="home-cat-space-icon" aria-hidden="true">
+                      <MenuIcon name={space.icon} />
+                    </span>
+                    <span class="home-cat-space-label">{space.label}</span>
+                  </a>
+                ))
+              }
+            </nav>
+
+            <HomeCategoryHubBlocks
+              hub={hub}
+              quoteCta={quoteCta}
+              enquiryCategory={enquiryCategory}
+              enquiryInterest={enquiryInterest}
+            />
+          </div>
+
+          <figure
+            class="home-cat-band-media home-hero-still"
+            data-cat-slideshow
+            aria-label={`${hub.title} interiors`}
+          >
+            {
+              hub.spaces.map((space, spaceIndex) => (
+                <div
+                  class:list={['home-hero-slide', { 'is-current': spaceIndex === 0 }]}
+                  data-hero-slide
+                  data-label={space.label}
+                  aria-hidden={spaceIndex === 0 ? 'false' : 'true'}
+                >
+                  <ResponsiveImage
+                    src={space.image}
+                    alt={`${space.label} interiors by Space Solution`}
+                    preset="hero"
+                    sizes="(max-width: 980px) 92vw, 46vw"
+                    loading={index === 0 && spaceIndex === 0 && !hubId ? 'eager' : 'lazy'}
+                    fetchpriority={index === 0 && spaceIndex === 0 && !hubId ? 'high' : 'low'}
+                  />
+                </div>
+              ))
+            }
+            <div class="home-hero-curtain" data-hero-curtain aria-hidden="true">
+              {curtainStrips.map((strip) => <span style={`--i: ${strip}`} />)}
+            </div>
+            <figcaption class="home-hero-slide-label" data-hero-slide-label>
+              {hub.spaces[0].label}
+            </figcaption>
+          </figure>
+        </div>
+        </div>
+      </article>
+    ))
+  }
+</section>
+
+<CatSlideshowScript />

@@ -313,7 +313,7 @@
 .hc-hub-title {
   margin: 0 0 2px;
   color: var(--dark, #181818);
-  font-family: var(--font-display, 'Canela', Georgia, serif);
+  font-family: var(--font-display);
   font-size: clamp(22px, 2.4vw, 26px);
   font-weight: 400;
   line-height: 1.15;

@@ -1,0 +1,49 @@
+---
+import MenuIcon from './MenuIcon.astro';
+import { getAllHomeTools, getHubTools, type HomeStripLink } from '../data/homeCategoryHubs';
+import '../styles/home-category-bands.css';
+
+interface Props {
+  hubId?: string;
+  heading?: string;
+  items?: HomeStripLink[];
+}
+
+const { hubId, heading, items } = Astro.props;
+const tools = items ?? (hubId ? getHubTools(hubId) : getAllHomeTools());
+const compact = Boolean(items || hubId);
+const titleId = hubId ? `${hubId}-tools-strip-title` : items ? 'l3-tools-strip-title' : 'home-tools-strip-title';
+const title = heading ?? 'Rough budgets and layouts before you enquire';
+---
+
+{
+  tools.length > 0 && (
+    <section class="home-compact-strip home-compact-strip--tools" id="tools" aria-labelledby={titleId}>
+      <div class="container home-compact-strip-inner">
+        <div class="home-compact-strip-head">
+          <div>
+            <p class="section-label">Tools</p>
+            <h2 class="home-compact-strip-title" id={titleId}>
+              {title}
+            </h2>
+          </div>
+          <a href="/tools" class="home-compact-strip-all">All tools</a>
+        </div>
+
+        <div class="home-compact-strip-scroll">
+          {
+            tools.map((tool) => (
+              <a href={tool.href} class="home-compact-chip">
+                <MenuIcon name="compass-tool" />
+                <span>
+                  <strong>{tool.label}</strong>
+                  {!compact && <em>{tool.category}</em>}
+                </span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+  )
+}

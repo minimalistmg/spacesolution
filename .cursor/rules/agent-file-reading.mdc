@@ -1,0 +1,26 @@
+---
+description: Read source files only; avoid build artifacts and binaries
+alwaysApply: true
+---
+
+# File reading scope
+
+## Read (source of truth)
+
+- `src/client/*.js` — editable client JS (never read minified copies)
+- `src/**/*.astro`, `src/styles/**`, `src/data/**` — components, styles, content
+- `scripts/*.mjs` — only when changing or debugging build scripts
+
+## Never read unless the user explicitly asks
+
+- `public/js/*.js` — terser output; read the matching file under `src/client/`
+- `dist/` — Astro build output
+- `node_modules/`
+- `package-lock.json` — unless debugging dependency resolution
+- Binary assets: images, fonts, videos under `public/` or `src/assets/`
+
+## Scope discipline
+
+- Read changed files plus direct imports/dependencies only
+- Do not read the whole codebase to answer a localized question
+- Use paths and alt text from Astro/data files instead of opening image files

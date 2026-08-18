@@ -1,5 +1,5 @@
 /**
- * Space Solution — unified footer: continuous infinite horizontal loop + hover pause/elevate
+ * Space Solution - unified footer: continuous infinite horizontal loop + hover pause/elevate
  */
 (function () {
   'use strict';

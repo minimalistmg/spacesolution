@@ -1,0 +1,163 @@
+<script is:inline>
+  (function () {
+    if (window.__ssCatSlideshow) return;
+    window.__ssCatSlideshow = true;
+
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var frames = document.querySelectorAll('[data-cat-slideshow]');
+    if (!frames.length || reduce) return;
+
+    var kenMs = 7000;
+    var introMs = 800;
+    var curtainMs = 1350;
+    var fadeMs = 200;
+
+    function initSlideshow(still) {
+      var slides = still.querySelectorAll('[data-hero-slide]');
+      var curtain = still.querySelector('[data-hero-curtain]');
+      var label = still.querySelector('[data-hero-slide-label]');
+      if (slides.length < 2 || !curtain) return;
+
+      var index = 0;
+      var busy = false;
+      var started = false;
+      var timer;
+
+      function preload(slide) {
+        var img = slide.querySelector('img');
+        if (img && typeof img.decode === 'function') {
+          img.decode().catch(function () {});
+        }
+      }
+
+      function setLabel(slide) {
+        if (!label) return;
+        label.textContent = slide.getAttribute('data-label') || '';
+      }
+
+      function freezeSlide(slide) {
+        var img = slide.querySelector('img');
+        if (!img) return;
+        img.style.transform = window.getComputedStyle(img).transform;
+        img.style.animation = 'none';
+        slide.classList.remove('is-ken');
+      }
+
+      function clearFreeze(slide) {
+        var img = slide.querySelector('img');
+        if (!img) return;
+        img.style.transform = '';
+        img.style.animation = '';
+      }
+
+      function scheduleNext() {
+        stop();
+        if (document.hidden) return;
+        timer = window.setTimeout(goNext, kenMs);
+      }
+
+      function startKen(slide) {
+        slide.classList.remove('is-ken');
+        void slide.offsetWidth;
+        slide.classList.add('is-ken');
+        scheduleNext();
+      }
+
+      function hideSlide(slide) {
+        slide.classList.remove('is-current', 'is-incoming', 'is-ken');
+        slide.setAttribute('aria-hidden', 'true');
+        clearFreeze(slide);
+      }
+
+      function goNext() {
+        if (busy || document.hidden) return;
+        busy = true;
+
+        var outgoing = slides[index];
+        index = (index + 1) % slides.length;
+        var incoming = slides[index];
+        var img = incoming.querySelector('img');
+        var handedOff = false;
+
+        freezeSlide(outgoing);
+        preload(incoming);
+
+        function playCurtain() {
+          var src = img ? img.currentSrc || img.src : '';
+          if (src) {
+            curtain.style.setProperty('--hero-curtain-src', 'url("' + src + '")');
+          }
+
+          curtain.classList.remove('is-on', 'is-exit');
+          void curtain.offsetWidth;
+          curtain.classList.add('is-on');
+
+          window.setTimeout(function () {
+            if (handedOff) return;
+            handedOff = true;
+
+            incoming.classList.add('is-current', 'is-incoming');
+            incoming.setAttribute('aria-hidden', 'false');
+            setLabel(incoming);
+
+            window.requestAnimationFrame(function () {
+              hideSlide(outgoing);
+              window.requestAnimationFrame(function () {
+                curtain.classList.add('is-exit');
+                window.setTimeout(function () {
+                  incoming.classList.remove('is-incoming');
+                  curtain.classList.remove('is-on', 'is-exit');
+                  busy = false;
+                  preload(slides[(index + 1) % slides.length]);
+                  startKen(incoming);
+                }, fadeMs);
+              });
+            });
+          }, curtainMs);
+        }
+
+        if (img && typeof img.decode === 'function') {
+          img.decode().then(playCurtain, playCurtain);
+        } else {
+          playCurtain();
+        }
+      }
+
+      function stop() {
+        if (timer) window.clearTimeout(timer);
+        timer = 0;
+      }
+
+      var observer = new IntersectionObserver(
+        function (entries) {
+          var vis = entries[0] && entries[0].isIntersecting;
+          if (vis) {
+            if (!started) {
+              started = true;
+              preload(slides[1]);
+              window.setTimeout(function () {
+                startKen(slides[0]);
+              }, introMs);
+            } else if (!busy) {
+              scheduleNext();
+            }
+          } else {
+            stop();
+          }
+        },
+        { threshold: 0.25 }
+      );
+
+      observer.observe(still);
+
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) stop();
+        else if (!busy && started) scheduleNext();
+      });
+    }
+
+    for (var i = 0; i < frames.length; i++) {
+      initSlideshow(frames[i]);
+    }
+  })();
+</script>

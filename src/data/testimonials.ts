@@ -73,7 +73,7 @@ export const testimonials: Testimonial[] = [
   {
     id: 'karthik-prasad-m',
     quote:
-      'A game-changer in modular furniture. Stylish, modern, and remarkably functional — every inch of space in my home works harder.',
+      'A game-changer in modular furniture. Stylish, modern, and remarkably functional - every inch of space in my home works harder.',
     name: 'Karthik Prasad M',
     initials: 'KP',
     project: 'Modular furniture',

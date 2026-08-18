@@ -1,3 +1,4 @@
+import type { ImageMetadata } from 'astro';
 import kitchen1 from '../assets/images/hero/kitchen-1.jpeg';
 import bedroom from '../assets/images/hero/bedroom.jpg';
 import kitchen2 from '../assets/images/hero/kitchen-2.jpeg';
@@ -67,6 +68,62 @@ import l2School from '../assets/images/l2-heroes/school.jpg';
 import l2Cafe from '../assets/images/l2-heroes/cafe.jpg';
 import l2Hotel from '../assets/images/l2-heroes/hotel.jpg';
 
+import hubKitchen01 from '../assets/images/hub-rooms/kitchen-01.jpg';
+import hubKitchen02 from '../assets/images/hub-rooms/kitchen-02.jpg';
+import hubKitchen03 from '../assets/images/hub-rooms/kitchen-03.jpg';
+import hubWardrobes01 from '../assets/images/hub-rooms/wardrobes-01.jpg';
+import hubWardrobes02 from '../assets/images/hub-rooms/wardrobes-02.jpg';
+import hubWardrobes03 from '../assets/images/hub-rooms/wardrobes-03.jpg';
+import hubLiving01 from '../assets/images/hub-rooms/living-01.jpg';
+import hubLiving02 from '../assets/images/hub-rooms/living-02.jpg';
+import hubLiving03 from '../assets/images/hub-rooms/living-03.jpg';
+import hubBedrooms01 from '../assets/images/hub-rooms/bedrooms-01.jpg';
+import hubBedrooms02 from '../assets/images/hub-rooms/bedrooms-02.jpg';
+import hubBedrooms03 from '../assets/images/hub-rooms/bedrooms-03.jpg';
+import hubPooja01 from '../assets/images/hub-rooms/pooja-01.jpg';
+import hubPooja02 from '../assets/images/hub-rooms/pooja-02.jpg';
+import hubPooja03 from '../assets/images/hub-rooms/pooja-03.jpg';
+import hubFullHome01 from '../assets/images/hub-rooms/full-home-01.jpg';
+import hubFullHome02 from '../assets/images/hub-rooms/full-home-02.jpg';
+import hubFullHome03 from '../assets/images/hub-rooms/full-home-03.jpg';
+
+import hubOffice01 from '../assets/images/hub-spaces/office-01.jpg';
+import hubOffice02 from '../assets/images/hub-spaces/office-02.jpg';
+import hubOffice03 from '../assets/images/hub-spaces/office-03.jpg';
+import hubClinic01 from '../assets/images/hub-spaces/clinic-01.jpg';
+import hubClinic02 from '../assets/images/hub-spaces/clinic-02.jpg';
+import hubClinic03 from '../assets/images/hub-spaces/clinic-03.jpg';
+import hubRetail01 from '../assets/images/hub-spaces/retail-01.jpg';
+import hubRetail02 from '../assets/images/hub-spaces/retail-02.jpg';
+import hubRetail03 from '../assets/images/hub-spaces/retail-03.jpg';
+import hubCoworking01 from '../assets/images/hub-spaces/coworking-01.jpg';
+import hubCoworking02 from '../assets/images/hub-spaces/coworking-02.jpg';
+import hubCoworking03 from '../assets/images/hub-spaces/coworking-03.jpg';
+import hubSchool01 from '../assets/images/hub-spaces/school-01.jpg';
+import hubSchool02 from '../assets/images/hub-spaces/school-02.jpg';
+import hubSchool03 from '../assets/images/hub-spaces/school-03.jpg';
+import hubHostel01 from '../assets/images/hub-spaces/hostel-01.jpg';
+import hubHostel02 from '../assets/images/hub-spaces/hostel-02.jpg';
+import hubHostel03 from '../assets/images/hub-spaces/hostel-03.jpg';
+import hubLibrary01 from '../assets/images/hub-spaces/library-01.jpg';
+import hubLibrary02 from '../assets/images/hub-spaces/library-02.jpg';
+import hubLibrary03 from '../assets/images/hub-spaces/library-03.jpg';
+import hubAdmin01 from '../assets/images/hub-spaces/admin-01.jpg';
+import hubAdmin02 from '../assets/images/hub-spaces/admin-02.jpg';
+import hubAdmin03 from '../assets/images/hub-spaces/admin-03.jpg';
+import hubCafe01 from '../assets/images/hub-spaces/cafe-01.jpg';
+import hubCafe02 from '../assets/images/hub-spaces/cafe-02.jpg';
+import hubCafe03 from '../assets/images/hub-spaces/cafe-03.jpg';
+import hubHotel01 from '../assets/images/hub-spaces/hotel-01.jpg';
+import hubHotel02 from '../assets/images/hub-spaces/hotel-02.jpg';
+import hubHotel03 from '../assets/images/hub-spaces/hotel-03.jpg';
+import hubBar01 from '../assets/images/hub-spaces/bar-01.jpg';
+import hubBar02 from '../assets/images/hub-spaces/bar-02.jpg';
+import hubBar03 from '../assets/images/hub-spaces/bar-03.jpg';
+import hubSalon01 from '../assets/images/hub-spaces/salon-01.jpg';
+import hubSalon02 from '../assets/images/hub-spaces/salon-02.jpg';
+import hubSalon03 from '../assets/images/hub-spaces/salon-03.jpg';
+
 export const heroImages = {
   kitchen1,
   bedroom,
@@ -132,12 +189,12 @@ export const openHouseImages = [openHouseWideFamily] as const;
 /** Wide family diorama for the residential depth hero (16:9). */
 export const openHouseWideFamilyImage = openHouseWideFamily;
 
-/** L1 hub cutaway dioramas — commercial / institutional / hospitality. */
+/** L1 hub cutaway dioramas - commercial / institutional / hospitality. */
 export const openHouseCommercialImage = openHouseCommercial;
 export const openHouseInstitutionalImage = openHouseInstitutional;
 export const openHouseHospitalityImage = openHouseHospitality;
 
-/** Wide light interiors for L2 service heroes — one project per page, cropped in layout. */
+/** Wide light interiors for L2 service heroes - one project per page, cropped in layout. */
 export const l2HeroImages = {
   kitchen: l2Kitchen,
   wardrobes: l2Wardrobes,
@@ -157,6 +214,45 @@ export const l2HeroImages = {
   school: l2School,
   cafe: l2Cafe,
   hotel: l2Hotel,
+};
+
+const l3BandModules = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/images/l3-bands/*.jpg',
+  { eager: true },
+);
+
+/** Three 4:3 stills for one L3 type band, named `{prefix}-01.jpg` to `-03.jpg`. */
+export function l3BandSet(prefix: string): ImageMetadata[] {
+  return [1, 2, 3].map((index) => {
+    const key = `../assets/images/l3-bands/${prefix}-0${index}.jpg`;
+    const image = l3BandModules[key]?.default;
+    if (!image) {
+      throw new Error(`Missing L3 band still: ${prefix}-0${index}.jpg`);
+    }
+    return image;
+  });
+}
+
+/** Light 4:3 sets for L1 by-room and by-space slideshows. */
+export const hubRoomImages = {
+  kitchen: [hubKitchen01, hubKitchen02, hubKitchen03],
+  wardrobes: [hubWardrobes01, hubWardrobes02, hubWardrobes03],
+  living: [hubLiving01, hubLiving02, hubLiving03],
+  bedrooms: [hubBedrooms01, hubBedrooms02, hubBedrooms03],
+  pooja: [hubPooja01, hubPooja02, hubPooja03],
+  fullHome: [hubFullHome01, hubFullHome02, hubFullHome03],
+  office: [hubOffice01, hubOffice02, hubOffice03],
+  clinic: [hubClinic01, hubClinic02, hubClinic03],
+  retail: [hubRetail01, hubRetail02, hubRetail03],
+  coworking: [hubCoworking01, hubCoworking02, hubCoworking03],
+  school: [hubSchool01, hubSchool02, hubSchool03],
+  hostel: [hubHostel01, hubHostel02, hubHostel03],
+  library: [hubLibrary01, hubLibrary02, hubLibrary03],
+  admin: [hubAdmin01, hubAdmin02, hubAdmin03],
+  cafe: [hubCafe01, hubCafe02, hubCafe03],
+  hotel: [hubHotel01, hubHotel02, hubHotel03],
+  bar: [hubBar01, hubBar02, hubBar03],
+  salon: [hubSalon01, hubSalon02, hubSalon03],
 };
 
 export const youtubeThumbs = {

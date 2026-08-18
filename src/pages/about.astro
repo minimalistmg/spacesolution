@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AboutHero from '../components/AboutHero.astro';
-import CtaSection from '../components/CtaSection.astro';
 import ResponsiveImage from '../components/ResponsiveImage.astro';
 import FaqSection from '../components/FaqSection.astro';
 import ImageGallery from '../components/ImageGallery.astro';
@@ -28,7 +27,7 @@ const processSteps = [
   },
   {
     title: 'Install & handover',
-    description: 'Coordinated installation, snag list, and a clean handover — ready to move in or open for business.',
+    description: 'Coordinated installation, snag list, and a clean handover - ready to move in or open for business.',
   },
 ];
 
@@ -69,18 +68,18 @@ const faqs = [
   {
     question: 'Do you only work in Mysuru?',
     answer:
-      'Our studio and factory are based in Mysuru, and we regularly deliver projects across Karnataka — from apartments and villas to offices, clinics, hospitality, and institutional spaces.',
+      'Our studio and factory are based in Mysuru, and we regularly deliver projects across Karnataka - from apartments and villas to offices, clinics, hospitality, and institutional spaces.',
   },
   {
     question: 'Can I visit the experience centre before starting?',
-    answer: `Yes. Visit us at ${SITE.address.streetAddress}, ${SITE.address.addressLocality}. Call ${phoneDisplay} or request a free consultation online — we can walk you through materials, sample finishes, and recent project work.`,
+    answer: `Yes. Visit us at ${SITE.address.streetAddress}, ${SITE.address.addressLocality}. Call ${phoneDisplay} or request a free consultation online - we can walk you through materials, sample finishes, and recent project work.`,
   },
 ];
 ---
 
 <BaseLayout
   title="About Space Solution Mysuru | Interior Designers Since 2011"
-  description="Space Solution Mysuru — interior designers since 2011 with an in-house factory. Modular furniture, home interiors, and turnkey fitouts across Karnataka. 800+ projects delivered."
+  description="Space Solution Mysuru - interior designers since 2011 with an in-house factory. Modular furniture, home interiors, and turnkey fitouts across Karnataka. 800+ projects delivered."
   headerScrolled={false}
 >
   <AboutHero />
@@ -130,7 +129,7 @@ const faqs = [
           that are practical, durable, and well-finished.
         </p>
         <p>
-          What makes us different is simple — we handle everything. From design and material selection to manufacturing
+          What makes us different is simple - we handle everything. From design and material selection to manufacturing
           and installation, every step is managed by our team. That means better quality, controlled timelines, and no
           guesswork between vendors.
         </p>
@@ -151,7 +150,7 @@ const faqs = [
         <p class="section-label">Manufacturing advantage</p>
         <h3>Design studio + in-house factory</h3>
         <p>
-          Many interior firms stop at drawings. We take the next step — producing modular kitchens, wardrobes, and
+          Many interior firms stop at drawings. We take the next step - producing modular kitchens, wardrobes, and
           custom joinery in our Mysuru facility so what you approve in 3D is what arrives on site.
         </p>
         <ul class="feature-list">
@@ -172,7 +171,7 @@ const faqs = [
       <h2 class="section-title fade-up">From brief to handover</h2>
       <p class="section-desc fade-up content-body">
         Designers, project coordinators, and factory teams work as one unit. You get a single point of contact while
-        specialists handle planning, production, and site execution — so decisions stay clear and progress stays visible.
+        specialists handle planning, production, and site execution - so decisions stay clear and progress stays visible.
       </p>
       <div class="why-steps why-steps-four">
         {
@@ -190,13 +189,13 @@ const faqs = [
 
   <ImageGallery
     title="A glimpse of our work"
-    description="Homes, kitchens, and commercial interiors shaped in Mysuru — from factory detailing to finished rooms."
+    description="Homes, kitchens, and commercial interiors shaped in Mysuru - from factory detailing to finished rooms."
     items={galleryItems}
   />
 
   <DummyVideoBlock
     title="See how a Space Solution project comes together"
-    description="From first measure to final handover — design, factory production, and site installation as one process in Mysuru."
+    description="From first measure to final handover - design, factory production, and site installation as one process in Mysuru."
   />
 
   <FaqSection
@@ -204,6 +203,4 @@ const faqs = [
     description="Quick answers about our studio, factory, and how we deliver projects across Karnataka."
     items={faqs}
   />
-
-  <CtaSection />
 </BaseLayout>

@@ -2,7 +2,6 @@
 import Icon from './Icon.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
-import CtaSection from './CtaSection.astro';
 import ResponsiveImage from './ResponsiveImage.astro';
 import FaqSection from './FaqSection.astro';
 import ImageGallery from './ImageGallery.astro';
@@ -11,8 +10,15 @@ import InteriorDepthHero from './InteriorDepthHero.astro';
 import ServiceGalleryHero from './ServiceGalleryHero.astro';
 import ServiceVistaHero from './ServiceVistaHero.astro';
 import TestimonialsMarquee from './TestimonialsMarquee.astro';
+import HubRoomBands from './HubRoomBands.astro';
+import HomeToolsStrip from './HomeToolsStrip.astro';
+import HomeGuidesStrip from './HomeGuidesStrip.astro';
+import HomeStickyWhy from './HomeStickyWhy.astro';
 import { getDepthHeroHub } from '../data/depthHeroHubs';
 import { getL2FlankHero, getL2VistaHero } from '../data/l2ServiceHeroes';
+import { getHomeCategoryHubs } from '../data/homeCategoryHubs';
+import { getL3Page } from '../data/l3ServicePages';
+import { resolveConnectFormDefaults } from '../data/connectFormInterests';
 import type { ServicePageData } from '../data/servicePages';
 
 interface Props {
@@ -31,7 +37,251 @@ const depthHeroSlugs = new Set([
 const isDepthHeroHub = depthHeroSlugs.has(page.slug);
 const flankHero = getL2FlankHero(page.slug) ?? page.galleryHero;
 const vistaHero = getL2VistaHero(page.slug);
-const showStandaloneStats = !isDepthHeroHub && !vistaHero && Boolean(page.stats?.length);
+const l3 = getL3Page(page.slug);
+const showStandaloneStats = !isDepthHeroHub && !vistaHero && !l3 && Boolean(page.stats?.length);
+const l3Enquiry = l3
+  ? resolveConnectFormDefaults(page.activePage, `/${page.slug}`)
+  : null;
+const hubIdBySlug: Record<string, string> = {
+  'residential-interiors': 'home',
+  'commercial-interiors': 'commercial',
+  'institutional-interiors': 'institutional',
+  'hospitality-interiors': 'hospitality',
+};
+const categoryHubId = page.hubLayout ? hubIdBySlug[page.slug] : undefined;
+const categoryHub = categoryHubId
+  ? getHomeCategoryHubs().find((hub) => hub.id === categoryHubId)
+  : undefined;
+
+const hubToolHeading: Record<string, string> = {
+  home: 'Rough budgets and layouts before you enquire',
+  commercial: 'Office, clinic, and fitout estimates',
+  institutional: 'Classroom, hostel, and bulk furniture estimates',
+  hospitality: 'Seating counts, fitout cost, and opening dates',
+};
+const hubGuideHeading: Record<string, string> = {
+  home: 'Plan materials, layout, and budget',
+  commercial: 'Finishes and styles for workplaces',
+  institutional: 'Planning and materials for campuses',
+  hospitality: 'Styles and finishes for guest spaces',
+};
+
+const hubStories: Record<
+  string,
+  {
+    why: {
+      label: string;
+      title: string;
+      lead: string;
+      reasons: { title: string; description: string }[];
+    };
+    processLead: string;
+    process: { title: string; description: string }[];
+  }
+> = {
+  home: {
+    why: {
+      label: 'Why us',
+      title: 'Why clients choose us for home interiors',
+      lead: 'Since 2011, one Mysuru team has designed, manufactured, and installed kitchens, wardrobes, and rooms so the house stays one language.',
+      reasons: [
+        {
+          title: 'Experience that shows in every project',
+          description: '15+ years of homes across Mysuru and Karnataka, from apartments to independent houses.',
+        },
+        {
+          title: 'In-house manufacturing advantage',
+          description: 'Kitchens and storage are made in our factory, then installed on site against the approved plan.',
+        },
+        {
+          title: 'Built for long-term use',
+          description: 'Moisture-resistant boards and hardware chosen for Indian kitchens and daily family wear.',
+        },
+        {
+          title: 'Clear pricing',
+          description: 'No confusion. No hidden costs. Room-wise or full-home quotes follow a measured scope.',
+        },
+        {
+          title: 'Skilled team',
+          description: '30+ people across design, factory, and install, focused on residential work.',
+        },
+        {
+          title: 'Custom solutions',
+          description: 'Every kitchen, wardrobe, and bedroom is drawn for your floor plan, not a fixed catalogue layout.',
+        },
+      ],
+    },
+    processLead: 'The same three steps as every Space Solution home, from first measure to handover.',
+    process: [
+      {
+        title: 'Share Your Requirement',
+        description:
+          'Tell us the rooms, how your family uses the house, and what must be ready first, so we can guide the right next step.',
+      },
+      {
+        title: 'Design & Project Planning',
+        description:
+          'We lock 3D, materials, and a factory schedule so kitchen, wardrobes, and living stay one language before work begins.',
+      },
+      {
+        title: 'Installation & Final Setup',
+        description: 'We install on site, review every detail, and leave the home clean and ready for daily use.',
+      },
+    ],
+  },
+  commercial: {
+    why: {
+      label: 'Why us',
+      title: 'Why clients choose us for commercial interiors',
+      lead: 'Since 2011, one Mysuru team has designed, manufactured, and installed offices, clinics, and shops so the workplace stays one language.',
+      reasons: [
+        {
+          title: 'Workplaces that run every day',
+          description: '15+ years of offices, clinics, and retail floors across Mysuru and Karnataka.',
+        },
+        {
+          title: 'In-house manufacturing advantage',
+          description: 'Workstations, counters, and storage are made in our factory, then installed against the approved plan.',
+        },
+        {
+          title: 'Built for high traffic',
+          description: 'Finishes and hardware chosen for staff use, patient flow, and daily footfall.',
+        },
+        {
+          title: 'Clear pricing',
+          description: 'Scope, materials, and timeline sit in one quote. No hidden extras after you start.',
+        },
+        {
+          title: 'Skilled team',
+          description: 'Design, factory, and install under one roof, used to commercial opening dates.',
+        },
+        {
+          title: 'Custom solutions',
+          description: 'Every floor is drawn for your workflow, brand, and staff count, not a stock layout.',
+        },
+      ],
+    },
+    processLead: 'The same three steps as every Space Solution workplace, from first measure to opening.',
+    process: [
+      {
+        title: 'Share Your Requirement',
+        description:
+          'Tell us the floor, headcount, and how teams or customers move, so we can guide the right next step.',
+      },
+      {
+        title: 'Design & Project Planning',
+        description:
+          'We lock 3D, furniture, and a factory schedule so cabins, counters, and storage stay one language before work begins.',
+      },
+      {
+        title: 'Installation & Final Setup',
+        description: 'We install on site, review every detail, and leave the floor clean and ready to open.',
+      },
+    ],
+  },
+  institutional: {
+    why: {
+      label: 'Why us',
+      title: 'Why campuses choose us for institutional interiors',
+      lead: 'Since 2011, one Mysuru factory has built classroom, hostel, and lab furniture that lasts through continuous daily use.',
+      reasons: [
+        {
+          title: 'Furniture built for occupancy',
+          description: 'Desks, beds, and shelving specified for schools, hostels, and labs across Karnataka.',
+        },
+        {
+          title: 'In-house manufacturing advantage',
+          description: 'Volume orders come off our factory line, then install on campus against a locked spec.',
+        },
+        {
+          title: 'Easy for facility teams',
+          description: 'Practical finishes and hardware that survive heavy use without constant repair.',
+        },
+        {
+          title: 'Clear pricing',
+          description: 'Classroom, hostel, and lab packages follow a measured scope. No hidden extras.',
+        },
+        {
+          title: 'Skilled team',
+          description: 'Design, factory, and install used to campus blocks and academic calendars.',
+        },
+        {
+          title: 'Custom solutions',
+          description: 'Sets sized to your room grid, bag storage, and supervision, not a generic catalogue.',
+        },
+      ],
+    },
+    processLead: 'The same three steps as every Space Solution campus programme, from brief to handover.',
+    process: [
+      {
+        title: 'Share Your Requirement',
+        description:
+          'Tell us the rooms, bed or desk counts, and when the block must open, so we can guide the right next step.',
+      },
+      {
+        title: 'Design & Project Planning',
+        description:
+          'We lock layouts, materials, and a factory schedule so classrooms, hostels, and labs stay one specification.',
+      },
+      {
+        title: 'Installation & Final Setup',
+        description: 'We install on campus, check every room, and leave furniture ready for students and staff.',
+      },
+    ],
+  },
+  hospitality: {
+    why: {
+      label: 'Why us',
+      title: 'Why clients choose us for hospitality interiors',
+      lead: 'Since 2011, one Mysuru team has designed, manufactured, and installed cafes, hotels, and salons so opening day stays on one timeline.',
+      reasons: [
+        {
+          title: 'Guest spaces that work the service',
+          description: '15+ years of cafes, hotels, bars, and wellness rooms across Mysuru and Karnataka.',
+        },
+        {
+          title: 'In-house manufacturing advantage',
+          description: 'Counters, wardrobes, and seating joinery are made in our factory, then installed on site.',
+        },
+        {
+          title: 'Built for long hours',
+          description: 'Finishes chosen for spills, footfall, and housekeeping, not just the first photos.',
+        },
+        {
+          title: 'Clear pricing',
+          description: 'Front of house and back of house sit in one scope. No hidden extras after you start.',
+        },
+        {
+          title: 'Skilled team',
+          description: 'Design, factory, and install used to hospitality opening dates.',
+        },
+        {
+          title: 'Custom solutions',
+          description: 'Every venue is drawn for your menu, room mix, and guest flow, not a stock look.',
+        },
+      ],
+    },
+    processLead: 'The same three steps as every Space Solution venue, from first measure to opening day.',
+    process: [
+      {
+        title: 'Share Your Requirement',
+        description:
+          'Tell us the venue type, covers or rooms, and when you need to open, so we can guide the right next step.',
+      },
+      {
+        title: 'Design & Project Planning',
+        description:
+          'We lock 3D, materials, and a factory schedule so lobby, rooms, and F&B stay one language before work begins.',
+      },
+      {
+        title: 'Installation & Final Setup',
+        description: 'We install on site, review every detail, and leave the venue clean and ready for guests.',
+      },
+    ],
+  },
+};
+
+const hubStory = categoryHubId ? hubStories[categoryHubId] : undefined;
 
 /** Preload the open-building PNG early so the hero stage does not pop in late */
 let depthHeroHousePreload: string | null = null;
@@ -94,7 +344,127 @@ if (isDepthHeroHub && page.stats?.length) {
   }
 
   {
-    page.overview && (
+    categoryHub && (
+      <HubRoomBands hub={categoryHub} />
+    )
+  }
+
+  {
+    l3 && (
+      <HubRoomBands
+        bands={l3.bands}
+        label={l3.bandsLabel}
+        enquiryCategory={l3Enquiry?.category}
+        enquiryInterest={l3Enquiry?.subServices.join(',')}
+      />
+    )
+  }
+
+  {
+    l3 && (
+      <section class="l3-finishes" aria-labelledby="l3-finishes-title">
+        <div class="container">
+          <p class="section-label fade-up">Finishes</p>
+          <h2 class="l3-finishes-title fade-up" id="l3-finishes-title">{l3.finishesHeading}</h2>
+          <div class="l3-finishes-grid">
+            {l3.finishes.map((finish) => (
+              <article class="l3-finish-card fade-up">
+                <h3>{finish.title}</h3>
+                <p>{finish.description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    categoryHub && (
+      <div class="home-resources">
+        <HomeToolsStrip hubId={categoryHub.id} heading={hubToolHeading[categoryHub.id]} />
+        <HomeGuidesStrip hubId={categoryHub.id} heading={hubGuideHeading[categoryHub.id]} />
+      </div>
+    )
+  }
+
+  {
+    hubStory && (
+      <HomeStickyWhy
+        label={hubStory.why.label}
+        title={hubStory.why.title}
+        lead={hubStory.why.lead}
+        reasons={hubStory.why.reasons}
+      />
+    )
+  }
+
+  {
+    l3 && (
+      <HomeStickyWhy
+        label={l3.why.label}
+        title={l3.why.title}
+        lead={l3.why.lead}
+        reasons={l3.why.reasons}
+      />
+    )
+  }
+
+  {
+    hubStory && (
+      <section class="process" id="process">
+        <div class="container">
+          <p class="section-label fade-up">Our Work Process</p>
+          <h2 class="section-title fade-up">A Clear Process. No Confusion.</h2>
+          <p class="section-desc fade-up">{hubStory.processLead}</p>
+
+          <div class="process-steps">
+            {hubStory.process.map((step, index) => (
+              <div class="process-step fade-up">
+                <span class="step-num">{String(index + 1).padStart(2, '0')}</span>
+                <h4>{step.title}</h4>
+                <p>{step.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    l3 && (
+      <section class="process" id="process">
+        <div class="container">
+          <p class="section-label fade-up">Our Work Process</p>
+          <h2 class="section-title fade-up">A Clear Process. No Confusion.</h2>
+          <p class="section-desc fade-up">{l3.processLead}</p>
+
+          <div class="process-steps">
+            {l3.process.map((step, index) => (
+              <div class="process-step fade-up">
+                <span class="step-num">{String(index + 1).padStart(2, '0')}</span>
+                <h4>{step.title}</h4>
+                <p>{step.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    l3 && (
+      <div class="home-resources">
+        <HomeToolsStrip items={l3.tools} heading={l3.toolsHeading} />
+        <HomeGuidesStrip items={l3.guides} heading={l3.guidesHeading} />
+      </div>
+    )
+  }
+
+  {
+    !page.hubLayout && !l3 && page.overview && (
       <section class:list={['page-content', { 'band-cool': isCommercial }]}>
         <div class="container content-prose">
           <p class="section-label fade-up">{page.overview.label}</p>
@@ -109,7 +479,7 @@ if (isDepthHeroHub && page.stats?.length) {
   }
 
   {
-    !page.overview && page.body && page.body.length > 0 && (
+    !page.hubLayout && !l3 && !page.overview && page.body && page.body.length > 0 && (
       <section class:list={['page-content', { 'band-cool': isCommercial }]}>
         <div class="container content-prose">
           {page.body.map((paragraph) => (
@@ -121,6 +491,8 @@ if (isDepthHeroHub && page.stats?.length) {
   }
 
   {
+    !page.hubLayout &&
+    !l3 &&
     page.blocks.map((section, index) => (
       <section class:list={['service-block', { 'section-compact-top': index === 0 && page.overview }]}>
         <div class:list={['container service-block-grid', { reverse: section.reverse }]}>
@@ -143,17 +515,25 @@ if (isDepthHeroHub && page.stats?.length) {
   }
 
   {
-    page.gallery && page.gallery.length > 0 && (
+    l3 ? (
       <ImageGallery
-        title={page.galleryTitle}
-        description={page.galleryDescription}
-        items={page.gallery}
+        title={l3.galleryTitle}
+        description={l3.galleryDescription}
+        items={l3.gallery}
       />
+    ) : (
+      page.gallery && page.gallery.length > 0 && (
+        <ImageGallery
+          title={page.galleryTitle}
+          description={page.galleryDescription}
+          items={page.gallery}
+        />
+      )
     )
   }
 
   {
-    page.cards && (
+    !page.hubLayout && !l3 && page.cards && (
       <section class:list={['why-choose', 'section-compact-top', { 'band-cool': isCommercial && !page.overview && !(page.body && page.body.length) }]}>
         <div class="container">
           <p class="section-label fade-up">Why it works</p>
@@ -175,7 +555,7 @@ if (isDepthHeroHub && page.stats?.length) {
   }
 
   {
-    (page.table || page.steps) && (
+    !page.hubLayout && !l3 && (page.table || page.steps) && (
       <section class="page-content section-compact-top">
         <div class="container">
           {
@@ -223,7 +603,7 @@ if (isDepthHeroHub && page.stats?.length) {
     )
   }
 
-  {isDepthHeroHub && <TestimonialsMarquee category={page.activePage} />}
+  {(isDepthHeroHub || l3) && <TestimonialsMarquee category={page.activePage} />}
 
   {
     page.faqs && page.faqs.length > 0 && (
@@ -232,26 +612,46 @@ if (isDepthHeroHub && page.stats?.length) {
   }
 
   {
-    page.pastelCards && page.pastelCards.length > 0 ? (
-      <PastelStoryCards heading={page.relatedHeading ?? 'Explore'} cards={page.pastelCards} />
-    ) : (
-      page.relatedLinks &&
-      page.relatedLinks.length > 0 && (
-        <section class="page-content section-compact-top">
-          <div class="container">
-            <h2 class="section-heading-lg fade-up">{page.relatedHeading ?? 'Related'}</h2>
-            <ul class="service-related-links fade-up">
-              {page.relatedLinks.map((link) => (
-                <li>
-                  <a href={link.href}>{link.label}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      )
+    l3 && (
+      <section class="page-content section-compact-top" aria-labelledby="l3-related-title">
+        <div class="container">
+          <h2 class="section-heading-lg fade-up" id="l3-related-title">{l3.relatedHeading}</h2>
+          <ul class="service-related-links fade-up">
+            {l3.related.map((link) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
     )
   }
 
-  <CtaSection />
+  {
+    !page.hubLayout && !l3 && page.pastelCards && page.pastelCards.length > 0 && (
+      <PastelStoryCards heading={page.relatedHeading ?? 'Explore'} cards={page.pastelCards} />
+    )
+  }
+
+  {
+    !page.hubLayout &&
+    !l3 &&
+    !(page.pastelCards && page.pastelCards.length > 0) &&
+    page.relatedLinks &&
+    page.relatedLinks.length > 0 && (
+      <section class="page-content section-compact-top">
+        <div class="container">
+          <h2 class="section-heading-lg fade-up">{page.relatedHeading ?? 'Related'}</h2>
+          <ul class="service-related-links fade-up">
+            {page.relatedLinks.map((link) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
 </BaseLayout>

@@ -14,7 +14,7 @@ export interface FooterLoopObject {
 
 const V = 'u7';
 
-/** Space Solution service categories — transparent cutouts for the infinite footer loop */
+/** Space Solution service categories - transparent cutouts for the infinite footer loop */
 export const FOOTER_LOOP_OBJECTS: FooterLoopObject[] = [
   { id: 'kitchen', label: 'Modular Kitchen', shortLabel: 'Modular Kitchen', href: '/modular-kitchen', src: `/images/footer/objects/modular-kitchen-interior.png?${V}`, width: 168, lift: 0, rotate: 0 },
   { id: 'wardrobe', label: 'Wardrobes & Storage', shortLabel: 'Wardrobes', href: '/wardrobes-storage', src: `/images/footer/objects/wardrobe-storage-interior.png?${V}`, width: 88, lift: 0, rotate: 0 },

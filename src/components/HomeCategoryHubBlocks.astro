@@ -1,0 +1,101 @@
+---
+import ResponsiveImage from './ResponsiveImage.astro';
+import type { HomeCategoryHub } from '../data/homeCategoryHubs';
+
+interface Props {
+  hub: HomeCategoryHub;
+  quoteCta?: boolean;
+  enquiryCategory?: string;
+  enquiryInterest?: string;
+}
+
+const { hub, quoteCta = false, enquiryCategory, enquiryInterest } = Astro.props;
+---
+
+<div class="home-cat-hub">
+  {
+    hub.projects.length > 0 && (
+      <div class="home-cat-projects">
+        <p class="home-cat-projects-heading">{hub.projectsHeading}</p>
+        <div class="home-cat-projects-grid">
+          {hub.projects.slice(0, 3).map((project) => (
+            <a href={project.href} class="home-cat-projects-item">
+              <ResponsiveImage
+                src={project.image}
+                alt={project.label}
+                preset="thumbnail"
+                sizes="(max-width: 980px) 46vw, 22vw"
+              />
+              <span class="home-cat-projects-caption">{project.label}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  <div class="home-cat-hub-actions">
+    {
+      quoteCta ? (
+        <a
+          href="#"
+          class="btn btn-gold-filled"
+          data-open-modal="enquiry"
+          data-enquiry-category={enquiryCategory}
+          data-enquiry-interest={enquiryInterest}
+        >
+          Request a Quote
+        </a>
+      ) : (
+        <a href={hub.hubHref} class="btn btn-gold-filled">
+          {hub.title}
+        </a>
+      )
+    }
+    {
+      hub.turnkey && (
+        <a href={hub.turnkey.href} class="btn btn-outline-dark">
+          Turnkey
+        </a>
+      )
+    }
+  </div>
+
+  {
+    (hub.tools.length > 0 || hub.guides.length > 0) && (
+      <div class="home-cat-resources" aria-label={hub.resourcesHeading}>
+        {
+          hub.tools.length > 0 && (
+            <div class="home-cat-resources-group">
+              <p class="home-cat-resources-kicker">Tools</p>
+              <div class="home-cat-resources-links">
+                {hub.tools.map((tool) => (
+                  <a href={tool.href} class="home-cat-resources-link">
+                    {tool.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )
+        }
+        {
+          hub.guides.length > 0 && (
+            <div class="home-cat-resources-group">
+              <p class="home-cat-resources-kicker">Guides</p>
+              <div class="home-cat-resources-links">
+                {hub.guides.map((guide) => (
+                  <a href={guide.href} class="home-cat-resources-link">
+                    {guide.label}
+                  </a>
+                ))}
+              <a href="/design-library" class="home-cat-resources-link">
+                Design library
+              </a>
+              </div>
+            </div>
+          )
+        }
+      </div>
+    )
+  }
+</div>

@@ -1,0 +1,40 @@
+---
+description: Terminal and browser are on demand; cleanup only what the agent started
+alwaysApply: true
+---
+
+# Process, terminal, and preview cleanup
+
+## On demand only (default: off)
+
+These are **not** part of every task. Use them only when the **user explicitly asks**:
+
+- Browser MCP / built-in browser automation
+- Integrated terminal (shell commands, background jobs)
+- Dev server (`npm run dev`, `npm run dev:fast`, `dev-server/start-restart-dev.bat`)
+
+When the user asks, run what they requested, complete it, and clean up afterward.
+
+## Mandatory cleanup
+
+- If the agent started a background terminal command or dev server (because the user asked), stop that shell/process when the task is done or before ending the chat
+- Do not leave agent-started `npm run dev`, `npm run build`, or similar running after the task completes
+
+## Never kill or stop (user-owned)
+
+- The user's browser (Edge, Chrome, Firefox, etc.)
+- Processes started by `dev-server/start-restart-dev.bat` or `dev-server/stop-dev.bat`
+- Broad kills (`taskkill node`, close all terminals, kill port 4321) unless the user explicitly asks
+
+## End-of-task reminder (visual / preview work)
+
+After layout, scroll, or animation changes — unless the user asked you to verify in browser — add one short reminder:
+
+> Close your preview browser tab or run `dev-server/stop-dev.bat` when done.
+
+Do not run `stop-dev.bat` or kill preview processes yourself unless the user asks.
+
+## RAM discipline
+
+- Default: edit source only; no terminal, dev server, or browser unless the user requests on demand
+- User may preview locally outside Cursor or provide screenshots

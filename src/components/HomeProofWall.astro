@@ -1,0 +1,40 @@
+---
+import type { HomeGalleryItem } from '../data/home';
+import ResponsiveImage from './ResponsiveImage.astro';
+
+interface Props {
+  items: HomeGalleryItem[];
+  portfolioHref?: string;
+  quoteLabel?: string;
+}
+
+const {
+  items,
+  portfolioHref = '/portfolio',
+  quoteLabel = 'Request a Quote',
+} = Astro.props;
+
+const proofItems = items.slice(0, 6);
+---
+
+<div class="home-proof">
+  <div class="home-proof-grid">
+    {
+      proofItems.map((item) => (
+        <a class="home-proof-card fade-up" href={item.href}>
+          <ResponsiveImage src={item.image} alt={item.title} preset="grid" />
+          <span class="home-proof-shade" aria-hidden="true"></span>
+          <span class="home-proof-copy">
+            <span class="home-proof-label">{item.label}</span>
+            <h3 class="home-proof-title">{item.title}</h3>
+          </span>
+        </a>
+      ))
+    }
+  </div>
+
+  <div class="home-proof-actions">
+    <a href={portfolioHref} class="btn btn-gold-filled">View Our Portfolio</a>
+    <a href="#" class="btn btn-outline-dark" data-open-modal="enquiry">{quoteLabel}</a>
+  </div>
+</div>

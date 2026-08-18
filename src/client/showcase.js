@@ -1,5 +1,5 @@
 /**
- * Desint-style showcase — GSAP ScrollTrigger / SplitText
+ * Desint-style showcase - GSAP ScrollTrigger / SplitText
  * Site-wide Lenis lives in src/client/lenis.js
  */
 (function () {

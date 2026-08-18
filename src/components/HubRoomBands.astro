@@ -1,0 +1,122 @@
+---
+import type { ImageMetadata } from 'astro';
+import ResponsiveImage from './ResponsiveImage.astro';
+import CatSlideshowScript from './CatSlideshowScript.astro';
+import { hubRoomBandCopy, type HomeCategoryHub } from '../data/homeCategoryHubs';
+import '../styles/home-hero.css';
+import '../styles/home-category-bands.css';
+
+export interface HubBandItem {
+  title: string;
+  lead?: string;
+  bullets: string[];
+  images: ImageMetadata[];
+  ctaLabel: string;
+  ctaHref?: string;
+  quoteCta?: boolean;
+}
+
+interface Props {
+  hub?: HomeCategoryHub;
+  bands?: HubBandItem[];
+  label?: string;
+  enquiryCategory?: string;
+  enquiryInterest?: string;
+}
+
+const { hub, bands, label, enquiryCategory, enquiryInterest } = Astro.props;
+const bandTones = ['warm', 'cool', 'sage', 'sand'] as const;
+const curtainStrips = [0, 1, 2, 3, 4, 5, 6, 7] as const;
+
+const items: HubBandItem[] =
+  bands ??
+  (hub?.spaces.map((space) => {
+    const copy = hubRoomBandCopy[space.href];
+    return {
+      title: space.label,
+      lead: copy?.lead,
+      bullets: copy?.bullets ?? [],
+      images: copy?.images?.length ? copy.images : [space.image],
+      ctaLabel: copy?.cta ?? `Explore ${space.label}`,
+      ctaHref: space.href,
+    };
+  }) ?? []);
+
+const sectionLabel =
+  label ?? (hub ? `Explore ${hub.label} ${hub.spacesHeading.toLowerCase()}` : 'Explore layouts');
+---
+
+<section class="home-cat-bands" id="explore" aria-label={sectionLabel}>
+  {
+    items.map((item, index) => (
+      <article
+        class={`home-cat-band home-cat-band--room home-cat-band--${bandTones[index % bandTones.length]} ${index % 2 === 0 ? 'home-cat-band--media-left' : 'home-cat-band--media-right'}`}
+      >
+        <div class="container home-cat-band-inner">
+          <div class="home-cat-band-grid">
+            <div class="home-cat-band-copy fade-up">
+              <h2 class="home-cat-band-title">{item.title}</h2>
+              {item.lead && <p class="home-cat-band-lead">{item.lead}</p>}
+              {
+                item.bullets.length > 0 && (
+                  <ul class="feature-list">
+                    {item.bullets.map((bullet) => (
+                      <li>{bullet}</li>
+                    ))}
+                  </ul>
+                )
+              }
+              {
+                item.quoteCta ? (
+                  <a
+                    href="#"
+                    class="btn btn-gold-filled home-cat-band-cta"
+                    data-open-modal="enquiry"
+                    data-enquiry-category={enquiryCategory}
+                    data-enquiry-interest={enquiryInterest}
+                  >
+                    {item.ctaLabel}
+                  </a>
+                ) : (
+                  <a href={item.ctaHref} class="btn btn-gold-filled home-cat-band-cta">
+                    {item.ctaLabel}
+                  </a>
+                )
+              }
+            </div>
+
+            <figure
+              class="home-cat-band-media home-hero-still home-cat-band-media--room-depth"
+              data-cat-slideshow
+              aria-label={`${item.title} interiors`}
+            >
+              {
+                item.images.map((image, imageIndex) => (
+                  <div
+                    class:list={['home-hero-slide', { 'is-current': imageIndex === 0 }]}
+                    data-hero-slide
+                    aria-hidden={imageIndex === 0 ? 'false' : 'true'}
+                  >
+                    <ResponsiveImage
+                      src={image}
+                      alt={`${item.title} interiors by Space Solution`}
+                      preset="hero"
+                      sizes="(max-width: 980px) 92vw, 46vw"
+                      loading={index === 0 && imageIndex === 0 ? 'eager' : 'lazy'}
+                      fetchpriority={index === 0 && imageIndex === 0 ? 'high' : 'low'}
+                    />
+                  </div>
+                ))
+              }
+              <div class="home-hero-curtain" data-hero-curtain aria-hidden="true">
+                {curtainStrips.map((strip) => <span style={`--i: ${strip}`} />)}
+              </div>
+            </figure>
+          </div>
+        </div>
+      </article>
+    ))
+  }
+</section>
+
+<CatSlideshowScript />

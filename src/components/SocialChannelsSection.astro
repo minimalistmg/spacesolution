@@ -13,62 +13,66 @@ const platforms = [
 ---
 
 <section class="social-cinema" aria-labelledby="social-channels-title">
-  <div class="social-cinema-veil" aria-hidden="true"></div>
-
-  <div class="social-cinema-copy">
+  <div class="container social-cinema-header">
     <p class="social-cinema-label">On social</p>
-    <h2 class="social-cinema-title" id="social-channels-title">
-      Spaces, always
-      <span class="social-cinema-title-break">in motion</span>
-    </h2>
-    <p class="social-cinema-desc">
-      Walkthroughs, finishes, and site moments from Instagram, Facebook, and YouTube. Tap any frame to watch the work take shape.
-    </p>
-    <ul class="social-cinema-platforms">
-      {
-        platforms.map(({ platform, href }, index) => (
-          <>
-            {index > 0 && <li class="social-cinema-sep" aria-hidden="true"></li>}
-            <li>
-              <a href={href} target="_blank" rel="noopener noreferrer">
-                {socialPlatformMeta[platform].label}
-              </a>
-            </li>
-          </>
-        ))
-      }
-    </ul>
+    <h2 class="social-cinema-title" id="social-channels-title">Spaces, always in motion</h2>
   </div>
 
-  <div class="social-cinema-strip" aria-label="Social videos from Instagram, Facebook, and YouTube">
+  <div class="social-cinema-marquee">
+    <div class="social-cinema-row">
+      <div class="social-cinema-track" aria-label="Social videos from Instagram, Facebook, and YouTube">
+        {
+          loopItems.map((item, index) => {
+            const isDuplicate = index >= socialChannelItems.length;
+            const meta = socialPlatformMeta[item.platform];
+            return (
+              <a
+                class="social-cinema-reel"
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${item.title} on ${meta.label}`}
+                tabindex={isDuplicate ? -1 : undefined}
+                aria-hidden={isDuplicate ? 'true' : undefined}
+              >
+                <img
+                  src={item.image}
+                  alt={isDuplicate ? '' : altFromPublicImage(item.image)}
+                  width="200"
+                  height="356"
+                  loading="lazy"
+                />
+                <span class="social-cinema-platform">
+                  <Icon name={meta.icon} />
+                  <span class="social-cinema-sr">{meta.label}</span>
+                </span>
+                <span class="social-cinema-play" aria-hidden="true">
+                  <svg viewBox="0 0 48 48" fill="none">
+                    <circle cx="24" cy="24" r="23" stroke="currentColor" stroke-width="1.5"></circle>
+                    <path d="M20 16l14 8-14 8V16z" fill="#fff"></path>
+                  </svg>
+                </span>
+              </a>
+            );
+          })
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="container social-cinema-actions">
     {
-      loopItems.map((item, index) => {
-        const isDuplicate = index >= socialChannelItems.length;
-        const meta = socialPlatformMeta[item.platform];
-        return (
-          <a
-            class="social-cinema-reel"
-            href={item.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${item.title} on ${meta.label}`}
-            tabindex={isDuplicate ? -1 : undefined}
-            aria-hidden={isDuplicate ? 'true' : undefined}
-          >
-            <img src={item.image} alt={isDuplicate ? '' : altFromPublicImage(item.image)} width="200" height="356" loading="lazy" />
-            <span class="social-cinema-platform">
-              <Icon name={meta.icon} />
-              <span class="social-cinema-sr">{meta.label}</span>
-            </span>
-            <span class="social-cinema-play" aria-hidden="true">
-              <svg viewBox="0 0 48 48" fill="none">
-                <circle cx="24" cy="24" r="23" stroke="currentColor" stroke-width="1.5"></circle>
-                <path d="M20 16l14 8-14 8V16z" fill="#fff"></path>
-              </svg>
-            </span>
-          </a>
-        );
-      })
+      platforms.map(({ platform, href }) => (
+        <a
+          class="btn btn-gold-outline"
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Icon name={socialPlatformMeta[platform].icon} />
+          {socialPlatformMeta[platform].label}
+        </a>
+      ))
     }
   </div>
 </section>

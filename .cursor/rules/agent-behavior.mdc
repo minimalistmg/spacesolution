@@ -1,0 +1,30 @@
+---
+description: Agent-only workflow — minimal scope, concise output, no drive-by changes
+alwaysApply: true
+---
+
+# Agent behavior
+
+## Mode
+
+- Cursor agents only (not IDE-assisted long sessions): implement directly; skip long plans unless the user asks
+- Answer "how does X work?" in chat — do not change code unless implementation is requested
+
+## Scope
+
+- Minimal diff: match existing Astro/component/CSS conventions; no unrelated refactors
+- Prefer editing existing components over new abstractions
+- Do not duplicate CSS/JS into new files when a small edit suffices
+- Do not create commits, PRs, or markdown docs unless the user explicitly asks
+- Skip `TodoWrite` / task lists for simple one- or two-step jobs
+
+## Responses
+
+- Be concise; do not repeat code already shown in the diff
+- Do not write README or summary docs unless requested
+
+## Do not skip (still required)
+
+- Read `scroll-motion.js` and related CSS when changing scroll behavior
+- Full `npm run build` before production deploy
+- Thumbnail/icon scripts when reel or header menu assets change

@@ -98,11 +98,6 @@
   object-position: 50% 62%;
 }
 
-.about-hero .btn-gold-filled,
-.about-hero .btn-gold-filled:hover {
-  color: #fff;
-}
-
 .about-hero-lead {
   margin: 0 0 26px;
   max-width: 520px;

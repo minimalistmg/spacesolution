@@ -212,7 +212,7 @@ export const consultFormConfigs: Record<ConsultFormKind, ConsultFormConfig> = {
 
     seoDescription:
 
-      'Book a free 3D consultation for your Mysuru home. Choose kitchen, wardrobes, living, bedrooms, pooja, or full-home interiors — see the design before we build.',
+      'Book a free 3D consultation for your Mysuru home. Choose kitchen, wardrobes, living, bedrooms, pooja, or full-home interiors - see the design before we build.',
 
     breadcrumb: [
 
@@ -232,7 +232,7 @@ export const consultFormConfigs: Record<ConsultFormKind, ConsultFormConfig> = {
 
     lead:
 
-      'See your kitchen, wardrobes, and rooms in 3D before we build — designed and made at our Mysuru studio and factory.',
+      'See your kitchen, wardrobes, and rooms in 3D before we build - designed and made at our Mysuru studio and factory.',
 
     steps: [
 
@@ -240,7 +240,7 @@ export const consultFormConfigs: Record<ConsultFormKind, ConsultFormConfig> = {
 
         title: 'Choose your rooms',
 
-        description: 'Kitchen, wardrobes, living, bedrooms, pooja — or the full home in one language.',
+        description: 'Kitchen, wardrobes, living, bedrooms, pooja - or the full home in one language.',
 
       },
 
@@ -330,7 +330,7 @@ export const consultFormConfigs: Record<ConsultFormKind, ConsultFormConfig> = {
 
         title: 'Tell us about the space',
 
-        description: 'Office, clinic, retail, or co-working — share location and approximate carpet area.',
+        description: 'Office, clinic, retail, or co-working - share location and approximate carpet area.',
 
       },
 
@@ -346,7 +346,7 @@ export const consultFormConfigs: Record<ConsultFormKind, ConsultFormConfig> = {
 
         title: 'Quote & timeline',
 
-        description: 'You receive a structured quote with milestones — no obligation until you approve.',
+        description: 'You receive a structured quote with milestones - no obligation until you approve.',
 
       },
 
@@ -400,7 +400,7 @@ export const consultFormConfigs: Record<ConsultFormKind, ConsultFormConfig> = {
 
     seoDescription:
 
-      'Enquire about bulk furniture for schools, hostels, libraries, labs, and admin offices — manufactured in Mysuru, delivered across Karnataka.',
+      'Enquire about bulk furniture for schools, hostels, libraries, labs, and admin offices - manufactured in Mysuru, delivered across Karnataka.',
 
     breadcrumb: [
 
@@ -420,7 +420,7 @@ export const consultFormConfigs: Record<ConsultFormKind, ConsultFormConfig> = {
 
     lead:
 
-      'Classrooms, hostels, labs, and admin blocks — tell us your scale and we will plan supply, delivery, and installation.',
+      'Classrooms, hostels, labs, and admin blocks - tell us your scale and we will plan supply, delivery, and installation.',
 
     steps: [
 
@@ -428,7 +428,7 @@ export const consultFormConfigs: Record<ConsultFormKind, ConsultFormConfig> = {
 
         title: 'Share institution type',
 
-        description: 'School, hostel, library, lab, or admin — select what you need furnished.',
+        description: 'School, hostel, library, lab, or admin - select what you need furnished.',
 
       },
 
@@ -508,7 +508,7 @@ export const consultFormConfigs: Record<ConsultFormKind, ConsultFormConfig> = {
 
     seoDescription:
 
-      'Book a free 3D consultation for your café, restaurant, hotel, bar, or salon — see the fitout before opening day.',
+      'Book a free 3D consultation for your café, restaurant, hotel, bar, or salon - see the fitout before opening day.',
 
     breadcrumb: [
 
@@ -528,7 +528,7 @@ export const consultFormConfigs: Record<ConsultFormKind, ConsultFormConfig> = {
 
     lead:
 
-      'Cafés, hotels, bars, and salons — visualise counters, seating, and flow in 3D before your opening day.',
+      'Cafés, hotels, bars, and salons - visualise counters, seating, and flow in 3D before your opening day.',
 
     steps: [
 
@@ -536,7 +536,7 @@ export const consultFormConfigs: Record<ConsultFormKind, ConsultFormConfig> = {
 
         title: 'Choose your venue type',
 
-        description: 'Café, hotel, bar, or salon — we design around guest flow and brand feel.',
+        description: 'Café, hotel, bar, or salon - we design around guest flow and brand feel.',
 
       },
 

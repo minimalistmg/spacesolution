@@ -36,7 +36,7 @@ export type DepthHeroHubConfig = {
   offers: DepthHeroOffer[];
 };
 
-/** Residential — unchanged open-house diorama tour */
+/** Residential - unchanged open-house diorama tour */
 export const residentialDepthHero: DepthHeroHubConfig = {
   slug: 'residential-interiors',
   heading: 'Residential Interiors',

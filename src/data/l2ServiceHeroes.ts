@@ -47,7 +47,7 @@ function vista(
   };
 }
 
-/** Tall-flank editorial hero — same project cropped left / full / right. */
+/** Tall-flank editorial hero - same project cropped left / full / right. */
 export const l2FlankHeroes: Record<string, ServiceGalleryHero> = {
   'modular-kitchen': flank(
     l2HeroImages.kitchen,
@@ -124,7 +124,7 @@ export const l2FlankHeroes: Record<string, ServiceGalleryHero> = {
   'library-lab-interiors': flank(
     l2HeroImages.library,
     'Libraries & Labs.',
-    'Specialist furniture for reading, research, and practical learning — built to last.',
+    'Specialist furniture for reading, research, and practical learning - built to last.',
     'Plan Your Lab',
     [
       'Daylit window wall with plants and a sink island',
@@ -148,7 +148,7 @@ export const l2FlankHeroes: Record<string, ServiceGalleryHero> = {
   'salon-wellness-interiors': flank(
     l2HeroImages.salon,
     'Salons.',
-    'Calm, premium rooms for beauty and wellness — stations, product, and treatment in one language.',
+    'Calm, premium rooms for beauty and wellness - stations, product, and treatment in one language.',
     'Plan Your Salon',
     [
       'Styling station with a round mirror and cream salon chair',
@@ -159,13 +159,13 @@ export const l2FlankHeroes: Record<string, ServiceGalleryHero> = {
   ),
 };
 
-/** Full-bleed lifestyle hero — headline over the still, proof bar along the wash. */
+/** Full-bleed lifestyle hero - headline over the still, proof bar along the wash. */
 export const l2VistaHeroes: Record<string, ServiceVistaHero> = {
   'living-dining': vista(
     l2HeroImages.living,
     'Elevate your\neveryday living',
     'Inspired interiors, designed for living',
-    'We plan living and dining as one volume — seating, storage, and light finished for how the family actually uses the room.',
+    'We plan living and dining as one volume - seating, storage, and light finished for how the family actually uses the room.',
     '800+',
     'Homes delivered',
     'Open-plan living and dining with pale oak table, cream chairs, and a linen sofa',
@@ -175,7 +175,7 @@ export const l2VistaHeroes: Record<string, ServiceVistaHero> = {
     l2HeroImages.fullhome,
     'One language\nfor the whole home',
     'Turnkey homes, kitchen to bedroom',
-    'A single design language across kitchen, wardrobes, living, and bedrooms — one team from drawing to handover.',
+    'A single design language across kitchen, wardrobes, living, and bedrooms - one team from drawing to handover.',
     '800+',
     'Homes delivered',
     'Full-home interior with living, kitchen opening, and a hallway of tall oak wardrobes',
@@ -185,7 +185,7 @@ export const l2VistaHeroes: Record<string, ServiceVistaHero> = {
     l2HeroImages.office,
     'Workplaces made\nto stay clear',
     'Workplaces designed to perform',
-    'We fit offices for focus, meetings, and growth — joinery, lighting, and layout under one accountable team.',
+    'We fit offices for focus, meetings, and growth - joinery, lighting, and layout under one accountable team.',
     '15+',
     'Years of fitouts',
     'Bright conference room with a pale oak table, cream chairs, and glass partitions',
@@ -195,7 +195,7 @@ export const l2VistaHeroes: Record<string, ServiceVistaHero> = {
     l2HeroImages.admin,
     'Staff rooms built\nfor daily use',
     'Campus offices, built to last',
-    'Registrar and staff rooms planned for daily institutional use — durable desks, storage, and clear circulation.',
+    'Registrar and staff rooms planned for daily institutional use - durable desks, storage, and clear circulation.',
     '15+',
     'Years on campus',
     'Bright admin office with pale oak workstations, filing, and a small meeting table',
@@ -225,7 +225,7 @@ export const l2VistaHeroes: Record<string, ServiceVistaHero> = {
     l2HeroImages.school,
     'Classrooms built\nto last the day',
     'Furniture for daily teaching',
-    'Desks, storage, and layouts specified for real classroom use — durable, light, and easy to keep in order.',
+    'Desks, storage, and layouts specified for real classroom use - durable, light, and easy to keep in order.',
     '15+',
     'Years on campus',
     'Bright classroom with pale birch desks in rows and a window wall of daylight',
@@ -235,7 +235,7 @@ export const l2VistaHeroes: Record<string, ServiceVistaHero> = {
     l2HeroImages.cafe,
     'Rooms guests\nwant to stay in',
     'Atmosphere and service in balance',
-    'We plan cafés from the first table to the pass — seating, counters, and kitchen flow finished for opening day.',
+    'We plan cafés from the first table to the pass - seating, counters, and kitchen flow finished for opening day.',
     '15+',
     'Years of openings',
     'Bright café dining room with pale oak tables, cane chairs, and an open kitchen beyond',
@@ -245,7 +245,7 @@ export const l2VistaHeroes: Record<string, ServiceVistaHero> = {
     l2HeroImages.hotel,
     'Lobbies ready\nfor opening day',
     'Guest rooms, ready to receive',
-    'A full-service interior studio for hotels and resorts — lobby, lounge, and guest-facing rooms under one finish.',
+    'A full-service interior studio for hotels and resorts - lobby, lounge, and guest-facing rooms under one finish.',
     '15+',
     'Years of openings',
     'Bright boutique hotel lobby with cream lounge seating and an oak reception desk',

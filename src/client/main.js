@@ -1,5 +1,5 @@
 /**
- * Space Solution — main site interactions
+ * Space Solution - main site interactions
  */
 (function ($) {
   'use strict';
@@ -26,6 +26,20 @@
     tiny: '144p',
     auto: 'Auto'
   };
+
+  function lockVideoBrowserChrome(video) {
+    if (!video) return;
+    video.disablePictureInPicture = true;
+    if ('disableRemotePlayback' in video) {
+      video.disableRemotePlayback = true;
+    }
+    video.setAttribute('disablepictureinpicture', '');
+    video.setAttribute('controlslist', 'nodownload noplaybackrate noremoteplayback');
+  }
+
+  function lockAllVideoBrowserChrome() {
+    document.querySelectorAll('video').forEach(lockVideoBrowserChrome);
+  }
 
   function getScrollbarWidth() {
     return window.innerWidth - document.documentElement.clientWidth;
@@ -866,6 +880,7 @@
     var $player = $native.find('.video-modal-player');
     var player = $player.get(0);
     if (!player) return;
+    lockVideoBrowserChrome(player);
 
     var $playBtn = $native.find('.video-ctrl-play');
     var $muteBtn = $native.find('.video-ctrl-mute');
@@ -953,7 +968,7 @@
 
     if (!$player.length && $native.length) {
       $player = $(
-        '<video class="video-modal-player" playsinline preload="none" loop>' +
+        '<video class="video-modal-player" playsinline preload="none" loop disablepictureinpicture disableremoteplayback controlslist="nodownload noplaybackrate noremoteplayback">' +
           '<source src="' + HERO_VIDEO_SRC + '" type="video/mp4">' +
           '</video>'
       );
@@ -962,6 +977,7 @@
 
     var player = $player.get(0);
     if (!player) return;
+    lockVideoBrowserChrome(player);
 
     destroyYoutubePlayer();
     $videoModal.find('.video-modal-youtube-controls').prop('hidden', true);
@@ -1150,6 +1166,7 @@
     initEnquiryTriggers();
     initConnectLeadInterest();
     initVideoModal();
+    lockAllVideoBrowserChrome();
     scheduleHeroVideoPreload();
     initScrollAnimations();
     initPortfolioFilter();

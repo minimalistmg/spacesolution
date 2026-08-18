@@ -47,7 +47,15 @@ const heroVideoSrc = '/videos/home-interior-showreel-mysuru.mp4';
       </div>
 
       <div class="video-modal-native">
-        <video class="video-modal-player" playsinline preload="none" loop>
+        <video
+          class="video-modal-player"
+          playsinline
+          preload="none"
+          loop
+          disablepictureinpicture
+          disableremoteplayback
+          controlslist="nodownload noplaybackrate noremoteplayback"
+        >
           <source src={heroVideoSrc} type="video/mp4" />
         </video>
         <div class="video-modal-controls">

@@ -1,5 +1,5 @@
 /**
- * Space Solution — header navigation (desktop global menu + mobile menu)
+ * Space Solution - header navigation (desktop global menu + mobile menu)
  */
 (function ($) {
   'use strict';

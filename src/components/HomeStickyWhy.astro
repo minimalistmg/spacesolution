@@ -1,0 +1,72 @@
+---
+/**
+ * Sticky “why” column + stacked reasons (Lenis-style scroll storytelling).
+ */
+import '../styles/home-scroll-story.css';
+
+interface Reason {
+  title: string;
+  description: string;
+}
+
+interface Props {
+  label?: string;
+  title?: string;
+  lead?: string;
+  reasons?: Reason[];
+}
+
+const {
+  label = 'Why us',
+  title = 'Why clients choose Space Solution',
+  lead = 'Since 2011, one team has handled design, manufacturing, and installation, so quality, price, and timelines stay in one place.',
+  reasons = [
+    {
+      title: 'Experience that shows in every project',
+      description: '15+ years of hands-on industry experience across homes, workplaces, and institutions in Karnataka.',
+    },
+    {
+      title: 'In-house manufacturing advantage',
+      description: 'Full control over quality, materials, and timelines from our Mysuru factory to your site.',
+    },
+    {
+      title: 'Built for long-term use',
+      description: 'We use materials made to handle daily wear, not just the day of handover.',
+    },
+    {
+      title: 'Clear pricing',
+      description: 'No confusion. No hidden costs. Quotes follow a measured scope before work begins.',
+    },
+    {
+      title: 'Skilled team',
+      description: '30+ professionals focused on delivering precise design, production, and installation.',
+    },
+    {
+      title: 'Custom solutions',
+      description: 'Every project is designed around your space and requirement, not a fixed catalogue layout.',
+    },
+  ],
+} = Astro.props;
+---
+
+<section class="home-sticky-why" id="why-us" aria-label={title}>
+  <div class="container home-sticky-why-grid">
+    <div class="home-sticky-why-sticky">
+      <p class="section-label">{label}</p>
+      <h2 class="home-sticky-why-title">{title}</h2>
+      <p class="home-sticky-why-lead">{lead}</p>
+    </div>
+
+    <div class="home-sticky-why-reasons">
+      {
+        reasons.map((reason, index) => (
+          <article class="home-sticky-why-reason fade-up">
+            <span class="home-sticky-why-index">{String(index + 1).padStart(2, '0')}</span>
+            <h3>{reason.title}</h3>
+            <p>{reason.description}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

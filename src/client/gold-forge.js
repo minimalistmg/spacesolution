@@ -1,5 +1,5 @@
 /**
- * Concept 19 — Gold Forge
+ * Concept 19 - Gold Forge
  * Outline traces itself in gold · molten fill pours in from below ·
  * specular sweep sets the metal · wordmark settles.
  */
@@ -60,7 +60,7 @@
 
      The catalogue path (BrandMark.paths.ribbon) is a bitmap trace: ~700 straight
      segments on integer coordinates. Threading a spline exactly through those
-     points — which earlier revisions did — forces the curve to honour every bit
+     points - which earlier revisions did - forces the curve to honour every bit
      of trace jitter, so the bend lurches: a curvature comb over it saw-tooths and
      in places flips sides. Smoothing first only softens that, because
      interpolation still has to hit each point.
@@ -75,7 +75,7 @@
 
      Wound to begin at the bottom tail tip and head right along the tail, so the
      line draws away from the tip and the pour follows the same route. Rotating
-     which segment comes first leaves the geometry untouched — the path measures
+     which segment comes first leaves the geometry untouched - the path measures
      2288.46 units either way.
 
      Lives in _shared/brand-shape.js so concept 20 renders the same curves. */
@@ -84,7 +84,7 @@
   /* The fold. The mark is a twisted ribbon, not a flat silhouette, and the two
      faces meet along a crease that runs its whole length. Running a slope
      detector over the Logo Literature scan (brand/_find_creases.py) finds it as
-     two arcs of high interior slope — a smooth fill has slope ~0.06 per pixel,
+     two arcs of high interior slope - a smooth fill has slope ~0.06 per pixel,
      these run to 18. brand/_extract_creases.py then registers the scan onto this
      artboard and traces them; the scan is cropped on the right and bottom, so
      the small complete icon supplies the registration and the pieces the scan
@@ -93,7 +93,7 @@
   var FOLD_UPPER = BrandShape.FOLD_UPPER;
   var FOLD_LOWER = BrandShape.FOLD_LOWER;
 
-  /* Icon artboard — every geometry number below is in these units. */
+  /* Icon artboard - every geometry number below is in these units. */
   var VB_W = BrandShape.WIDTH;
   var VB_H = BrandShape.HEIGHT;
 
@@ -103,14 +103,14 @@
      form.
 
      Straight-line distance from the tip can't express that, because the mark
-     curls back on itself — a point can sit close to the tip across the gap while
+     curls back on itself - a point can sit close to the tip across the gap while
      being far away through the metal. A rotating wedge fails for the same reason;
      no centre orders the form correctly (613 candidates tested, none under a full
      turn). What does work is distance measured *along* the metal: flood the
      interior from the tip travelling only through filled pixels. Baked into a
      greyscale field, one animated threshold then sweeps the front down the ribbon,
      tail tip to top horn. */
-  var FIELD_SCALE = 2; /* half resolution — it only drives a mask */
+  var FIELD_SCALE = 2; /* half resolution - it only drives a mask */
   var FRONT = 0.07; /* molten leading edge, as a fraction of the whole run */
 
   function buildDistanceField() {
@@ -218,7 +218,7 @@
        degrees, very nearly horizontal. The brand's own #brandGoldBase has the
        right colours but runs at about 50 degrees, which is why every version
        built on that axis looked wrong however the stops were placed. Second the
-       fold — see FOLD_UPPER. A ramp alone, however well fitted, renders a flat
+       fold - see FOLD_UPPER. A ramp alone, however well fitted, renders a flat
        silhouette; it can score a low average error while losing the crease that
        actually reads as depth.
 
@@ -230,7 +230,7 @@
        on one arm only. */
     '<clipPath id="gfShape"><path d="' + SHAPE + '"/></clipPath>' +
     /* The lit face. Fitting the ramp to the median of *all* pixels, as an
-       earlier revision did, bakes the shadow into the base — then laying the
+       earlier revision did, bakes the shadow into the base - then laying the
        fold on top can only land the shaded side and the lit side stays too
        dark, which measured as the left third rendering 17 low. So the two faces
        are fitted separately (brand/_fit_faces.py, 27k lit px) and this is the
@@ -248,12 +248,12 @@
     '<stop offset="88%" stop-color="#f5dc7d"/>' +
     '<stop offset="100%" stop-color="#f6e190"/>' +
     '</linearGradient>' +
-    /* Back face of the fold — a tint laid over the lit ramp at a constant alpha,
+    /* Back face of the fold - a tint laid over the lit ramp at a constant alpha,
        the colour doing all the work. Near the tips the shaded face is browner
        (#bf9728 -> #a2792c, 26 darker). Around two thirds along, the fold turns
        edge-on and the faces meet, so the tint passes through the ramp's own
        colour and vanishes. At the horn it returns, but there the shaded face is
-       not darker so much as more saturated — it loses blue — hence the stops
+       not darker so much as more saturated - it loses blue - hence the stops
        finishing on a deep gold rather than a brown.
 
        Both share gfGoldBase's axis, and have to. An objectBoundingBox gradient
@@ -261,7 +261,7 @@
        vertical term as well as a horizontal one. These paths run far outside the
        artboard and so cannot use objectBoundingBox themselves; writing them as
        plain horizontal gradients instead dropped that vertical term, and the
-       tail — sitting near the bottom of the box — sampled the ramp about 12%
+       tail - sitting near the bottom of the box - sampled the ramp about 12%
        early and rendered 13 too dark. The userSpace endpoints below reproduce
        the base's offset exactly.
 
@@ -293,19 +293,19 @@
     '<stop offset="88%" stop-color="#efc707" stop-opacity="0.34"/>' +
     '<stop offset="100%" stop-color="#edbd00" stop-opacity="0.34"/>' +
     '</linearGradient>' +
-    /* Drawn trace — catalogue edge gold. */
+    /* Drawn trace - catalogue edge gold. */
     '<linearGradient id="gfStroke" x1="10%" y1="0%" x2="90%" y2="100%">' +
     '<stop offset="0%" stop-color="#a57e35"/>' +
     '<stop offset="100%" stop-color="#b98a2c"/>' +
     '</linearGradient>' +
-    /* Pour front — warm champagne, not saturated orange. */
+    /* Pour front - warm champagne, not saturated orange. */
     '<linearGradient id="gfMeniscus" x1="0" y1="0" x2="0" y2="1">' +
     '<stop offset="0%" stop-color="#fff3cf" stop-opacity="0"/>' +
     '<stop offset="42%" stop-color="#fff6de" stop-opacity="0.85"/>' +
     '<stop offset="52%" stop-color="#ffd98a" stop-opacity="0.9"/>' +
     '<stop offset="100%" stop-color="#efc824" stop-opacity="0"/>' +
     '</linearGradient>' +
-    /* Tight hot core with a faint halo — a soft wide band just washes the metal out. */
+    /* Tight hot core with a faint halo - a soft wide band just washes the metal out. */
     '<linearGradient id="gfSheen" x1="0" y1="0" x2="1" y2="0">' +
     '<stop offset="0%" stop-color="#fffdf2" stop-opacity="0"/>' +
     '<stop offset="38%" stop-color="#fffdf2" stop-opacity="0.14"/>' +
@@ -324,13 +324,13 @@
     '<stop offset="45%" stop-color="#fff8e2" stop-opacity="0.72"/>' +
     '<stop offset="100%" stop-color="#fff8e2" stop-opacity="0"/>' +
     '</radialGradient>' +
-    /* Spark halo — soft warm white, not orange bloom. */
+    /* Spark halo - soft warm white, not orange bloom. */
     '<filter id="gfSpark" x="-100%" y="-100%" width="300%" height="300%">' +
     '<feGaussianBlur stdDeviation="2.2" result="gfS"/>' +
     '<feMerge><feMergeNode in="gfS"/><feMergeNode in="SourceGraphic"/></feMerge>' +
     '</filter>' +
     /* Both read the same distance field. gfReveal opens everything the front has
-       passed; gfBand rides the front itself — the table turns the ramp into a
+       passed; gfBand rides the front itself - the table turns the ramp into a
        stripe, which is the molten edge. Only the intercepts animate. */
     '<filter id="gfReveal" color-interpolation-filters="sRGB">' +
     '<feComponentTransfer data-gf-reveal>' +
@@ -379,7 +379,7 @@
     '<rect data-gf-sheen x="-460" y="-320" width="160" height="1280" fill="url(#gfSheen)" opacity="0" style="mix-blend-mode:screen" transform="rotate(-32 282 315)"/>' +
     '</g>' +
 
-    /* Solid drawn trace — holds closed, then dissolves into the filled metal. */
+    /* Solid drawn trace - holds closed, then dissolves into the filled metal. */
     '<path data-gf-outline fill="none" stroke="url(#gfStroke)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" d="' + SHAPE + '"/>' +
     /* Rides on the stroke, so it cannot be clipped to the shape without being
        halved. It stays soft-edged instead, which is what keeps it from reading
@@ -603,7 +603,7 @@
   }
 
   gsap.registerPlugin(CustomEase);
-  /* Slow to commit, then confident — reads as a hand drawing rather than a wipe. */
+  /* Slow to commit, then confident - reads as a hand drawing rather than a wipe. */
   CustomEase.create('gfDraw', 'M0,0 C0.22,0 0.1,1 1,1');
   /* Liquid: eases in as it takes, settles gently as it tops out. */
   CustomEase.create('gfPourEase', 'M0,0 C0.34,0.06 0.2,1 1,1');
@@ -738,7 +738,7 @@
       },
     });
 
-    /* I — A point of light traces the outline shut (0 → 0.95s) */
+    /* I - A point of light traces the outline shut (0 → 0.95s) */
     tl.set(spark, { opacity: 1 }, 0)
       .to(
         draw,
@@ -754,7 +754,7 @@
       )
       .to(spark, { opacity: 0, duration: 0.18, ease: 'power2.in' }, 0.93)
 
-      /* II — Molten gold pours in behind the closed outline (0.88 → 1.63s) */
+      /* II - Molten gold pours in behind the closed outline (0.88 → 1.63s) */
       .to(meniscus, { opacity: 1, duration: 0.14, ease: 'power2.out' }, 0.88)
       .to(
         pour,
@@ -774,7 +774,7 @@
       .to(outline, { opacity: 0, duration: 0.48, ease: 'power2.inOut' }, 1.02)
       .set(outline, { visibility: 'hidden' }, 1.52)
 
-      /* III — Specular sweep rakes the metal (1.32 → ~2.67s) */
+      /* III - Specular sweep rakes the metal (1.32 → ~2.67s) */
       .to(sheen, { opacity: 1, duration: 0.28, ease: 'power1.out' }, 1.32)
       .to(
         sweep,
@@ -790,7 +790,7 @@
       )
       .to(sheen, { opacity: 0, duration: 0.32, ease: 'power1.in' }, 2.35)
 
-      /* IV — Icon rises + wordmark zoom-out (space + SOLUTION together) */
+      /* IV - Icon rises + wordmark zoom-out (space + SOLUTION together) */
       .add('wordmark', REVEAL_AT)
       .to(lockup, { scale: 1, duration: 0.46, ease: 'power2.out' }, 'wordmark')
       .to(
@@ -812,7 +812,7 @@
         'wordmark'
       )
 
-      /* V — Hold */
+      /* V - Hold */
       .to({}, { duration: 0.35 }, REVEAL_AT + REVEAL_DUR + 0.2);
 
     if (inspect) {

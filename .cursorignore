@@ -1,0 +1,25 @@
+﻿# Cursor indexing exclusions — keeps RAM/CPU down on this static site.
+# Source of truth stays in src/; agents should not index generated or binary paths.
+
+# Dependencies & build output
+node_modules/
+dist/
+.astro/
+
+# Generated minified JS (edit src/client/ instead)
+public/js/
+
+# Large binary / vendor assets
+public/images/
+public/videos/
+public/fonts/
+public/vendor/
+src/assets/images/
+
+# Large lockfile
+package-lock.json
+
+# Secrets
+.env
+.env.*
+!.env.example

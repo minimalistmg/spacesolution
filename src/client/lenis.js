@@ -1,5 +1,5 @@
 /**
- * Site-wide Lenis — smooth wheel on desktop, native touch, GSAP-synced.
+ * Site-wide Lenis - smooth wheel on desktop, native touch, GSAP-synced.
  */
 (function () {
   'use strict';

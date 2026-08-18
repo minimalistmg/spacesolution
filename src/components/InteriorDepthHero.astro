@@ -1,6 +1,6 @@
 ---
 /**
- * L1 hub hero — auto-tour + hover takeover.
+ * L1 hub hero - auto-tour + hover takeover.
  * Right: open-building diorama with room fills (residential + commercial /
  * institutional / hospitality cutaways).
  */
@@ -20,7 +20,7 @@ interface Stat {
 interface Props {
   heading?: string;
   stats?: Stat[];
-  /** Hub page slug — selects offers, imagery, and stage calibration */
+  /** Hub page slug - selects offers, imagery, and stage calibration */
   hubSlug?: string;
   /** Optional full config override */
   hub?: DepthHeroHubConfig;
@@ -34,7 +34,7 @@ const first = offers[0];
 
 const runtimeServices = offers.map(({ cutout: _c, ...rest }) => rest);
 
-/** Serve the imported PNG URL directly — preserves alpha and avoids /_image Sharp failures. */
+/** Serve the imported PNG URL directly - preserves alpha and avoids /_image Sharp failures. */
 const houseImage = hub.houseImage;
 ---
 

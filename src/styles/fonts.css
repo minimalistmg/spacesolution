@@ -6,7 +6,7 @@
   font-family: 'Söhne Breit';
   font-style: normal;
   font-weight: 700;
-  font-display: swap;
+  font-display: block;
   src:
     url('https://db.onlinewebfonts.com/t/b84fdd0510a528dc2edfab5e31266765.woff2') format('woff2'),
     url('https://db.onlinewebfonts.com/t/b84fdd0510a528dc2edfab5e31266765.woff') format('woff');
@@ -16,7 +16,7 @@
   font-family: 'Söhne Breit';
   font-style: normal;
   font-weight: 800;
-  font-display: swap;
+  font-display: block;
   src:
     url('https://db.onlinewebfonts.com/t/b84fdd0510a528dc2edfab5e31266765.woff2') format('woff2'),
     url('https://db.onlinewebfonts.com/t/b84fdd0510a528dc2edfab5e31266765.woff') format('woff');
@@ -27,7 +27,7 @@
   font-family: 'Monument Extended';
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
+  font-display: block;
   src:
     local('Monument Extended'),
     url('https://fonts.cdnfonts.com/s/19595/MonumentExtended-Regular.woff') format('woff');
@@ -37,7 +37,7 @@
   font-family: 'Monument Extended';
   font-style: normal;
   font-weight: 800;
-  font-display: swap;
+  font-display: block;
   src:
     local('Monument Extended'),
     url('https://fonts.cdnfonts.com/s/19595/MonumentExtended-Ultrabold.woff') format('woff');

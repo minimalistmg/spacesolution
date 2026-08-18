@@ -5,7 +5,6 @@
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
-import CtaSection from '../components/CtaSection.astro';
 import ImageGallery from '../components/ImageGallery.astro';
 import { projects } from '../data/projects';
 import { heroImages, roomImages, projectImages } from '../data/images';
@@ -15,7 +14,7 @@ const featured = projects.slice(0, 6);
 
 <BaseLayout
   title="Project Details & Case Studies | Space Solution Mysuru"
-  description="Browse Space Solution project case studies — residential, commercial, hospitality, and wellness interiors delivered across Mysuru and Karnataka."
+  description="Browse Space Solution project case studies - residential, commercial, hospitality, and wellness interiors delivered across Mysuru and Karnataka."
   headerScrolled={false}
 >
   <PageHero
@@ -47,7 +46,7 @@ const featured = projects.slice(0, 6);
           featured.map((project) => (
             <li>
               <a href={project.href}>
-                {project.title} — {project.location}
+                {project.title} - {project.location}
               </a>
             </li>
           ))
@@ -58,7 +57,7 @@ const featured = projects.slice(0, 6);
 
   <ImageGallery
     title="Spaces we deliver"
-    description="Homes, workplaces, clinics, cafés, and hospitality interiors — photographed in a light, practical palette."
+    description="Homes, workplaces, clinics, cafés, and hospitality interiors - photographed in a light, practical palette."
     items={[
       { src: projectImages.apartment, alt: 'Residential living interior', caption: 'Residential' },
       { src: roomImages.office, alt: 'Office workspace', caption: 'Commercial' },
@@ -66,6 +65,4 @@ const featured = projects.slice(0, 6);
       { src: roomImages.clinic, alt: 'Clinic reception', caption: 'Healthcare' },
     ]}
   />
-
-  <CtaSection />
 </BaseLayout>

@@ -2,7 +2,6 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectDetailSection from '../../components/ProjectDetailSection.astro';
 import FaqSection from '../../components/FaqSection.astro';
-import CtaSection from '../../components/CtaSection.astro';
 import {
   getProjectBySlug,
   getProjectNeighbors,
@@ -41,6 +40,4 @@ const { next } = getProjectNeighbors(project.slug);
       />
     )
   }
-
-  <CtaSection />
 </BaseLayout>

@@ -2,7 +2,6 @@
 import Icon from '../../components/Icon.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
-import CtaSection from '../../components/CtaSection.astro';
 import FaqSection from '../../components/FaqSection.astro';
 import { getImage } from 'astro:assets';
 import {
@@ -42,7 +41,7 @@ const featuredImage = await getImage({
 
 <BaseLayout
   title="Design Library | Space Solution"
-  description="Interior design guides on modular kitchens, materials, space planning, styles, budgets, and renovation — from Space Solution, Mysuru."
+  description="Interior design guides on modular kitchens, materials, space planning, styles, budgets, and renovation - from Space Solution, Mysuru."
   headerScrolled={false}
 >
   <PageHero
@@ -126,7 +125,7 @@ const featuredImage = await getImage({
       {
         question: 'Can I share a guide with my architect or contractor?',
         answer:
-          'Yes. Each guide is written to travel well — use it as a shared checklist so the whole team stays aligned on scope and finishes.',
+          'Yes. Each guide is written to travel well - use it as a shared checklist so the whole team stays aligned on scope and finishes.',
       },
       {
         question: 'What should I do after reading a guide?',
@@ -137,6 +136,4 @@ const featuredImage = await getImage({
     title="About the design library"
     description="Short answers before you dig into a guide."
   />
-
-  <CtaSection />
 </BaseLayout>

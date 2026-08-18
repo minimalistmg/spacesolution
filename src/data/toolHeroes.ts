@@ -1,7 +1,7 @@
 import type { ImageMetadata } from 'astro';
 import { heroImages, roomImages, projectImages } from './images';
 
-/** Subject-fit hero for each tool — reuses existing photography only. */
+/** Subject-fit hero for each tool - reuses existing photography only. */
 export const toolHeroBySlug: Record<string, ImageMetadata> = {
   'kitchen-cost-estimator': roomImages.modularKitchen,
   'home-budget-calculator': roomImages.fullHome,

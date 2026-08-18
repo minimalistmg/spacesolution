@@ -2,7 +2,6 @@
 import Icon from '../../components/Icon.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
-import CtaSection from '../../components/CtaSection.astro';
 import FaqSection from '../../components/FaqSection.astro';
 import { heroImages } from '../../data/images';
 import { toolPages, toolsHubIntro } from '../../data/tools';
@@ -29,14 +28,14 @@ const hubFaqs = [
   {
     question: 'What happens after I get a number?',
     answer:
-      'Book a free 3D consultation. Bring your approximate carpet area, photos, and must-have list — we will turn the estimate into a clear scope and timeline.',
+      'Book a free 3D consultation. Bring your approximate carpet area, photos, and must-have list - we will turn the estimate into a clear scope and timeline.',
   },
 ];
 ---
 
 <BaseLayout
   title="Free Interior Planning Tools in Mysuru | Space Solution"
-  description="Free kitchen, home, office, institutional, and hospitality planning tools from Space Solution Mysuru — rough budgets, layouts, and capacity before you book a consultation."
+  description="Free kitchen, home, office, institutional, and hospitality planning tools from Space Solution Mysuru - rough budgets, layouts, and capacity before you book a consultation."
   headerScrolled={false}
 >
   <PageHero
@@ -90,6 +89,4 @@ const hubFaqs = [
     title="About these planning tools"
     description="Quick answers before you pick a calculator."
   />
-
-  <CtaSection />
 </BaseLayout>

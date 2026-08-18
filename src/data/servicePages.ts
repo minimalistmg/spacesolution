@@ -1,6 +1,6 @@
 import type { ImageMetadata } from 'astro';
 import type { IconName } from './iconPaths';
-import { cutoutImages, heroImages, projectImages, roomImages, studioImages } from './images';
+import { heroImages, projectImages, roomImages, studioImages } from './images';
 
 export type ServiceActivePage = 'home-interiors' | 'commercial' | 'institutional' | 'hospitality';
 
@@ -75,7 +75,7 @@ export interface ServiceGalleryHero {
   images: [ServiceGalleryHeroShot, ServiceGalleryHeroShot, ServiceGalleryHeroShot];
 }
 
-/** Panoramic L2 hero — full-bleed lifestyle still with a three-column proof bar. */
+/** Panoramic L2 hero - full-bleed lifestyle still with a three-column proof bar. */
 export interface ServiceVistaHero {
   headline: string;
   kicker: string;
@@ -118,6 +118,8 @@ export interface ServicePageData {
   relatedHeading?: string;
   /** Soft pastel product cards (e.g. residential explore-by-room). Replaces relatedLinks list when set. */
   pastelCards?: ServicePastelCard[];
+  /** L1 hub pages: home-style spaces band, why, and process. Skips overview, blocks, table, and why-cards. */
+  hubLayout?: boolean;
 }
 
 function crumb(parent: { label: string; href: string } | null, current: string): string {
@@ -147,7 +149,7 @@ function block(
 export const residentialHub: ServicePageData = {
   slug: 'residential-interiors',
   metaDescription:
-    'Residential interior design in Mysuru — modular kitchens, bedrooms, living rooms, and complete home interiors by Space Solution.',
+    'Residential interior design in Mysuru - modular kitchens, bedrooms, living rooms, and complete home interiors by Space Solution.',
   seoTitle: 'Residential Interiors in Mysuru & Karnataka | Space Solution',
   activePage: 'home-interiors',
   breadcrumb: crumb(null, 'Residential Interiors'),
@@ -155,73 +157,24 @@ export const residentialHub: ServicePageData = {
   heroDescription:
     'Your home should reflect your personality. We deliver end-to-end interior solution from kitchens to bedrooms.',
   heroImage: heroImages.residential,
-  overview: {
-    label: 'Overview',
-    title: 'Turnkey Home Interiors Designed & Built in Mysuru',
-    description:
-      'From modular kitchens to full-home programmes, Space Solution plans, manufactures, and installs residential interiors across Mysuru and Karnataka — one accountable team from design to handover.',
-  },
-  body: [
-    'Looking for residential interior design in Mysuru that feels personal and finishes on schedule? Space Solution delivers turnkey home interiors — modular kitchens, wardrobes, living and dining, bedrooms, and pooja spaces — coordinated under one design language.',
-    'Our factory-backed production keeps cabinet quality consistent while site teams handle civil coordination, electrical planning, and installation. Whether you are furnishing an apartment, villa, or independent house, we build around how your family actually lives.',
-    'Clients across Karnataka choose us for clear timelines, moisture-resistant materials suited to Indian kitchens, and 3D visualisations before fabrication begins. Explore room-wise solution or start with a full-home programme for a single accountable handover.',
-    'From first measurement to final snag list, you work with one Mysuru-based team — designers, factory craftspeople, and installers — so decisions stay aligned and delivery stays predictable.',
-  ],
+  hubLayout: true,
   stats: [
     { value: '15+', label: 'Years' },
     { value: '800+', label: 'Homes' },
     { value: '1', label: 'Factory' },
     { value: '100%', label: 'Turnkey' },
   ],
-  blocks: [
-    block(
-      'Living & Dining',
-      'The Heart of Your Home',
-      'Balanced layouts that maximise seating without compromising flow.',
-      ['Custom TV units, accent walls, and ergonomic sofa layouts', 'Layered lighting for day-to-evening transitions'],
-      roomImages.livingDining
-    ),
-    block(
-      'Modular Kitchen',
-      'Kitchens Built for Daily Use',
-      'We design kitchens around the work triangle — sink, stove, and refrigerator.',
-      ['L-shaped, U-shaped, parallel, and island kitchens', 'Tandem drawers, corner carousels, and tall pantry units'],
-      roomImages.modularKitchen,
-      true
-    ),
-    block(
-      'Bedrooms',
-      'Your Private Sanctuary',
-      'Clutter-free surfaces and calming palettes for restful spaces.',
-      ['Hydraulic storage bed frames', 'Upholstered headboards and integrated vanity units'],
-      roomImages.bedroom
-    ),
-  ],
+  blocks: [],
   galleryTitle: 'Residential interiors gallery',
   galleryDescription: 'Homes, kitchens, and living spaces designed and delivered across Mysuru.',
   gallery: [
     { src: roomImages.livingDining, alt: 'Living and dining interior in Mysuru', caption: 'Living & dining' },
     { src: roomImages.modularKitchen, alt: 'Modular kitchen by Space Solution', caption: 'Modular kitchen' },
     { src: roomImages.bedroom, alt: 'Bedroom interior with storage', caption: 'Bedroom' },
-    { src: projectImages.apartment, alt: 'Apartment interior project', caption: 'Apartment home' },
   ],
   showVideo: true,
   videoTitle: 'See how we design homes',
-  videoDescription: 'A look at our residential process — from 3D design to factory finish and on-site installation in Mysuru.',
-  table: {
-    headers: ['Category', 'Best For', 'Popular Material'],
-    rows: [
-      ['Modular Kitchen', 'High utility / cooking', 'Marine ply / acrylic finish'],
-      ['Living Room', 'Entertaining / socialising', 'Veneer / Italian marble'],
-      ['Master Bedroom', 'Relaxation / privacy', 'Laminate / fabric upholstery'],
-      ['Pooja Room', 'Spiritual / traditional', 'Teak wood / Corian'],
-    ],
-  },
-  steps: [
-    { title: 'Custom 3D visualisations', description: 'See your home before the first brick is laid.' },
-    { title: 'Quality materials', description: 'Premium, moisture-resistant materials for longevity.' },
-    { title: 'Timely delivery', description: 'Transparent timeline from design to final handover.' },
-  ],
+  videoDescription: 'A look at our residential process - from 3D design to factory finish and on-site installation in Mysuru.',
   faqTitle: 'Residential interiors FAQs',
   faqDescription: 'Common questions about home interior design and turnkey delivery in Mysuru.',
   faqs: [
@@ -243,60 +196,7 @@ export const residentialHub: ServicePageData = {
     {
       question: 'Are materials suited to Mysuru’s climate?',
       answer:
-        'We specify moisture-resistant boards, quality hardware, and finishes chosen for Indian kitchens and humid conditions — fabricated in our factory for consistent quality.',
-    },
-  ],
-  relatedHeading: 'Explore by room',
-  relatedLinks: [
-    { label: 'Modular Kitchen', href: '/modular-kitchen' },
-    { label: 'Wardrobes & Storage', href: '/wardrobes-storage' },
-    { label: 'Living & Dining', href: '/living-dining' },
-    { label: 'Bedrooms', href: '/bedrooms' },
-    { label: 'Pooja Room', href: '/pooja-room' },
-    { label: 'Full Home Interiors', href: '/full-home-interiors' },
-  ],
-  pastelCards: [
-    {
-      title: 'Modular Kitchen',
-      description: 'Layouts and storage built for how you cook every day.',
-      href: '/modular-kitchen',
-      image: cutoutImages.kitchen,
-      tone: 'peach',
-    },
-    {
-      title: 'Wardrobes & Storage',
-      description: 'Closets and storage systems that stay calm and organised.',
-      href: '/wardrobes-storage',
-      image: cutoutImages.wardrobe,
-      tone: 'blue',
-    },
-    {
-      title: 'Living & Dining',
-      description: 'Seating, flow, and lighting for the heart of the home.',
-      href: '/living-dining',
-      image: cutoutImages.sofa,
-      tone: 'yellow',
-    },
-    {
-      title: 'Bedrooms',
-      description: 'Restful suites with storage beds and soft finishes.',
-      href: '/bedrooms',
-      image: cutoutImages.bed,
-      tone: 'sage',
-    },
-    {
-      title: 'Pooja Room',
-      description: 'Quiet mandir spaces with warm timber and clean light.',
-      href: '/pooja-room',
-      image: cutoutImages.pooja,
-      tone: 'sand',
-    },
-    {
-      title: 'Full Home Interiors',
-      description: 'One design language from kitchen to bedrooms — turnkey.',
-      href: '/full-home-interiors',
-      image: cutoutImages.chair,
-      tone: 'mist',
+        'We specify moisture-resistant boards, quality hardware, and finishes chosen for Indian kitchens and humid conditions - fabricated in our factory for consistent quality.',
     },
   ],
 };
@@ -304,7 +204,7 @@ export const residentialHub: ServicePageData = {
 export const commercialHub: ServicePageData = {
   slug: 'commercial-interiors',
   metaDescription:
-    'Commercial interior design in Mysuru — office, retail, clinic, and co-working spaces by Space Solution.',
+    'Commercial interior design in Mysuru - office, retail, clinic, and co-working spaces by Space Solution.',
   seoTitle: 'Commercial Interiors in Mysuru & Karnataka | Space Solution',
   activePage: 'commercial',
   breadcrumb: crumb(null, 'Commercial Interiors'),
@@ -312,14 +212,15 @@ export const commercialHub: ServicePageData = {
   heroDescription:
     'We design and deliver commercial interiors that support daily operations and create well-structured environments.',
   heroImage: heroImages.commercial,
+  hubLayout: true,
   overview: {
     label: 'Overview',
     title: 'Commercial Fitouts That Work Hard Every Day',
     description:
-      'Office, retail, clinic, and co-working interiors planned for workflow, brand presence, and durable daily use — delivered turnkey across Mysuru and Karnataka by Space Solution.',
+      'Office, retail, clinic, and co-working interiors planned for workflow, brand presence, and durable daily use - delivered turnkey across Mysuru and Karnataka by Space Solution.',
   },
   body: [
-    'Space Solution designs and delivers commercial interiors in Mysuru for offices, clinics, retail showrooms, and co-working spaces. We focus on layouts that support real operations — not just first impressions.',
+    'Space Solution designs and delivers commercial interiors in Mysuru for offices, clinics, retail showrooms, and co-working spaces. We focus on layouts that support real operations - not just first impressions.',
     'Our turnkey approach covers planning, furniture, partitions, storage, and coordinated finishes. Factory-made cabinetry and modular systems help projects stay consistent from boardroom to reception.',
     'Whether you are fitting out a corporate floor, a neighbourhood clinic, or a brand showroom, we balance staff efficiency, customer experience, and maintenance-friendly materials suited to high-traffic use.',
     'From concept drawings to opening day, one Mysuru-based team keeps electrical, flooring, ceilings, and furniture aligned so your commercial space opens on schedule.',
@@ -330,30 +231,7 @@ export const commercialHub: ServicePageData = {
     { value: '4', label: 'Segments' },
     { value: '1', label: 'Turnkey Team' },
   ],
-  blocks: [
-    block(
-      'Corporate & Office',
-      'High-Performance Workplace Design',
-      'Office solution that balance well-being with operational efficiency.',
-      ['Executive suites, boardrooms, and co-working spaces', 'Modular furniture and activity-based zones'],
-      roomImages.office
-    ),
-    block(
-      'Retail & Showrooms',
-      'Immersive Brand Environments',
-      'Retail design that maps the customer journey and increases dwell time.',
-      ['Boutique retail and flagship showrooms', 'Pop-up stores and curated product displays'],
-      roomImages.retail,
-      true
-    ),
-    block(
-      'Clinics & Healthcare',
-      'Calm, Compliant Care Spaces',
-      'Clinical interiors that support patient comfort and staff workflow.',
-      ['Reception, consultation, and procedure rooms', 'Hygiene-focused materials and storage'],
-      roomImages.clinic
-    ),
-  ],
+  blocks: [],
   galleryTitle: 'Commercial interiors gallery',
   galleryDescription: 'Offices, clinics, and retail spaces delivered across Mysuru and Karnataka.',
   gallery: [
@@ -368,7 +246,7 @@ export const commercialHub: ServicePageData = {
   cards: [
     { icon: 'building', title: 'Office Interiors', description: 'Workstations, storage, and glass partitions.' },
     { icon: 'store', title: 'Retail Interiors', description: 'Layouts for display and smooth customer flow.' },
-    { icon: 'key', title: 'Turnkey Fitouts', description: 'Electrical, flooring, ceilings, and furniture — one team.' },
+    { icon: 'key', title: 'Turnkey Fitouts', description: 'Electrical, flooring, ceilings, and furniture - one team.' },
   ],
   faqTitle: 'Commercial interiors FAQs',
   faqDescription: 'Questions about office, retail, and clinic fitouts in Mysuru.',
@@ -376,7 +254,7 @@ export const commercialHub: ServicePageData = {
     {
       question: 'What commercial spaces do you design in Mysuru?',
       answer:
-        'We deliver interiors for offices, clinics and healthcare, retail showrooms, and co-working spaces — including turnkey fitouts with furniture, partitions, and coordinated finishes.',
+        'We deliver interiors for offices, clinics and healthcare, retail showrooms, and co-working spaces - including turnkey fitouts with furniture, partitions, and coordinated finishes.',
     },
     {
       question: 'Can you handle a full turnkey commercial fitout?',
@@ -407,7 +285,7 @@ export const commercialHub: ServicePageData = {
 export const institutionalHub: ServicePageData = {
   slug: 'institutional-interiors',
   metaDescription:
-    'Institutional interior and furniture solution for schools, hostels, and labs — durable layouts by Space Solution.',
+    'Institutional interior and furniture solution for schools, hostels, and labs - durable layouts by Space Solution.',
   seoTitle: 'Institutional Interiors in Mysuru & Karnataka | Space Solution',
   activePage: 'institutional',
   breadcrumb: crumb(null, 'Institutional Interiors'),
@@ -415,16 +293,17 @@ export const institutionalHub: ServicePageData = {
   heroDescription:
     'Durable interior and furniture solution for institutions that require efficient layouts and long-term usability.',
   heroImage: heroImages.institutional,
+  hubLayout: true,
   overview: {
     label: 'Overview',
     title: 'Built for High-Usage Spaces Across Mysuru & Karnataka',
     description:
-      'Institutional spaces demand well-planned layouts, strong materials, and practical designs that handle continuous usage without frequent maintenance — delivered by Space Solution with factory-backed furniture.',
+      'Institutional spaces demand well-planned layouts, strong materials, and practical designs that handle continuous usage without frequent maintenance - delivered by Space Solution with factory-backed furniture.',
   },
   body: [
     'Schools, colleges, hostels, libraries, and labs need furniture that survives continuous daily use. Space Solution designs and manufactures institutional interiors in Mysuru with durability and space efficiency at the core.',
     'Our factory produces classroom sets, hostel beds and lockers, library shelving, and lab furniture sized for heavy occupancy. Layouts prioritise clear circulation, storage, and easy maintenance for facility teams.',
-    'Whether you are equipping a new campus block or refreshing an existing hostel, we deliver practical packages with consistent quality — from single classrooms to multi-floor programmes across Karnataka.',
+    'Whether you are equipping a new campus block or refreshing an existing hostel, we deliver practical packages with consistent quality - from single classrooms to multi-floor programmes across Karnataka.',
     'Turnkey coordination means furniture, storage, and room planning arrive as one programme, so institutions open or expand with fewer vendors and clearer accountability.',
   ],
   stats: [
@@ -433,23 +312,7 @@ export const institutionalHub: ServicePageData = {
     { value: '1000+', label: 'Beds & Desks' },
     { value: '1', label: 'Factory' },
   ],
-  blocks: [
-    block(
-      'Education & Learning',
-      'Classroom Solution',
-      'Furniture designed for comfort, durability, and efficient space use in schools and colleges.',
-      ['Classroom desks and chairs', 'Laboratory furniture and library shelving'],
-      roomImages.classroom
-    ),
-    block(
-      'Accommodation',
-      'Hostel & PG Furniture',
-      'Solution for student accommodation and shared living environments.',
-      ['Single beds, bunk beds, and dormitory setups', 'Wardrobes, lockers, and study units'],
-      roomImages.hostel,
-      true
-    ),
-  ],
+  blocks: [],
   galleryTitle: 'Institutional interiors gallery',
   galleryDescription: 'Classrooms, hostels, and learning spaces built for continuous use.',
   gallery: [
@@ -477,12 +340,12 @@ export const institutionalHub: ServicePageData = {
     {
       question: 'Is your furniture built for heavy daily use?',
       answer:
-        'Yes. Institutional pieces are specified for continuous occupancy — strong frames, practical finishes, and layouts that facility teams can maintain easily.',
+        'Yes. Institutional pieces are specified for continuous occupancy - strong frames, practical finishes, and layouts that facility teams can maintain easily.',
     },
     {
       question: 'Can you furnish an entire hostel or classroom block?',
       answer:
-        'We deliver packaged programmes for dormitories, classrooms, and labs with consistent specifications across rooms — ideal for campus expansions across Karnataka.',
+        'We deliver packaged programmes for dormitories, classrooms, and labs with consistent specifications across rooms - ideal for campus expansions across Karnataka.',
     },
     {
       question: 'Do you offer turnkey institutional interiors?',
@@ -501,25 +364,26 @@ export const institutionalHub: ServicePageData = {
 export const hospitalityHub: ServicePageData = {
   slug: 'hospitality-interiors',
   metaDescription:
-    'Hospitality interior design in Mysuru — cafés, restaurants, hotels, bars, and wellness spaces by Space Solution.',
+    'Hospitality interior design in Mysuru - cafés, restaurants, hotels, bars, and wellness spaces by Space Solution.',
   seoTitle: 'Hospitality Interiors in Mysuru & Karnataka | Space Solution',
   activePage: 'hospitality',
   breadcrumb: crumb(null, 'Hospitality Interiors'),
   heroTitle: 'Hospitality Interiors',
   heroDescription:
-    'Cafés, hotels, and restaurants — front of house to kitchen, built to open on schedule.',
+    'Cafés, hotels, and restaurants - front of house to kitchen, built to open on schedule.',
   heroImage: heroImages.hospitality,
+  hubLayout: true,
   overview: {
     label: 'Overview',
     title: 'Hospitality Spaces Built for Guests & Operations in Mysuru',
     description:
-      'Hospitality design balances guest experience with back-of-house efficiency — from mood lighting and seating to kitchen flow and durable finishes — delivered turnkey by Space Solution.',
+      'Hospitality design balances guest experience with back-of-house efficiency - from mood lighting and seating to kitchen flow and durable finishes - delivered turnkey by Space Solution.',
   },
   body: [
     'From cafés and restaurants to hotels, bars, and wellness studios, Space Solution creates hospitality interiors in Mysuru that feel distinctive and run efficiently every service.',
     'We plan front-of-house atmosphere alongside kitchen, service, and storage flow so openings stay on schedule. Factory-made joinery and furniture packages keep finish quality consistent across rooms and floors.',
     'Whether you are launching Soft Café–style dining, a boutique lobby, or a salon suite, durable materials and clear zoning help staff deliver a smoother guest experience.',
-    'Our turnkey hospitality programmes cover design, production, and installation across Mysuru and Karnataka — one team from concept to opening day.',
+    'Our turnkey hospitality programmes cover design, production, and installation across Mysuru and Karnataka - one team from concept to opening day.',
   ],
   stats: [
     { value: '15+', label: 'Years' },
@@ -527,30 +391,7 @@ export const hospitalityHub: ServicePageData = {
     { value: 'FOH+BOH', label: 'Planned Together' },
     { value: '1', label: 'Opening Team' },
   ],
-  blocks: [
-    block(
-      'Cafés & Restaurants',
-      'Spaces People Return To',
-      'Warm, operational layouts for cafés, QSR, and full-service dining.',
-      ['Front-of-house seating and counter design', 'Kitchen and service line planning'],
-      roomImages.cafe
-    ),
-    block(
-      'Hotels & Resorts',
-      'Lobby to Room Consistency',
-      'Cohesive interiors across lobbies, guest rooms, and amenity spaces.',
-      ['Reception and lounge fitouts', 'Guest room furniture and wardrobes'],
-      roomImages.hotel,
-      true
-    ),
-    block(
-      'Bars & Wellness',
-      'Mood-Led Environments',
-      'Bars, lounges, salons, and wellness studios with strong atmosphere.',
-      ['Back-bar engineering and accent lighting', 'Treatment rooms and retail display'],
-      roomImages.salon
-    ),
-  ],
+  blocks: [],
   galleryTitle: 'Hospitality interiors gallery',
   galleryDescription: 'Cafés, hotels, bars, and wellness spaces across Mysuru.',
   gallery: [
@@ -563,7 +404,7 @@ export const hospitalityHub: ServicePageData = {
   videoTitle: 'Hospitality interiors that open on time',
   videoDescription: 'Front-of-house atmosphere and back-of-house planning for Mysuru hospitality brands.',
   cards: [
-    { icon: 'store', title: 'Cafés & Restaurants', description: 'Soft Café Mysuru and more — see our portfolio.' },
+    { icon: 'store', title: 'Cafés & Restaurants', description: 'Soft Café Mysuru and more - see our portfolio.' },
     { icon: 'building', title: 'Hotels & Resorts', description: 'Lobbies, rooms, and F&B within one programme.' },
     { icon: 'key', title: 'Turnkey hospitality', description: 'One team from design to opening day.' },
   ],
@@ -573,7 +414,7 @@ export const hospitalityHub: ServicePageData = {
     {
       question: 'Do you design cafés and restaurants in Mysuru?',
       answer:
-        'Yes. We plan seating, counters, lighting, and kitchen coordination for cafés, QSR, and full-service restaurants — including projects like Soft Café Mysuru in our portfolio.',
+        'Yes. We plan seating, counters, lighting, and kitchen coordination for cafés, QSR, and full-service restaurants - including projects like Soft Café Mysuru in our portfolio.',
     },
     {
       question: 'Can you deliver hotel interiors turnkey?',
@@ -603,7 +444,7 @@ export const hospitalityHub: ServicePageData = {
 export const serviceLandingPages: ServicePageData[] = [
   {
     slug: 'modular-kitchen',
-    metaDescription: 'Modular kitchen design and installation in Mysuru — factory-made cabinets, acrylic & BWP finishes.',
+    metaDescription: 'Modular kitchen design and installation in Mysuru - factory-made cabinets, acrylic & BWP finishes.',
     seoTitle: 'Modular Kitchen in Mysuru & Karnataka | Space Solution',
     activePage: 'home-interiors',
     breadcrumb: crumb(residentialParent, 'Modular Kitchen'),
@@ -611,7 +452,7 @@ export const serviceLandingPages: ServicePageData[] = [
     heroDescription: 'Factory-made kitchens designed around how you cook, store, and move every day.',
     heroImage: roomImages.modularKitchen,
     body: [
-      'A modular kitchen in Mysuru should handle daily Indian cooking — heat, spice, and frequent cleaning — without looking tired after a year. Space Solution designs factory-made kitchens around your work triangle and storage habits.',
+      'A modular kitchen in Mysuru should handle daily Indian cooking - heat, spice, and frequent cleaning - without looking tired after a year. Space Solution designs factory-made kitchens around your work triangle and storage habits.',
       'Choose L-shaped, U-shaped, parallel, or island layouts with tandem drawers, corner solution, and tall pantries. We specify acrylic, laminate, and BWP boards with soft-close hardware built for real use.',
       'Our turnkey kitchen programmes cover design, counter options (quartz or granite), and installation so cabinets arrive consistent from the factory and fit cleanly on site.',
       'Whether you are renovating an apartment kitchen or planning a villa island, you get clear timelines and one Mysuru-based team accountable from measurement to handover.',
@@ -666,7 +507,7 @@ export const serviceLandingPages: ServicePageData[] = [
       {
         question: 'Which finishes work best for Indian cooking?',
         answer:
-          'We commonly specify acrylic, laminate, and BWP boards with soft-close hardware — materials chosen for moisture, cleaning, and everyday durability.',
+          'We commonly specify acrylic, laminate, and BWP boards with soft-close hardware - materials chosen for moisture, cleaning, and everyday durability.',
       },
       {
         question: 'Can a modular kitchen be part of a full-home project?',
@@ -677,7 +518,7 @@ export const serviceLandingPages: ServicePageData[] = [
   },
   {
     slug: 'wardrobes-storage',
-    metaDescription: 'Custom wardrobes and storage solution in Mysuru — sliding, hinged, and walk-in designs.',
+    metaDescription: 'Custom wardrobes and storage solution in Mysuru - sliding, hinged, and walk-in designs.',
     seoTitle: 'Wardrobes & Storage in Mysuru & Karnataka | Space Solution',
     activePage: 'home-interiors',
     breadcrumb: crumb(residentialParent, 'Wardrobes & Storage'),
@@ -685,7 +526,7 @@ export const serviceLandingPages: ServicePageData[] = [
     heroDescription: 'Floor-to-ceiling storage tailored to your room, routine, and belongings.',
     heroImage: roomImages.bedroom,
     body: [
-      'Clutter disappears when storage matches how you dress and organise. Space Solution designs custom wardrobes in Mysuru — sliding, hinged, walk-in, and loft systems — sized to your room and ceiling height.',
+      'Clutter disappears when storage matches how you dress and organise. Space Solution designs custom wardrobes in Mysuru - sliding, hinged, walk-in, and loft systems - sized to your room and ceiling height.',
       'Internal layouts balance hanging, folding, shoes, and accessories so every inch works. Factory-made carcasses keep finish quality consistent across bedrooms.',
       'Pair wardrobes with storage beds and vanity units for a calm, coordinated bedroom programme, or add loft storage where ceiling height allows.',
       'As part of our turnkey residential interiors, wardrobe packages can align materials with your kitchen and living joinery for a cohesive home across Mysuru and Karnataka.',
@@ -743,7 +584,7 @@ export const serviceLandingPages: ServicePageData[] = [
   },
   {
     slug: 'living-dining',
-    metaDescription: 'Living and dining room interiors in Mysuru — TV units, seating layouts, and accent walls.',
+    metaDescription: 'Living and dining room interiors in Mysuru - TV units, seating layouts, and accent walls.',
     seoTitle: 'Living & Dining Interiors in Mysuru & Karnataka | Space Solution',
     activePage: 'home-interiors',
     breadcrumb: crumb(residentialParent, 'Living & Dining'),
@@ -752,9 +593,9 @@ export const serviceLandingPages: ServicePageData[] = [
     heroImage: roomImages.livingDining,
     body: [
       'Living and dining rooms set the tone for how guests experience your home. In Mysuru, Space Solution designs seating layouts, TV units, dining storage, and accent walls that balance comfort with clear circulation.',
-      'We plan layered lighting for day-to-evening use, display niches for your collections, and furniture placement that keeps pathways open — especially important in apartments.',
+      'We plan layered lighting for day-to-evening use, display niches for your collections, and furniture placement that keeps pathways open - especially important in apartments.',
       'Materials and joinery can coordinate with your modular kitchen and bedrooms under a turnkey residential programme, so the whole home feels intentional.',
-      'From compact living rooms to open-plan villa spaces across Karnataka, we focus on practical elegance that works every day — not just for photographs.',
+      'From compact living rooms to open-plan villa spaces across Karnataka, we focus on practical elegance that works every day - not just for photographs.',
     ],
     stats: [
       { value: '15+', label: 'Years' },
@@ -793,7 +634,7 @@ export const serviceLandingPages: ServicePageData[] = [
       {
         question: 'Do you build custom TV units and dining storage?',
         answer:
-          'Custom TV units, display niches, and dining sideboards are part of our residential joinery — factory-made for consistent finish quality.',
+          'Custom TV units, display niches, and dining sideboards are part of our residential joinery - factory-made for consistent finish quality.',
       },
       {
         question: 'Can living finishes match the rest of the home?',
@@ -809,7 +650,7 @@ export const serviceLandingPages: ServicePageData[] = [
   },
   {
     slug: 'bedrooms',
-    metaDescription: 'Bedroom interior design in Mysuru — storage beds, wardrobes, and calm, restful palettes.',
+    metaDescription: 'Bedroom interior design in Mysuru - storage beds, wardrobes, and calm, restful palettes.',
     seoTitle: 'Bedroom Interiors in Mysuru & Karnataka | Space Solution',
     activePage: 'home-interiors',
     breadcrumb: crumb(residentialParent, 'Bedrooms'),
@@ -818,7 +659,7 @@ export const serviceLandingPages: ServicePageData[] = [
     heroImage: roomImages.bedroom,
     body: [
       'A well-planned bedroom in Mysuru should feel calm the moment you walk in. Space Solution designs bedrooms with storage beds, wardrobes, headboards, and vanity units that reduce clutter without sacrificing comfort.',
-      'We favour soft palettes, practical lighting, and surfaces that stay tidy — hydraulic storage beds and integrated bedside solution keep everyday items out of sight.',
+      'We favour soft palettes, practical lighting, and surfaces that stay tidy - hydraulic storage beds and integrated bedside solution keep everyday items out of sight.',
       'Master suites, kids’ rooms, and guest bedrooms can share a design language while meeting different storage needs. Factory-made furniture keeps quality consistent across rooms.',
       'Include bedrooms in a full-home turnkey programme to coordinate finishes with kitchens and living areas across your Mysuru or Karnataka residence.',
     ],
@@ -869,13 +710,13 @@ export const serviceLandingPages: ServicePageData[] = [
       {
         question: 'How do you keep bedrooms feeling calm?',
         answer:
-          'We reduce visual clutter with integrated storage, soft palettes, and lighting planned for winding down — not just for display.',
+          'We reduce visual clutter with integrated storage, soft palettes, and lighting planned for winding down - not just for display.',
       },
     ],
   },
   {
     slug: 'pooja-room',
-    metaDescription: 'Pooja room design in Mysuru — traditional mandir units in teak, Corian, and laminate.',
+    metaDescription: 'Pooja room design in Mysuru - traditional mandir units in teak, Corian, and laminate.',
     seoTitle: 'Pooja Room Design in Mysuru & Karnataka | Space Solution',
     activePage: 'home-interiors',
     breadcrumb: crumb(residentialParent, 'Pooja Room'),
@@ -883,7 +724,7 @@ export const serviceLandingPages: ServicePageData[] = [
     heroDescription: 'Dedicated spiritual spaces with respectful proportions and durable finishes.',
     heroImage: roomImages.pooja,
     body: [
-      'A pooja room deserves thoughtful proportions, respectful detailing, and finishes that last. Space Solution designs mandir units and pooja spaces for Mysuru homes — wall-mounted or floor-standing — in teak, Corian, and laminate options.',
+      'A pooja room deserves thoughtful proportions, respectful detailing, and finishes that last. Space Solution designs mandir units and pooja spaces for Mysuru homes - wall-mounted or floor-standing - in teak, Corian, and laminate options.',
       'We plan diya shelves, storage for puja items, and lighting that feels serene. Compact apartment niches and dedicated rooms both get careful attention to circulation and cleanliness.',
       'Materials are chosen for durability around incense, oil, and daily ritual use, while the design language can still coordinate with the rest of your residential interiors.',
       'Include your pooja space in a turnkey home programme so carpentry, finishes, and installation stay on one Mysuru-based schedule.',
@@ -920,7 +761,7 @@ export const serviceLandingPages: ServicePageData[] = [
       {
         question: 'What materials do you use for pooja units?',
         answer:
-          'Popular options include teak wood, Corian, and laminate — selected for durability around daily ritual use and ease of cleaning.',
+          'Popular options include teak wood, Corian, and laminate - selected for durability around daily ritual use and ease of cleaning.',
       },
       {
         question: 'Can you design a compact pooja niche for an apartment?',
@@ -941,15 +782,15 @@ export const serviceLandingPages: ServicePageData[] = [
   },
   {
     slug: 'full-home-interiors',
-    metaDescription: 'Full home interior design in Mysuru — kitchens, wardrobes, living, and bedrooms in one programme.',
+    metaDescription: 'Full home interior design in Mysuru - kitchens, wardrobes, living, and bedrooms in one programme.',
     seoTitle: 'Full Home Interiors in Mysuru & Karnataka | Space Solution',
     activePage: 'home-interiors',
     breadcrumb: crumb(residentialParent, 'Full Home Interiors'),
     heroTitle: 'Full Home Interiors',
-    heroDescription: 'One design language across every room — coordinated materials, colour, and storage.',
+    heroDescription: 'One design language across every room - coordinated materials, colour, and storage.',
     heroImage: roomImages.fullHome,
     body: [
-      'Full home interiors in Mysuru work best when one team owns the whole story — kitchen, wardrobes, living, dining, bedrooms, and pooja. Space Solution delivers turnkey residential programmes with a single design language and timeline.',
+      'Full home interiors in Mysuru work best when one team owns the whole story - kitchen, wardrobes, living, dining, bedrooms, and pooja. Space Solution delivers turnkey residential programmes with a single design language and timeline.',
       'Factory production keeps joinery consistent from room to room, while site teams coordinate installation so handover stays accountable. You avoid juggling multiple vendors for carpentry, finishes, and storage.',
       'We start with measurement and 3D design, align materials and budgets early, then manufacture and install. Apartments, villas, and independent homes across Karnataka all benefit from this end-to-end approach.',
       'If you want one point of contact from first drawing to final snag list, a full-home turnkey programme is the clearest path to a cohesive Space Solution home.',
@@ -986,7 +827,7 @@ export const serviceLandingPages: ServicePageData[] = [
       {
         question: 'What does a full-home interior programme include?',
         answer:
-          'Typically modular kitchen, wardrobes, living and dining joinery, bedrooms, and often pooja — with coordinated materials, one timeline, and one handover.',
+          'Typically modular kitchen, wardrobes, living and dining joinery, bedrooms, and often pooja - with coordinated materials, one timeline, and one handover.',
       },
       {
         question: 'Is full-home delivery turnkey?',
@@ -1011,7 +852,7 @@ export const serviceLandingPages: ServicePageData[] = [
   },
   {
     slug: 'office-interiors',
-    metaDescription: 'Office interior design in Mysuru — workstations, meeting rooms, and co-working fitouts.',
+    metaDescription: 'Office interior design in Mysuru - workstations, meeting rooms, and co-working fitouts.',
     seoTitle: 'Office Interiors in Mysuru & Karnataka | Space Solution',
     activePage: 'commercial',
     breadcrumb: crumb(commercialParent, 'Office Interiors'),
@@ -1020,7 +861,7 @@ export const serviceLandingPages: ServicePageData[] = [
     heroImage: heroImages.commercial,
     body: [
       'Office interiors in Mysuru should help teams focus, meet, and grow without constant rework. Space Solution designs workplaces with workstations, cabins, meeting rooms, and storage planned for hybrid routines.',
-      'Glass partitions, modular furniture, and clear zoning create activity-based spaces — quiet focus areas alongside collaboration zones. Factory-made joinery keeps finish quality consistent across floors.',
+      'Glass partitions, modular furniture, and clear zoning create activity-based spaces - quiet focus areas alongside collaboration zones. Factory-made joinery keeps finish quality consistent across floors.',
       'Our turnkey commercial fitouts can coordinate furniture with flooring, ceilings, and electrical planning so opening or expansion stays on one timeline.',
       'From startups to established corporate floors across Karnataka, we deliver practical, professional environments built for daily performance.',
     ],
@@ -1078,7 +919,7 @@ export const serviceLandingPages: ServicePageData[] = [
   {
     slug: 'admin-office-interiors',
     metaDescription:
-      'Admin and staff office interiors for schools, colleges, and institutions in Mysuru — durable workstations and storage.',
+      'Admin and staff office interiors for schools, colleges, and institutions in Mysuru - durable workstations and storage.',
     seoTitle: 'Admin & Staff Office Interiors Mysuru | Space Solution',
     activePage: 'institutional',
     breadcrumb: crumb(institutionalParent, 'Admin & Staff Offices'),
@@ -1124,7 +965,7 @@ export const serviceLandingPages: ServicePageData[] = [
   },
   {
     slug: 'clinic-interiors',
-    metaDescription: 'Clinic and healthcare interior fitouts in Mysuru — reception, consultation, and procedure rooms.',
+    metaDescription: 'Clinic and healthcare interior fitouts in Mysuru - reception, consultation, and procedure rooms.',
     seoTitle: 'Clinic Interiors in Mysuru & Karnataka | Space Solution',
     activePage: 'commercial',
     breadcrumb: crumb(commercialParent, 'Clinics & Healthcare'),
@@ -1134,7 +975,7 @@ export const serviceLandingPages: ServicePageData[] = [
     body: [
       'Clinic interiors in Mysuru need to reassure patients while supporting fast, hygienic staff workflows. Space Solution plans reception, waiting, consultation, and procedure rooms with clear circulation and practical storage.',
       'We specify easy-clean surfaces and layouts that reduce bottlenecks between triage, consultation, and billing. Furniture and joinery are chosen for durability in high-traffic healthcare settings.',
-      'Turnkey clinic fitouts help doctors and clinic groups open or expand with one accountable team — design through installation across Mysuru and Karnataka.',
+      'Turnkey clinic fitouts help doctors and clinic groups open or expand with one accountable team - design through installation across Mysuru and Karnataka.',
       'From single-doctor clinics to multi-room centres, we focus on calm patient experience without compromising operational efficiency.',
     ],
     stats: [
@@ -1169,7 +1010,7 @@ export const serviceLandingPages: ServicePageData[] = [
       {
         question: 'Which clinic zones do you design?',
         answer:
-          'Reception, waiting, consultation, procedure, and support storage zones — planned for patient comfort and staff efficiency.',
+          'Reception, waiting, consultation, procedure, and support storage zones - planned for patient comfort and staff efficiency.',
       },
       {
         question: 'Do you use hygiene-focused materials?',
@@ -1190,7 +1031,7 @@ export const serviceLandingPages: ServicePageData[] = [
   },
   {
     slug: 'retail-interiors',
-    metaDescription: 'Retail and showroom interiors in Mysuru — layouts for display, flow, and brand impact.',
+    metaDescription: 'Retail and showroom interiors in Mysuru - layouts for display, flow, and brand impact.',
     seoTitle: 'Retail Interiors in Mysuru & Karnataka | Space Solution',
     activePage: 'commercial',
     breadcrumb: crumb(commercialParent, 'Retail & Showrooms'),
@@ -1256,7 +1097,7 @@ export const serviceLandingPages: ServicePageData[] = [
   },
   {
     slug: 'coworking-interiors',
-    metaDescription: 'Co-working space interiors in Mysuru — hot desks, meeting pods, and community zones.',
+    metaDescription: 'Co-working space interiors in Mysuru - hot desks, meeting pods, and community zones.',
     seoTitle: 'Co-working Interiors in Mysuru & Karnataka | Space Solution',
     activePage: 'commercial',
     breadcrumb: crumb(commercialParent, 'Co-working'),
@@ -1267,7 +1108,7 @@ export const serviceLandingPages: ServicePageData[] = [
       'Co-working interiors in Mysuru need flexibility without chaos. Space Solution designs hot desks, meeting pods, phone booths, and community zones that members can understand immediately.',
       'We balance density with acoustics and circulation so focus work and networking can coexist. Café and lounge areas become social anchors without disrupting quiet zones.',
       'Modular furniture and factory-made joinery make future reconfiguration easier as membership grows. Turnkey delivery keeps openings coordinated for operators across Karnataka.',
-      'Whether you are launching a new centre or refreshing an existing floor, we plan for operations — reception, access, storage, and brand presence included.',
+      'Whether you are launching a new centre or refreshing an existing floor, we plan for operations - reception, access, storage, and brand presence included.',
     ],
     stats: [
       { value: '15+', label: 'Years' },
@@ -1301,7 +1142,7 @@ export const serviceLandingPages: ServicePageData[] = [
       {
         question: 'What zones do you typically include in co-working?',
         answer:
-          'Hot desks, dedicated desks, meeting rooms or pods, phone booths, lounge or café areas, and reception — sized to your membership model.',
+          'Hot desks, dedicated desks, meeting rooms or pods, phone booths, lounge or café areas, and reception - sized to your membership model.',
       },
       {
         question: 'Can the layout be reconfigured later?',
@@ -1322,7 +1163,7 @@ export const serviceLandingPages: ServicePageData[] = [
   },
   {
     slug: 'school-interiors',
-    metaDescription: 'School and college furniture in Mysuru — classrooms, labs, and staff rooms.',
+    metaDescription: 'School and college furniture in Mysuru - classrooms, labs, and staff rooms.',
     seoTitle: 'School Interiors in Mysuru & Karnataka | Space Solution',
     activePage: 'institutional',
     breadcrumb: crumb(institutionalParent, 'Schools & Colleges'),
@@ -1388,7 +1229,7 @@ export const serviceLandingPages: ServicePageData[] = [
   },
   {
     slug: 'hostel-furniture',
-    metaDescription: 'Hostel and PG furniture in Mysuru — bunk beds, lockers, and study units.',
+    metaDescription: 'Hostel and PG furniture in Mysuru - bunk beds, lockers, and study units.',
     seoTitle: 'Hostel & PG Furniture in Mysuru & Karnataka | Space Solution',
     activePage: 'institutional',
     breadcrumb: crumb(institutionalParent, 'Hostel & PG Furniture'),
@@ -1397,7 +1238,7 @@ export const serviceLandingPages: ServicePageData[] = [
     heroImage: roomImages.hostel,
     body: [
       'Hostel and PG furniture in Mysuru must maximise beds and storage without feeling cramped. Space Solution designs bunk beds, single beds, lockers, wardrobes, and study units for high-occupancy living.',
-      'Layouts support shared living — clear bag storage, durable surfaces, and study desks that fit tight footprints. Factory-made pieces keep quality consistent across dormitory floors.',
+      'Layouts support shared living - clear bag storage, durable surfaces, and study desks that fit tight footprints. Factory-made pieces keep quality consistent across dormitory floors.',
       'Institutions and PG operators across Karnataka use our packages to furnish new blocks or refresh ageing rooms with less downtime.',
       'Combine hostel furniture with classroom or common-area pieces when you need a broader institutional programme from one accountable team.',
     ],
@@ -1443,7 +1284,7 @@ export const serviceLandingPages: ServicePageData[] = [
       {
         question: 'Can you furnish an entire hostel block?',
         answer:
-          'We deliver multi-room packages with consistent specifications across floors — ideal for campus expansions in Karnataka.',
+          'We deliver multi-room packages with consistent specifications across floors - ideal for campus expansions in Karnataka.',
       },
       {
         question: 'Do you also furnish common study areas?',
@@ -1454,7 +1295,7 @@ export const serviceLandingPages: ServicePageData[] = [
   },
   {
     slug: 'library-lab-interiors',
-    metaDescription: 'Library and laboratory furniture in Mysuru — shelving, lab tables, and storage.',
+    metaDescription: 'Library and laboratory furniture in Mysuru - shelving, lab tables, and storage.',
     seoTitle: 'Library & Lab Interiors in Mysuru & Karnataka | Space Solution',
     activePage: 'institutional',
     breadcrumb: crumb(institutionalParent, 'Libraries & Labs'),
@@ -1462,7 +1303,7 @@ export const serviceLandingPages: ServicePageData[] = [
     heroDescription: 'Specialist furniture for reading, research, and practical learning.',
     heroImage: heroImages.institutional,
     body: [
-      'Libraries and laboratories need specialist furniture — not generic office pieces. Space Solution designs shelving, reading tables, lab benches, and secure storage for Mysuru schools and colleges.',
+      'Libraries and laboratories need specialist furniture - not generic office pieces. Space Solution designs shelving, reading tables, lab benches, and secure storage for Mysuru schools and colleges.',
       'Library layouts balance stack density with reading comfort and supervision. Lab furniture considers utility planning, chemical-resistant surfaces where needed, and organised equipment storage.',
       'Factory manufacturing supports consistent campus standards across multiple rooms or blocks in Karnataka, with durable materials for continuous academic use.',
       'Include libraries and labs in a wider institutional programme alongside classrooms and hostels for one coordinated Mysuru-based supplier.',
@@ -1520,18 +1361,18 @@ export const serviceLandingPages: ServicePageData[] = [
   },
   {
     slug: 'cafe-restaurant-interiors',
-    metaDescription: 'Café and restaurant interiors in Mysuru — front of house, counters, and kitchen planning.',
+    metaDescription: 'Café and restaurant interiors in Mysuru - front of house, counters, and kitchen planning.',
     seoTitle: 'Café & Restaurant Interiors in Mysuru & Karnataka | Space Solution',
     activePage: 'hospitality',
     breadcrumb: crumb(hospitalityParent, 'Cafés & Restaurants'),
     heroTitle: 'Cafés & Restaurants',
-    heroDescription: 'Atmosphere and operations in balance — from counter to kitchen.',
+    heroDescription: 'Atmosphere and operations in balance - from counter to kitchen.',
     heroImage: heroImages.hospitality,
     body: [
       'Café and restaurant interiors in Mysuru succeed when atmosphere and operations stay in balance. Space Solution plans seating, counters, lighting, and service flow so guests feel welcome and staff can run busy services.',
-      'Front-of-house design pairs with kitchen and back-of-house coordination — a turnkey approach that helps F&B brands open on schedule. See Soft Café Mysuru and other projects in our portfolio for the kind of warm, operational spaces we deliver.',
+      'Front-of-house design pairs with kitchen and back-of-house coordination - a turnkey approach that helps F&B brands open on schedule. See Soft Café Mysuru and other projects in our portfolio for the kind of warm, operational spaces we deliver.',
       'Durable finishes handle spills, footfall, and long hours, while factory-made joinery keeps counters and display units consistent.',
-      'From neighbourhood cafés to full-service restaurants across Karnataka, we design spaces people return to — and operators can maintain.',
+      'From neighbourhood cafés to full-service restaurants across Karnataka, we design spaces people return to - and operators can maintain.',
     ],
     stats: [
       { value: '15+', label: 'Years' },
@@ -1586,7 +1427,7 @@ export const serviceLandingPages: ServicePageData[] = [
   },
   {
     slug: 'hotel-interiors',
-    metaDescription: 'Hotel and resort interior fitouts in Mysuru — lobbies, rooms, and amenity spaces.',
+    metaDescription: 'Hotel and resort interior fitouts in Mysuru - lobbies, rooms, and amenity spaces.',
     seoTitle: 'Hotel Interiors in Mysuru & Karnataka | Space Solution',
     activePage: 'hospitality',
     breadcrumb: crumb(hospitalityParent, 'Hotels & Resorts'),
@@ -1652,7 +1493,7 @@ export const serviceLandingPages: ServicePageData[] = [
   },
   {
     slug: 'bar-lounge-interiors',
-    metaDescription: 'Bar and lounge interiors in Mysuru — back-bar design, seating, and mood lighting.',
+    metaDescription: 'Bar and lounge interiors in Mysuru - back-bar design, seating, and mood lighting.',
     seoTitle: 'Bar & Lounge Interiors in Mysuru & Karnataka | Space Solution',
     activePage: 'hospitality',
     breadcrumb: crumb(hospitalityParent, 'Bars & Lounges'),
@@ -1718,7 +1559,7 @@ export const serviceLandingPages: ServicePageData[] = [
   },
   {
     slug: 'salon-wellness-interiors',
-    metaDescription: 'Salon and wellness studio interiors in Mysuru — treatment rooms and retail display.',
+    metaDescription: 'Salon and wellness studio interiors in Mysuru - treatment rooms and retail display.',
     seoTitle: 'Salon & Wellness Interiors in Mysuru & Karnataka | Space Solution',
     activePage: 'hospitality',
     breadcrumb: crumb(hospitalityParent, 'Salons & Wellness'),
@@ -1727,7 +1568,7 @@ export const serviceLandingPages: ServicePageData[] = [
     heroImage: roomImages.salon,
     body: [
       'Salon and wellness interiors in Mysuru should feel calm for clients and efficient for therapists and stylists. Space Solution designs treatment rooms, reception, and retail display with durable, easy-clean finishes.',
-      'Zoning separates waiting, service, and wet areas where needed, while storage keeps tools and products organised. Premium atmosphere comes from lighting, materials, and uncluttered layouts — not clutter.',
+      'Zoning separates waiting, service, and wet areas where needed, while storage keeps tools and products organised. Premium atmosphere comes from lighting, materials, and uncluttered layouts - not clutter.',
       'Factory-made cabinetry and retail units keep brand presentation consistent. Turnkey delivery helps wellness studios and salons open across Karnataka with one accountable team.',
       'From boutique salons to multi-room wellness studios, we create client experiences that support repeat visits and smooth daily operations.',
     ],

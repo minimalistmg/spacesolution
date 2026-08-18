@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/generate-reel-thumbnails.mjs && node scripts/generate-header-menu-icons.mjs && node scripts/minify-js.mjs && astro dev",
+    "dev:fast": "astro dev",
     "postinstall": "node scripts/prepare-vendor.mjs && node scripts/generate-reel-thumbnails.mjs && node scripts/generate-header-menu-icons.mjs && node scripts/minify-js.mjs",
     "build": "node scripts/generate-reel-thumbnails.mjs && node scripts/generate-header-menu-icons.mjs && node scripts/minify-js.mjs && astro build",
     "preview": "astro preview"

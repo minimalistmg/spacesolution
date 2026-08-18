@@ -1,5 +1,5 @@
 /**
- * Color palette selector — preview thumbnails and theme application
+ * Color palette selector - preview thumbnails and theme application
  * Switcher UI is shown only when the URL contains ?color_pallet=true
  */
 (function () {

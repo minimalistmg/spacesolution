@@ -3,7 +3,7 @@
   font-family: 'Archivo';
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
+  font-display: block;
   src: url('./400.woff2') format('woff2');
 }
 
@@ -11,7 +11,7 @@
   font-family: 'Archivo';
   font-style: italic;
   font-weight: 400;
-  font-display: swap;
+  font-display: block;
   src: url('./400-italic.woff2') format('woff2');
 }
 
@@ -19,7 +19,7 @@
   font-family: 'Archivo';
   font-style: normal;
   font-weight: 500;
-  font-display: swap;
+  font-display: block;
   src: url('./500.woff2') format('woff2');
 }
 
@@ -27,7 +27,7 @@
   font-family: 'Archivo';
   font-style: normal;
   font-weight: 600;
-  font-display: swap;
+  font-display: block;
   src: url('./600.woff2') format('woff2');
 }
 
@@ -35,7 +35,7 @@
   font-family: 'Archivo';
   font-style: normal;
   font-weight: 700;
-  font-display: swap;
+  font-display: block;
   src: url('./700.woff2') format('woff2');
 }
 
@@ -43,6 +43,6 @@
   font-family: 'Archivo';
   font-style: normal;
   font-weight: 800;
-  font-display: swap;
+  font-display: block;
   src: url('./800.woff2') format('woff2');
 }

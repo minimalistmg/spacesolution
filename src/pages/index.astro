@@ -1,144 +1,30 @@
 ---
-import Icon from '../components/Icon.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import CtaSection from '../components/CtaSection.astro';
 import FaqSection from '../components/FaqSection.astro';
 import TestimonialsMarquee from '../components/TestimonialsMarquee.astro';
 import HomeHero from '../components/HomeHero.astro';
-import PortfolioFilmstrip from '../components/PortfolioFilmstrip.astro';
-import ResponsiveImage from '../components/ResponsiveImage.astro';
-import AmbientCanvas from '../components/AmbientCanvas.astro';
-import DummyVideoBlock from '../components/DummyVideoBlock.astro';
-import InspireBento from '../components/InspireBento.astro';
-import GalleryCard from '../components/GalleryCard.astro';
-import StorytellingBand from '../components/StorytellingBand.astro';
-import { getImage } from 'astro:assets';
-import { projectImages, roomImages, studioImages } from '../data/images';
-import { galleryFilters, homeGalleryItems, homeServices } from '../data/home';
+import HomeCategoryBands from '../components/HomeCategoryBands.astro';
+import HomeStickyWhy from '../components/HomeStickyWhy.astro';
+import { heroImages } from '../data/images';
+import '../styles/home-scroll-story.css';
 
-const serviceHoverUrls = Object.fromEntries(
-  await Promise.all(
-    homeServices.map(async (service) => {
-      const optimized = await getImage({
-        src: service.hoverImage,
-        width: 900,
-        format: 'webp',
-        quality: 82,
-      });
-      return [service.href, optimized.src] as const;
-    })
-  )
-);
+const homeHeroImage = heroImages.residential.src;
 ---
 
 <BaseLayout
   title="Interior Designers in Mysuru & Karnataka | Space Solution"
   description="Space Solution provides residential and commercial interior design, modular kitchens, and turnkey fitouts in Mysuru and Karnataka with reliable execution and quality finishing."
   headerScrolled={false}
+  ctaSecondaryHref="/portfolio"
+  ctaSecondaryLabel="Explore Projects"
 >
+  <link slot="head" rel="preload" as="image" href={homeHeroImage} fetchpriority="high" />
+
   <HomeHero />
 
-  <!-- Studio -->
-  <section class="about" id="studio">
-    <AmbientCanvas />
-    <div class="container about-grid">
-      <div class="about-image fade-up">
-        <ResponsiveImage
-          src={studioImages.craft}
-          alt="Material and finish samples laid out on the Space Solution studio worktable"
-          preset="content"
-        />
-      </div>
-      <div class="about-content fade-up">
-        <p class="section-label">Studio</p>
-        <h2 class="section-title">We Don't Just Design.<br>We Deliver Complete Interiors.</h2>
-        <p>At Space Solution, every project starts with a clear understanding of how your space needs to function. Since 2011, we've worked with homeowners, businesses, and institutions across Karnataka to create interiors that are practical, durable, and well-finished.</p>
-        <p>What makes us different is simple — we handle everything. From design and material selection to manufacturing and installation, every step is managed by our team. That means better quality, controlled timelines, and no guesswork.</p>
-        <p class="about-seo">Looking for interior designers in Mysuru for modular kitchens, full-home interiors, or commercial fit-outs? Our studio combines design clarity with in-house production so residential and commercial projects stay consistent from first measure to final handover across Karnataka.</p>
-        <a href="#" class="btn btn-gold-filled" data-open-modal="enquiry">Get In Touch</a>
-      </div>
-    </div>
-  </section>
+  <HomeCategoryBands />
 
-  <!-- Services -->
-  <section class="services" id="services">
-    <div class="container">
-      <p class="section-label fade-up">Our Services</p>
-      <h3 class="section-heading-lg fade-up">Interior Solution for Every Requirement</h3>
-      <p class="section-desc fade-up">Whether it's a home, office, or large-scale project, we design a solution that is built for real use.</p>
-
-      <div class="services-grid">
-        {homeServices.map((service) => (
-          <div
-            class="service-card fade-up"
-            style={`--hover-bg: url(${serviceHoverUrls[service.href]})`}
-          >
-            <div class="service-card-inner">
-              <div class="service-icon"><Icon name={service.icon} /></div>
-              <h4>{service.title}</h4>
-              <p>{service.description}</p>
-              <a href={service.href} class="service-link">Know More <Icon name="arrow-right" /></a>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <a href="/residential-interiors" class="btn btn-gold-filled fade-up">View All Services</a>
-    </div>
-    <div class="bg-bump" style="--bump-to: var(--white)" aria-hidden="true">
-      <svg viewBox="0 0 1200 48" preserveAspectRatio="none" focusable="false">
-        <path fill="currentColor" d="M0 48V34C280 34 420 6 600 6s320 28 600 28v14H0Z"></path>
-      </svg>
-    </div>
-  </section>
-
-  <!-- Projects -->
-  <section class="projects" id="portfolio">
-    <div class="container">
-      <div class="projects-header">
-        <div class="fade-up">
-          <h3 class="section-heading-lg">Latest Projects</h3>
-          <p class="section-desc">From compact homes to large commercial spaces, we've handled projects of all sizes. Our focus remains the same — deliver what was promised, with quality that lasts.</p>
-        </div>
-        <a href="/portfolio" class="btn btn-gold-filled fade-up">View Our Portfolio</a>
-        <span class="projects-watermark">Portfolio</span>
-      </div>
-
-      <PortfolioFilmstrip items={homeGalleryItems} />
-
-      <InspireBento
-        heroImage={projectImages.villa}
-        ctaImage={roomImages.modularKitchen}
-        heroHref="/projects/heritage-home"
-        ctaHref="/portfolio"
-      />
-
-      <div class="portfolio-filters fade-up">
-        {galleryFilters.map((filter, index) => (
-          <button class:list={[{ active: index === 0 }]} data-filter={filter.id}>
-            {filter.label}
-          </button>
-        ))}
-      </div>
-
-      <div class="portfolio-grid portfolio-grid--masonry">
-        {homeGalleryItems.map((item) => (
-          <GalleryCard
-            class="fade-up"
-            href={item.href}
-            title={item.title}
-            label={item.label}
-            image={item.image}
-            category={item.category}
-          />
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <div id="why-us">
-    <StorytellingBand />
-  </div>
+  <HomeStickyWhy />
 
   <!-- Process -->
   <section class="process" id="process">
@@ -169,8 +55,6 @@ const serviceHoverUrls = Object.fromEntries(
 
   <TestimonialsMarquee />
 
-  <DummyVideoBlock />
-
   <FaqSection
     title="Questions before you start"
     description="Short answers about how Space Solution designs and delivers interiors in Mysuru."
@@ -178,7 +62,7 @@ const serviceHoverUrls = Object.fromEntries(
       {
         question: 'What does Space Solution handle in a typical project?',
         answer:
-          'Design, factory production, and site installation — kitchens, wardrobes, full homes, and commercial fitouts — so you work with one team from first measure to handover.',
+          'Design, factory production, and site installation - kitchens, wardrobes, full homes, and commercial fitouts - so you work with one team from first measure to handover.',
       },
       {
         question: 'Do you only work in Mysuru?',
@@ -188,7 +72,7 @@ const serviceHoverUrls = Object.fromEntries(
       {
         question: 'How do I get a quote?',
         answer:
-          'Request a consultation with your approximate area, photos, and must-haves. We follow with a site measure and a clear scope, cost, and timeline — not a one-line price without context.',
+          'Request a consultation with your approximate area, photos, and must-haves. We follow with a site measure and a clear scope, cost, and timeline - not a one-line price without context.',
       },
       {
         question: 'Can I start with one room and expand later?',
@@ -197,6 +81,4 @@ const serviceHoverUrls = Object.fromEntries(
       },
     ]}
   />
-
-  <CtaSection />
 </BaseLayout>

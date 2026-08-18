@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from './PageHero.astro';
-import CtaSection from './CtaSection.astro';
 import FaqSection from './FaqSection.astro';
 import type { ToolPage } from '../data/tools';
 import { getToolHero } from '../data/toolHeroes';
@@ -114,7 +113,7 @@ const finishLabels: Record<number, string> = {
               </div>
               <div class="tool-result" id="tool-result" aria-live="polite">
                 <p class="tool-result-label">Indicative estimate</p>
-                <p class="tool-result-value" id="tool-result-value">—</p>
+                <p class="tool-result-value" id="tool-result-value"> - </p>
                 <p class="tool-result-note" id="tool-result-note"></p>
               </div>
             </div>
@@ -145,7 +144,7 @@ const finishLabels: Record<number, string> = {
                   {calc.options[0]?.description}
                 </p>
                 <p class="tool-result-note">
-                  Share this preference in your consultation — we will confirm clearances on a site
+                  Share this preference in your consultation - we will confirm clearances on a site
                   measure.
                 </p>
               </div>
@@ -162,7 +161,7 @@ const finishLabels: Record<number, string> = {
               </div>
               <div class="tool-result" id="tool-result" aria-live="polite">
                 <p class="tool-result-label">Days remaining</p>
-                <p class="tool-result-value" id="tool-result-value">—</p>
+                <p class="tool-result-value" id="tool-result-value"> - </p>
                 <p class="tool-result-note" id="tool-result-note">
                   Use the buffer to freeze drawings, confirm materials, and schedule installation.
                 </p>
@@ -219,8 +218,6 @@ const finishLabels: Record<number, string> = {
       </section>
     )
   }
-
-  <CtaSection />
 
   <script src="/js/tools.js" defer></script>
 </BaseLayout>

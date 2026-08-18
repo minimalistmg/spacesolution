@@ -2,8 +2,9 @@
 import type { NavPage } from '../components/Header.astro';
 import Header from '../components/Header.astro';
 import MobileMenu from '../components/MobileMenu.astro';
-import FooterGsap from '../components/FooterGsap.astro';
+import Footer from '../components/Footer.astro';
 import SocialChannelsSection from '../components/SocialChannelsSection.astro';
+import CtaSection from '../components/CtaSection.astro';
 import VideoModal from '../components/VideoModal.astro';
 import ColorPaletteSelector from '../components/ColorPaletteSelector.astro';
 import ContactActionConfirm from '../components/ContactActionConfirm.astro';
@@ -18,7 +19,6 @@ import '../styles/main.css';
 import '../styles/header.css';
 import '../styles/gold-forge-preloader.css';
 import '../styles/social-channels.css';
-import '../styles/footer-gsap.css';
 
 interface Props {
   title: string;
@@ -26,6 +26,9 @@ interface Props {
   activePage?: NavPage;
   headerScrolled?: boolean;
   ogImage?: string;
+  hideCta?: boolean;
+  ctaSecondaryHref?: string;
+  ctaSecondaryLabel?: string;
 }
 
 const {
@@ -34,6 +37,9 @@ const {
   activePage: activePageOverride,
   headerScrolled = false,
   ogImage,
+  hideCta = false,
+  ctaSecondaryHref,
+  ctaSecondaryLabel,
 } = Astro.props;
 
 const pathname = Astro.url.pathname.replace(/\.html$/, '') || '/';
@@ -50,10 +56,11 @@ const schema = getLocalBusinessSchema(Astro.site?.href ?? SITE.url);
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no" class="notranslate">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google" content="notranslate" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
@@ -79,15 +86,15 @@ const schema = getLocalBusinessSchema(Astro.site?.href ?? SITE.url);
     <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin />
     <!--
       Live: DM Sans, Fraunces, Plus Jakarta Sans.
-      Trial (DevTools): Instrument Serif, Cormorant Garamond, Manrope, Space Grotesk, Bodoni Moda — all published weights.
-      Swap on :root — display: --font-display; UI/body: --font
+      Trial (DevTools): Instrument Serif, Cormorant Garamond, Manrope, Space Grotesk, Bodoni Moda - all published weights.
+      Swap on :root - display: --font-display; UI/body: --font
         A  --font-instrument / --font-manrope
         B  --font-cormorant / --font-manrope
         C  --font-space / --font-manrope
         hospitality  --font-bodoni / --font-manrope
     -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,opsz,wght@0,9..40,100..900;1,9..40,100..900&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Instrument+Serif:ital@0;1&family=Manrope:wght@200..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Space+Grotesk:wght@300..700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,opsz,wght@0,9..40,100..900;1,9..40,100..900&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Instrument+Serif:ital@0;1&family=Manrope:wght@200..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Space+Grotesk:wght@300..700&display=block"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/fonts/gotham/gotham.css" />
@@ -96,6 +103,21 @@ const schema = getLocalBusinessSchema(Astro.site?.href ?? SITE.url);
     <link rel="stylesheet" href="/fonts/canela/canela.css" />
     <link rel="stylesheet" href="/fonts/domaine-display/domaine-display.css" />
     <link rel="stylesheet" href="/fonts/gilda/gilda.css" />
+
+    <link
+      rel="preload"
+      href="/fonts/domaine-display/domaine-disp-regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/domaine-display/DomaineDisplayBold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
 
     <link
       rel="preload"
@@ -177,12 +199,20 @@ const schema = getLocalBusinessSchema(Astro.site?.href ?? SITE.url);
       <Header activePage={activePage} scrolled={headerScrolled} />
       <MobileMenu activePage={activePage} />
 
-      <main>
-        <slot />
-      </main>
+      <div class="page-cover">
+        <main>
+          <slot />
+        </main>
 
-      <SocialChannelsSection />
-      <FooterGsap />
+        <SocialChannelsSection />
+        {
+          !hideCta && (
+            <CtaSection secondaryHref={ctaSecondaryHref} secondaryLabel={ctaSecondaryLabel} />
+          )
+        }
+      </div>
+
+      <Footer />
       <VideoModal />
       <ColorPaletteSelector />
       <ContactActionConfirm />

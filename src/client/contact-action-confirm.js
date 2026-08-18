@@ -1,5 +1,5 @@
 /**
- * Post-CTA contact confirmation — confirm on return, feedback toasts, session snooze
+ * Post-CTA contact confirmation - confirm on return, feedback toasts, session snooze
  */
 (function () {
   'use strict';

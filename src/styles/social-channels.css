@@ -1,161 +1,116 @@
-/* Cinema strip — above-footer social embed */
+/* Social reels — header above, one looping row like testimonials */
 
 .social-cinema {
+  --social-cinema-bg: #f3ebe3;
+  --social-cinema-gap: 16px;
   position: relative;
-  overflow: hidden;
-  background: #1a1510;
-  color: #fff;
-  min-height: min(78vh, 720px);
-  display: grid;
-  align-items: stretch;
-}
-
-.social-cinema-veil {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background:
-    linear-gradient(90deg, rgba(26, 21, 16, 0.92) 0%, rgba(26, 21, 16, 0.55) 38%, rgba(26, 21, 16, 0.15) 70%, transparent 100%),
-    linear-gradient(0deg, rgba(26, 21, 16, 0.75) 0%, transparent 45%);
-  pointer-events: none;
-}
-
-.social-cinema-copy {
-  position: relative;
-  z-index: 3;
-  align-self: stretch;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
-  width: min(100%, 490px);
-  max-width: 490px;
-  min-height: 100%;
-  padding: 0 0 0 clamp(24px, 5vw, 64px);
-  pointer-events: none;
+  gap: clamp(28px, 3.6vw, 40px);
+  box-sizing: border-box;
+  padding: clamp(28px, 4vw, 44px) 0;
+  background: var(--social-cinema-bg);
+  color: var(--dark);
+  overflow-x: clip;
 }
 
-.social-cinema-copy a {
-  pointer-events: auto;
+.social-cinema-header {
+  flex: 0 0 auto;
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
 }
 
 .social-cinema-label {
-  margin: 0 0 14px;
+  margin: 0 0 8px;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--gold, #c5a23a);
+  color: var(--gold-on-light, #7a6520);
 }
 
 .social-cinema-title {
-  margin: 0 0 16px;
-  font-family: var(--font-display, 'Canela', Georgia, serif);
-  font-weight: 400;
-  font-size: clamp(36px, 5.5vw, 56px);
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  color: #fff;
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(30px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: 0;
+  color: var(--dark);
+  text-wrap: nowrap;
 }
 
-.social-cinema-title-break {
-  display: block;
-}
-
-.social-cinema-desc {
-  margin: 0 0 28px;
-  font-size: 15px;
-  line-height: 1.65;
-  color: rgba(255, 255, 255, 0.72);
-  max-width: 38ch;
-}
-
-.social-cinema-platforms {
+.social-cinema-actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  gap: 8px 10px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  gap: 12px;
 }
 
-.social-cinema-platforms li {
-  display: flex;
-  align-items: center;
-}
-
-.social-cinema-sep {
-  width: 4px;
-  height: 4px;
-  padding: 0;
-  margin-bottom: 2px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.78);
-  flex-shrink: 0;
-  pointer-events: none;
-}
-
-.social-cinema-platforms a {
-  color: rgba(255, 255, 255, 0.78);
-  text-decoration: none;
+.social-cinema-actions .btn {
+  padding: 8px 16px;
   font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  border-bottom: 1px solid transparent;
-  padding-bottom: 2px;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  letter-spacing: 1.4px;
+  gap: 6px;
 }
 
-.social-cinema-platforms a:hover {
-  color: var(--gold, #c5a23a);
-  border-color: var(--gold, #c5a23a);
+.social-cinema-actions .icon {
+  width: 14px;
+  height: 14px;
 }
 
-.social-cinema-strip {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
+.social-cinema-marquee {
+  position: relative;
+  min-width: 0;
+  margin-inline: calc(50% - 50vw);
+  width: 100vw;
+  padding: 0;
+  overflow: visible;
+}
+
+.social-cinema-row {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.social-cinema-track {
   display: flex;
-  align-items: center;
-  gap: 18px;
-  padding-left: min(42vw, 450px);
   width: max-content;
+  gap: var(--social-cinema-gap);
   animation: social-cinema-marquee 48s linear infinite;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .social-cinema-strip:hover {
-    animation-play-state: paused;
-  }
+  will-change: transform;
 }
 
 .social-cinema-reel {
   flex: 0 0 auto;
-  width: min(200px, 28vw);
+  width: min(188px, 42vw);
   aspect-ratio: 9 / 16;
   border-radius: 14px;
   overflow: hidden;
   position: relative;
-  background: #000;
+  background: #1a1510;
   text-decoration: none;
   color: #fff;
-  transform: rotate(var(--tilt, 0deg));
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+  box-shadow: 0 16px 32px rgba(60, 45, 20, 0.16);
 }
 
-.social-cinema-reel:nth-child(odd) {
-  --tilt: -1.2deg;
-}
+@media (hover: hover) and (pointer: fine) {
+  .social-cinema-reel:hover,
+  .social-cinema-reel:focus-visible {
+    z-index: 2;
+    transform: translateY(-6px);
+    box-shadow: 0 18px 32px -8px rgba(60, 45, 20, 0.28);
+  }
 
-.social-cinema-reel:nth-child(even) {
-  --tilt: 1deg;
-}
-
-.social-cinema-reel:hover {
-  transform: rotate(0deg) scale(1.04);
-  z-index: 2;
+  .social-cinema:has(.social-cinema-reel:hover) .social-cinema-track,
+  .social-cinema:has(.social-cinema-reel:focus-visible) .social-cinema-track {
+    animation-play-state: paused;
+  }
 }
 
 .social-cinema-reel img {
@@ -163,12 +118,6 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: saturate(0.88) contrast(1.02) brightness(0.86);
-  transition: filter 0.3s ease;
-}
-
-.social-cinema-reel:hover img {
-  filter: none;
 }
 
 .social-cinema-play {
@@ -176,7 +125,7 @@
   inset: 0;
   display: grid;
   place-items: center;
-  background: rgba(26, 21, 16, 0.18);
+  background: rgba(24, 24, 24, 0.12);
   color: var(--gold, #c5a23a);
   transition: background 0.3s ease, opacity 0.3s ease;
 }
@@ -186,14 +135,9 @@
 }
 
 .social-cinema-play svg {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   opacity: 0.95;
-  transition: opacity 0.3s ease;
-}
-
-.social-cinema-reel:hover .social-cinema-play svg {
-  opacity: 0.88;
 }
 
 .social-cinema-platform {
@@ -238,84 +182,15 @@
   }
 }
 
-@media (max-width: 1100px) {
-  .social-cinema {
-    min-height: min(64vh, 620px);
-  }
-
-  .social-cinema-copy {
-    width: min(42%, 380px);
-    max-width: 380px;
-    padding-left: 28px;
-  }
-
-  .social-cinema-title {
-    font-size: clamp(32px, 4.2vw, 44px);
-  }
-
-  .social-cinema-desc {
-    max-width: 32ch;
-    margin-bottom: 20px;
-    font-size: 14px;
-  }
-
-  .social-cinema-strip {
-    padding-left: min(38vw, 360px);
-  }
-
-  .social-cinema-reel {
-    width: min(176px, 22vw);
-  }
-
-  .social-cinema-play svg {
-    width: 36px;
-    height: 36px;
-  }
-}
-
 @media (max-width: 767px) {
   .social-cinema {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    min-height: 0;
-    padding: 36px 0 0;
-  }
-
-  .social-cinema-veil {
-    background:
-      linear-gradient(180deg, rgba(26, 21, 16, 0.35) 0%, transparent 42%),
-      linear-gradient(0deg, rgba(26, 21, 16, 0.55) 0%, transparent 28%);
-  }
-
-  .social-cinema-copy {
-    order: 1;
-    width: 100%;
-    max-width: none;
-    min-height: 0;
-    justify-content: flex-start;
-    padding: 0 20px 20px;
+    padding: 24px 0 20px;
+    gap: 24px;
   }
 
   .social-cinema-title {
-    font-size: clamp(30px, 8.4vw, 40px);
-  }
-
-  .social-cinema-desc {
-    max-width: 42ch;
-    margin-bottom: 16px;
-    font-size: 14px;
-  }
-
-  .social-cinema-strip {
-    order: 2;
-    position: relative;
-    inset: auto;
-    z-index: 1;
-    flex-shrink: 0;
-    width: max-content;
-    min-height: 268px;
-    padding: 8px 20px 36px;
+    font-size: clamp(24px, 7vw, 32px);
+    text-wrap: wrap;
   }
 
   .social-cinema-reel {
@@ -326,28 +201,16 @@
     width: 32px;
     height: 32px;
   }
-
-  .social-cinema-platform {
-    top: 10px;
-    right: 10px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .social-cinema-strip {
-    animation: none;
-    position: relative;
-    inset: auto;
+  .social-cinema-row {
     overflow-x: auto;
-    width: auto;
-    max-width: 100%;
-    padding: 16px 20px 36px;
     -webkit-overflow-scrolling: touch;
   }
 
-  .social-cinema-copy {
-    position: relative;
-    min-height: 0;
-    justify-content: flex-start;
+  .social-cinema-track {
+    animation: none;
+    padding-inline: 20px;
   }
 }

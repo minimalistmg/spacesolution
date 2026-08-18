@@ -1,0 +1,29 @@
+---
+description: Browser verification is off by default; on demand when the user asks
+alwaysApply: true
+---
+
+# Browser & visual verification (on demand)
+
+Default: **no browser automation.** Use only when the user explicitly requests it.
+
+## Off by default
+
+- Browser MCP tools (`browser_navigate`, `browser_snapshot`, `browser_take_screenshot`, scroll/click automation)
+- Opening a dev server solely to verify a change you can validate from source
+- A visual verification loop after every code change
+
+## On demand — use when the user asks
+
+- User says to verify in browser, open localhost, take a screenshot, or check scroll/UI live
+- User reports a visual bug that cannot be diagnosed from source alone
+- User provides a screenshot — analyze it (no browser needed unless they also ask you to open one)
+
+## Preferred workflow (when user has not asked for browser)
+
+- User previews locally via `dev-server/start-restart-dev.bat` and shares screenshots
+- For scroll-motion work: read `src/client/scroll-motion.js` and related CSS first
+
+## When on-demand browser verification is active
+
+- Run the check, report findings, then stop — do not leave browser automation running across unrelated tasks

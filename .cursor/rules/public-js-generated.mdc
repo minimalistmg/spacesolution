@@ -1,0 +1,13 @@
+---
+description: public/js is generated — edit src/client instead
+globs: public/js/**
+alwaysApply: false
+---
+
+# Generated client JS
+
+Files in `public/js/` are terser output from `scripts/minify-js.mjs`.
+
+- Edit the matching file in `src/client/`
+- Do not hand-edit minified files in `public/js/`
+- Regenerate with `node scripts/minify-js.mjs` only when the user wants browser runtime testing or before deploy

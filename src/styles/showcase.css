@@ -77,14 +77,14 @@
 
 .desint-btn-primary {
   background: var(--desint-accent);
-  color: var(--desint-on-accent);
+  color: var(--white);
   border-color: var(--desint-accent);
 }
 
 .desint-btn-primary:hover {
   background: var(--gold-hover);
   border-color: var(--gold-hover);
-  color: var(--desint-on-accent);
+  color: var(--white);
 }
 
 .desint-btn-ghost {

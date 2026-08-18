@@ -48,7 +48,7 @@ export const showcaseProcess = [
   {
     step: 'Step 03',
     title: 'Manufacturing',
-    text: 'In-house production keeps quality, materials, and schedules under one roof — with fewer surprises on site.',
+    text: 'In-house production keeps quality, materials, and schedules under one roof - with fewer surprises on site.',
   },
   {
     step: 'Step 04',
@@ -60,14 +60,14 @@ export const showcaseProcess = [
 export const showcasePosts = [
   {
     title: 'Modular Kitchen Guide',
-    text: 'Layouts, storage, and workflow for kitchens that work every day — drawn from real projects across Karnataka.',
+    text: 'Layouts, storage, and workflow for kitchens that work every day - drawn from real projects across Karnataka.',
     date: 'Design Library',
     href: '/design-library/modular-kitchen-guide',
     img: '/images/showcase/modular-kitchen-guide-cover.png',
   },
   {
     title: 'Materials & Finishes',
-    text: 'Laminates, hardware, and countertops that last in daily use — what we specify and why it matters.',
+    text: 'Laminates, hardware, and countertops that last in daily use - what we specify and why it matters.',
     date: 'Design Library',
     href: '/design-library/materials-and-finishes',
     img: '/images/showcase/interior-finish-detail.png',

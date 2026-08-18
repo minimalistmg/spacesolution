@@ -4,6 +4,13 @@ import { resolveConnectFormDefaults } from '../data/connectFormInterests';
 import { resolveCtaBackground } from '../data/ctaBackgrounds';
 import { resolveNavActive } from '../data/resolveNavActive';
 
+interface Props {
+  secondaryHref?: string;
+  secondaryLabel?: string;
+}
+
+const { secondaryHref, secondaryLabel } = Astro.props;
+
 const pathname = Astro.url.pathname;
 const activePage = resolveNavActive(pathname);
 const enquiryDefaults = resolveConnectFormDefaults(
@@ -25,14 +32,21 @@ const background = resolveCtaBackground(activePage, enquiryDefaults.category);
     <div class="fade-up">
       <p class="section-label">Get Started</p>
       <h1>Have a Space to Design?<br />Let's Get It Done Right.</h1>
-      <p>Speak with our team and get a clear plan for your interiors — design, cost, and timeline.</p>
+      <p>Speak with our team and get a clear plan for your interiors - design, cost, and timeline.</p>
     </div>
-    <a
-      href="#"
-      class="btn btn-gold-filled fade-up"
-      data-open-modal="enquiry"
-      data-enquiry-category={enquiryDefaults.category}
-      data-enquiry-interest={enquiryDefaults.subServices.join(',')}
-    >Request a Quote</a>
+    <div class="cta-actions fade-up">
+      <a
+        href="#"
+        class="btn btn-gold-filled"
+        data-open-modal="enquiry"
+        data-enquiry-category={enquiryDefaults.category}
+        data-enquiry-interest={enquiryDefaults.subServices.join(',')}
+      >Request a Quote</a>
+      {
+        secondaryHref && secondaryLabel && (
+          <a href={secondaryHref} class="btn btn-outline-dark">{secondaryLabel}</a>
+        )
+      }
+    </div>
   </div>
 </section>

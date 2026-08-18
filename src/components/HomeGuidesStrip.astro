@@ -1,0 +1,49 @@
+---
+import MenuIcon from './MenuIcon.astro';
+import { getAllHomeGuides, getHubGuides, type HomeStripLink } from '../data/homeCategoryHubs';
+import '../styles/home-category-bands.css';
+
+interface Props {
+  hubId?: string;
+  heading?: string;
+  items?: HomeStripLink[];
+}
+
+const { hubId, heading, items } = Astro.props;
+const guides = items ?? (hubId ? getHubGuides(hubId) : getAllHomeGuides());
+const compact = Boolean(items || hubId);
+const titleId = hubId ? `${hubId}-guides-strip-title` : items ? 'l3-guides-strip-title' : 'home-guides-strip-title';
+const title = heading ?? 'Plan materials, layout, and budget';
+---
+
+{
+  guides.length > 0 && (
+    <section class="home-compact-strip home-compact-strip--guides" id="guides" aria-labelledby={titleId}>
+      <div class="container home-compact-strip-inner">
+        <div class="home-compact-strip-head">
+          <div>
+            <p class="section-label">Guides</p>
+            <h2 class="home-compact-strip-title" id={titleId}>
+              {title}
+            </h2>
+          </div>
+          <a href="/design-library" class="home-compact-strip-all">All guides</a>
+        </div>
+
+        <div class="home-compact-strip-scroll">
+          {
+            guides.map((guide) => (
+              <a href={guide.href} class="home-compact-chip">
+                <MenuIcon name="books" />
+                <span>
+                  <strong>{guide.label}</strong>
+                  {!compact && <em>{guide.category}</em>}
+                </span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+  )
+}

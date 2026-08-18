@@ -1,0 +1,22 @@
+---
+description: Targeted search instead of broad codebase exploration
+alwaysApply: true
+---
+
+# Search & exploration
+
+## Prefer direct tools
+
+- `grep` / `glob` with a specific pattern and path
+- `read` on one known file
+
+## Avoid
+
+- Launching `Task` / explore subagents for single-file lookups or keyword searches
+- Broad "explore the codebase" passes that re-read many files
+- Batching many parallel reads "just in case" — only fetch what the current edit needs
+
+## Examples
+
+- Finding a symbol: `grep` for the name in `src/`, then read the matching file
+- Finding a component: `glob` for `*Hero*.astro`, not a full tree walk

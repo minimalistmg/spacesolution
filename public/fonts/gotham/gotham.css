@@ -6,7 +6,7 @@
     url('./gothamthin-webfont.woff') format('woff');
   font-weight: 100;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -16,7 +16,7 @@
     url('./gothamthinitalic-webfont.woff') format('woff');
   font-weight: 100;
   font-style: italic;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -26,7 +26,7 @@
     url('./gothamxlight-webfont.woff') format('woff');
   font-weight: 200;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -36,7 +36,7 @@
     url('./gothamxlightitalic-webfont.woff') format('woff');
   font-weight: 200;
   font-style: italic;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -46,7 +46,7 @@
     url('./gothamlight-webfont.woff') format('woff');
   font-weight: 300;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -56,7 +56,7 @@
     url('./gothamlightitalic-webfont.woff') format('woff');
   font-weight: 300;
   font-style: italic;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -66,7 +66,7 @@
     url('./gothambook-webfont.woff') format('woff');
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -76,7 +76,7 @@
     url('./gothambookitalic-webfont.woff') format('woff');
   font-weight: 400;
   font-style: italic;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -86,7 +86,7 @@
     url('./gothammedium-webfont.woff') format('woff');
   font-weight: 500;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -96,7 +96,7 @@
     url('./gothammediumitalic-webfont.woff') format('woff');
   font-weight: 500;
   font-style: italic;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -106,7 +106,7 @@
     url('./gothambold-webfont.woff') format('woff');
   font-weight: 700;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -116,7 +116,7 @@
     url('./gothambolditalic-webfont.woff') format('woff');
   font-weight: 700;
   font-style: italic;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -126,7 +126,7 @@
     url('./gothamblack-webfont.woff') format('woff');
   font-weight: 800;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -136,7 +136,7 @@
     url('./gothamblackitalic-webfont.woff') format('woff');
   font-weight: 800;
   font-style: italic;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -146,7 +146,7 @@
     url('./gothamultra-webfont.woff') format('woff');
   font-weight: 900;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -156,5 +156,5 @@
     url('./gothamultraitalic-webfont.woff') format('woff');
   font-weight: 900;
   font-style: italic;
-  font-display: swap;
+  font-display: block;
 }

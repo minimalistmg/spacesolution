@@ -1,0 +1,39 @@
+---
+description: Token-saving build and dev commands for Cursor agents
+alwaysApply: true
+---
+
+# Build & dev (agents)
+
+Space Solution is a static Astro 7 site. Agents iterate on source — not production artifacts.
+
+## On demand only (default: off)
+
+Do not run these unless the **user explicitly asks** or you are preparing a deploy they requested:
+
+- `npm run build` — minify, thumbnails, icons, full Astro build
+- `npm run dev` — same pre-scripts, then Astro dev
+- `npm run dev:fast` — Astro dev only (no minify, thumbnails, or icon generation)
+- `npm run preview` — requires a full build first
+- `npm install` / postinstall — only when `package.json` or lockfile deps changed
+- Integrated terminal commands in general — on demand when the user asks
+
+## When the user asks for preview or terminal work
+
+- Run the requested command; stop background jobs when done
+- Prefer reminding the user about `dev-server/start-restart-dev.bat` unless they asked you to start the dev server in terminal
+
+## Minify only when needed
+
+- Run `node scripts/minify-js.mjs` only when `src/client/*.js` changed **and** the user wants runtime browser testing via dev server
+- Do not minify on every edit; source lives in `src/client/`
+
+## Asset pipeline scripts (run only when relevant assets change)
+
+- `node scripts/generate-reel-thumbnails.mjs` — reel/video thumbnail assets changed
+- `node scripts/generate-header-menu-icons.mjs` — header menu icons changed
+
+## Deploy
+
+- Full `npm run build` is required before Cloudflare deploy (`dist/` + minified `public/js/`)
+- CI/CD handles production builds on push; agents do not need to build for every change

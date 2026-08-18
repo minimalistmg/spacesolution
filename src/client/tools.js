@@ -1,5 +1,5 @@
 /**
- * Space Solution — interactive tools calculators
+ * Space Solution - interactive tools calculators
  * Rough INR planning estimates for Mysuru / Karnataka projects.
  */
 (function () {
@@ -173,7 +173,7 @@
           sqPerSeat < 12
             ? ' Density looks tight for comfortable service aisles.'
             : sqPerSeat > 20
-              ? ' Density looks generous — good for longer dwell times.'
+              ? ' Density looks generous - good for longer dwell times.'
               : ' Density looks balanced for a casual café.';
         note =
           'Assumes tables, chairs/banquettes, and front-of-house joinery allowances.' +
@@ -272,7 +272,7 @@
 
     function refresh() {
       if (!input.value) {
-        valueEl.textContent = '—';
+        valueEl.textContent = ' - ';
         if (noteEl) {
           noteEl.textContent = 'Choose a target opening date to see days remaining.';
         }
@@ -293,7 +293,7 @@
       } else if (days === 1) {
         valueEl.textContent = '1 day';
         if (noteEl) {
-          noteEl.textContent = 'Opening is tomorrow — focus on snag lists and essential zones only.';
+          noteEl.textContent = 'Opening is tomorrow - focus on snag lists and essential zones only.';
         }
       } else if (days === 0) {
         valueEl.textContent = 'Opening day';

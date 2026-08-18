@@ -2,7 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import PastelStoryCards from '../components/PastelStoryCards.astro';
-import CtaSection from '../components/CtaSection.astro';
 import { projects } from '../data/projects';
 
 const storyCards = projects.map((project) => ({
@@ -20,7 +19,7 @@ const storyCards = projects.map((project) => ({
   <PageHero
     breadcrumb={'<a href="/">Space Solution</a> <span class="breadcrumb-sep">/</span> Client stories'}
     title="Client stories"
-    description="Real briefs, constraints, and outcomes — short narratives from projects delivered by our Mysuru studio."
+    description="Real briefs, constraints, and outcomes - short narratives from projects delivered by our Mysuru studio."
   />
 
   <section class="page-content">
@@ -28,13 +27,11 @@ const storyCards = projects.map((project) => ({
       <p class="section-label fade-up">Explore</p>
       <h2 class="section-title fade-up">What it feels like to work with us</h2>
       <p class="section-desc fade-up">
-        Each story links to the full case study — scope, timeline, materials, and how the space works day to day.
+        Each story links to the full case study - scope, timeline, materials, and how the space works day to day.
         Browse here for context, then open any project for photographs and detail.
       </p>
     </div>
   </section>
 
   <PastelStoryCards heading="Recent client stories" cards={storyCards} />
-
-  <CtaSection />
 </BaseLayout>

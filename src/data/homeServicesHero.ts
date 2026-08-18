@@ -15,7 +15,7 @@ export type HomeServiceOffer = {
   cutout: ImageMetadata;
 };
 
-/** Residential hub hero — room offerings for auto-tour + hover sync. */
+/** Residential hub hero - room offerings for auto-tour + hover sync. */
 export const homeServiceOffers: HomeServiceOffer[] = [
   {
     id: 'kitchen',

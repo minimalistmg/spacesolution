@@ -1,0 +1,42 @@
+---
+description: Warn when the user combines unrelated tasks or features in one chat
+alwaysApply: true
+---
+
+# One topic per chat
+
+Long mixed-topic chats bloat memory, slow responses, and waste tokens.
+
+## When the user message combines two or more unrelated goals
+
+Examples of **separate chats**:
+- Scroll-motion fix **and** FAQ copy edit
+- Header menu change **and** portfolio page layout
+- New home section **and** deploy/CI question
+- Feature A implementation **and** unrelated refactor or cleanup
+
+Do **not** start implementing everything silently.
+
+## Required response (before any code changes)
+
+1. **Warn clearly** that the request mixes unrelated topics and will run slower, use more RAM, and grow chat context unnecessarily.
+2. **List the distinct topics** you detected (numbered).
+3. **Recommend splitting** into separate chats — one topic each.
+4. Ask which topic to handle **in this chat now**, or wait for the user to confirm they want everything in one chat anyway.
+
+## Proceed with all topics in one chat only if
+
+- The user explicitly confirms (e.g. "do both here", "keep it in one chat"), **or**
+- The topics are genuinely coupled (same files, same feature, or one directly blocks the other).
+
+## Coupled (OK in one chat)
+
+- CSS + JS for the same scroll section
+- Astro component + its stylesheet for one section
+- Bug fix + small follow-up in the same component the user just mentioned
+
+## Uncoupled (warn and split)
+
+- Two different pages or site sections
+- Content/copy + unrelated animation work
+- Infrastructure/deploy + UI feature work

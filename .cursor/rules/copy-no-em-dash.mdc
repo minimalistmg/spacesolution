@@ -1,0 +1,18 @@
+---
+description: Never use em dashes in site copy; they read as AI-generated
+alwaysApply: true
+---
+
+# No long hyphens in copy
+
+Do not use em dashes (`—`) or en dashes (`–`) in visitor-facing text, meta descriptions, alt text, buttons, or UI labels. They read as AI-generated.
+
+Use a normal hyphen with spaces, a comma, or a new sentence.
+
+```
+Bad:  Design, factory, and install — one team.
+Good: Design, factory, and install - one team.
+Good: Design, factory, and install. One team.
+```
+
+Keep ASCII hyphen-minus (`-`) for compound words (`full-home`, `turnkey`) and for phone numbers.

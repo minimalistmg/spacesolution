@@ -22,7 +22,20 @@ Start the local dev server:
 npm run dev
 ```
 
+For faster iteration (Astro only, skips minify and asset scripts — used by Cursor agents):
+
+```powershell
+npm run dev:fast
+```
+
+Or use the hidden launchers in [`dev-server/`](./dev-server/) — only two files to click:
+
+- `dev-server/start-restart-dev.bat` — start or restart
+- `dev-server/stop-dev.bat` — stop
+
 Open [http://localhost:4321](http://localhost:4321) in your browser.
+
+See [docs/cursor-agent/](./docs/cursor-agent/) for agent token-saving rules and workflow.
 
 ## Build
 

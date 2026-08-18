@@ -1,42 +1,108 @@
 ---
 /**
- * Lifestyle L2 hero — full-bleed still, headline top-left, peach wash,
+ * Lifestyle L2 hero - full-bleed still, headline top-left, peach wash,
  * and a three-column proof bar along the bottom.
  */
 import ResponsiveImage from './ResponsiveImage.astro';
 import type { ServiceVistaHero } from '../data/servicePages';
 import '../styles/service-vista-hero.css';
 
-interface Props {
-  breadcrumb: string;
-  hero: ServiceVistaHero;
+export interface ServiceVistaHeroAction {
+  label: string;
+  href: string;
+  variant?: 'gold' | 'outline';
+  modal?: string;
 }
 
-const { breadcrumb, hero } = Astro.props;
+interface Props {
+  breadcrumb?: string;
+  hero: ServiceVistaHero;
+  actions?: ServiceVistaHeroAction[];
+  /** Full-bleed looped background (home hero). Falls back to hero.image when reduced motion. */
+  backgroundVideo?: string;
+  class?: string;
+}
+
+const { breadcrumb, hero, actions = [], backgroundVideo, class: className } = Astro.props;
 const headlineLines = hero.headline.split('\n').slice(0, 3);
+const posterUrl = typeof hero.image.src === 'object' ? hero.image.src.src : hero.image.src;
 ---
 
-<section class="svh" aria-label={headlineLines.join(' ')}>
+<section
+  class:list={['svh', className, backgroundVideo && 'svh--video']}
+  aria-label={headlineLines.join(' ')}
+>
   <div class="svh-media" aria-hidden="true">
-    <ResponsiveImage
-      src={hero.image.src}
-      alt={hero.image.alt}
-      preset="hero"
-      sizes="100vw"
-      loading="eager"
-      fetchpriority="high"
-    />
+    {
+      backgroundVideo ? (
+        <>
+          <video
+            class="svh-video"
+            autoplay
+            muted
+            loop
+            playsinline
+            disablepictureinpicture
+            disableremoteplayback
+            controlslist="nodownload noplaybackrate noremoteplayback"
+            preload="metadata"
+            poster={posterUrl}
+            aria-hidden="true"
+          >
+            <source src={backgroundVideo} type="video/mp4" />
+          </video>
+          <ResponsiveImage
+            class="svh-media-fallback"
+            src={hero.image.src}
+            alt=""
+            preset="hero"
+            sizes="100vw"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </>
+      ) : (
+        <ResponsiveImage
+          src={hero.image.src}
+          alt={hero.image.alt}
+          preset="hero"
+          sizes="100vw"
+          loading="eager"
+          fetchpriority="high"
+        />
+      )
+    }
     <div class="svh-wash"></div>
   </div>
 
   <div class="svh-inner">
     <div class="svh-top">
-      <nav class="svh-crumb" aria-label="Breadcrumb" set:html={breadcrumb} />
+      {breadcrumb ? <nav class="svh-crumb" aria-label="Breadcrumb" set:html={breadcrumb} /> : null}
       <h1 class="svh-title">
         {headlineLines.map((line) => (
           <span>{line}</span>
         ))}
       </h1>
+      {
+        actions.length > 0 && (
+          <div class="svh-actions">
+            {
+              actions.map((action) => (
+                <a
+                  href={action.href}
+                  class:list={[
+                    'btn',
+                    action.variant === 'outline' ? 'btn-outline-dark' : 'btn-gold-filled',
+                  ]}
+                  {...(action.modal ? { 'data-open-modal': action.modal } : {})}
+                >
+                  {action.label}
+                </a>
+              ))
+            }
+          </div>
+        )
+      }
     </div>
 
     <div class="svh-bar">
@@ -51,3 +117,31 @@ const headlineLines = hero.headline.split('\n').slice(0, 3);
     </div>
   </div>
 </section>
+
+{
+  backgroundVideo && (
+    <script is:inline>
+      (function () {
+        var section = document.querySelector('.svh--video');
+        if (!section) return;
+
+        var video = section.querySelector('.svh-video');
+        if (!video) return;
+
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          video.removeAttribute('autoplay');
+          video.pause();
+          section.classList.add('is-video-static');
+          return;
+        }
+
+        var play = video.play();
+        if (play && typeof play.catch === 'function') {
+          play.catch(function () {
+            section.classList.add('is-video-static');
+          });
+        }
+      })();
+    </script>
+  )
+}
